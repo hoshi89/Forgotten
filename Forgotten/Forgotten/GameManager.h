@@ -31,7 +31,9 @@ private:
 	sf::Font m_debugFont;
 	sf::Text m_mousePosition;
 	sf::Text m_mouseNodePosition;
+	sf::Text m_fps;
 	std::stringstream m_debugStream;
+	sf::Clock m_debugClock;
 };
 
 #endif

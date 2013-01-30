@@ -27,6 +27,8 @@ GameManager::GameManager()
 	m_mousePosition.setScale(0.3, 0.4);
 	m_mouseNodePosition.setFont(m_debugFont);
 	m_mouseNodePosition.setScale(0.3, 0.4);
+	m_fps.setFont(m_debugFont);
+	m_fps.setScale(0.3, 0.4);
 
 	// Push the player into the entityvector
 	m_entities.push_back(m_player);
@@ -91,12 +93,21 @@ void GameManager::Render(){
 			m_mouseNodePosition.setString(m_debugStream.str());
 			m_mouseNodePosition.setPosition(10, 50);
 
+			// Frames per second
+			float fps = floor(1.0f/m_debugClock.getElapsedTime().asSeconds());
+			m_debugClock.restart();
+			m_debugStream.str("");
+			m_debugStream << "FPS: " << fps;
+			m_fps.setString(m_debugStream.str());
+			m_fps.setPosition(10, 90);
+
 			// Set the default view to draw text in right place
 			m_window.setView(m_defaultView);
 
 			// Debug text
 			m_window.draw(m_mousePosition);
 			m_window.draw(m_mouseNodePosition);
+			m_window.draw(m_fps);
 		}
 
 		// Set view
