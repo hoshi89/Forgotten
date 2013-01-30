@@ -115,7 +115,9 @@ void GameManager::Render(){
 
 		// Draw entities
 		for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
+
 			m_window.draw((*i)->GetSprite());
+
 		}
 
 		// Display all rendered items

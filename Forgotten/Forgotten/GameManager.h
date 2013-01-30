@@ -7,7 +7,9 @@
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
-const bool DEBUG_NODE = true;
+const bool DEBUG_NODE = false;
+
+// SINGLETON
 
 class GameManager{
 public:
