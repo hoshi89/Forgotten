@@ -14,7 +14,10 @@ public:
 	void SetPosition(int x, int y);
 	sf::Vector2f GetPosition();
 	void Update();
+	void WalkTowardsTarget();
 	const sf::Sprite& GetSprite() const;
+	sf::Vector2f ConvertToNodeCoords(sf::Vector2f coords);
+	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
 private:
 	int m_direction;
 	Animation m_walkingRight;
@@ -29,6 +32,8 @@ private:
 	AStar m_pathFinder;
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
+	sf::Vector2f m_currentTarget;
+	GenericMap &m_nodeMap;
 };
 
 #endif

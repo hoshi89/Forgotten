@@ -2,10 +2,13 @@
 
 GameManager::GameManager()
 	:
-	m_level1("Data/Levels/Level1_walkData.png", 100, 40, "Data/Levels/Koncept Hall.png"),
-	m_currentLevel(&m_level1),
-	m_player(new Player(m_currentLevel->GetNodeMap()))
+	m_level1("Data/Levels/Level1_walkData.png", 100, 100, "Data/Levels/Koncept Hall.png"),
+	m_currentLevel(&m_level1)
 {
+	// Create the player
+	m_player = new Player(m_currentLevel->GetNodeMap());
+	m_player->SetPosition(300, 200);
+
 	// Set the view size
 	m_view.setSize(1024, 576);
 	m_view.setCenter(720, 320);
@@ -32,10 +35,23 @@ GameManager::GameManager()
 
 	// Push the player into the entityvector
 	m_entities.push_back(m_player);
-	m_player->SetPosition(600, 320);
 }
 
 void GameManager::Process(){
+
+	// Move player
+	/*if(mouse->wasPressed()){
+		// Get node coordinates,
+		// player->goto(coordinates)
+	}*/
+	sf::Vector2f nodePos;
+	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
+	nodePos.x = floor(mousePosition.x / m_currentLevel->GetNodeMap().GetNodeSize().x);
+	nodePos.y = floor(mousePosition.y / m_currentLevel->GetNodeMap().GetNodeSize().y);
+
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		m_player->GoTo(nodePos);
+	}
 
 	// Update all entities
 	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
