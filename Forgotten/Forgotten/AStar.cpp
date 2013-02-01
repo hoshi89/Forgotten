@@ -6,7 +6,6 @@ AStar::AStar(GenericMap &map)
 }
 
 void AStar::FindPath(){
-
 	
 	while(true){ // To process entire path
 	// Process the path bit by bit to avoid lag
@@ -53,8 +52,6 @@ void AStar::ProcessPath(){
 		return;
 	}
 
-
-
 	// Get the node with lowest F from the openList
 	AStarNode *currentNode = GetNextNode();
 
@@ -68,6 +65,9 @@ void AStar::ProcessPath(){
 		{
 			m_path.push_back(sf::Vector2f(getPath->GetPosition()));
 		}
+
+		// We don't want to target the starting node so delete it
+		m_path.pop_back();
 
 		m_goalFound = true;
 		return;

@@ -13,7 +13,8 @@ Player::Player(GenericMap &map)
 	m_walkingUpRight("Data/Animations/Player/player_walking_up_right.png", 100, 9),
 	m_currentAnimation(&m_walkingRight),
 	m_nodeMap(map),
-	m_currentTarget(-1, -1)
+	m_currentTarget(-1, -1),
+	m_isWalking(false)
 {
 }
 
@@ -28,51 +29,223 @@ void Player::SetPosition(int x, int y){
 
 }
 
-sf::Vector2f Player::GetPosition(){ return m_position; }
+void Player::SetNodePosition(int x, int y){
+
+	sf::Vector2f nodePos(x, y);
+
+	m_position = ConvertToPixelCoords(nodePos);
+
+}
+
+sf::Vector2f Player::GetPosition(){
+	
+	sf::Vector2f offsetPos;
+	offsetPos.x = m_position.x - X_FEETOFFSET;
+	offsetPos.y = m_position.y - Y_FEETOFFSET;
+
+	return offsetPos;
+
+}
 
 void Player::Update(){
 
-	// Is there a complete path to go?
-	if(m_pathFinder.PathComplete()){
-		if(m_currentTarget.x < 0 && m_currentTarget.y < 0){
-			// No target is set so set next target
-			m_currentTarget = ConvertToPixelCoords(m_pathFinder.GetNextMove());
+	if(m_isWalking){
+		// The player has a target, check if he has reached it
+		if(m_position == m_currentTarget){
+			// The player has reached its target, stop player
+			m_isWalking = false;
+			m_velocity.x = 0;
+			m_velocity.y = 0;
 		}else{
-			// Make an area of which destination reached is detected
-			sf::FloatRect destRect(m_currentTarget.x-2, m_currentTarget.y-2, 9, 9);
+			// Move the player towards its target
+			// Calculate distance
+			sf::Vector2f distance = m_currentTarget - m_position;
 
-			// Target is set, check if we're there
-			if(destRect.contains(m_position)){
-				// We're there so get new target
-				m_currentTarget = ConvertToPixelCoords(m_pathFinder.GetNextMove());
+			// Hypotenuse of distance
+			float hypothenuse = sqrt((distance.x * distance.x) + (distance.y * distance.y));
+
+			// Normalize distance
+			sf::Vector2f normal;
+			normal.x = distance.x / hypothenuse;
+			normal.y = distance.y / hypothenuse;
+
+			// Set the walk speed
+			normal *= WALKSPEED;
+
+			// Check the normal distance
+			float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));
+
+			if(normal_hypothenuse < hypothenuse){
+
+				// Move player the normal distance
+				m_velocity = normal;
+
+			}else{
+
+				// Move player the remaining distance
+				m_velocity = distance;
+
 			}
 		}
-		asdf
-		// Set velocity to make player reach destination
-		float x_diff = m_currentTarget.x - m_position.x;
-		float y_diff = m_currentTarget.y - m_position.y;
+	}else{
 
-		if(x_diff > 0 || y_diff > 0){
+		// The player is idle, check path to go and set new target
+		if(m_pathFinder.PathComplete()){
 
-			float hyp = sqrt((x_diff*x_diff) + (y_diff*y_diff));
-			x_diff = x_diff / hyp;
-			y_diff = y_diff / hyp;
+			m_currentTarget = ConvertToPixelCoords(m_pathFinder.GetNextMove());
+			m_isWalking = true;
 
-			m_velocity = sf::Vector2f(x_diff*0.1, y_diff*0.1);
+			// Start walking
+			// Move the player towards its target
+			// Calculate distance
+			sf::Vector2f distance = m_currentTarget - m_position;
+
+			// Hypotenuse of distance
+			float hypothenuse = sqrt((distance.x * distance.x) + (distance.y * distance.y));
+
+			// Normalize distance
+			sf::Vector2f normal;
+			normal.x = distance.x / hypothenuse;
+			normal.y = distance.y / hypothenuse;
+
+			// Set the walk speed
+			normal *= WALKSPEED;
+
+			// Check the normal distance
+			float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));
+
+			if(normal_hypothenuse < hypothenuse){
+
+				// Move player the normal distance
+				m_velocity = normal;
+
+			}else{
+
+				// Move player the remaining distance
+				m_velocity = distance;
+
+			}
+		}
+	}
+
+	// Set player direction
+	if(m_velocity.x < 0){
+		// Left side
+		if(m_velocity.y < 0){
+			// Left up side
+			m_direction = 7;
+		}else if(m_velocity.y > 0){
+			// Left down side
+			m_direction = 5;
+		}else{
+			// Straight left
+			m_direction = 6;
+		}
+	}else if(m_velocity.x > 0){
+		// Right side
+		if(m_velocity.y < 0){
+			// Right up side
+			m_direction = 1;
+		}else if(m_velocity.y > 0){
+			// Right down side
+			m_direction = 3;
+		}else{
+			// Straight right
+			m_direction = 2;
+		}
+	}else{
+		// No side
+		if(m_velocity.y < 0){
+			// Walking up
+			m_direction = 0;
+		}else if(m_velocity.y > 0){
+			// Walking down
+			m_direction = 4;
+		}else{
+			// Standing still
+		}
+	}
+
+	// Set correct animation
+	switch (m_direction){
+	case 0:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingUp;
+		}else{
 
 		}
+		break;
+	case 1:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingUpRight;
+		}else{
 
-	}else{
-		// Stop the player
-		m_velocity.x = 0;
-		m_velocity.y = 0;
+		}
+		break;
+	case 2:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingRight;
+		}else{
+
+		}
+		break;
+	case 3:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingDownRight;
+		}else{
+
+		}
+		break;
+	case 4:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingDown;
+		}else{
+
+		}
+		break;
+	case 5:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingDownLeft;
+		}else{
+
+		}
+		break;
+	case 6:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingLeft;
+		}else{
+
+		}
+		break;
+	case 7:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingUpLeft;
+		}else{
+
+		}
+		break;
+	default:
+		if(m_isWalking){
+			m_currentAnimation = &m_walkingUp;
+		}else{
+
+		}
+		break;
 	}
+	
 
 	m_pathFinder.FindPath();
 	m_position += m_velocity;
+
 	m_currentAnimation->update();
 
-	m_currentAnimation->setPosition(m_position);
+	// Set sprite position
+	sf::Vector2f offsetPos;
+
+	offsetPos.x = m_position.x - X_FEETOFFSET;
+	offsetPos.y = m_position.y - Y_FEETOFFSET;
+
+	m_currentAnimation->setPosition(offsetPos);
 
 }
 
@@ -93,8 +266,8 @@ sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
 
 	sf::Vector2f pixelCoords;
 
-	pixelCoords.x = nodeCoords.x * m_nodeMap.GetNodeSize().x;
-	pixelCoords.y = nodeCoords.y * m_nodeMap.GetNodeSize().y;
+	pixelCoords.x = (nodeCoords.x * m_nodeMap.GetNodeSize().x) + (m_nodeMap.GetNodeSize().x/2);
+	pixelCoords.y = (nodeCoords.y * m_nodeMap.GetNodeSize().y) + (m_nodeMap.GetNodeSize().y/2);
 
 	return pixelCoords;
 

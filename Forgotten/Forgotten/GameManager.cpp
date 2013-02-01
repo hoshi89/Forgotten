@@ -2,16 +2,16 @@
 
 GameManager::GameManager()
 	:
-	m_level1("Data/Levels/Level1_walkData.png", 100, 100, "Data/Levels/Koncept Hall.png"),
+	m_level1("Data/Levels/Level1_walkData.png", 50, 20, "Data/Levels/FGN_kapitel_1_hall.png"),
 	m_currentLevel(&m_level1)
 {
 	// Create the player
 	m_player = new Player(m_currentLevel->GetNodeMap());
-	m_player->SetPosition(300, 200);
+	m_player->SetNodePosition(6, 24);
 
 	// Set the view size
 	m_view.setSize(1024, 576);
-	m_view.setCenter(720, 320);
+	m_view.setCenter(720, 288);
 
 	// Save default view
 	m_defaultView = m_window.getDefaultView();
@@ -22,6 +22,9 @@ GameManager::GameManager()
 	}else{
 		m_window.create(sf::VideoMode(1680, 1050, 32), "Forgotten");
 	}
+
+	// Set frame limit
+	m_window.setFramerateLimit(60);
 
 	// Load debug font
 	const unsigned int fontSize = 8;
@@ -84,6 +87,8 @@ void GameManager::Render(){
 						// Draw a rectangle for each node/tile 
 						nodeRect.setPosition(x * m_currentLevel->GetNodeMap().GetNodeSize().x, y * m_currentLevel->GetNodeMap().GetNodeSize().y);
 						nodeRect.setSize(sf::Vector2f(m_currentLevel->GetNodeMap().GetNodeSize()));
+						nodeRect.setOutlineColor(sf::Color::Black);
+						nodeRect.setOutlineThickness(1);
 						if(m_currentLevel->GetNodeMap().isWalkable(x, y)){
 							nodeRect.setFillColor(sf::Color(0, 255, 0, 80));
 						}else{
