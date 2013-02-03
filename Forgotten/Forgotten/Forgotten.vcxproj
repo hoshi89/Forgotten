@@ -14,20 +14,32 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarNode.cpp" />
+    <ClCompile Include="d3.c" />
+    <ClCompile Include="DialogCls.cpp" />
+    <ClCompile Include="DialogOwnerCls.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenericMap.cpp" />
+    <ClCompile Include="InventoryCls.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="NpcCls.cpp" />
+    <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="d3.h" />
+    <ClInclude Include="DialogCls.h" />
+    <ClInclude Include="DialogOwnerCls.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GenericMap.h" />
+    <ClInclude Include="InventoryCls.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="NpcCls.h" />
+    <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
