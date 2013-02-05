@@ -6,9 +6,9 @@
 class Gui{
 public:
 	Gui(sf::Vector2f position);
-	void Render(sf::RenderWindow &window);	
+	void Render(sf::RenderWindow &window);
+	void Move(sf::Vector2f position);
 private:
-	void Move(float y, float offset);
 	void Draw(sf::RenderWindow & window);
 	int LoadImage();
 	sf::Texture m_inventory;

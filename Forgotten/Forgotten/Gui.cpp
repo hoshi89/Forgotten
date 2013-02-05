@@ -14,10 +14,8 @@ int Gui::LoadImage(){
 	return 1;
 }
 
-void Gui::Move(float y, float offset){
-	if(m_inventorySprite.getPosition().y < 300){
-	m_position.x += y*offset;
-	}
+void Gui::Move(sf::Vector2f position){
+	m_inventorySprite.setPosition(m_position.x, position.y);
 }
 
 void Gui::Draw(sf::RenderWindow &window){
@@ -25,6 +23,5 @@ void Gui::Draw(sf::RenderWindow &window){
 }
 
 void Gui::Render(sf::RenderWindow &window){
-	Move(0.1f, 1.f);
 	Draw(window);
 }
