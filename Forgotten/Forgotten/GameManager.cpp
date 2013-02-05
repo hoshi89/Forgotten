@@ -137,8 +137,15 @@ void GameManager::Render(){
 
 		// Set view
 		m_window.setView(m_view);
-
+		
 		gui.Render(m_window);
+		if(sf::Mouse::getPosition().y < 10){
+			gui.Move(sf::Vector2f(0, 0.1f));
+		}
+		else{
+			gui.Move(sf::Vector2f(0, -0.1f));
+		}
+
 
 		// Draw entities
 		for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
