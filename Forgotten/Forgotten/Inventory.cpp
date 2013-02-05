@@ -1,6 +1,7 @@
 #include "Inventory.h"
 
-Inventory::Inventory(){
+Inventory::Inventory(std::string filename){
+	LoadItems(filename);
 }
 
 Inventory::~Inventory(){

@@ -5,7 +5,7 @@
 
 class Inventory{
 public:
-	Inventory();
+	Inventory(std::string filename);
 	~Inventory();
 	void AddItem(std::string filename);
 	void SetName(std::string name);
