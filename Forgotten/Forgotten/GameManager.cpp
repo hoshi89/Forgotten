@@ -3,11 +3,15 @@
 GameManager::GameManager()
 	:
 	m_level1("Data/Levels/Level1_walkData.png", 50, 20, "Data/Levels/FGN_kapitel_1_hall.png"),
-	m_currentLevel(&m_level1)
+	m_currentLevel(&m_level1),
+	gui(sf::Vector2f(500, -50))
 {
 	// Create the player
 	m_player = new Player(m_currentLevel->GetNodeMap());
 	m_player->SetNodePosition(6, 24);
+
+	m_inventory = new Inventory("Data/Levels/Level1_items.txt");
+	m_inventory->Read();
 
 	// Set the view size
 	m_view.setSize(1024, 576);
@@ -133,6 +137,8 @@ void GameManager::Render(){
 
 		// Set view
 		m_window.setView(m_view);
+
+		gui.Render(m_window);
 
 		// Draw entities
 		for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
