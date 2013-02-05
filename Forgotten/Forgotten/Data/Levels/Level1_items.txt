@@ -1,4 +1,5 @@
-3
+4
 1 Apple 200 300 "Data/Animations/Objects/Apple.png"
 2 Pear 400 300 "Data/Animations/Objects/Pear.png"
 3 Orange 500 200 "Data/Animations/Objects/Orange.png"
+4 Banana 200 100 "Data/Animations/Objects/Banana.png"

@@ -14,8 +14,8 @@ int Gui::LoadImage(){
 	return 1;
 }
 
-void Gui::Move(sf::Vector2f position){
-	m_inventorySprite.setPosition(m_position.x, position.y);
+void Gui::Move(const float SPEED){
+	m_inventorySprite.move(0, SPEED);
 }
 
 void Gui::Draw(sf::RenderWindow &window){
@@ -23,5 +23,15 @@ void Gui::Draw(sf::RenderWindow &window){
 }
 
 void Gui::Render(sf::RenderWindow &window){
+	const float SPEED = 1.2f;
+	bool down = false;
+	if(m_inventorySprite.getPosition().y < 0 && !down){
+		Move(SPEED);
+	}
+	else if(down){
+		Move(-SPEED);
+	}else{
+		down = true;
+	}
 	Draw(window);
 }
