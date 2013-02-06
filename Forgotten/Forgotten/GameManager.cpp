@@ -1,17 +1,13 @@
 #include "GameManager.h"
 
 GameManager::GameManager()
-	:
-	m_level1("Data/Levels/Level1_walkData.png", 50, 20, "Data/Levels/FGN_kapitel_1_hall.png"),
-	m_currentLevel(&m_level1),
-	gui(sf::Vector2f(500, -50))
+	:gui(sf::Vector2f(500, -50))
 {
-	// Create the player
-	m_player = new Player(m_currentLevel->GetNodeMap());
-	m_player->SetNodePosition(6, 24);
+	// Start new game
+	m_levelManager.LoadLevel(); // Load first level
 
-	m_inventory = new Inventory("Data/Levels/Level1_items.txt");
-	m_inventory->Read();
+	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
+	//m_inventory->Read();
 
 	// Set the view size
 	m_view.setSize(1024, 576);
@@ -39,18 +35,12 @@ GameManager::GameManager()
 	m_mouseNodePosition.setScale(0.3, 0.4);
 	m_fps.setFont(m_debugFont);
 	m_fps.setScale(0.3, 0.4);
-
-	// Push the player into the entityvector
-	m_entities.push_back(m_player);
 }
 
 void GameManager::Process(){
 
-	// Move player
-	/*if(mouse->wasPressed()){
-		// Get node coordinates,
-		// player->goto(coordinates)
-	}*/
+	/*
+	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 	nodePos.x = floor(mousePosition.x / m_currentLevel->GetNodeMap().GetNodeSize().x);
@@ -59,6 +49,7 @@ void GameManager::Process(){
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
 		m_player->GoTo(nodePos);
 	}
+	*/
 
 	// Update all entities
 	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
@@ -71,6 +62,11 @@ void GameManager::Render(){
 
 		// Clear the screen 
 		m_window.clear(sf::Color(0, 0, 0));
+
+		// Always draw the level background first
+		m_window.draw(m_levelManager.GetCurrentLevel()->GetBackgroundImage());
+
+		/*
 
 		// Draw the background
 		m_window.draw(m_currentLevel->GetBackgroundImage());
@@ -134,6 +130,8 @@ void GameManager::Render(){
 			m_window.draw(m_mouseNodePosition);
 			m_window.draw(m_fps);
 		}
+
+		*/
 
 		// Set view
 		m_window.setView(m_view);

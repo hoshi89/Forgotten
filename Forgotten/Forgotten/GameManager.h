@@ -1,6 +1,7 @@
 #ifndef INCLUDED_GAMEMANAGER
 #define INCLUDED_GAMEMANAGER
 
+#include "LevelManager.h"
 #include "Player.h"
 #include "Level.h"
 #include "Inventory.h"
@@ -31,8 +32,7 @@ private:
 	Inventory* m_inventory;
 	Gui gui;
 
-	Level m_level1;
-	Level *m_currentLevel;
+	LevelManager m_levelManager;
 
 	// Debug stuff
 	sf::Font m_debugFont;
