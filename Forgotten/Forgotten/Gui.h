@@ -14,7 +14,6 @@ private:
 	sf::Texture m_inventory;
 	sf::Sprite m_inventorySprite;
 	sf::Vector2f m_position;
-	bool down;
 };
 
 #endif
