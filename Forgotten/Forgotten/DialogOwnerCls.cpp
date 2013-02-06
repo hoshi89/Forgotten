@@ -20,14 +20,14 @@ void DialogOwnerCls::AddToInventory()
 
 void DialogOwnerCls::PlaceText(DialogCls aDialog)
 {
-	aTextRect->
 }
+
 
 sf::IntRect DialogOwnerCls::getQuestionRect()
 {
 	if(mDialog.PlayerOwnCard())
 	{
-		m_player->
+		m_player->GetPosition();
 	}
 
 }

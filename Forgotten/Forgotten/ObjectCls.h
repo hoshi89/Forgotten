@@ -9,6 +9,7 @@ public:
 
 	*/
 	void PlaceText(DialogCls aDialog) override;
+	void Render(sf::RenderWindow &aWindow) override;
 	virtual ~ObjectCls(void);
 };
 
