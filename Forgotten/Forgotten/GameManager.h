@@ -3,6 +3,8 @@
 
 #include "Player.h"
 #include "Level.h"
+#include "Inventory.h"
+#include "Gui.h"
 #include <sstream>
 
 const bool FULLSCREEN = true;
@@ -25,6 +27,9 @@ private:
 	sf::RenderWindow m_window;
 	sf::View m_defaultView;
 	sf::View m_view;
+
+	Inventory* m_inventory;
+	Gui gui;
 
 	Level m_level1;
 	Level *m_currentLevel;

@@ -6,8 +6,10 @@ AStar::AStar(GenericMap &map)
 }
 
 void AStar::FindPath(){
-
-	while(true){
+	
+	while(true){ // To process entire path
+	// Process the path bit by bit to avoid lag
+	//for(int i = 0; i < 100; i++){
 		if(m_openList.empty() || PathComplete()){
 			break;
 		}else{
@@ -34,9 +36,6 @@ void AStar::SetPath(sf::Vector2f start, sf::Vector2f goal){
 	}
 	m_closedList.clear();
 
-	for(unsigned int i = 0; i < m_path.size(); i++){
-		delete m_path[i];
-	}
 	m_path.clear();
 
 	// Insert first value into the openList
@@ -64,8 +63,11 @@ void AStar::ProcessPath(){
 
 		for(getPath = currentNode; getPath != NULL; getPath = getPath->GetParent())
 		{
-			m_path.push_back(new sf::Vector2f(getPath->GetPosition()));
+			m_path.push_back(sf::Vector2f(getPath->GetPosition()));
 		}
+
+		// We don't want to target the starting node so delete it
+		m_path.pop_back();
 
 		m_goalFound = true;
 		return;
@@ -154,13 +156,11 @@ AStarNode* AStar::GetNextNode(){
 
 }
 
-std::vector<sf::Vector2f*> AStar::GetPath(){ return m_path; }
+std::vector<sf::Vector2f> AStar::GetPath(){ return m_path; }
 
-sf::Vector2f* AStar::GetNextMove(){
+sf::Vector2f& AStar::GetNextMove(){
 
-	sf::Vector2f *nextMove = new sf::Vector2f;
-	nextMove->x = m_goal.x;
-	nextMove->y = m_goal.y;
+	sf::Vector2f nextMove(m_goal.x, m_goal.y);
 
 	if(!m_path.empty()){
 		

@@ -2,13 +2,20 @@
 
 GameManager::GameManager()
 	:
-	m_level1("Data/Levels/Level1_walkData.png", 100, 40, "Data/Levels/Koncept Hall.png"),
+	m_level1("Data/Levels/Level1_walkData.png", 50, 20, "Data/Levels/FGN_kapitel_1_hall.png"),
 	m_currentLevel(&m_level1),
-	m_player(new Player(m_currentLevel->GetNodeMap()))
+	gui(sf::Vector2f(500, -50))
 {
+	// Create the player
+	m_player = new Player(m_currentLevel->GetNodeMap());
+	m_player->SetNodePosition(6, 24);
+
+	m_inventory = new Inventory("Data/Levels/Level1_items.txt");
+	m_inventory->Read();
+
 	// Set the view size
 	m_view.setSize(1024, 576);
-	m_view.setCenter(720, 320);
+	m_view.setCenter(720, 288);
 
 	// Save default view
 	m_defaultView = m_window.getDefaultView();
@@ -19,6 +26,9 @@ GameManager::GameManager()
 	}else{
 		m_window.create(sf::VideoMode(1680, 1050, 32), "Forgotten");
 	}
+
+	// Set frame limit
+	m_window.setFramerateLimit(60);
 
 	// Load debug font
 	const unsigned int fontSize = 8;
@@ -32,10 +42,23 @@ GameManager::GameManager()
 
 	// Push the player into the entityvector
 	m_entities.push_back(m_player);
-	m_player->SetPosition(600, 320);
 }
 
 void GameManager::Process(){
+
+	// Move player
+	/*if(mouse->wasPressed()){
+		// Get node coordinates,
+		// player->goto(coordinates)
+	}*/
+	sf::Vector2f nodePos;
+	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
+	nodePos.x = floor(mousePosition.x / m_currentLevel->GetNodeMap().GetNodeSize().x);
+	nodePos.y = floor(mousePosition.y / m_currentLevel->GetNodeMap().GetNodeSize().y);
+
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+		m_player->GoTo(nodePos);
+	}
 
 	// Update all entities
 	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
@@ -68,6 +91,8 @@ void GameManager::Render(){
 						// Draw a rectangle for each node/tile 
 						nodeRect.setPosition(x * m_currentLevel->GetNodeMap().GetNodeSize().x, y * m_currentLevel->GetNodeMap().GetNodeSize().y);
 						nodeRect.setSize(sf::Vector2f(m_currentLevel->GetNodeMap().GetNodeSize()));
+						nodeRect.setOutlineColor(sf::Color::Black);
+						nodeRect.setOutlineThickness(1);
 						if(m_currentLevel->GetNodeMap().isWalkable(x, y)){
 							nodeRect.setFillColor(sf::Color(0, 255, 0, 80));
 						}else{
@@ -112,6 +137,8 @@ void GameManager::Render(){
 
 		// Set view
 		m_window.setView(m_view);
+		
+		gui.Render(m_window);
 
 		// Draw entities
 		for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
