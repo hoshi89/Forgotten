@@ -6,9 +6,11 @@
 
 class LevelManager{
 public:
-	void LoadLevel(/* LEVEL1.dat */);
+	void LoadChapter(/* CHAPTER1.dat */);
+	Level* GetCurrentLevel();
 private:
-	std::vector<Level*> m_levelRooms;
+	std::vector<Level*> m_levels;
+	Level *m_currentLevel;
 };
 
 #endif

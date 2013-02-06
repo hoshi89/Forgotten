@@ -6,15 +6,14 @@
 
 class Level{
 public:
-	Level(std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture);
+	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture);
 	GenericMap& GetNodeMap();
-	Player& GetPlayer();
-	sf::Sprite GetBackgroundImage();
+	const sf::Sprite& GetBackgroundImage() const;
 private:
+	int m_id;
 	sf::Texture m_bgTexture;
 	sf::Sprite m_bgSprite;
 	GenericMap m_nodeMap;
-	Player m_player;
 };
 
 #endif

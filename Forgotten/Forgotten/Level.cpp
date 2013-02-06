@@ -1,7 +1,7 @@
 #include "Level.h"
 
-Level::Level(std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture)
-	:m_nodeMap(nodeData, nodeWidth, nodeHeight), m_player(m_nodeMap)
+Level::Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture)
+	:m_id(id), m_nodeMap(nodeData, nodeWidth, nodeHeight)
 {
 	m_bgTexture.loadFromFile(bgTexture);
 	m_bgSprite.setTexture(m_bgTexture);
@@ -9,6 +9,4 @@ Level::Level(std::string nodeData, int nodeWidth, int nodeHeight, std::string bg
 
 GenericMap& Level::GetNodeMap(){ return m_nodeMap; }
 
-Player& Level::GetPlayer(){ return m_player; }
-
-sf::Sprite Level::GetBackgroundImage(){ return m_bgSprite; }
+const sf::Sprite& Level::GetBackgroundImage() const { return m_bgSprite; }
