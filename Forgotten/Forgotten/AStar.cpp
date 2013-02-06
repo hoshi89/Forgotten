@@ -7,9 +7,9 @@ AStar::AStar(GenericMap &map)
 
 void AStar::FindPath(){
 	
-	while(true){ // To process entire path
+	//while(true){ // To process entire path
 	// Process the path bit by bit to avoid lag
-	//for(int i = 0; i < 100; i++){
+	for(int i = 0; i < 50; i++){
 		if(m_openList.empty() || PathComplete()){
 			break;
 		}else{

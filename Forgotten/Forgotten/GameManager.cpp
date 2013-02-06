@@ -4,14 +4,17 @@ GameManager::GameManager()
 	:gui(sf::Vector2f(500, -50))
 {
 	// Start new game
-	m_levelManager.LoadLevel(); // Load first level
+	m_levelManager.LoadChapter(); // Load first level
+
+	// Create the player
+	m_player = new Player(m_levelManager.GetCurrentLevel()->GetNodeMap());
 
 	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
 	//m_inventory->Read();
 
 	// Set the view size
 	m_view.setSize(1024, 576);
-	m_view.setCenter(720, 288);
+	m_view.setCenter(512, 288);
 
 	// Save default view
 	m_defaultView = m_window.getDefaultView();
@@ -38,22 +41,20 @@ GameManager::GameManager()
 }
 
 void GameManager::Process(){
-
-	/*
+	
 	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
-	nodePos.x = floor(mousePosition.x / m_currentLevel->GetNodeMap().GetNodeSize().x);
-	nodePos.y = floor(mousePosition.y / m_currentLevel->GetNodeMap().GetNodeSize().y);
+	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
+	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		m_player->GoTo(nodePos);
+		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 	}
-	*/
 
 	// Update all entities
-	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
-		(*i)->Update();
+	for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
 	}
 
 }
@@ -66,11 +67,6 @@ void GameManager::Render(){
 		// Always draw the level background first
 		m_window.draw(m_levelManager.GetCurrentLevel()->GetBackgroundImage());
 
-		/*
-
-		// Draw the background
-		m_window.draw(m_currentLevel->GetBackgroundImage());
-
 		// Draw all debug stuff on top layer
 		if(DEBUG){
 
@@ -82,17 +78,17 @@ void GameManager::Render(){
 
 				sf::RectangleShape nodeRect;
 				
-				for(int x = 0; x < m_currentLevel->GetNodeMap().GetMapSize().x; x++){
-					for(int y = 0; y < m_currentLevel->GetNodeMap().GetMapSize().y; y++){
+				for(int x = 0; x < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().x; x++){
+					for(int y = 0; y < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().y; y++){
 						// Draw a rectangle for each node/tile 
-						nodeRect.setPosition(x * m_currentLevel->GetNodeMap().GetNodeSize().x, y * m_currentLevel->GetNodeMap().GetNodeSize().y);
-						nodeRect.setSize(sf::Vector2f(m_currentLevel->GetNodeMap().GetNodeSize()));
+						nodeRect.setPosition(x * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x, y * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
+						nodeRect.setSize(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize()));
 						nodeRect.setOutlineColor(sf::Color::Black);
 						nodeRect.setOutlineThickness(1);
-						if(m_currentLevel->GetNodeMap().isWalkable(x, y)){
-							nodeRect.setFillColor(sf::Color(0, 255, 0, 80));
+						if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(x, y)){
+							nodeRect.setFillColor(sf::Color(0, 255, 0, 20));
 						}else{
-							nodeRect.setFillColor(sf::Color(255, 0, 0, 100));
+							nodeRect.setFillColor(sf::Color(255, 0, 0, 20));
 						}
 						m_window.draw(nodeRect);
 					}
@@ -110,7 +106,7 @@ void GameManager::Render(){
 			// Mouse node position
 			m_debugStream.str("");
 			m_debugStream << "Mouse node position:\n";
-			m_debugStream << "X: " << floor(mousePosition.x / m_currentLevel->GetNodeMap().GetNodeSize().x) << " Y: " << floor(mousePosition.y / m_currentLevel->GetNodeMap().GetNodeSize().y);
+			m_debugStream << "X: " << floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x) << " Y: " << floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 			m_mouseNodePosition.setString(m_debugStream.str());
 			m_mouseNodePosition.setPosition(10, 50);
 
@@ -129,9 +125,8 @@ void GameManager::Render(){
 			m_window.draw(m_mousePosition);
 			m_window.draw(m_mouseNodePosition);
 			m_window.draw(m_fps);
-		}
 
-		*/
+		}
 
 		// Set view
 		m_window.setView(m_view);
@@ -139,10 +134,12 @@ void GameManager::Render(){
 		gui.Render(m_window);
 
 		// Draw entities
-		for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
+		//for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++){
+		//	m_window.draw((*i)->GetSprite());
+		//}
 
-			m_window.draw((*i)->GetSprite());
-
+		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+			m_window.draw(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetSprite());
 		}
 
 		// Display all rendered items

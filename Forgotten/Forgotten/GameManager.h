@@ -3,6 +3,7 @@
 
 #include "LevelManager.h"
 #include "Player.h"
+#include "Entity.h"
 #include "Level.h"
 #include "Inventory.h"
 #include "Gui.h"
