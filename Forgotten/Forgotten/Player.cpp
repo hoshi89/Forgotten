@@ -249,6 +249,12 @@ void Player::Update(){
 
 }
 
+void Player::Render(sf::RenderWindow &window){
+
+	window.draw(m_currentAnimation->getSprite());
+
+}
+
 const sf::Sprite& Player::GetSprite() const{ return m_currentAnimation->getSprite(); }
 
 sf::Vector2f Player::ConvertToNodeCoords(sf::Vector2f coords){

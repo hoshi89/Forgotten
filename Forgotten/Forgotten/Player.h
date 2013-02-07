@@ -19,6 +19,7 @@ public:
 	void SetNodePosition(int x, int y);
 	sf::Vector2f GetPosition();
 	void Update();
+	void Render(sf::RenderWindow &window);
 	const sf::Sprite& GetSprite() const;
 	sf::Vector2f ConvertToNodeCoords(sf::Vector2f coords);
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
