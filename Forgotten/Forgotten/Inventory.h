@@ -11,9 +11,11 @@ public:
 	void SetName(std::string name);
 	void Read();
 	void LoadItems();
+	sf::Vector2f GetPosition(int id);
 	std::string GetDirectory(int id);
-	void Render();
+	void Render(sf::Vector2f position);
 	void Draw(sf::RenderWindow &window);
+	void IsOverlap(sf::IntRect rect);
 private:
 	sf::Vector2f m_position;
 	std::string m_name;

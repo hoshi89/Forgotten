@@ -1,10 +1,12 @@
 #include "InventoryItem.h"
 
-
 InventoryItem::InventoryItem(int id, std::string name, std::string directory) : m_id(id), m_name(name), m_directory(directory){
 	m_texture.loadFromFile(m_directory);
 	m_sprite.setTexture(m_texture);
-	m_sprite.scale(0.50f, 0.50f);
+}
+
+InventoryItem::~InventoryItem(){
+	//destructor
 }
 
 int InventoryItem::GetId(){
@@ -39,21 +41,8 @@ float InventoryItem::GetYPosition(){
 	return m_position.y;
 }
 
-void InventoryItem::SetPosition(float x, float y){
-	m_position.x = x;
-	m_position.y = y;
-}
-
 sf::Vector2f InventoryItem::GetPosition(){
 	return m_position;
-}
-
-sf::Sprite& InventoryItem::GetSprite(){
-	return m_sprite;
-}
-
-void InventoryItem::SetSprite(sf::Sprite &sprite){
-	m_sprite = sprite;
 }
 
 void InventoryItem::SetTexture(std::string directory){
@@ -62,6 +51,16 @@ void InventoryItem::SetTexture(std::string directory){
 }
 
 void InventoryItem::Draw(sf::RenderWindow &window){
-	m_sprite.setPosition(GetPosition());
+	sf::IntRect rect(m_sprite.getPosition().x, m_sprite.getPosition().y, m_texture.getSize().x, m_texture.getSize().y);
+	m_textureRect = rect;
 	window.draw(m_sprite);
 }
+
+void InventoryItem::SetPosition(float x, float y){
+	m_sprite.setPosition(x, y);
+}
+
+sf::IntRect InventoryItem::GetRect(){
+	return m_textureRect;
+}
+	

@@ -19,17 +19,20 @@ void Inventory::AddItem(int aId){
 	levelfile >> size;
 	int id;
 	std::string name;
-	sf::Vector2f position;
 	std::string directory;
 	for(int i = 0; i < size; i++){
 		//Local variables to hold values
 		levelfile >> id >> name >> directory;
 		//Pushes right(id) object into inventory vector
 		if(id == aId){
-		m_items.push_back(new InventoryItem(id, name, directory));
+			m_items.push_back(new InventoryItem(id, name, directory));
 		}
 	}
 	levelfile.close();
+}
+
+sf::Vector2f Inventory::GetPosition(int id){
+	return m_items[id]->GetPosition();
 }
 
 std::string Inventory::GetDirectory(int id){
@@ -58,20 +61,26 @@ void Inventory::Read(){
 	for(int i = 0; i < m_items.size(); i++){
 		std::cout << m_items[i]->GetId() << ' ';
 		std::cout << m_items[i]->GetName() << ' ';
-		std::cout << m_items[i]->GetXPosition() << ' ';
-		std::cout << m_items[i]->GetYPosition() << ' ';
 		std::cout << m_items[i]->GetDirectory() << std::endl;
 	}
 }
 
-void Inventory::Render(){
+void Inventory::Render(sf::Vector2f position){
 	for(int i = 0; i < m_items.size(); i++){
-		m_items[i]->SetPosition(500+100*i, 20);
+		m_items[i]->SetPosition(position.x+45*i+20, position.y);
 	}
 }
 
 void Inventory::Draw(sf::RenderWindow &window){
 	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
 		(*i)->Draw(window);
+	}
+}
+
+void Inventory::IsOverlap(sf::IntRect rect){
+	for(int i = 0; i < m_items.size(); i++){
+		if(rect.intersects(m_items[i]->GetRect()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+			std::cout << m_items[i]->GetId();
+		}
 	}
 }
