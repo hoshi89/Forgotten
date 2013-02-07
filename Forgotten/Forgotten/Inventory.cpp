@@ -1,37 +1,57 @@
 #include "Inventory.h"
 
-Inventory::Inventory(std::string filename){
-	LoadItems(filename);
+Inventory::Inventory(std::string filename) : m_filename(filename){
+	//LoadItems();
 }
 
 Inventory::~Inventory(){
+	//Clearing the vector
 	while(!m_items.empty()){
 		delete m_items.back();
 		m_items.pop_back();
 	}
 }
 
-void Inventory::AddItem(std::string filename){
-	//
+void Inventory::AddItem(int aId){
+	levelfile.open(m_filename);
+	//Puts Items into vector
+	int size;
+	levelfile >> size;
+	int id;
+	std::string name;
+	sf::Vector2f position;
+	std::string directory;
+	for(int i = 0; i < size; i++){
+		//Local variables to hold values
+		levelfile >> id >> name >> directory;
+		//Pushes right(id) object into inventory vector
+		if(id == aId){
+		m_items.push_back(new InventoryItem(id, name, directory));
+		}
+	}
+	levelfile.close();
 }
 
 std::string Inventory::GetDirectory(int id){
 	return m_items[id-1]->GetDirectory();
 }
 
-
-void Inventory::LoadItems(std::string filename){
-	levelfile.open(filename);
+void Inventory::LoadItems(){
+	levelfile.open(m_filename);
+	//Puts Items into vector
 	int size;
 	levelfile >> size;
-	for(int i = 0; i < size; ++i){
-	int id = 0;
+	int id;
 	std::string name;
 	sf::Vector2f position;
 	std::string directory;
-	levelfile >> id >> name >> position.x >> position.y >> directory;
-	m_items.push_back(new InventoryItem(id, name, position, directory));
+	for(int i = 0; i < size; i++){
+		//Local variables to hold values
+		levelfile >> id >> name >> position.x >> position.y >> directory;
+		//Pushes right(id) object into inventory vector
+		m_items.push_back(new InventoryItem(id, name, directory));
 	}
+	levelfile.close();
 }
 
 void Inventory::Read(){
@@ -41,5 +61,17 @@ void Inventory::Read(){
 		std::cout << m_items[i]->GetXPosition() << ' ';
 		std::cout << m_items[i]->GetYPosition() << ' ';
 		std::cout << m_items[i]->GetDirectory() << std::endl;
+	}
+}
+
+void Inventory::Render(){
+	for(int i = 0; i < m_items.size(); i++){
+		m_items[i]->SetPosition(500+100*i, 20);
+	}
+}
+
+void Inventory::Draw(sf::RenderWindow &window){
+	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
+		(*i)->Draw(window);
 	}
 }
