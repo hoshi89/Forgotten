@@ -17,6 +17,7 @@ public:
 	void GoTo(sf::Vector2f goal);
 	void SetPosition(int x, int y);
 	void SetNodePosition(int x, int y);
+	void SetDirection(Direction direction);
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetNodePosition();
 	void Update();

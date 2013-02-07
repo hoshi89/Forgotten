@@ -1,10 +1,10 @@
 #include "GameManager.h"
 
 GameManager::GameManager()
-	:gui(sf::Vector2f(500, -50))
+	:gui(sf::Vector2f(300, -50))
 {
 	// Start new game
-	m_levelManager.LoadChapter(); // Load first level
+	m_levelManager.LoadChapter(); // Load first chapter
 
 	// Create the player
 	m_player = new Player(m_levelManager.GetCurrentLevel()->GetNodeMap());
@@ -51,7 +51,9 @@ void GameManager::Process(){
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+
 		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+
 	}
 
 	// Update all entities
@@ -66,8 +68,20 @@ void GameManager::Render(){
 		// Clear the screen 
 		m_window.clear(sf::Color(0, 0, 0));
 
-		// Always draw the level background first
+		// Always draw the first layer of the level background first
 		m_window.draw(m_levelManager.GetCurrentLevel()->GetBackgroundImage());
+
+		// Draw players and NPCs
+		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+			m_window.draw(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetSprite());
+		}
+
+		// Draw next layer of the background
+
+
+		// Set camera and draw layer three
+
+		// Camera and four...
 
 		// Draw all debug stuff on top layer
 		if(DEBUG){
@@ -149,10 +163,6 @@ void GameManager::Render(){
 		//for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++){
 		//	m_window.draw((*i)->GetSprite());
 		//}
-
-		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
-			m_window.draw(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetSprite());
-		}
 
 		// Display all rendered items
 		m_window.display();

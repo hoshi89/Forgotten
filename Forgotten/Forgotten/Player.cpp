@@ -37,6 +37,8 @@ void Player::SetNodePosition(int x, int y){
 
 }
 
+void Player::SetDirection(Direction direction){ m_direction = direction; }
+
 sf::Vector2f Player::GetPosition(){
 	
 	sf::Vector2f offsetPos;
@@ -210,7 +212,7 @@ void Player::Update(){
 		if(m_isWalking){
 			m_currentAnimation = &m_walkingDown;
 		}else{
-
+			m_currentAnimation = &m_walkingDown;
 		}
 		break;
 	case 5:

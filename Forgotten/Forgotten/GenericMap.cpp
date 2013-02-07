@@ -32,7 +32,7 @@ sf::Vector2f GenericMap::GetNodeSize(){
 
 bool GenericMap::isWalkable(int x, int y){
 
-	if(x >= 0 && y >= 0 && x <= m_mapImage.getSize().x && y <= m_mapImage.getSize().y){
+	if(x >= 0 && y >= 0 && x <= m_mapImage.getSize().x-1 && y <= m_mapImage.getSize().y-1){
 		if(m_mapImage.getPixel(x, y) != sf::Color::Black){
 			return true;
 		}

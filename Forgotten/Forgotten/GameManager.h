@@ -8,6 +8,7 @@
 #include "Inventory.h"
 #include "Gui.h"
 #include <sstream>
+#include <SFML/Audio.hpp>
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
