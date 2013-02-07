@@ -73,7 +73,7 @@ void GameManager::Render(){
 
 		// Draw players and NPCs
 		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
-			m_window.draw(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetSprite());
+			m_levelManager.GetCurrentLevel()->GetEntities()[i]->Render(m_window);
 		}
 
 		// Draw next layer of the background
@@ -157,11 +157,20 @@ void GameManager::Render(){
 
 		// Set view
 		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
+
+		// Is the camera out of bounds?
+		if(m_view.getCenter().x + (m_view.getSize().x/2) > m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width){
+			m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width - (m_view.getSize().x/2), 288));
+		}else if(m_view.getCenter().x - (m_view.getSize().x/2) < 0){
+			m_view.setCenter(sf::Vector2f(m_view.getSize().x/2, 288));
+		}
+
+
 		m_window.setView(m_view);
 
 		// Draw entities
 		//for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++){
-		//	m_window.draw((*i)->GetSprite());
+		//	(*i)->Render(m_window);
 		//}
 
 		// Display all rendered items
@@ -170,3 +179,10 @@ void GameManager::Render(){
 }
 
 sf::RenderWindow& GameManager::GetWindow(){ return m_window; }
+
+void GameManager::SortDrawOrder(std::vector<Entity*> &vector){
+
+	for(int i = 0; i < vector.size(); i++){
+	}
+
+}

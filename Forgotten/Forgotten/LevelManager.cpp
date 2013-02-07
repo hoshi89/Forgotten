@@ -9,11 +9,11 @@ void LevelManager::LoadChapter(){
 
 	// Set player position
 	m_levels[0]->GetPlayer()->SetNodePosition(7, 0);
-
+	m_levels[1]->GetPlayer()->SetNodePosition(30, 21);
 	m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
 
-	// Add objects to rooms
-	
+	// Add background animations
+	m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70));
 
 	// Set first room
 	m_currentLevel = m_levels[0];

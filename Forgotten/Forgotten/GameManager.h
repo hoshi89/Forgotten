@@ -12,7 +12,7 @@
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
-const bool DEBUG_NODE = true;
+const bool DEBUG_NODE = false;
 
 // SINGLETON
 
@@ -23,6 +23,7 @@ public:
 	void Process();
 	void Render();
 	sf::RenderWindow& GetWindow();
+	void SortDrawOrder(std::vector<Entity*> &vector);
 private:
 	Player* m_player;
 	std::vector<Entity*> m_entities;

@@ -3,6 +3,7 @@
 
 #include "Level.h"
 #include <vector>
+#include "BackgroundObject.h"
 
 class LevelManager{
 public:
