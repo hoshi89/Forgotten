@@ -38,6 +38,8 @@ GameManager::GameManager()
 	m_mouseNodePosition.setScale(0.3, 0.4);
 	m_fps.setFont(m_debugFont);
 	m_fps.setScale(0.3, 0.4);
+	m_playerNodePos.setFont(m_debugFont);
+	m_playerNodePos.setScale(0.3, 0.4);
 }
 
 void GameManager::Process(){
@@ -118,6 +120,13 @@ void GameManager::Render(){
 			m_fps.setString(m_debugStream.str());
 			m_fps.setPosition(10, 90);
 
+			// Player node position
+			m_debugStream.str("");
+			m_debugStream << "Player node position:\n";
+			m_debugStream << "X: " << m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x << " Y: " << m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().y;
+			m_playerNodePos.setString(m_debugStream.str());
+			m_playerNodePos.setPosition(10, 130);
+
 			// Set the default view to draw text in right place
 			m_window.setView(m_defaultView);
 
@@ -125,13 +134,16 @@ void GameManager::Render(){
 			m_window.draw(m_mousePosition);
 			m_window.draw(m_mouseNodePosition);
 			m_window.draw(m_fps);
+			m_window.draw(m_playerNodePos);
 
 		}
 
-		// Set view
-		m_window.setView(m_view);
-		
+		// Draw the GUI
 		gui.Render(m_window);
+
+		// Set view
+		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
+		m_window.setView(m_view);
 
 		// Draw entities
 		//for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++){

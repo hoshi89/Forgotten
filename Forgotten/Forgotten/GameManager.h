@@ -11,7 +11,7 @@
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
-const bool DEBUG_NODE = false;
+const bool DEBUG_NODE = true;
 
 // SINGLETON
 
@@ -40,6 +40,7 @@ private:
 	sf::Text m_mousePosition;
 	sf::Text m_mouseNodePosition;
 	sf::Text m_fps;
+	sf::Text m_playerNodePos;
 	std::stringstream m_debugStream;
 	sf::Clock m_debugClock;
 };

@@ -18,6 +18,7 @@ public:
 	void SetPosition(int x, int y);
 	void SetNodePosition(int x, int y);
 	sf::Vector2f GetPosition();
+	sf::Vector2f GetNodePosition();
 	void Update();
 	void Render(sf::RenderWindow &window);
 	const sf::Sprite& GetSprite() const;

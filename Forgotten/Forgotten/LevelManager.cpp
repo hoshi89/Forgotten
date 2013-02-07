@@ -16,7 +16,7 @@ void LevelManager::LoadChapter(){
 	
 
 	// Set first room
-	m_currentLevel = m_levels[2];
+	m_currentLevel = m_levels[0];
 }
 
 Level* LevelManager::GetCurrentLevel(){ return m_currentLevel; }

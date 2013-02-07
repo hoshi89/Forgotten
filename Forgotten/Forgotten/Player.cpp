@@ -47,6 +47,16 @@ sf::Vector2f Player::GetPosition(){
 
 }
 
+sf::Vector2f Player::GetNodePosition(){
+
+	sf::Vector2f nodePos;
+	nodePos.x = (m_position.x + (m_nodeMap.GetNodeSize().x/2)) / m_nodeMap.GetNodeSize().x;
+	nodePos.y = (m_position.y + (m_nodeMap.GetNodeSize().y/2)) / m_nodeMap.GetNodeSize().y;
+
+	return nodePos;
+
+}
+
 void Player::Update(){
 
 	if(m_isWalking){
