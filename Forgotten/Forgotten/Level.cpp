@@ -20,6 +20,6 @@ const sf::Sprite& Level::GetBackgroundImage() const { return m_bgSprite; }
 
 void Level::AddObject(Entity* entity){ m_entities.push_back(entity); }
 
-std::vector<Entity*> Level::GetEntities(){ return m_entities; }
+std::vector<Entity*>& Level::GetEntities(){ return m_entities; }
 
 Player* Level::GetPlayer(){ return m_player; }

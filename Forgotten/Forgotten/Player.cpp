@@ -291,4 +291,4 @@ sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
 
 }
 
-int Player::GetZ(){ return 0; }
+const int Player::GetZ(){ return 0; }

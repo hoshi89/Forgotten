@@ -3,10 +3,7 @@
 
 #include "GenericMap.h"
 #include "Animation.h"
-
-
 #include <SFML/Graphics.hpp>
-
 
 class Entity{
 public:
@@ -16,7 +13,7 @@ public:
 	virtual void Update() abstract;
 	virtual const sf::Sprite& GetSprite() const abstract;
 	virtual void Render(sf::RenderWindow &aWindow) abstract;
-	virtual int GetZ()=0;
+	virtual const int GetZ()=0;
 	enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
 };
 
