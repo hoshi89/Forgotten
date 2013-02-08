@@ -18,15 +18,6 @@ bool DialogCls::PlayerOwnCard()
 
 string DialogCls::getCurrentString()
 {
-	m_currentString = CharToString(answer);
 	return m_currentString;
 	
 }
-
-
-string CharToString(const char *aChar)
-{
-	string wString = string(aChar);
-	return wString;
-}
-

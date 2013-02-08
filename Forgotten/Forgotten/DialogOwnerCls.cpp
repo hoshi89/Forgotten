@@ -29,6 +29,7 @@ sf::IntRect DialogOwnerCls::getQuestionRect()
 	{
 		m_player->GetPosition();
 	}
+	return sf::IntRect();
 
 }
 DialogOwnerCls::~DialogOwnerCls(void)
