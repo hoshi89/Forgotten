@@ -5,12 +5,12 @@ class NpcCls :
 	public DialogOwnerCls
 {
 public:
-	NpcCls(const char *aDeckName, Player *aPlayer);
+	NpcCls(const char *aDeckName, int aXpos, int aYpos);
 	/*
 	- Ärver klickbarhet från dialogOwner
 	- 
 	*/
-	void PlaceText(DialogCls aDialog) override;
+//	void PlaceText(DialogCls aDialog) override;
 	virtual ~NpcCls(void);
 };
 
