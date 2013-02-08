@@ -6,7 +6,11 @@
 class Gui{
 public:
 	Gui(sf::Vector2f position);
+	sf::IntRect GetRect();
 	void Render(sf::RenderWindow &window);
+	sf::Vector2f GetPosition();
+	bool down;
+	bool Overlap(float position);
 private:
 	void Move(const float SPEED);
 	void Draw(sf::RenderWindow & window);

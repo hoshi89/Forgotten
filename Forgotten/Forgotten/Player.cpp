@@ -37,6 +37,8 @@ void Player::SetNodePosition(int x, int y){
 
 }
 
+void Player::SetDirection(Direction direction){ m_direction = direction; }
+
 sf::Vector2f Player::GetPosition(){
 	
 	sf::Vector2f offsetPos;
@@ -44,6 +46,16 @@ sf::Vector2f Player::GetPosition(){
 	offsetPos.y = m_position.y - Y_FEETOFFSET;
 
 	return offsetPos;
+
+}
+
+sf::Vector2f Player::GetNodePosition(){
+
+	sf::Vector2f nodePos;
+	nodePos.x = (m_position.x + (m_nodeMap.GetNodeSize().x/2)) / m_nodeMap.GetNodeSize().x;
+	nodePos.y = (m_position.y + (m_nodeMap.GetNodeSize().y/2)) / m_nodeMap.GetNodeSize().y;
+
+	return nodePos;
 
 }
 
@@ -200,7 +212,7 @@ void Player::Update(){
 		if(m_isWalking){
 			m_currentAnimation = &m_walkingDown;
 		}else{
-
+			m_currentAnimation = &m_walkingDown;
 		}
 		break;
 	case 5:
@@ -249,6 +261,12 @@ void Player::Update(){
 
 }
 
+void Player::Render(sf::RenderWindow &window){
+
+	window.draw(m_currentAnimation->getSprite());
+
+}
+
 const sf::Sprite& Player::GetSprite() const{ return m_currentAnimation->getSprite(); }
 
 sf::Vector2f Player::ConvertToNodeCoords(sf::Vector2f coords){
@@ -272,3 +290,5 @@ sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
 	return pixelCoords;
 
 }
+
+int Player::GetZ(){ return 0; }

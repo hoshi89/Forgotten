@@ -3,10 +3,12 @@
 
 #include "LevelManager.h"
 #include "Player.h"
+#include "Entity.h"
 #include "Level.h"
 #include "Inventory.h"
 #include "Gui.h"
 #include <sstream>
+#include <SFML/Audio.hpp>
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
@@ -21,6 +23,7 @@ public:
 	void Process();
 	void Render();
 	sf::RenderWindow& GetWindow();
+	void SortDrawOrder(std::vector<Entity*> &vector);
 private:
 	Player* m_player;
 	std::vector<Entity*> m_entities;
@@ -39,6 +42,7 @@ private:
 	sf::Text m_mousePosition;
 	sf::Text m_mouseNodePosition;
 	sf::Text m_fps;
+	sf::Text m_playerNodePos;
 	std::stringstream m_debugStream;
 	sf::Clock m_debugClock;
 };

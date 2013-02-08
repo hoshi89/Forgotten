@@ -14,6 +14,7 @@
     <ClCompile Include="Animation.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarNode.cpp" />
+    <ClCompile Include="BackgroundObject.cpp" />
     <ClCompile Include="d3.c" />
     <ClCompile Include="DialogCls.cpp" />
     <ClCompile Include="DialogOwnerCls.cpp" />
@@ -33,6 +34,7 @@
     <ClInclude Include="Animation.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarNode.h" />
+    <ClInclude Include="BackgroundObject.h" />
     <ClInclude Include="d3.h" />
     <ClInclude Include="DialogCls.h" />
     <ClInclude Include="DialogOwnerCls.h" />

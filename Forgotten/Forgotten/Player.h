@@ -9,19 +9,21 @@ const float WALKSPEED = 1.8;
 const float X_FEETOFFSET = 48;
 const float Y_FEETOFFSET = 155;
 
-// SINGLETON
-
 class Player : public Entity{
 public:
 	Player(GenericMap &map);
 	void GoTo(sf::Vector2f goal);
 	void SetPosition(int x, int y);
 	void SetNodePosition(int x, int y);
+	void SetDirection(Direction direction);
 	sf::Vector2f GetPosition();
+	sf::Vector2f GetNodePosition();
 	void Update();
+	void Render(sf::RenderWindow &window);
 	const sf::Sprite& GetSprite() const;
 	sf::Vector2f ConvertToNodeCoords(sf::Vector2f coords);
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
+	int GetZ();
 private:
 	int m_direction;
 	Animation m_walkingRight;
