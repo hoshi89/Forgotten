@@ -63,4 +63,8 @@ void InventoryItem::SetPosition(float x, float y){
 sf::IntRect InventoryItem::GetRect(){
 	return m_textureRect;
 }
+
+sf::Texture InventoryItem::GetTexture(){
+	return m_texture;
+}
 	

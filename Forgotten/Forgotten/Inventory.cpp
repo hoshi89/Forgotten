@@ -72,15 +72,22 @@ void Inventory::Render(sf::Vector2f position){
 }
 
 void Inventory::Draw(sf::RenderWindow &window){
+	window.draw(mouseSprite);
 	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
 		(*i)->Draw(window);
 	}
 }
 
-void Inventory::IsOverlap(sf::IntRect rect){
+void Inventory::IsOverlap(sf::IntRect rect, sf::RenderWindow &window){
+	sf::Vector2f mousePosition = window.convertCoords(sf::Mouse::getPosition(window));
+	mouseSprite.setPosition(mousePosition.x-rect.width, mousePosition.y-rect.height);
+
 	for(int i = 0; i < m_items.size(); i++){
-		if(rect.intersects(m_items[i]->GetRect()) && sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-			std::cout << m_items[i]->GetId();
+		if(rect.intersects(m_items[i]->GetRect()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+			mouseTexture.loadFromFile(m_items[i]->GetDirectory());
+			mouseSprite.setTexture(mouseTexture);
+			std::cout << m_items[i]->GetDirectory();
 		}
 	}
+	Draw(window);
 }
