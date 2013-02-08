@@ -36,6 +36,7 @@ private:
 	Animation m_walkingUpRight;
 
 	Animation *m_currentAnimation;
+
 	AStar m_pathFinder;
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;
