@@ -9,6 +9,7 @@
 #include "Gui.h"
 #include <sstream>
 #include <SFML/Audio.hpp>
+#include "MouseHandler.h"
 
 const bool FULLSCREEN = true;
 const bool DEBUG = true;
@@ -36,6 +37,7 @@ private:
 	Gui gui;
 
 	LevelManager m_levelManager;
+	MouseHandler m_mouseHandler;
 
 	// Debug stuff
 	sf::Font m_debugFont;
