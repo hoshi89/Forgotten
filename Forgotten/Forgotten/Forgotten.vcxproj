@@ -26,6 +26,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MouseHandler.cpp" />
     <ClCompile Include="NpcCls.cpp" />
     <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
@@ -46,6 +47,7 @@
     <ClInclude Include="InventoryItem.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="LevelManager.h" />
+    <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="NpcCls.h" />
     <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />

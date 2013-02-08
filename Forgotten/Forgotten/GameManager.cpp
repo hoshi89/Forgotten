@@ -1,7 +1,7 @@
 #include "GameManager.h"
 #include <algorithm>
 
-bool myfunction(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
+bool EntitySort(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
 
 GameManager::GameManager()
 	:gui(sf::Vector2f(300, -50))
@@ -53,7 +53,7 @@ void GameManager::Process(){
 	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
+	if(m_mouseHandler.mouse1WasPressed()){
 
 		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
@@ -65,7 +65,7 @@ void GameManager::Process(){
 	}
 
 	// Sort the vector for drawing
-	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), myfunction);
+	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
 
 }
 
@@ -170,7 +170,6 @@ void GameManager::Render(){
 		}else if(m_view.getCenter().x - (m_view.getSize().x/2) < 0){
 			m_view.setCenter(sf::Vector2f(m_view.getSize().x/2, 288));
 		}
-
 
 		m_window.setView(m_view);
 
