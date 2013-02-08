@@ -11,14 +11,14 @@ public:
 	virtual void SetPosition(int x, int y) abstract;
 	virtual void Render(sf::RenderWindow &aWindow) abstract;
 	virtual void Update() abstract;
-	virtual int GetZ() abstract;
+	virtual const int GetZ() abstract;
 
 	//	string m_currentString;
 	sf::Text m_currentText;
 	virtual sf::Text ManageText(sf::Text aText) abstract;
 //	void BeginDialog();
 //	virtual void AddToInventory();
-//	virtual	void PlaceText(DialogCls aDialog);
+//	virtual	sf::Vector2f PlaceText(DialogCls aDialog) abstract;
 	int posX;
 	int posY;
 	DialogCls mDialog;

@@ -10,10 +10,10 @@ DialogCls::DialogCls(const char *aDeckName)
 
 
 
-bool DialogCls::PlayerOwnCard()
-{
-	return strcmp(d3_get_card_user_data(DialogEngine), "P");
-}
+//bool DialogCls::PlayerOwnCard()
+//{
+//	return wBool;
+//}
 
 sf::Text DialogCls::getCurrentText()
 {

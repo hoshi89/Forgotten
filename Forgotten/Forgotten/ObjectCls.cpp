@@ -13,8 +13,12 @@ ObjectCls::ObjectCls(const char *aDeckName, int aXpos, int aYpos, Player *aPlaye
 }
 
 
-//void ObjectCls::PlaceText(DialogCls aDialog)
+//sf::Vector2f ObjectCls::PlaceText(DialogCls aDialog)
 //{
+//	if(mDialog.PlayerOwnCard())
+//		return sf::Vector2f(m_player->GetPosition().x, m_player->GetPosition().y);
+//	else
+//		return sf::Vector2f(posX, posY);
 //}
 
 void ObjectCls::Render(sf::RenderWindow &aWindow)
@@ -35,26 +39,23 @@ void ObjectCls::SetPosition(int x, int y)
 
 const sf::Sprite& ObjectCls::GetSprite() const
 {
-//	sf::Sprite wSprite = m_currentAnimation.getSprite();
-//	wSprite.scale(1, 1);
 	return m_currentAnimation.getSprite();
 }
 
 sf::Text ObjectCls::ManageText(sf::Text aText)
 {
 	m_currentText.setColor(sf::Color::White);
-	m_currentText.setPosition(posX, posY);
 	return m_currentText;
 }
 
 void ObjectCls::Update()
 {
-	m_currentText.setPosition(375, 360);
-	m_currentAnimation.setPosition(sf::Vector2f(400, 400));
+	m_currentText.setPosition(900, 550);
+	m_currentAnimation.setPosition(sf::Vector2f(posX, posY));
 	m_currentAnimation.update();
 }
 
-int ObjectCls::GetZ()
+int const ObjectCls::GetZ()
 {
 	return 1;
 }

@@ -12,10 +12,10 @@ public:
 	Animation m_currentAnimation;
 	void SetPosition(int x, int y) override;
 	const sf::Sprite& GetSprite() const override;
-//	void PlaceText(DialogCls aDialog) override;
+//	sf::Vector2f PlaceText(DialogCls aDialog) override;
 	void Render(sf::RenderWindow &aWindow) override;
 	void Update() override;
-	int GetZ() override;
+	int const GetZ() override;
 	sf::Vector2f m_position;
 	sf::Text ManageText(sf::Text aText) override;
 private:

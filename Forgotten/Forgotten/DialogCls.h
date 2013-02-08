@@ -14,7 +14,8 @@ public:
 //	string CharToString(const char *aChar);
 	const char *answer; //pekare till "aktuellt" svar
 	const char *question; // -		||		-	 fråga
-	bool PlayerOwnCard();
+//	bool PlayerOwnCard();
+//	bool wBool;
 	sf::Text getCurrentText();
 	virtual ~DialogCls();
 };
