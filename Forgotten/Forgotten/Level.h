@@ -10,7 +10,7 @@ public:
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
 	void AddObject(Entity* entity);
-	std::vector<Entity*> GetEntities();
+	std::vector<Entity*>& GetEntities();
 	Player* GetPlayer();
 private:
 	Player *m_player;

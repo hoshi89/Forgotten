@@ -1,4 +1,7 @@
 #include "GameManager.h"
+#include <algorithm>
+
+bool myfunction(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
 
 GameManager::GameManager()
 	:gui(sf::Vector2f(300, -50))
@@ -60,6 +63,9 @@ void GameManager::Process(){
 	for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
 	}
+
+	// Sort the vector for drawing
+	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), myfunction);
 
 }
 

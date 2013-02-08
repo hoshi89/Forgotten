@@ -1,7 +1,7 @@
 #include "BackgroundObject.h"
 
-BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY)
-	:m_animation(animationSheet, timePerFrame, numFrames), m_position(posX, posY)
+BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z)
+	:m_animation(animationSheet, timePerFrame, numFrames), m_position(posX, posY), m_z(z)
 {
 }
 
@@ -22,4 +22,4 @@ void BackgroundObject::Render(sf::RenderWindow &window){
 
 }
 
-int BackgroundObject::GetZ(){ return m_z; }
+const int BackgroundObject::GetZ(){ return m_z; }
