@@ -19,19 +19,19 @@ void Gui::Move(const float SPEED){
 }
 
 void Gui::Draw(sf::RenderWindow &window){
+	sf::IntRect rect(m_inventorySprite.getPosition().x, m_inventorySprite.getPosition().y, m_inventory.getSize().x-150, m_inventory.getSize().y);
+	m_textureRect = rect;
 	window.draw(m_inventorySprite);
 }
 
 void Gui::Render(sf::RenderWindow &window){
 	const float SPEED = 1.2f;
-	if(m_inventorySprite.getPosition().y < 0){
+	if(m_inventorySprite.getPosition().y < 0 && down){
 		Move(SPEED);
-	}else if(down){
-		//Move(-SPEED);
-	}else if(m_inventorySprite.getPosition().y > -1 && down){
-		//Move(-SPEED);
-	}else if(m_inventorySprite.getPosition().y > -1){
-		//down = false;
+	}else if(m_inventorySprite.getPosition().y < -50){
+		Move(0);
+	}else if(!down){
+		Move(-SPEED);
 	}
 	Draw(window);
 }
@@ -41,14 +41,13 @@ sf::Vector2f Gui::GetPosition(){
 }
 
 sf::IntRect Gui::GetRect(){
-	return m_inventorySprite.getTextureRect();
+	return m_textureRect;
 }
 
-bool Gui::Overlap(float position){
-	if(0 == position){
-		return true;
-	}
-	else{
-		return false;
+void Gui::IsOverlap(sf::IntRect rect){
+	if(m_textureRect.intersects(rect)){
+		down = true;
+	}else{
+		down = false;
 	}
 }

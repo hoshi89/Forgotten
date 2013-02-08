@@ -15,7 +15,7 @@ public:
 	std::string GetDirectory(int id);
 	void Render(sf::Vector2f position);
 	void Draw(sf::RenderWindow &window);
-	void IsOverlap(sf::IntRect rect);
+	void IsOverlap(sf::IntRect rect, sf::RenderWindow& window);
 private:
 	sf::Vector2f m_position;
 	std::string m_name;
@@ -23,8 +23,8 @@ private:
 	typedef std::vector<InventoryItem*> InventoryVector;
 	InventoryVector m_items;
 	std::string m_filename;
-	sf::Texture m_texture;
-	sf::Sprite m_sprite;
+	sf::Sprite mouseSprite;
+	sf::Texture mouseTexture;
 };
 
 #endif

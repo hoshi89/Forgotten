@@ -24,6 +24,7 @@ public:
 	void SetTexture(std::string directory);
 	void Draw(sf::RenderWindow &window);
 	sf::IntRect GetRect();
+	sf::Texture GetTexture();
 private:
 	int m_id;
 	std::string m_name;
