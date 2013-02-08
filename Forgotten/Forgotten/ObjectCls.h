@@ -4,7 +4,7 @@ class ObjectCls :
 	public DialogOwnerCls
 {
 public:
-	ObjectCls(const char *aDeckName, int aXpos, int aYpos);
+	ObjectCls(const char *aDeckName, int aXpos, int aYpos, Player *aPlayer);
 	/*
 
 	*/
@@ -15,9 +15,10 @@ public:
 //	void PlaceText(DialogCls aDialog) override;
 	void Render(sf::RenderWindow &aWindow) override;
 	void Update() override;
+	int GetZ() override;
 	sf::Vector2f m_position;
+	sf::Text ManageText(sf::Text aText) override;
 private:
-//	sf::Text ManageText(sf::Text aText) override;
 	virtual ~ObjectCls(void);
 };
 

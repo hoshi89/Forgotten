@@ -17,7 +17,7 @@ bool DialogCls::PlayerOwnCard()
 
 sf::Text DialogCls::getCurrentText()
 {
-	sf::Text wCurrentText = sf::Text(question);
+	sf::Text wCurrentText = sf::Text(question, sf::Font::getDefaultFont(), 15);
 	return wCurrentText;
 	
 }

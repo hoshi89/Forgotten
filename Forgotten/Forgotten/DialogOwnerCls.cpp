@@ -1,7 +1,7 @@
 #include "DialogOwnerCls.h"
 
 
-DialogOwnerCls::DialogOwnerCls(const char *aDeckName, int aXpos, int aYpos) : mDialog(aDeckName)
+DialogOwnerCls::DialogOwnerCls(const char *aDeckName, int aXpos, int aYpos, Player *aPlayer) : mDialog(aDeckName), m_player(aPlayer)
 {
 }
 
