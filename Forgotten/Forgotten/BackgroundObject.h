@@ -6,12 +6,13 @@
 
 class BackgroundObject : public Entity{
 public:
-	BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z);
+	BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename = "");
 	void SetPosition(int x, int y);
 	void Update();
 	const sf::Sprite& GetSprite() const;
 	void Render(sf::RenderWindow &window);
 	const int GetZ();
+	void StopSound();
 private:
 	sf::Vector2f m_position;
 	Animation m_animation;

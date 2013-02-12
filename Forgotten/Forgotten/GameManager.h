@@ -11,7 +11,8 @@
 #include <SFML/Audio.hpp>
 #include "MouseHandler.h"
 
-const bool FULLSCREEN = true;
+const float FADESPEED = 2.0f;
+const bool FULLSCREEN = false;
 const bool DEBUG = true;
 const bool DEBUG_NODE = false;
 
@@ -26,9 +27,6 @@ public:
 	sf::RenderWindow& GetWindow();
 	void SortDrawOrder(std::vector<Entity*> &vector);
 private:
-	Player* m_player;
-	std::vector<Entity*> m_entities;
-
 	sf::RenderWindow m_window;
 	sf::View m_defaultView;
 	sf::View m_view;
@@ -38,6 +36,12 @@ private:
 
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
+
+	bool m_goingThroughPortal;
+	bool m_fadingOut;
+	Portal* m_targetPortal;
+	sf::RectangleShape m_fade;
+	float m_fadeAlpha;
 
 	// Debug stuff
 	sf::Font m_debugFont;

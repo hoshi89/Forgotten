@@ -24,6 +24,7 @@ public:
 	sf::Vector2f ConvertToNodeCoords(sf::Vector2f coords);
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
 	const int GetZ();
+	void StopSound();
 private:
 	int m_direction;
 	Animation m_walkingRight;
@@ -36,6 +37,7 @@ private:
 	Animation m_walkingUpRight;
 
 	Animation *m_currentAnimation;
+
 	AStar m_pathFinder;
 	sf::Vector2f m_position;
 	sf::Vector2f m_velocity;

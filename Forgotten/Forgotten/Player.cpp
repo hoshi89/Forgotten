@@ -3,14 +3,14 @@
 
 Player::Player(GenericMap &map)
 	:m_pathFinder(map),
-	m_walkingRight("Data/Animations/Player/player_walking_right.png", 100, 9),
-	m_walkingDownRight("Data/Animations/Player/player_walking_down_right.png", 100, 9),
-	m_walkingDown("Data/Animations/Player/player_walking_down.png", 100, 9),
-	m_walkingDownLeft("Data/Animations/Player/player_walking_down_left.png", 100, 9),
-	m_walkingLeft("Data/Animations/Player/player_walking_left.png", 100, 9),
-	m_walkingUpLeft("Data/Animations/Player/player_walking_up_left.png", 100, 9),
-	m_walkingUp("Data/Animations/Player/player_walking_up.png", 100, 9),
-	m_walkingUpRight("Data/Animations/Player/player_walking_up_right.png", 100, 9),
+	m_walkingRight("Data/Animations/Player/player_walking_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingDownRight("Data/Animations/Player/player_walking_down_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingDown("Data/Animations/Player/player_walking_down.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingDownLeft("Data/Animations/Player/player_walking_down_left.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingLeft("Data/Animations/Player/player_walking_left.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingUpLeft("Data/Animations/Player/player_walking_up_left.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingUp("Data/Animations/Player/player_walking_up.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+	m_walkingUpRight("Data/Animations/Player/player_walking_up_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 	m_currentAnimation(&m_walkingRight),
 	m_nodeMap(map),
 	m_currentTarget(-1, -1),
@@ -52,8 +52,8 @@ sf::Vector2f Player::GetPosition(){
 sf::Vector2f Player::GetNodePosition(){
 
 	sf::Vector2f nodePos;
-	nodePos.x = (m_position.x + (m_nodeMap.GetNodeSize().x/2)) / m_nodeMap.GetNodeSize().x;
-	nodePos.y = (m_position.y + (m_nodeMap.GetNodeSize().y/2)) / m_nodeMap.GetNodeSize().y;
+	nodePos.x = ((m_position.x + (m_nodeMap.GetNodeSize().x/2)) / m_nodeMap.GetNodeSize().x)-1;
+	nodePos.y = ((m_position.y + (m_nodeMap.GetNodeSize().y/2)) / m_nodeMap.GetNodeSize().y)-1;
 
 	return nodePos;
 
@@ -182,63 +182,111 @@ void Player::Update(){
 	switch (m_direction){
 	case 0:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingUp;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 1:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingUpRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 2:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 3:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingDownRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 4:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingDown;
 		}else{
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingDown;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 5:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingDownLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 6:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	case 7:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingUpLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
 		break;
 	default:
 		if(m_isWalking){
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
 			m_currentAnimation = &m_walkingUp;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}else{
 
 		}
@@ -292,3 +340,5 @@ sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
 }
 
 const int Player::GetZ(){ return 0; }
+
+void Player::StopSound(){ m_currentAnimation->PauseSound(); }

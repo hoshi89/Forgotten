@@ -10,6 +10,7 @@ public:
 	void LoadChapter(/* CHAPTER1.dat */);
 	Level* GetCurrentLevel();
 	void SetLevel(int id);
+	void StopAllSounds();
 private:
 	std::vector<Level*> m_levels;
 	Level *m_currentLevel;

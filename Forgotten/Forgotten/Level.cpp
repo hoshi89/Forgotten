@@ -20,6 +20,18 @@ const sf::Sprite& Level::GetBackgroundImage() const { return m_bgSprite; }
 
 void Level::AddObject(Entity* entity){ m_entities.push_back(entity); }
 
+void Level::AddPortal(Portal* portal){ m_portals.push_back(portal); }
+
 std::vector<Entity*>& Level::GetEntities(){ return m_entities; }
 
+std::vector<Portal*>& Level::GetPortals(){ return m_portals; }
+
 Player* Level::GetPlayer(){ return m_player; }
+
+void Level::StopAllSounds(){
+
+	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
+		(*i)->StopSound();
+	}
+
+}

@@ -14,6 +14,7 @@ public:
 	virtual const sf::Sprite& GetSprite() const abstract;
 	virtual void Render(sf::RenderWindow &aWindow) abstract;
 	virtual const int GetZ() abstract;
+	virtual void StopSound() abstract;
 	enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
 };
 

@@ -30,6 +30,8 @@
     <ClCompile Include="NpcCls.cpp" />
     <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="SFX.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
@@ -51,6 +53,8 @@
     <ClInclude Include="NpcCls.h" />
     <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Portal.h" />
+    <ClInclude Include="SFX.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{07DB23C5-9950-4F28-97E1-F93CB49908B2}</ProjectGuid>
