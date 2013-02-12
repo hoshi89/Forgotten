@@ -1,7 +1,8 @@
 #include "NpcCls.h"
 
 
-NpcCls::NpcCls(const char *aDeckName, int aXpos, int aYpos, Player *aPlayer) : DialogOwnerCls(aDeckName, aXpos, aYpos, aPlayer)
+NpcCls::NpcCls(const char *aDeckName, int aXpos, int aYpos, Player *aPlayer,
+	const string aSpriteName) : DialogOwnerCls(aDeckName, aXpos, aYpos, aPlayer, aSpriteName)
 {
 	mDialog = DialogCls::DialogCls(aDeckName);
 //	PlaceText(mDialog);
