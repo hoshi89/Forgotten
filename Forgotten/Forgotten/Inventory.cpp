@@ -84,8 +84,6 @@ void Inventory::IsOverlap(sf::IntRect rect, sf::RenderWindow &window){
 
 	for(int i = 0; i < m_items.size(); i++){
 		if(rect.intersects(m_items[i]->GetRect()) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
-			mouseTexture.loadFromFile(m_items[i]->GetDirectory());
-			mouseSprite.setTexture(mouseTexture);
 			std::cout << m_items[i]->GetDirectory();
 		}
 	}
