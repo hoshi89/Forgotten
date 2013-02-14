@@ -32,6 +32,7 @@
     <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="SFX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -56,6 +57,7 @@
     <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="SFX.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
