@@ -41,14 +41,61 @@ void ScriptManager::LoadScript(std::string filename)
 				// Create a wait object and push it into the queue to run
 				// EventHandler::GetInstance()->AddEvent(Wait(time));
 
-			}else if(token == "fade"){
+			}
+			// Fade out
+			else if(token == "fadeout")
+			{
 
 				// Get fade time as string
 				std::getline(tmpStream, token, ' ');
 				int fadetime = ConvertFromString(token);
 
 				// Create a wait object and push it into the queue to run
-				// EventHandler::GetInstance()->AddEvent(Fade(fadetime));
+				// EventHandler::GetInstance()->AddEvent(FadeOut(fadetime));
+
+			}
+			// Fade in
+			else if(token == "fadein")
+			{
+
+				// Get fade time as string
+				std::getline(tmpStream, token, ' ');
+				int fadetime = ConvertFromString(token);
+
+				// Create a wait object and push it into the queue to run
+				// EventHandler::GetInstance()->AddEvent(FadeIn(fadetime));
+
+			}
+			// Set level
+			else if(token == "setlevel")
+			{
+
+				// Get level id as string
+				std::getline(tmpStream, token, ' ');
+				int level = ConvertFromString(token);
+
+				// Create setlevel object and push it into the queue to run
+				// EventHandler::GetInstance()->AddEvent(SetLevel(id));
+
+			}
+			// Move entity
+			else if(token == "move")
+			{
+
+				// Get entity id as string
+				std::getline(tmpStream, token, ' ');
+				int entityid = ConvertFromString(token);
+
+				// Get X coordinate
+				std::getline(tmpStream, token, ' ');
+				int x = ConvertFromString(token);
+
+				// Get Y coordinate
+				std::getline(tmpStream, token, ' ');
+				int y = ConvertFromString(token);
+
+				// Create setlevel object and push it into the queue to run
+				// EventHandler::GetInstance()->AddEvent(SetLevel(id));
 
 			}
 
@@ -67,5 +114,4 @@ int ScriptManager::ConvertFromString(const std::string &str)
 	int t;
 	stream >> t;
 	return t;
-
 }
