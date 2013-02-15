@@ -18,7 +18,7 @@ public:
 	virtual void Render(sf::RenderWindow &aWindow) override;
 	virtual void Update() override;
 	virtual const int GetZ() abstract;
-	virtual void ChoosedByMouse() override;
+//	virtual void ChoosedByMouse() override;
 
 	//	string m_currentString;
 //	sf::Text m_currentText;

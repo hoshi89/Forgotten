@@ -1,0 +1,3 @@
+fadeout 3
+wait 5
+fadein 5

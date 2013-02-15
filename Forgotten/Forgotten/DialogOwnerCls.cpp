@@ -12,10 +12,10 @@ DialogOwnerCls::DialogOwnerCls(const char *aDeckName, int aXpos, int aYpos,
 	myClock = NULL;
 }
 
-void DialogOwnerCls::ChoosedByMouse()
-{
-	m_Choosed = true;
-}
+//void DialogOwnerCls::ChoosedByMouse()
+//{
+//	m_Choosed = true;
+//}
 
 void DialogOwnerCls::Render(sf::RenderWindow &aWindow)
 {

@@ -18,7 +18,6 @@
     <ClCompile Include="d3.c" />
     <ClCompile Include="DialogCls.cpp" />
     <ClCompile Include="DialogOwnerCls.cpp" />
-    <ClCompile Include="EventHandler.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenericMap.cpp" />
     <ClCompile Include="Gui.cpp" />
@@ -44,7 +43,6 @@
     <ClInclude Include="DialogCls.h" />
     <ClInclude Include="DialogOwnerCls.h" />
     <ClInclude Include="Entity.h" />
-    <ClInclude Include="EventHandler.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GenericMap.h" />
     <ClInclude Include="Gui.h" />

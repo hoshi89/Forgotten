@@ -2,11 +2,33 @@
 #include <algorithm>
 #include <iostream>
 
+GameManager* GameManager::m_instance = NULL;
+
 bool EntitySort(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
 
-GameManager::GameManager()
-	:gui(sf::Vector2f(300, -50)), m_goingThroughPortal(false), m_fadingOut(false), m_fadeAlpha(0)
+GameManager* GameManager::GetInstance()
 {
+	if(!m_instance)
+		m_instance = new GameManager;
+
+	return m_instance;
+}
+
+GameManager::GameManager(GameManager const&)
+	:gui(sf::Vector2f(300, -50))
+{
+}
+
+GameManager::GameManager()
+	:gui(sf::Vector2f(300, -50)),
+	m_fadingOut(false),
+	m_fadeAlpha(0),
+	m_wait(false)
+{
+
+	// Set fadeShape
+	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 0));
+
 	// Start new game
 	m_levelManager.LoadChapter(); // Load first chapter
 
@@ -45,59 +67,14 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
-	if(m_goingThroughPortal){
+	// Get next script event in queue
+	ProcessNextEvent();
 
-		if(m_fadingOut){
+	// Check fade status
+	UpdateFade();
 
-			// Fading out...
-
-			if((m_fadeAlpha + FADESPEED) > 255){
-				m_fadeAlpha = 255-FADESPEED;
-			}
-
-			m_fade.setPosition(m_view.getCenter().x-(m_view.getSize().x/2), m_view.getCenter().y-(m_view.getSize().y/2));
-			m_fade.setSize(m_view.getSize());
-			m_fade.setFillColor(sf::Color(0, 0, 0, m_fadeAlpha += FADESPEED));
-
-			// Is it completely black?
-			if(m_fadeAlpha == 255){
-				// Turn off all level specific sounds
-				m_levelManager.StopAllSounds();
-				// Load new level
-				m_levelManager.SetLevel(m_targetPortal->GetID());
-				// Place player
-				m_levelManager.GetCurrentLevel()->GetPlayer()->SetDirection(m_targetPortal->GetDirection());
-				m_levelManager.GetCurrentLevel()->GetPlayer()->SetNodePosition(m_targetPortal->GetNodePosition().x, m_targetPortal->GetNodePosition().y);
-				// Start fading in...
-				m_fadingOut = false;
-			}
-
-		}else{
-
-			// Fading in...
-
-			if((m_fadeAlpha - FADESPEED) < 0){
-				m_fadeAlpha = 0+FADESPEED;
-			}
-
-			m_fade.setPosition(m_view.getCenter().x-(m_view.getSize().x/2), m_view.getCenter().y-(m_view.getSize().y/2));
-			m_fade.setSize(m_view.getSize());
-			m_fade.setFillColor(sf::Color(0, 0, 0, m_fadeAlpha -= FADESPEED));
-
-			// Is the screen back?
-			if(m_fadeAlpha == 0){
-				// Continue game...
-				m_goingThroughPortal = false;
-			}
-
-		}
-
-		// Suspend the game by returning before processing
-		if(m_fadeAlpha != 255){
-			return;
-		}
-
-	}
+	// Check if the player has reached its focus
+	PlayerFocus();
 
 	// Mouse coords
 	sf::Vector2f nodePos;
@@ -109,7 +86,7 @@ void GameManager::Process(){
 	if(m_mouseHandler.mouse1WasPressed()){
 
 		// Else go to node
-		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+		//m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
 	}
 
@@ -123,52 +100,55 @@ void GameManager::Process(){
 
 	//std::vector<Portal*> &myVector = m_levelManager.GetCurrentLevel()->GetPortals();
 
-	for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-		// Is mouse over?
-		if((*i)->GetPortalRect().contains(mousePosition.x, mousePosition.y)){
-			std::cout << "Mouse on portal!" << std::endl;
-			// On mouse press, clear active portals
-			if(m_mouseHandler.mouse1WasPressed()){
-				for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-					(*i)->DeactivatePortal();
-				}
+	//for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
+	//	// Is mouse over?
+	//	if((*i)->GetPortalRect().contains(mousePosition.x, mousePosition.y)){
+	//		std::cout << "Mouse on portal!" << std::endl;
+	//		// On mouse press, clear active portals
+	//		if(m_mouseHandler.mouse1WasPressed()){
+	//			for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
+	//				(*i)->DeactivatePortal();
+	//			}
 
-				// Activate portal
-				(*i)->ActivatePortal();
-				(*i)->Interact(m_levelManager.GetCurrentLevel()->GetPlayer());
-			}
-		}
+	//			// Activate portal
+	//			(*i)->ActivatePortal();
+	//			(*i)->Interact(m_levelManager.GetCurrentLevel()->GetPlayer());
+	//		}
+	//	}
 
-		// Is player on?
-		if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition() == (*i)->GetNodePosition()){
-			// Player is going through portal!
-			std::cout << "Portal!" << std::endl;
+	//	// Is player on?
+	//	if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition() == (*i)->GetNodePosition()){
+	//		// Player is going through portal!
+	//		std::cout << "Portal!" << std::endl;
 
-			// Is portal active?
-			if((*i)->IsActive()){
+	//		// Is portal active?
+	//		if((*i)->IsActive()){
 
-				// Mark the portal to keep track of which map to load once it has faded
-				m_targetPortal = (*i)->GetTargetPortal();
+	//			// Mark the portal to keep track of which map to load once it has faded
+	//			m_targetPortal = (*i)->GetTargetPortal();
 
-				// Clear active portals
-				for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-					(*i)->DeactivatePortal();
-				}
+	//			// Clear active portals
+	//			for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
+	//				(*i)->DeactivatePortal();
+	//			}
 
-				m_goingThroughPortal = true;
-				m_fadingOut = true;
-				break;
+	//			m_goingThroughPortal = true;
+	//			m_fadingOut = true;
+	//			break;
 
-			}
-		}
-	}
+	//		}
+	//	}
+	//}
 
 	// Sort the vector by Z value
 	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
 
 	// Update all entities
 	for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+
+		// Update the entity
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
+
 	}
 
 }
@@ -283,7 +263,7 @@ void GameManager::Render(){
 		//}
 
 		// Draw the overlay for all items. Fade sprite.
-		m_window.draw(m_fade);
+		m_window.draw(m_fadeShape);
 
 		// Display all rendered items
 		m_window.display();
@@ -296,5 +276,160 @@ void GameManager::SortDrawOrder(std::vector<Entity*> &vector){
 
 	for(int i = 0; i < vector.size(); i++){
 	}
+
+}
+
+void GameManager::LoadScript(std::string filename){
+
+	std::ifstream scriptFile(filename);
+	std::string tmpString;
+
+	if(scriptFile)
+	{
+		while(std::getline(scriptFile, tmpString))
+		{
+			m_events.push(tmpString);
+		}
+	}
+
+}
+
+Player* GameManager::GetPlayer(){
+	return m_levelManager.GetCurrentLevel()->GetPlayer();
+}
+
+void GameManager::ProcessNextEvent(){
+
+	if(m_wait){
+		if(m_waitClock.getElapsedTime().asSeconds() < m_waitTime)
+		{
+			return;
+		}else{
+			m_wait = false;
+		}
+	}
+
+	if(m_events.size() > 0 && !m_wait){
+
+		// Get next event as string
+		std::string tmpEvent = m_events.front();
+
+		// Create temporary stuff
+		std::stringstream tmpStream;
+		std::string tmpString;
+		std::string token;
+
+		// Add the string to the stream
+		tmpStream << tmpEvent;
+
+		// Get the event type
+		std::getline(tmpStream, token, ' ');
+
+		// Wait
+		if(token == "wait")
+		{
+			// Get wait time as string
+			std::getline(tmpStream, token, ' ');
+			m_waitTime = StringToInt(token);
+
+			// Set GameManager variables
+			m_wait = true;
+			m_waitClock.restart();
+
+		}
+		// Fade out
+		else if(token == "fadeout")
+		{
+
+			// Get fade time as string
+			std::getline(tmpStream, token, ' ');
+			int fadetime = StringToInt(token);
+
+			m_fadeSpeed = 255/fadetime;
+			m_fadingOut = true;
+			m_fadeClock.restart();
+
+		}
+		// Fade in
+		else if(token == "fadein")
+		{
+
+			// Get fade time as string
+			std::getline(tmpStream, token, ' ');
+			int fadetime = StringToInt(token);
+
+			m_fadeSpeed = 255/fadetime;
+			m_fadingOut = false;
+			m_fadeClock.restart();
+
+		}
+
+		m_events.pop();
+	}
+
+}
+
+int GameManager::StringToInt(const std::string &str)
+{
+	std::istringstream stream(str);
+	int t;
+	stream >> t;
+	return t;
+}
+
+void GameManager::UpdateFade(){
+
+	float fadeAddition = m_fadeSpeed*m_fadeClock.getElapsedTime().asSeconds();
+	m_fadeClock.restart();
+
+	if(m_fadingOut)
+	{
+		if(m_fadeAlpha < 255)
+		{
+
+			if((m_fadeAlpha + fadeAddition) > 255)
+			{
+				m_fadeAlpha = 255;
+			}
+			else
+			{
+				m_fadeAlpha += fadeAddition;
+			}
+
+			m_fadeShape.setFillColor(sf::Color(0, 0, 0, m_fadeAlpha));
+
+		}
+	}
+	else
+	{
+		if(m_fadeAlpha > 0)
+		{
+
+			if((m_fadeAlpha - fadeAddition) < 0)
+			{
+				m_fadeAlpha = 0;
+			}
+			else
+			{
+				m_fadeAlpha -= fadeAddition;
+			}
+
+			m_fadeShape.setFillColor(sf::Color(0, 0, 0, m_fadeAlpha));
+
+		}
+	}
+
+	m_fadeShape.setSize(m_view.getSize());
+	m_fadeShape.setPosition(((m_view.getCenter().x)-(m_view.getSize().x/2)), ((m_view.getCenter().y)-(m_view.getSize().y/2)));
+
+}
+
+void GameManager::PlayerFocus(){
+
+	//if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition() == m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->GetInteractionNode())
+	//{
+	//	// Player is on the interaction node
+	//	m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
+	//}
 
 }

@@ -13,6 +13,8 @@ public:
 	void Render(sf::RenderWindow &window);
 	const int GetZ();
 	void StopSound();
+	void Interact(){};
+	bool MouseOver(){ return false; };
 private:
 	sf::Vector2f m_position;
 	Animation m_animation;
