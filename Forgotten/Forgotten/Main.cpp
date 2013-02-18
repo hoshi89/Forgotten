@@ -3,17 +3,18 @@
 int main()
 {
 	// Create the manager
-	GameManager manager;
+	GameManager *manager;
+	manager = GameManager::GetInstance();
 
-	while (manager.GetWindow().isOpen())
+	while (manager->GetWindow().isOpen())
 	{
 		sf::Event Event;
-		while(manager.GetWindow().pollEvent(Event))
+		while(manager->GetWindow().pollEvent(Event))
 		{
 			switch (Event.type)
 			{
 			case sf::Event::Closed:
-				manager.GetWindow().close();
+				manager->GetWindow().close();
 				break;
 			default:
 				break;
@@ -22,10 +23,10 @@ int main()
 		}
 
 		// Process data here
-		manager.Process();
+		manager->Process();
 
 		// Render the screen
-		manager.Render();
+		manager->Render();
 	}
 
 	return 0;

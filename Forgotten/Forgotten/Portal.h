@@ -9,9 +9,9 @@ class Portal : public Entity{
 public:
 	Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction);
 	void MouseOver(MouseHandler &mouse);
-	void StandingOn(Player &player);
-	void Interact(Player *player);
+	void Interact();
 	void SetTargetPortal(Portal *portal);
+
 
 	int GetID();
 	Portal* GetTargetPortal();
@@ -19,9 +19,6 @@ public:
 	sf::IntRect GetPortalRect();
 	sf::Vector2f GetNodePosition();
 
-	void ActivatePortal();
-	void DeactivatePortal();
-	bool IsActive();
 	Entity::Direction GetDirection();
 	
 	void SetPosition(int x, int y);
@@ -30,11 +27,15 @@ public:
 	void Render(sf::RenderWindow &aWindow);
 	const int GetZ();
 	void StopSound();
+	sf::Vector2f GetInteractionNode();
+	void StartInteraction();
+	bool MouseOver();
 private:
+	sf::Vector2f m_nodePosition;
+	std::string m_currentScript;
 	sf::Sprite m_sprite;
 	int m_level;
 	sf::IntRect m_rect;
-	sf::Vector2f m_nodePosition;
 	Entity::Direction m_direction;
 	Portal *m_targetPortal;
 	bool m_active;

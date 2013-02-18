@@ -6,13 +6,12 @@
 class Gui{
 public:
 	Gui(sf::Vector2f position);
-	//sf::IntRect GetRect();
+	sf::IntRect GetRect();
 	void Render(sf::RenderWindow &window);
 	sf::Vector2f GetPosition();
-	bool down;
-	void IsOverlap(sf::IntRect rect);
+	void IsOverlap();
 private:
-	sf::IntRect GetRect();
+	//sf::IntRect GetRect();
 	void Move(const float SPEED);
 	void Draw(sf::RenderWindow & window);
 	int LoadImage();
@@ -20,6 +19,7 @@ private:
 	sf::Sprite m_inventorySprite;
 	sf::Vector2f m_position;
 	sf::IntRect m_textureRect;
+	bool m_down;
 };
 
 #endif

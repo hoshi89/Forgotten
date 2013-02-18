@@ -25,6 +25,10 @@ public:
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
 	const int GetZ();
 	void StopSound();
+	void SetFocus(Entity *aEntity);
+	Entity* GetFocus();
+	void Interact(){};
+	bool MouseOver(){ return false; }
 private:
 	int m_direction;
 	Animation m_walkingRight;
@@ -43,6 +47,7 @@ private:
 	sf::Vector2f m_velocity;
 	sf::Vector2f m_currentTarget;
 	GenericMap &m_nodeMap;
+	Entity *m_currentFocus;
 	bool m_isWalking;
 };
 

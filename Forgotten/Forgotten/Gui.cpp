@@ -1,6 +1,6 @@
 #include "Gui.h"
 
-Gui::Gui(sf::Vector2f position) : m_position(position), down(false){
+Gui::Gui(sf::Vector2f position) : m_position(position), m_down(false){
 	LoadImage();
 	m_inventorySprite.setPosition(m_position);
 	m_inventorySprite.setScale(0.75f, 0.75f);
@@ -19,18 +19,18 @@ void Gui::Move(const float SPEED){
 }
 
 void Gui::Draw(sf::RenderWindow &window){
-	sf::IntRect rect(m_inventorySprite.getPosition().x, m_inventorySprite.getPosition().y, m_inventory.getSize().x-150, m_inventory.getSize().y);
+	sf::IntRect rect(GetPosition().x, GetPosition().y, m_inventory.getSize().x, m_inventory.getSize().y+100);
 	m_textureRect = rect;
 	window.draw(m_inventorySprite);
 }
 
 void Gui::Render(sf::RenderWindow &window){
 	const float SPEED = 1.2f;
-	if(m_inventorySprite.getPosition().y < 0 && down){
+	if(m_inventorySprite.getPosition().y < 0 && m_down){
 		Move(SPEED);
 	}else if(m_inventorySprite.getPosition().y < -50){
 		Move(0);
-	}else if(!down){
+	}else if(!m_down){
 		Move(-SPEED);
 	}
 	Draw(window);
@@ -44,10 +44,6 @@ sf::IntRect Gui::GetRect(){
 	return m_textureRect;
 }
 
-void Gui::IsOverlap(sf::IntRect rect){
-	if(m_textureRect.intersects(rect)){
-		down = true;
-	}else{
-		down = false;
-	}
+void Gui::IsOverlap(){
+	m_down = true;
 }

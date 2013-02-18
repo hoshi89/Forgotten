@@ -15,6 +15,10 @@ public:
 	virtual void Render(sf::RenderWindow &aWindow) abstract;
 	virtual const int GetZ() abstract;
 	virtual void StopSound() abstract;
+	virtual void Interact() abstract;
+	virtual sf::Vector2f GetInteractionNode(){ return sf::Vector2f(); };
+	virtual void StartInteraction(){};
+	virtual bool MouseOver() abstract;
 	enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
 };
 

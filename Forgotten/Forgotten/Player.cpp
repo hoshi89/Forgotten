@@ -22,6 +22,13 @@ void Player::GoTo(sf::Vector2f goal){
 	m_pathFinder.SetPath(ConvertToNodeCoords(m_position), goal);
 }
 
+void Player::SetFocus(Entity *aEntity)
+{
+	m_currentFocus = aEntity;
+}
+
+Entity* Player::GetFocus(){ return m_currentFocus; }
+
 void Player::SetPosition(int x, int y){
 
 	m_position.x = x;

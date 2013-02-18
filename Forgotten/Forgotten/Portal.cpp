@@ -1,31 +1,19 @@
 #include "Portal.h"
 #include <SFML/Graphics.hpp>
+#include "GameManager.h"
+
+GameManager* manager = GameManager::GetInstance();
 
 Portal::Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction)
-	:m_level(level), m_rect(rect), m_nodePosition(nodePosition), m_direction(direction), m_active(false)
+	:m_level(level), m_rect(rect), m_direction(direction), m_active(false),
+	m_currentScript("Data/Scripts/0001.txt")
 {
 }
 
-void Portal::StandingOn(Player &player){
+void Portal::Interact(){
 
-	// If the portal is active, go through portal
-	// Fade to black
-	// Load new level
-	// Place and face player correctly
-
-
-
-}
-
-void Portal::Interact(Player *player){
-
-	// For objects later...
-	// Check if the player is in any of the adjacent nodes
-	// if not, calculate the closest node to the player and send player.goto(node)
-
-	// For portals, go to node position and activate portal
-
-	player->GoTo(m_nodePosition);
+	manager->GetPlayer()->GoTo(m_nodePosition);
+	manager->GetPlayer()->SetFocus(this);
 
 }
 
@@ -38,12 +26,6 @@ Portal* Portal::GetTargetPortal(){ return m_targetPortal; }
 sf::IntRect Portal::GetPortalRect(){ return m_rect; }
 
 sf::Vector2f Portal::GetNodePosition(){ return m_nodePosition; }
-
-void Portal::ActivatePortal(){ m_active = true; }
-
-void Portal::DeactivatePortal(){ m_active = false; }
-
-bool Portal::IsActive(){ return m_active; }
 
 Entity::Direction Portal::GetDirection(){ return m_direction; }
 
@@ -65,4 +47,18 @@ const int Portal::GetZ(){
 }
 
 void Portal::StopSound(){
+}
+
+sf::Vector2f Portal::GetInteractionNode(){ return m_nodePosition; }
+
+void Portal::StartInteraction(){
+
+	manager->LoadScript(m_currentScript);
+
+}
+
+bool Portal::MouseOver(){
+	
+	return m_rect.contains(sf::Mouse::getPosition());
+
 }
