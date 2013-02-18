@@ -1,4 +1,5 @@
 #include "Gui.h"
+#include "FlagManager.h"
 
 Gui::Gui(sf::Vector2f position) : m_position(position), m_down(false){
 	LoadImage();

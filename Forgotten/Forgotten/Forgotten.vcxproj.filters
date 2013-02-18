@@ -82,7 +82,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="AnswerCls.cpp">
-
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="FlagManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -154,6 +156,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="AnswerCls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="FlagManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

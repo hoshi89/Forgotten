@@ -1,8 +1,10 @@
 #include "GameManager.h"
 #include <algorithm>
 #include <iostream>
+#include "FlagManager.h"
 
 GameManager* GameManager::m_instance = NULL;
+FlagManager *flags = FlagManager::GetInstance();
 
 bool EntitySort(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
 

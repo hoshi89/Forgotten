@@ -19,6 +19,7 @@
     <ClCompile Include="CardCls.cpp" />
     <ClCompile Include="DeckCls.cpp" />
     <ClCompile Include="DialogOwnerCls.cpp" />
+    <ClCompile Include="FlagManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenericMap.cpp" />
     <ClCompile Include="Gui.cpp" />
@@ -33,7 +34,6 @@
     <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
-    <ClCompile Include="ScriptManager.cpp" />
     <ClCompile Include="SFX.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +46,7 @@
     <ClInclude Include="DeckCls.h" />
     <ClInclude Include="DialogOwnerCls.h" />
     <ClInclude Include="Entity.h" />
+    <ClInclude Include="FlagManager.h" />
     <ClInclude Include="GameManager.h" />
     <ClInclude Include="GenericMap.h" />
     <ClInclude Include="Gui.h" />
@@ -59,7 +60,6 @@
     <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
-    <ClInclude Include="ScriptManager.h" />
     <ClInclude Include="SFX.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
