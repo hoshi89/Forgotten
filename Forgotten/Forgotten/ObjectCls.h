@@ -4,7 +4,7 @@ class ObjectCls :
 	public DialogOwnerCls
 {
 public:
-	ObjectCls(const char *aDeckName, int aXpos, int aYpos,
+	ObjectCls(int aXpos, int aYpos,
 		Player *aPlayer, const string aSpriteName);
 	/*
 

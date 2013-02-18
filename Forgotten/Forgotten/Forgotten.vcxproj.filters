@@ -39,12 +39,6 @@
     <ClCompile Include="Player.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DialogCls.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="d3.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="DialogOwnerCls.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -78,6 +72,18 @@
     <ClCompile Include="SFX.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="LevelDialogsCls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DeckCls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CardCls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AnswerCls.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h">
@@ -102,12 +108,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DialogCls.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="d3.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="DialogOwnerCls.h">
@@ -141,6 +141,18 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SFX.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LevelDialogsCls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="DeckCls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CardCls.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="AnswerCls.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -12,11 +12,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Animation.cpp" />
+    <ClCompile Include="AnswerCls.cpp" />
     <ClCompile Include="AStar.cpp" />
     <ClCompile Include="AStarNode.cpp" />
     <ClCompile Include="BackgroundObject.cpp" />
-    <ClCompile Include="d3.c" />
-    <ClCompile Include="DialogCls.cpp" />
+    <ClCompile Include="CardCls.cpp" />
+    <ClCompile Include="DeckCls.cpp" />
     <ClCompile Include="DialogOwnerCls.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenericMap.cpp" />
@@ -24,6 +25,7 @@
     <ClCompile Include="Inventory.cpp" />
     <ClCompile Include="InventoryItem.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="LevelDialogsCls.cpp" />
     <ClCompile Include="LevelManager.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MouseHandler.cpp" />
@@ -35,11 +37,12 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Animation.h" />
+    <ClInclude Include="AnswerCls.h" />
     <ClInclude Include="AStar.h" />
     <ClInclude Include="AStarNode.h" />
     <ClInclude Include="BackgroundObject.h" />
-    <ClInclude Include="d3.h" />
-    <ClInclude Include="DialogCls.h" />
+    <ClInclude Include="CardCls.h" />
+    <ClInclude Include="DeckCls.h" />
     <ClInclude Include="DialogOwnerCls.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="GameManager.h" />
@@ -48,6 +51,7 @@
     <ClInclude Include="Inventory.h" />
     <ClInclude Include="InventoryItem.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="LevelDialogsCls.h" />
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="NpcCls.h" />

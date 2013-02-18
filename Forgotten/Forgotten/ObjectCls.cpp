@@ -1,9 +1,9 @@
 #include "ObjectCls.h"
 
 
-ObjectCls::ObjectCls(const char *aDeckName, int aXpos, int aYpos,
+ObjectCls::ObjectCls(int aXpos, int aYpos,
 	Player *aPlayer, const string aSpriteName) 
-	: DialogOwnerCls(aDeckName, aXpos, aYpos, aPlayer, aSpriteName) 
+	: DialogOwnerCls(aXpos, aYpos, aPlayer, aSpriteName) 
 {
 //	m_currentText = ManageText(m_currentText);
 }

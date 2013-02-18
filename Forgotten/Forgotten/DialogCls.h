@@ -1,5 +1,4 @@
 #pragma once
-#include "d3.h"
 #include <string>
 #include <SFML\Graphics.hpp>
 using namespace std;

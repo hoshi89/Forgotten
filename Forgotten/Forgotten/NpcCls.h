@@ -5,7 +5,7 @@ class NpcCls :
 	public DialogOwnerCls
 {
 public:
-	NpcCls(const char *aDeckName, int aXpos, int aYpos,
+	NpcCls(int aXpos, int aYpos,
 		Player *aPlayer, const string aSpriteName);
 	/*
 	- Ärver klickbarhet från dialogOwner
