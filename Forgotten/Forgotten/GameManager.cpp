@@ -87,6 +87,8 @@ void GameManager::Process(){
 	// Check mouse click
 	if(m_mouseHandler.mouse1WasPressed()){
 
+		LoadScript("Data/Scripts/0001.txt");
+
 		// Else go to node
 		//m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
@@ -364,6 +366,24 @@ void GameManager::ProcessNextEvent(){
 			m_fadingOut = false;
 			m_fadeClock.restart();
 
+		}
+		// Move entity
+		else if(token == "move")
+		{
+
+			// Get coordinates as strings
+			std::getline(tmpStream, token, ' ');
+			int xcoord = StringToInt(token);
+			
+			std::getline(tmpStream, token, ' ');
+			int ycoord = StringToInt(token);
+
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			int entityid = StringToInt(token);
+
+			// Move the entity
+			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->GoTo(sf::Vector2f(xcoord, ycoord));
 		}
 
 		m_events.pop();

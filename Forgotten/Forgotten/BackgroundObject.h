@@ -15,6 +15,7 @@ public:
 	void StopSound();
 	void Interact(){};
 	bool MouseOver(){ return false; };
+	void GoTo(sf::Vector2f){};
 private:
 	sf::Vector2f m_position;
 	Animation m_animation;

@@ -19,6 +19,7 @@ public:
 	virtual sf::Vector2f GetInteractionNode(){ return sf::Vector2f(); };
 	virtual void StartInteraction(){};
 	virtual bool MouseOver() abstract;
+	virtual void GoTo(sf::Vector2f)=0;
 	enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
 };
 

@@ -30,6 +30,7 @@ public:
 	sf::Vector2f GetInteractionNode();
 	void StartInteraction();
 	bool MouseOver();
+	void GoTo(sf::Vector2f){};
 private:
 	sf::Vector2f m_nodePosition;
 	std::string m_currentScript;

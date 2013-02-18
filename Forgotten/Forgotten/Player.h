@@ -2,7 +2,6 @@
 #define INCLUDED_PLAYER
 
 #include "AStar.h"
-#include "Animation.h"
 #include "Entity.h"
 
 const float WALKSPEED = 1.8;
