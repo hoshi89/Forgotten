@@ -82,3 +82,11 @@ void Inventory::Draw(sf::RenderWindow &window){
 		(*i)->Draw(window);
 	}
 }
+
+std::string Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view){
+	for(int i = 0; i < m_items.size(); i++){
+		if(m_items[i]->GetRect().contains(window.convertCoords(sf::Mouse::getPosition(window), view).x, window.convertCoords(sf::Mouse::getPosition(window), view).y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+			return m_items[i]->GetDirectory();
+		}
+	}
+}

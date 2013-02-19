@@ -8,7 +8,6 @@ Gui::Gui(MouseHandler& mouse) :
 {
 	LoadImage();
 	m_guiSprite.setPosition(m_position);
-
 	m_guiview.setSize(1024, 576);
 	m_guiview.setCenter(512, 288);
 }
@@ -38,10 +37,10 @@ void Gui::Render(){
 
 void Gui::Draw(sf::RenderWindow &window){
 	Update();
-	IsOverlap(window);
 	window.setView(m_guiview);
 	window.draw(m_guiSprite);
 	Inventory::GetInstance()->Draw(window);
+	IsOverlap(window);
 }
 
 void Gui::Update(){
@@ -62,6 +61,7 @@ sf::IntRect Gui::GetRect(){
 void Gui::IsOverlap(sf::RenderWindow &window){
 	if(m_textureRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y)){
 		m_down = true;
+		m_mouseHandler.SetCurrentMouseAnimation(Inventory::GetInstance()->IsOverlap(window, m_guiview));
 	}else{
 		m_down = false;
 	}

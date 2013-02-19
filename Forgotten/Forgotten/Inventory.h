@@ -16,7 +16,7 @@ public:
 	std::string GetDirectory(int id);
 	void Render(sf::Vector2f position);
 	void Draw(sf::RenderWindow &window);
-	void IsOverlap(sf::IntRect rect, sf::RenderWindow& window);
+	std::string IsOverlap(sf::RenderWindow& window, sf::View& view);
 private:
 	Inventory();
 	Inventory(Inventory const&){};
