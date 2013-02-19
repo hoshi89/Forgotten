@@ -17,15 +17,17 @@ GameManager* GameManager::GetInstance()
 }
 
 GameManager::GameManager(GameManager const&)
-	:gui(sf::Vector2f(300, -50))
+	:gui(m_mouseHandler),
+	m_mouseHandler(m_window)
 {
 }
 
 GameManager::GameManager()
-	:gui(sf::Vector2f(300, -50)),
+	:gui(m_mouseHandler),
 	m_fadingOut(false),
 	m_fadeAlpha(0),
-	m_wait(false)
+	m_wait(false),
+	m_mouseHandler(m_window)
 {
 
 	// Set fadeShape
@@ -251,7 +253,7 @@ void GameManager::Render(){
 		}
 
 		// Draw the GUI
-		gui.Render(m_window);
+		gui.Draw(m_window);
 
 		// Set view
 		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
@@ -272,6 +274,9 @@ void GameManager::Render(){
 
 		// Draw the overlay for all items. Fade sprite.
 		m_window.draw(m_fadeShape);
+
+		// Draw mouse pointer
+		m_mouseHandler.Draw();
 
 		// Display all rendered items
 		m_window.display();

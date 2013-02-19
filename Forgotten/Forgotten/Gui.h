@@ -9,7 +9,7 @@ class Gui{
 public:
 	Gui(MouseHandler& mouse);
 	void Render();
-	void IsOverlap();
+	void IsOverlap(sf::RenderWindow &window);
 	void Update();
 	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow &window);
@@ -21,6 +21,7 @@ private:
 	sf::Sprite m_guiSprite;
 	sf::Vector2f m_position;
 	sf::IntRect m_textureRect;
+	sf::View m_guiview;
 	bool m_down;
 	sf::IntRect GetRect();
 	MouseHandler& m_mouseHandler;

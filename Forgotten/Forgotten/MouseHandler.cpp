@@ -92,4 +92,3 @@ void MouseHandler::Draw(){
 	SetPosition();
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
-
