@@ -27,7 +27,7 @@ public:
 	void SetFocus(Entity *entity);
 	Entity* GetFocus();
 	void Interact(){};
-	bool MouseOver(){ return false; }
+	bool MouseOver(MouseHandler&){ return false; }
 private:
 	int m_direction;
 	Animation m_walkingRight;

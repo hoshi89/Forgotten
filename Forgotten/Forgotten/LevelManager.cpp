@@ -36,6 +36,9 @@ void LevelManager::LoadChapter(){
 	// Add the portals to the portal vector
 	m_levels[0]->AddPortal(hall2reception);
 	m_levels[2]->AddPortal(reception2hall);
+	// NVM, add them to the entity vector
+	m_levels[0]->AddObject(hall2reception);
+	m_levels[2]->AddObject(reception2hall);
 
 	// Set first room
 	m_currentLevel = m_levels[0];

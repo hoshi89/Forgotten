@@ -57,8 +57,12 @@ void Portal::StartInteraction(){
 
 }
 
-bool Portal::MouseOver(){
-	
-	return m_rect.contains(sf::Mouse::getPosition());
+bool Portal::MouseOver(MouseHandler& mouse){
 
+	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
+		// Set mouse animation
+		return true;
+	}
+
+	return false;
 }

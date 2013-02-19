@@ -8,7 +8,7 @@
 class Portal : public Entity{
 public:
 	Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction);
-	void MouseOver(MouseHandler &mouse);
+	bool MouseOver(MouseHandler &mouse);
 	void Interact();
 	void SetTargetPortal(Portal *portal);
 

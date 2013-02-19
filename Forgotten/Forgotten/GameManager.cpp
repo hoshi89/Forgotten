@@ -86,16 +86,6 @@ void GameManager::Process(){
 	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
-	// Check mouse click
-	if(m_mouseHandler.mouse1WasPressed()){
-
-		//LoadScript("Data/Scripts/0001.txt");
-
-		// Else go to node
-		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
-
-	}
-
 	// Is fading?
 	// Suspend mouse, do not update anything
 	// while is isFading() fade, else return to game
@@ -154,10 +144,26 @@ void GameManager::Process(){
 
 		// Update the entity
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
+	}
 
-		if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver()){
-			std::cout << "Mouse over: " << i << std::endl;
+	// Check mouse click
+	if(m_mouseHandler.mouse1WasPressed()){
+
+		bool interactFound = false;
+
+		// Check all entities for interaction
+		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+
+			if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler)){
+				m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact();
+				interactFound = true;
+			}
+
 		}
+
+		// Else go to node
+		if(!interactFound)
+			m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
 	}
 
@@ -472,10 +478,12 @@ void GameManager::UpdateFade(){
 
 void GameManager::PlayerFocus(){
 
-	//if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition() == m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->GetInteractionNode())
-	//{
-	//	// Player is on the interaction node
-	//	m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
-	//}
-
+	if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus())
+	{
+		sf::Vector2f playerNode(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition());
+		//sf::Vector2f interactionNode(m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->GetInteractionNode());
+			// Player is on the interaction node
+			//m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
+		
+	}
 }

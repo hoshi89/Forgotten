@@ -14,7 +14,7 @@ public:
 	const int GetZ();
 	void StopSound();
 	void Interact(){};
-	bool MouseOver(){ return false; };
+	bool MouseOver(MouseHandler&){ return false; };
 	void GoTo(sf::Vector2f){};
 private:
 	sf::Vector2f m_position;
