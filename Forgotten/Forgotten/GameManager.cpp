@@ -87,10 +87,10 @@ void GameManager::Process(){
 	// Check mouse click
 	if(m_mouseHandler.mouse1WasPressed()){
 
-		LoadScript("Data/Scripts/0001.txt");
+		//LoadScript("Data/Scripts/0001.txt");
 
 		// Else go to node
-		//m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+		m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
 	}
 
@@ -152,6 +152,10 @@ void GameManager::Process(){
 
 		// Update the entity
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
+
+		if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver()){
+			std::cout << "Mouse over: " << i << std::endl;
+		}
 
 	}
 
@@ -339,12 +343,10 @@ void GameManager::ProcessNextEvent(){
 			// Set GameManager variables
 			m_wait = true;
 			m_waitClock.restart();
-
 		}
 		// Fade out
 		else if(token == "fadeout")
 		{
-
 			// Get fade time as string
 			std::getline(tmpStream, token, ' ');
 			int fadetime = StringToInt(token);
@@ -352,12 +354,10 @@ void GameManager::ProcessNextEvent(){
 			m_fadeSpeed = 255/fadetime;
 			m_fadingOut = true;
 			m_fadeClock.restart();
-
 		}
 		// Fade in
 		else if(token == "fadein")
 		{
-
 			// Get fade time as string
 			std::getline(tmpStream, token, ' ');
 			int fadetime = StringToInt(token);
@@ -365,12 +365,10 @@ void GameManager::ProcessNextEvent(){
 			m_fadeSpeed = 255/fadetime;
 			m_fadingOut = false;
 			m_fadeClock.restart();
-
 		}
 		// Move entity
 		else if(token == "move")
 		{
-
 			// Get coordinates as strings
 			std::getline(tmpStream, token, ' ');
 			int xcoord = StringToInt(token);
@@ -382,8 +380,31 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			int entityid = StringToInt(token);
 
-			// Move the entity
-			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->GoTo(sf::Vector2f(xcoord, ycoord));
+			// Move the entity... if it exists
+			if(m_levelManager.GetCurrentLevel()->GetEntities().size() >= entityid)
+			{
+				m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->GoTo(sf::Vector2f(xcoord, ycoord));
+			}
+		}
+		// Suspend controls
+		else if(token == "suspend")
+		{
+			// Get time to suspend as string
+			std::getline(tmpStream, token, ' ');
+			int m_suspendTime = StringToInt(token);
+
+			m_suspend = true;
+			m_suspendClock.restart();
+		}
+		// Play sound
+		else if(token == "playsound")
+		{
+			// Get the soundid as string
+			std::getline(tmpStream, token, ' ');
+			int soundid = StringToInt(token);
+			
+			// Play the sound
+			m_levelManager.GetCurrentLevel()->PlaySound(soundid);
 		}
 
 		m_events.pop();
@@ -440,10 +461,8 @@ void GameManager::UpdateFade(){
 
 		}
 	}
-
 	m_fadeShape.setSize(m_view.getSize());
 	m_fadeShape.setPosition(((m_view.getCenter().x)-(m_view.getSize().x/2)), ((m_view.getCenter().y)-(m_view.getSize().y/2)));
-
 }
 
 void GameManager::PlayerFocus(){

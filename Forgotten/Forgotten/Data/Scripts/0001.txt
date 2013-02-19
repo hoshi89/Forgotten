@@ -1,4 +1,6 @@
 fadeout 1
 wait 2
 fadein 1
-move 15 49 0
+wait 2
+move 10 47 0
+playsound 0

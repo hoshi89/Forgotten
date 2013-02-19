@@ -24,7 +24,7 @@ public:
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
 	const int GetZ();
 	void StopSound();
-	void SetFocus(Entity *aEntity);
+	void SetFocus(Entity *entity);
 	Entity* GetFocus();
 	void Interact(){};
 	bool MouseOver(){ return false; }

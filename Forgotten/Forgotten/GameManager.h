@@ -73,6 +73,11 @@ private:
 	sf::RectangleShape m_fadeShape;
 	int m_fadeSpeed;
 
+	// Suspend controls
+	sf::Clock m_suspendClock;
+	bool m_suspend;
+	int m_suspendTime;
+
 
 	// Debug stuff
 	sf::Font m_debugFont;
