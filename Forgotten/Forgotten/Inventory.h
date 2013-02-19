@@ -2,11 +2,12 @@
 #define INCLUDED_INVENTORY
 
 #include "InventoryItem.h"
+#include <fstream>
 
 class Inventory{
 public:
-	Inventory(std::string filename);
 	~Inventory();
+	static Inventory* GetInstance();
 	void AddItem(int aId);
 	void SetName(std::string name);
 	void Read();
@@ -17,6 +18,10 @@ public:
 	void Draw(sf::RenderWindow &window);
 	void IsOverlap(sf::IntRect rect, sf::RenderWindow& window);
 private:
+	Inventory();
+	Inventory(Inventory const&){};
+	Inventory& operator=(Inventory const&){};
+	static Inventory *m_instance;
 	sf::Vector2f m_position;
 	std::string m_name;
 	std::ifstream levelfile;

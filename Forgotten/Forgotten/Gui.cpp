@@ -1,44 +1,55 @@
 #include "Gui.h"
 #include "FlagManager.h"
 
-Gui::Gui(sf::Vector2f position) : m_position(position), m_down(false){
+Gui::Gui(MouseHandler& mouse) : 
+	m_down(false),
+	m_position(200, -50),
+	m_mouseHandler(mouse)
+{
 	LoadImage();
-	m_inventorySprite.setPosition(m_position);
-	m_inventorySprite.setScale(0.75f, 0.75f);
+	m_guiSprite.setPosition(m_position);
+
 }
 
 int Gui::LoadImage(){
-	if(!m_inventory.loadFromFile("Data/Inventory/InventoryV03.png")){
+	if(!m_gui.loadFromFile("Data/Inventory/InventoryV03.png")){
 		return EXIT_FAILURE;
 	}
-	m_inventorySprite.setTexture(m_inventory);
+	m_guiSprite.setTexture(m_gui);
 	return 0;
 }
 
 void Gui::Move(const float SPEED){
-	m_inventorySprite.move(0, SPEED);
+	m_guiSprite.move(0, SPEED);
 }
 
-void Gui::Draw(sf::RenderWindow &window){
-	sf::IntRect rect(GetPosition().x, GetPosition().y, m_inventory.getSize().x, m_inventory.getSize().y+100);
-	m_textureRect = rect;
-	window.draw(m_inventorySprite);
-}
-
-void Gui::Render(sf::RenderWindow &window){
+void Gui::Render(){
 	const float SPEED = 1.2f;
-	if(m_inventorySprite.getPosition().y < 0 && m_down){
+	if(m_guiSprite.getPosition().y < 0 && m_down){
 		Move(SPEED);
-	}else if(m_inventorySprite.getPosition().y < -50){
+	}else if(m_guiSprite.getPosition().y < -50){
 		Move(0);
 	}else if(!m_down){
 		Move(-SPEED);
 	}
-	Draw(window);
+}
+
+void Gui::Draw(sf::RenderWindow &window){
+	Update();
+	IsOverlap();
+	window.draw(m_guiSprite);
+	Inventory::GetInstance()->Draw(window);
+}
+
+void Gui::Update(){
+	sf::IntRect rect(m_guiSprite.getPosition().x, m_guiSprite.getPosition().y, m_gui.getSize().x, m_gui.getSize().y);
+	m_textureRect = rect;
+	Render();
+	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 }
 
 sf::Vector2f Gui::GetPosition(){
-	return m_inventorySprite.getPosition();
+	return m_guiSprite.getPosition();
 }
 
 sf::IntRect Gui::GetRect(){
@@ -46,5 +57,10 @@ sf::IntRect Gui::GetRect(){
 }
 
 void Gui::IsOverlap(){
-	m_down = true;
+	sf::Vector2i mouse(m_mouseHandler.GetPosition().x, m_mouseHandler.GetPosition().y);
+	if(m_textureRect.contains(mouse)){
+		m_down = true;
+	}else{
+		m_down = false;
+	}
 }

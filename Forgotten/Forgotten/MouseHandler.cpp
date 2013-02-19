@@ -1,10 +1,14 @@
 #include "MouseHandler.h"
 
-MouseHandler::MouseHandler()
-	:m_m1pressed(false), m_m2pressed(false), m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
+MouseHandler::MouseHandler(sf::RenderWindow& window)
+	:m_m1pressed(false), m_m2pressed(false), 
+	m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), 
+	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
-	m_currentMouseAnimation(&m_walkGreen)
+	m_currentMouseAnimation(&m_walkGreen),
+	m_window(window)
 {
+	MousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 }
 
 bool MouseHandler::mouse1WasPressed(){
@@ -21,7 +25,6 @@ bool MouseHandler::mouse1WasPressed(){
 
 		m_m1pressed = false;
 		return false;
-
 	}
 
 }
@@ -63,24 +66,30 @@ bool MouseHandler::mouse2IsPressed(){
 
 }
 
-void MouseHandler::Render(sf::RenderWindow& window){
+void MouseHandler::Render(){
 	SetPosition();
-	window.draw(m_currentMouseAnimation->getSprite());
+	m_window.draw(m_currentMouseAnimation->getSprite());
 }
 
 bool MouseHandler::IsOver(sf::IntRect rect){
-	if(rect.contains(GetPosition().x, GetPosition().y)){
+	if(rect.contains(MousePosition.x, MousePosition.y)){
 		return true;
 	}else{
 		return false;
 	}
-
 }
 
 void MouseHandler::SetPosition(){
-	m_currentMouseAnimation->setPosition(sf::Vector2f(sf::Mouse::getPosition().x, sf::Mouse::getPosition().y));
+	MousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
+	m_currentMouseAnimation->setPosition(MousePosition);
 }
 
 sf::Vector2f MouseHandler::GetPosition(){
-	return m_position;
+	return MousePosition;
 }
+
+void MouseHandler::Draw(){
+	SetPosition();
+	m_window.draw(m_currentMouseAnimation->getSprite());
+}
+
