@@ -45,24 +45,6 @@ sf::Vector2f Inventory::GetPosition(int id){
 std::string Inventory::GetDirectory(int id){
 	return m_items[id]->GetDirectory();
 }
-//
-//void Inventory::LoadItems(){
-//	levelfile.open(m_filename);
-//	//Puts Items into vector
-//	int size;
-//	levelfile >> size;
-//	int id;
-//	std::string name;
-//	sf::Vector2f position;
-//	std::string directory;
-//	for(int i = 0; i < size; i++){
-//		//Local variables to hold values
-//		levelfile >> id >> name >> position.x >> position.y >> directory;
-//		//Pushes right(id) object into inventory vector
-//		m_items.push_back(new InventoryItem(id, name, directory));
-//	}
-//	levelfile.close();
-//}
 
 void Inventory::Read(int i){
 	std::cout << m_items[i]->GetName();
@@ -98,7 +80,7 @@ void Inventory::RemoveItem(){
 		if((*i)->IsAlive()){
 			items.push_back((*i));
 		}else{
-			//delete (*i);
+			delete (*i);
 		}
 	}
 	m_items = items;
