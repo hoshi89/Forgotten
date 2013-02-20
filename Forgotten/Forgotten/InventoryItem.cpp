@@ -1,12 +1,20 @@
 #include "InventoryItem.h"
 
-InventoryItem::InventoryItem(int id, std::string name, std::string directory) : m_id(id), m_name(name), m_directory(directory){
+InventoryItem::InventoryItem(int id, std::string name, std::string directory) : m_id(id), m_name(name), m_directory(directory), m_isAlive(true){
 	m_texture.loadFromFile(m_directory);
 	m_sprite.setTexture(m_texture);
 }
 
 InventoryItem::~InventoryItem(){
 	//destructor
+}
+
+bool InventoryItem::IsAlive(){
+	return m_isAlive;
+}
+
+void InventoryItem::SetDead(){
+	m_isAlive = false;
 }
 
 int InventoryItem::GetId(){

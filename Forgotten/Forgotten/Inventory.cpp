@@ -43,7 +43,7 @@ sf::Vector2f Inventory::GetPosition(int id){
 }
 
 std::string Inventory::GetDirectory(int id){
-	return m_items[id-1]->GetDirectory();
+	return m_items[id]->GetDirectory();
 }
 //
 //void Inventory::LoadItems(){
@@ -64,16 +64,13 @@ std::string Inventory::GetDirectory(int id){
 //	levelfile.close();
 //}
 
-void Inventory::Read(){
-	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
-		std::cout << (*i)->GetName() << std::endl;
-	}
-
+void Inventory::Read(int i){
+	std::cout << m_items[i]->GetName();
 }
 
 void Inventory::Render(sf::Vector2f position){
 	for(int i = 0; i < m_items.size(); i++){
-		m_items[i]->SetPosition(position.x+45*i+20, position.y);
+		m_items[i]->SetPosition(position.x+55*i+40, position.y+10);
 	}
 }
 
@@ -89,4 +86,28 @@ std::string Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view){
 			return m_items[i]->GetDirectory();
 		}
 	}
+}
+
+std::vector<InventoryItem*> Inventory::Contains(){
+	return m_items;
+}
+
+void Inventory::RemoveItem(){
+	InventoryVector items;
+	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
+		if((*i)->IsAlive()){
+			items.push_back((*i));
+		}else{
+			//delete (*i);
+		}
+	}
+	m_items = items;
+}
+
+sf::IntRect Inventory::GetItemsRect(int i){
+	return m_items[i]->GetRect();
+}
+
+void Inventory::KillItem(int i){
+	m_items[i]->SetDead();
 }

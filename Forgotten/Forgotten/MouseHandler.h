@@ -14,10 +14,12 @@ public:
 	bool IsOver(sf::IntRect rect);
 	sf::Vector2f GetPosition();
 	void Draw();
+	void SetCurrentMouseAnimation(std::string& directory);
 private:
 	Animation m_walkGreen;
 	Animation m_walkRed;
 	Animation m_walk;
+	Animation m_item;
 	Animation* m_currentMouseAnimation;
 	bool m_m1pressed;
 	bool m_m2pressed;

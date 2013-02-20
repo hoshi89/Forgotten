@@ -25,6 +25,8 @@ public:
 	void Draw(sf::RenderWindow &window);
 	sf::IntRect GetRect();
 	sf::Texture GetTexture();
+	bool IsAlive();
+	void SetDead();
 private:
 	int m_id;
 	std::string m_name;
@@ -33,6 +35,7 @@ private:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 	sf::IntRect m_textureRect;
+	bool m_isAlive;
 };
 
 #endif

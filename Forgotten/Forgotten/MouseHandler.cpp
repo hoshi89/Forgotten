@@ -5,9 +5,11 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), 
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
+	m_item("Data/Animations/Objects/Necklace.png", 1000, 1),
 	m_currentMouseAnimation(&m_walkGreen),
 	m_window(window)
 {
+	m_window.setMouseCursorVisible(false);
 	MousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 }
 
@@ -88,7 +90,15 @@ sf::Vector2f MouseHandler::GetPosition(){
 	return MousePosition;
 }
 
+void MouseHandler::SetCurrentMouseAnimation(std::string& directory){
+	Animation* item = new Animation(directory, 1000, 1);
+	m_item = *item;
+	m_currentMouseAnimation = &m_item;
+}
+
 void MouseHandler::Draw(){
 	SetPosition();
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
+
+
