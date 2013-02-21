@@ -87,12 +87,7 @@ void GameManager::Process(){
 	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
-	// Is the node walkable?
-	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y)){
-		m_mouseHandler.SetGreenFeet();
-	}else{
-		m_mouseHandler.SetRedFeet();
-	}
+
 
 	// Sort the vector by Z value
 	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
@@ -141,17 +136,10 @@ void GameManager::Render(){
 		// Always draw the first layer of the level background first
 		m_window.draw(m_levelManager.GetCurrentLevel()->GetBackgroundImage());
 
-		// Draw players and NPCs
+		// Draw entities
 		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 			m_levelManager.GetCurrentLevel()->GetEntities()[i]->Render(m_window);
 		}
-
-		// Draw next layer of the background
-
-
-		// Set camera and draw layer three
-
-		// Camera and four...
 
 		// Draw all debug stuff on top layer
 		if(DEBUG){
@@ -236,11 +224,6 @@ void GameManager::Render(){
 		}
 
 		m_window.setView(m_view);
-
-		// Draw entities
-		//for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++){
-		//	(*i)->Render(m_window);
-		//}
 
 		// Draw the overlay for all items. Fade sprite.
 		m_window.draw(m_fadeShape);
