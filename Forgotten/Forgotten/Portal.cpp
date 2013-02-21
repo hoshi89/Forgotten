@@ -5,13 +5,14 @@
 GameManager* manager = GameManager::GetInstance();
 
 Portal::Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction)
-	:m_level(level), m_rect(rect), m_direction(direction), m_active(false),
+	:m_level(level), m_rect(rect), m_nodePosition(nodePosition), m_direction(direction), m_active(false),
 	m_currentScript("Data/Scripts/0001.txt")
 {
 }
 
 void Portal::Interact(){
 
+	std::cout << "Interacting with portal..." << std::endl;
 	manager->GetPlayer()->GoTo(m_nodePosition);
 	manager->GetPlayer()->SetFocus(this);
 
@@ -30,6 +31,10 @@ sf::Vector2f Portal::GetNodePosition(){ return m_nodePosition; }
 Entity::Direction Portal::GetDirection(){ return m_direction; }
 
 void Portal::SetPosition(int x, int y){
+}
+
+void Portal::SetScript(std::string script){
+	m_currentScript = script;
 }
 
 void Portal::Update(){
@@ -61,6 +66,7 @@ bool Portal::MouseOver(MouseHandler& mouse){
 
 	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
 		// Set mouse animation
+		std::cout << "Mouse over portal : x: " << mouse.GetPosition().x << " y: " << mouse.GetPosition().y << std::endl;
 		return true;
 	}
 

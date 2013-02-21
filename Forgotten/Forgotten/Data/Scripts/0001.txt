@@ -1,6 +1,11 @@
+suspend
 fadeout 1
 wait 2
-fadein 1
-wait 2
-move 10 47 0
 playsound 0
+setlevel 2
+setnodeposition 1 50 0
+setdirection 0 3
+wait 6
+fadein 1
+wait 1
+resume

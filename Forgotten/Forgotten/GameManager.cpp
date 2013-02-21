@@ -27,7 +27,8 @@ GameManager::GameManager()
 	m_fadingOut(false),
 	m_fadeAlpha(0),
 	m_wait(false),
-	m_mouseHandler(m_window)
+	m_mouseHandler(m_window),
+	m_suspend(false)
 {
 
 	// Set fadeShape
@@ -86,55 +87,12 @@ void GameManager::Process(){
 	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
-	// Is fading?
-	// Suspend mouse, do not update anything
-	// while is isFading() fade, else return to game
-
-	// Iterate portal vector
-	// check GoingThroughPortal() if true
-	// get target portal and start fading
-
-	//std::vector<Portal*> &myVector = m_levelManager.GetCurrentLevel()->GetPortals();
-
-	//for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-	//	// Is mouse over?
-	//	if((*i)->GetPortalRect().contains(mousePosition.x, mousePosition.y)){
-	//		std::cout << "Mouse on portal!" << std::endl;
-	//		// On mouse press, clear active portals
-	//		if(m_mouseHandler.mouse1WasPressed()){
-	//			for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-	//				(*i)->DeactivatePortal();
-	//			}
-
-	//			// Activate portal
-	//			(*i)->ActivatePortal();
-	//			(*i)->Interact(m_levelManager.GetCurrentLevel()->GetPlayer());
-	//		}
-	//	}
-
-	//	// Is player on?
-	//	if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition() == (*i)->GetNodePosition()){
-	//		// Player is going through portal!
-	//		std::cout << "Portal!" << std::endl;
-
-	//		// Is portal active?
-	//		if((*i)->IsActive()){
-
-	//			// Mark the portal to keep track of which map to load once it has faded
-	//			m_targetPortal = (*i)->GetTargetPortal();
-
-	//			// Clear active portals
-	//			for(std::vector<Portal*>::iterator i = m_levelManager.GetCurrentLevel()->GetPortals().begin(); i != m_levelManager.GetCurrentLevel()->GetPortals().end(); i++){
-	//				(*i)->DeactivatePortal();
-	//			}
-
-	//			m_goingThroughPortal = true;
-	//			m_fadingOut = true;
-	//			break;
-
-	//		}
-	//	}
-	//}
+	// Is the node walkable?
+	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y)){
+		m_mouseHandler.SetGreenFeet();
+	}else{
+		m_mouseHandler.SetRedFeet();
+	}
 
 	// Sort the vector by Z value
 	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
@@ -144,27 +102,33 @@ void GameManager::Process(){
 
 		// Update the entity
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
+
+		// Update mouse icon
+		m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler);
+
 	}
 
-	// Check mouse click
-	if(m_mouseHandler.mouse1WasPressed()){
+	if(!m_suspend){
+		// Check mouse click
+		if(m_mouseHandler.mouse1WasPressed()){
 
-		bool interactFound = false;
+			bool interactFound = false;
 
-		// Check all entities for interaction
-		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+			// Check all entities for interaction
+			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 
-			if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler)){
-				m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact();
-				interactFound = true;
+				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler)){
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact();
+					interactFound = true;
+				}
+
 			}
 
+			// Else go to node
+			if(!interactFound)
+				m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+
 		}
-
-		// Else go to node
-		if(!interactFound)
-			m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
-
 	}
 
 }
@@ -291,13 +255,6 @@ void GameManager::Render(){
 
 sf::RenderWindow& GameManager::GetWindow(){ return m_window; }
 
-void GameManager::SortDrawOrder(std::vector<Entity*> &vector){
-
-	for(int i = 0; i < vector.size(); i++){
-	}
-
-}
-
 void GameManager::LoadScript(std::string filename){
 
 	std::ifstream scriptFile(filename);
@@ -400,12 +357,13 @@ void GameManager::ProcessNextEvent(){
 		// Suspend controls
 		else if(token == "suspend")
 		{
-			// Get time to suspend as string
-			std::getline(tmpStream, token, ' ');
-			int m_suspendTime = StringToInt(token);
-
+			// Set state
 			m_suspend = true;
-			m_suspendClock.restart();
+		}
+		else if(token == "resume")
+		{
+			// Set state
+			m_suspend = false;
 		}
 		// Play sound
 		else if(token == "playsound")
@@ -416,6 +374,100 @@ void GameManager::ProcessNextEvent(){
 			
 			// Play the sound
 			m_levelManager.GetCurrentLevel()->PlaySound(soundid);
+		}
+		// Set level
+		else if(token == "setlevel")
+		{
+			// Get the levelid as string
+			std::getline(tmpStream, token, ' ');
+			int levelid = StringToInt(token);
+
+			// Change level
+			m_levelManager.SetLevel(levelid);
+		}
+		// Set direction
+		else if(token == "setdirection")
+		{
+			// Get the entity id as string
+			std::getline(tmpStream, token, ' ');
+			int entityid = StringToInt(token);
+
+			// Get the direction as string
+			std::getline(tmpStream, token, ' ');
+			int direction = StringToInt(token);
+
+			// What direction?
+			Entity::Direction enumDirection;
+
+			switch(direction)
+			{
+			case 0:
+				enumDirection = Entity::UP;
+				break;
+			case 1:
+				enumDirection = Entity::UP_RIGHT;
+				break;
+			case 2:
+				enumDirection = Entity::RIGHT;
+				break;
+			case 3:
+				enumDirection = Entity::DOWN_RIGHT;
+				break;
+			case 4:
+				enumDirection = Entity::DOWN;
+				break;
+			case 5:
+				enumDirection = Entity::DOWN_LEFT;
+				break;
+			case 6:
+				enumDirection = Entity::LEFT;
+				break;
+			case 7:
+				enumDirection = Entity::UP_LEFT;
+				break;
+			default:
+				enumDirection = Entity::RIGHT;
+				break;
+			}
+
+			// Set direction
+			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetDirection(enumDirection);
+		}
+		// Set position
+		else if(token == "setposition")
+		{
+			// Get coordinates as strings
+			std::getline(tmpStream, token, ' ');
+			int xcoord = StringToInt(token);
+			
+			std::getline(tmpStream, token, ' ');
+			int ycoord = StringToInt(token);
+
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			int entityid = StringToInt(token);
+
+			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
+		}
+		// Set nodeposition
+		else if(token == "setnodeposition")
+		{
+			// Get coordinates as strings
+			std::getline(tmpStream, token, ' ');
+			int xcoord = StringToInt(token);
+			
+			std::getline(tmpStream, token, ' ');
+			int ycoord = StringToInt(token);
+
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			int entityid = StringToInt(token);
+
+			// Calculate nodepos
+			xcoord = xcoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x/2);
+			ycoord = ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
+
+			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
 		}
 
 		m_events.pop();
@@ -478,12 +530,21 @@ void GameManager::UpdateFade(){
 
 void GameManager::PlayerFocus(){
 
-	if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus())
+	Entity* currentFocus = m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus();
+
+	if(currentFocus)
 	{
+		// Get nodes
 		sf::Vector2f playerNode(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition());
-		//sf::Vector2f interactionNode(m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->GetInteractionNode());
+		sf::Vector2f interactionNode(currentFocus->GetInteractionNode());
+
+		if(playerNode == interactionNode)
+		{
 			// Player is on the interaction node
-			//m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
-		
+			m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
+
+			// Remove focus
+			m_levelManager.GetCurrentLevel()->GetPlayer()->SetFocus(NULL);
+		}
 	}
 }

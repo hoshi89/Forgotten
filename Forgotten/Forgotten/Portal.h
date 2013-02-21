@@ -22,6 +22,7 @@ public:
 	Entity::Direction GetDirection();
 	
 	void SetPosition(int x, int y);
+	void SetScript(std::string script);
 	void Update();
 	const sf::Sprite& GetSprite() const;
 	void Render(sf::RenderWindow &aWindow);

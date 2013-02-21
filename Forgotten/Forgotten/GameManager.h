@@ -26,7 +26,6 @@ public:
 	void Process();
 	void Render();
 	sf::RenderWindow& GetWindow();
-	void SortDrawOrder(std::vector<Entity*> &vector);
 	void LoadScript(std::string filename);
 	Player* GetPlayer();
 private:
@@ -44,6 +43,8 @@ private:
 	Inventory* m_inventory;
 	Gui gui;
 
+	sf::Event evt;
+
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
 
@@ -57,7 +58,6 @@ private:
 
 	void ProcessNextEvent();
 	int StringToInt(const std::string &str);
-
 	
 	//Script variables
 	//Wait
@@ -74,10 +74,7 @@ private:
 	int m_fadeSpeed;
 
 	// Suspend controls
-	sf::Clock m_suspendClock;
 	bool m_suspend;
-	int m_suspendTime;
-
 
 	// Debug stuff
 	sf::Font m_debugFont;

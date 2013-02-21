@@ -12,7 +12,6 @@ public:
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
 	void AddObject(Entity* entity);
-	void AddPortal(Portal* portal);
 	void AddSound(SFX* sfx);
 	std::vector<Entity*>& GetEntities();
 	std::vector<Portal*>& GetPortals();
@@ -22,7 +21,6 @@ public:
 private:
 	Player *m_player;
 	std::vector<Entity*> m_entities;
-	std::vector<Portal*> m_portals;
 	std::vector<SFX*> m_soundEffects;
 	int m_id;
 	sf::Texture m_bgTexture;

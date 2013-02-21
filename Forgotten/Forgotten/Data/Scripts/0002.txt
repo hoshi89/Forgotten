@@ -1,0 +1,8 @@
+fadeout 1
+wait 2
+playsound 0
+setlevel 0
+setnodeposition 43 0 0
+setdirection 0 6
+wait 6
+fadein 1
