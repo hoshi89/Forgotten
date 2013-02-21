@@ -3,6 +3,7 @@
 
 #include "Inventory.h"
 #include "MouseHandler.h"
+#include "ScriptText.h"
 #include <SFML/Graphics.hpp>
 
 class Gui{
@@ -13,8 +14,9 @@ public:
 	void Update();
 	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow &window);
+	void PushText(std::string text, int time, sf::Vector2f position);
+	void DeleteText();
 private:
-	//sf::IntRect GetRect();
 	void Move(const float SPEED);
 	int LoadImage();
 	sf::Texture m_gui;
@@ -25,6 +27,12 @@ private:
 	bool m_down;
 	sf::IntRect GetRect();
 	MouseHandler& m_mouseHandler;
+	sf::Text m_text;
+	sf::Text* p_text;
+	typedef std::vector<ScriptText*> TextVector;
+	TextVector m_texts;
+	void DrawText(sf::RenderWindow& window);
+	sf::Clock m_clock;
 };
 
 #endif

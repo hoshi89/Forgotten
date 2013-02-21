@@ -12,6 +12,7 @@ public:
 	void SetName(std::string name);
 	void Read(int i);
 	void LoadItems();
+	int GetId(int id);
 	sf::Vector2f GetPosition(int id);
 	std::string GetDirectory(int id);
 	void Render(sf::Vector2f position);

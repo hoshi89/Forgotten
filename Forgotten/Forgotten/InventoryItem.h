@@ -15,12 +15,7 @@ public:
 	std::string GetDirectory();
 	std::string GetName();
 	sf::Vector2f GetPosition();
-	float GetXPosition();
-	float GetYPosition();
-	void SetDirectory(std::string directory);
-	void SetName(std::string name);
 	void SetPosition(float x, float y);
-	void SetId(int id);
 	void SetTexture(std::string directory);
 	void Draw(sf::RenderWindow &window);
 	sf::IntRect GetRect();

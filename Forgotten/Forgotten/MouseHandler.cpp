@@ -5,7 +5,7 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), 
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
-	m_item("Data/Animations/Objects/Necklace.png", 1000, 1),
+	m_item(m_item),
 	m_currentMouseAnimation(&m_walkGreen),
 	m_window(window)
 {
@@ -90,10 +90,22 @@ sf::Vector2f MouseHandler::GetPosition(){
 	return MousePosition;
 }
 
-void MouseHandler::SetCurrentMouseAnimation(std::string& directory){
-	Animation* item = new Animation(directory, 1000, 1);
-	m_item = *item;
-	m_currentMouseAnimation = &m_item;
+void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
+	if(m_currentMouseAnimation == m_item){
+		delete m_item;
+		m_item = new Animation(directory, 1000, 1);
+		m_currentMouseAnimation = m_item;
+		m_id = id;
+	}else{
+		m_item = new Animation(directory, 1000, 1);
+		m_currentMouseAnimation = m_item;
+		m_id = id;
+	}
+}
+
+void MouseHandler::SetDefaultMouseAnimation(){
+	m_currentMouseAnimation = &m_walkGreen;
+	m_id = 0;
 }
 
 void MouseHandler::Draw(){
@@ -101,4 +113,15 @@ void MouseHandler::Draw(){
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
 
+int MouseHandler::GetId(){
+	return m_id;
+}
+
+bool MouseHandler::IfHoldsItem(){
+	if(m_id == 0){
+		return false;
+	}else{
+		return true;
+	}
+}
 

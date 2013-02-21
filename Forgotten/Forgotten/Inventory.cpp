@@ -46,6 +46,10 @@ std::string Inventory::GetDirectory(int id){
 	return m_items[id]->GetDirectory();
 }
 
+int Inventory::GetId(int id){
+	return m_items[id]->GetId();
+}
+
 void Inventory::Read(int i){
 	std::cout << m_items[i]->GetName();
 }
