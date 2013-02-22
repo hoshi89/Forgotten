@@ -3,13 +3,19 @@
 
 LevelDialogsCls::LevelDialogsCls(string aScriptName)
 {
+	//här ska vi öppna och ladda alla Deck i loop från scriptfilen
+	m_CurrentDeck = new DeckCls();
+	m_CurrentDeck->LoadFromFile();
+	m_Decks.push_back(m_CurrentDeck);
 }
 
-void LevelDialogsCls::ShowDialog(string aDeckId, sf::Vector2f aInteractionNode,
+bool LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow, 
+	string aDeckId, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos)
 {
 	m_CurrentDeck = GetDeckById(aDeckId);
-	m_CurrentDeck->ShowDialog(aInteractionNode, aEntityPos);
+	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos);
+
 }
 
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
@@ -24,11 +30,18 @@ DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
 	return NULL;
 }
 
+
+
 LevelDialogsCls::~LevelDialogsCls(void)
 {
 }
 
+void Choosed(int aMousePos)
+{
+
+}
 void LevelDialogsCls::LoadScript(string aScriptName)
 {
 	//pushback hårdkodade dialoger in i vector .. 
+
 }

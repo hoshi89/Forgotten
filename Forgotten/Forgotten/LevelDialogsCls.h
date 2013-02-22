@@ -1,5 +1,7 @@
 #pragma once
 
+//#include <SFML\Graphics.hpp>
+
 #include "DeckCls.h"
 
 #include <vector>
@@ -12,8 +14,10 @@ class LevelDialogsCls
 public:
 	LevelDialogsCls(string aScriptName);
 	virtual ~LevelDialogsCls(void);
-	void ShowDialog(string aDeckId, sf::Vector2f aInteractionNode,
+	bool ShowDialog(sf::RenderWindow &aWindow, string aDeckId,
+					sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos);
+	void Choosed(int aMousePos);
 
 private:
 	void LoadScript(string aScriptName);
