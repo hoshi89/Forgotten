@@ -8,7 +8,7 @@
 class Portal : public Entity{
 public:
 	Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction);
-	void MouseOver(MouseHandler &mouse);
+	bool MouseOver(MouseHandler &mouse);
 	void Interact();
 	void SetTargetPortal(Portal *portal);
 
@@ -22,6 +22,7 @@ public:
 	Entity::Direction GetDirection();
 	
 	void SetPosition(int x, int y);
+	void SetScript(std::string script);
 	void Update();
 	const sf::Sprite& GetSprite() const;
 	void Render(sf::RenderWindow &aWindow);

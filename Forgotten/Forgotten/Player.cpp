@@ -14,6 +14,7 @@ Player::Player(GenericMap &map)
 	m_currentAnimation(&m_walkingRight),
 	m_nodeMap(map),
 	m_currentTarget(-1, -1),
+	m_currentFocus(NULL),
 	m_isWalking(false)
 {
 }
@@ -22,12 +23,17 @@ void Player::GoTo(sf::Vector2f goal){
 	m_pathFinder.SetPath(ConvertToNodeCoords(m_position), goal);
 }
 
-void Player::SetFocus(Entity *aEntity)
-{
-	m_currentFocus = aEntity;
+void Player::SetFocus(Entity *entity){
+	m_currentFocus = entity;
 }
 
-Entity* Player::GetFocus(){ return m_currentFocus; }
+Entity* Player::GetFocus(){
+
+	if(m_currentFocus)
+		return m_currentFocus;
+
+	return NULL;
+}
 
 void Player::SetPosition(int x, int y){
 

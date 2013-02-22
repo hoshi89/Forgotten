@@ -15,16 +15,13 @@ public:
 	std::string GetDirectory();
 	std::string GetName();
 	sf::Vector2f GetPosition();
-	float GetXPosition();
-	float GetYPosition();
-	void SetDirectory(std::string directory);
-	void SetName(std::string name);
 	void SetPosition(float x, float y);
-	void SetId(int id);
 	void SetTexture(std::string directory);
 	void Draw(sf::RenderWindow &window);
 	sf::IntRect GetRect();
 	sf::Texture GetTexture();
+	bool IsAlive();
+	void SetDead();
 private:
 	int m_id;
 	std::string m_name;
@@ -33,6 +30,7 @@ private:
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
 	sf::IntRect m_textureRect;
+	bool m_isAlive;
 };
 
 #endif

@@ -13,6 +13,10 @@ void LevelManager::LoadChapter(){
 	m_levels[1]->GetPlayer()->SetNodePosition(30, 21);
 	m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
 
+	// Add sounds
+	m_levels[0]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
+	m_levels[2]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
+
 	// Add background animations
 	m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/Trasig lampa.wav"));
 	m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 32));
@@ -23,18 +27,18 @@ void LevelManager::LoadChapter(){
 
 	// Create portals
 	Portal *hall2reception = new Portal(0, sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0), Entity::Direction::LEFT);
-	Portal *reception2hall = new Portal(2, sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 54), Entity::Direction::RIGHT);
+	Portal *reception2hall = new Portal(2, sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50), Entity::Direction::RIGHT);
 
-	// Create portal links
-	hall2reception->SetTargetPortal(reception2hall);
-	reception2hall->SetTargetPortal(hall2reception);
+	// Set scripts for portals
+	hall2reception->SetScript("Data/Scripts/0001.txt");
+	reception2hall->SetScript("Data/Scripts/0002.txt");
 
-	// Add the portals to the portal vector
-	m_levels[0]->AddPortal(hall2reception);
-	m_levels[2]->AddPortal(reception2hall);
+	// NVM, add them to the entity vector
+	m_levels[0]->AddObject(hall2reception);
+	m_levels[2]->AddObject(reception2hall);
 
 	// Set first room
-	m_currentLevel = m_levels[2];
+	m_currentLevel = m_levels[0];
 	m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 }
 

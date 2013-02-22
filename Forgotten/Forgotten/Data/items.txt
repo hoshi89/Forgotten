@@ -1,5 +1,8 @@
-4
+7
 1 Cash1 Data/Inventory/Objects/cash.png
 2 Cash2 Data/Inventory/Objects/cash2.png
 3 Letter Data/Inventory/Objects/LetterV2.png
-4 Neclace Data/Inventory/Objects/necklace.png
+4 Necklace Data/Inventory/Objects/Necklace.png
+5 Revolver Data/inventory/Objects/Revolver.png
+6 Cigg Data/Inventory/Objects/cigg2.png
+7 Cane Data/Inventory/Objects/cane.png

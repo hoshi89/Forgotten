@@ -14,7 +14,7 @@ public:
 	void GoTo(sf::Vector2f goal);
 	void SetPosition(int x, int y);
 	void SetNodePosition(int x, int y);
-	void SetDirection(Direction direction);
+	void SetDirection(Entity::Direction direction);
 	sf::Vector2f GetPosition();
 	sf::Vector2f GetNodePosition();
 	void Update();
@@ -24,10 +24,10 @@ public:
 	sf::Vector2f ConvertToPixelCoords(sf::Vector2f nodeCoords);
 	const int GetZ();
 	void StopSound();
-	void SetFocus(Entity *aEntity);
+	void SetFocus(Entity *entity);
 	Entity* GetFocus();
 	void Interact(){};
-	bool MouseOver(){ return false; }
+	bool MouseOver(MouseHandler&){ return false; }
 private:
 	int m_direction;
 	Animation m_walkingRight;
