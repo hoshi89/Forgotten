@@ -40,6 +40,9 @@ void LevelManager::LoadChapter(){
 	// Set first room
 	m_currentLevel = m_levels[0];
 	m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
+
+	//Add Dialogs
+	m_levels[0]->LoadLevelDialogs("blabla");
 }
 
 Level* LevelManager::GetCurrentLevel(){ return m_currentLevel; }
@@ -53,3 +56,4 @@ void LevelManager::StopAllSounds(){
 	}
 
 }
+

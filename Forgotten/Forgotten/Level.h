@@ -6,6 +6,8 @@
 #include "Portal.h"
 #include "SFX.h"
 
+#include "LevelDialogsCls.h"
+
 class Level{
 public:
 	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture);
@@ -18,6 +20,10 @@ public:
 	Player* GetPlayer();
 	void StopAllSounds();
 	void PlaySound(int id);
+
+	//Dialog
+	LevelDialogsCls* GetLevelDialogs();
+	void LoadLevelDialogs(string aScriptName);
 private:
 	Player *m_player;
 	std::vector<Entity*> m_entities;
@@ -26,6 +32,10 @@ private:
 	sf::Texture m_bgTexture;
 	sf::Sprite m_bgSprite;
 	GenericMap m_nodeMap;
+	
+	//DialogStuff
+	LevelDialogsCls* m_Dialogs;
+
 };
 
 #endif

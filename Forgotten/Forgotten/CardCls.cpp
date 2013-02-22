@@ -1,8 +1,6 @@
 #include "CardCls.h"
 #include "GameManager.h"
 
-GameManager* DlgMng = GameManager::GetInstance();
-
 CardCls::CardCls(string aCardId, string aTargetCardId) : m_CardId(aCardId),
 	m_TargetCardId(aTargetCardId)
 {
@@ -22,7 +20,7 @@ string CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNod
 		if(wNrOfAnswers == 1)
 			return ShowQuestionAndOneAnswer(aWindow);
 		else
-			ShowQuestionAndAnswers(aWindow);
+//			ShowQuestionAndAnswers(aWindow);
 	return "";
 
 }
@@ -56,11 +54,11 @@ string CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow)
 	}
 	return m_Answers[0]->GetTargetId();
 }
-string CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow)
-{
-	DlgMng->WatingForAnswer(true);
-	return "";
-}
+//string CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow)
+//{
+//	DlgMng->WatingForAnswer(true);
+//	return "";
+//}
 void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 {
 	sf::Text wQuestion = sf::Text(m_Question);

@@ -4,6 +4,8 @@
 #include "Inventory.h"
 #include "MouseHandler.h"
 #include "ScriptText.h"
+
+#include "LevelDialogsCls.h"
 #include <SFML/Graphics.hpp>
 
 class Gui{
@@ -16,6 +18,11 @@ public:
 	void Draw(sf::RenderWindow &window);
 	void PushText(std::string text, int time, sf::Vector2f position);
 	void DeleteText();
+
+	//Dialog
+	void SetDeckId(string aDeckId);
+	void WaitingForAnswer(bool aIsWait, MouseHandler* aMouse);
+
 private:
 	void Move(const float SPEED);
 	int LoadImage();
@@ -33,6 +40,12 @@ private:
 	TextVector m_texts;
 	void DrawText(sf::RenderWindow& window);
 	sf::Clock m_clock;
+
+	//Dialog
+	bool m_isWaitingForAnswer;
+	string m_DeckId;
+	bool m_isDialogState;
+	MouseHandler* m_MouseHandler;
 };
 
 #endif

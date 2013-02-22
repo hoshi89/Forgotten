@@ -1,5 +1,6 @@
 #include "Gui.h"
 #include "FlagManager.h"
+#include "GameManager.h"
 
 Gui::Gui(MouseHandler& mouse) : 
 	m_down(false),
@@ -48,6 +49,19 @@ void Gui::Draw(sf::RenderWindow &window){
 	window.setView(m_guiview);
 
 	window.draw(m_guiSprite);
+
+	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
+	if(m_isDialogState)
+	{
+		//Hämtar dialogerna för "rätt" level
+		LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
+		//if(m_isWaitingForAnswer && m_MouseHandler->mouse1WasPressed())
+		//{
+//			sf::Vector2f mousePos = m_MouseHandler->GetPosition();
+			//currentLevelDialogs->Choosed(15);
+//		}
+		m_isDialogState = currentLevelDialogs->ShowDialog(window, "blabla", GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+	}
 	
 	Update();
 	

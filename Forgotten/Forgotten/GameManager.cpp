@@ -531,3 +531,8 @@ void GameManager::PlayerFocus(){
 		}
 	}
 }
+
+LevelManager* GameManager::GetLevelManager()
+{
+	return &m_levelManager;
+}

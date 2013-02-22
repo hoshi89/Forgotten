@@ -28,6 +28,7 @@ public:
 	sf::RenderWindow& GetWindow();
 	void LoadScript(std::string filename);
 	Player* GetPlayer();
+	LevelManager* GetLevelManager();
 private:
 	GameManager();
 	GameManager(GameManager const&);

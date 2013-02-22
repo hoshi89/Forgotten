@@ -33,7 +33,7 @@ private:
 
 	string ShowOnlyQuestion(sf::RenderWindow &aWindow);
 	string ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow);
-	string ShowQuestionAndAnswers(sf::RenderWindow &aWindow);
+//	string ShowQuestionAndAnswers(sf::RenderWindow &aWindow);
 	int GetNrOfAnswers();
 	void ManageQuestion(sf::RenderWindow &aWindow);
 	string EndDialog();
