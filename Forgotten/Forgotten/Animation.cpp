@@ -43,3 +43,9 @@ void Animation::PauseSound(){ m_sound.Pause(); }
 void Animation::PlaySound(){ m_sound.Play(); }
 
 void Animation::StopSound(){ m_sound.Stop(); }
+
+void Animation::SetScale(float scale){
+
+	m_sprite.setScale(scale, scale);
+
+}

@@ -44,14 +44,10 @@ private:
 	Inventory* m_inventory;
 	Gui gui;
 
-	sf::Event evt;
-
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
 
-	bool m_goingThroughPortal;
-	//Portal* m_targetPortal;
-	//sf::RectangleShape m_fade;
+
 
 	// Script stuff
 	typedef std::queue<std::string> EventQueue;

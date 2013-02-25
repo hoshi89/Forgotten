@@ -2,7 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "GameManager.h"
 
-GameManager* manager = GameManager::GetInstance();
+//GameManager* manager = GameManager::GetInstance();
 
 Portal::Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction)
 	:m_level(level), m_rect(rect), m_nodePosition(nodePosition), m_direction(direction), m_active(false),
@@ -13,8 +13,8 @@ Portal::Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::D
 void Portal::Interact(){
 
 	std::cout << "Interacting with portal..." << std::endl;
-	manager->GetPlayer()->GoTo(m_nodePosition);
-	manager->GetPlayer()->SetFocus(this);
+	GameManager::GetInstance()->GetPlayer()->GoTo(m_nodePosition);
+	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
 
 }
 
@@ -58,7 +58,7 @@ sf::Vector2f Portal::GetInteractionNode(){ return m_nodePosition; }
 
 void Portal::StartInteraction(){
 
-	manager->LoadScript(m_currentScript);
+	GameManager::GetInstance()->LoadScript(m_currentScript);
 
 }
 

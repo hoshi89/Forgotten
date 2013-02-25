@@ -16,6 +16,7 @@ public:
 	void PauseSound();
 	void PlaySound();
 	void StopSound();
+	void SetScale(float scale);
 private:
 	sf::Clock m_frameTimer;
 	sf::Texture m_texture;
