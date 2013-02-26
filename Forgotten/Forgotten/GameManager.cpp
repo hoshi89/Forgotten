@@ -32,10 +32,11 @@ GameManager::GameManager()
 {
 
 	// Set fadeShape
-	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 0));
+	m_fadeShape.setFillColor(sf::Color(255, 255, 255, 255));
 
 	// Start new game
 	m_levelManager.LoadChapter(); // Load first chapter
+	LoadScript("Data/Scripts/0004.txt");
 
 	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
 	//m_inventory->Read();

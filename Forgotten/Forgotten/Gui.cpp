@@ -81,8 +81,8 @@ void Gui::Draw(sf::RenderWindow &window){
 		}else if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
 			m_mouseHandler.SetDefaultMouseAnimation();
 			if(m_mouseHandler.mouse1IsPressed()){
-				std::string text = "I suddenly wanted to walk again";
-				PushText(text, 2, sf::Vector2f(200, 200));
+				//std::string text = "I suddenly wanted to walk again";
+				//PushText(text, 2, sf::Vector2f(200, 200));
 			}
 		}
 	}

@@ -1,5 +1,6 @@
 #include "LevelManager.h"
 #include "Portal.h"
+#include "GameManager.h"
 
 void LevelManager::LoadChapter(){
 
