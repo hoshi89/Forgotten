@@ -20,6 +20,7 @@ public:
 	void SetShowGui(bool showGui);
 	Animation* GetIdCursor(int id);
 	sf::IntRect GetRect();
+	void SetIsDownGui(bool down);
 
 	//Dialog
 	void SetDeckId(string aDeckId);

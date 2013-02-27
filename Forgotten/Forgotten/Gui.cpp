@@ -7,7 +7,7 @@
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
 	m_down(false),
-	m_showGui(true),
+	m_showGui(false),
 	m_showItems(false),
 	m_position(200, -50),
 	m_mouseHandler(mouse)
@@ -89,16 +89,16 @@ void Gui::Draw(sf::RenderWindow &window){
 	}
 }
 
-void Gui::SetShowGui(bool showGui){
-	m_showGui = showGui;
-}
-
 //Update GUI Rect for collision and render(Get Guis' position) Items
 void Gui::Update(){
-	sf::IntRect rect(m_guiSprite.getPosition().x, m_guiSprite.getPosition().y, m_gui.getSize().x, m_gui.getSize().y);
-	m_textureRect = rect;
+
+	if(m_showGui){
+		sf::IntRect rect(m_guiSprite.getPosition().x, m_guiSprite.getPosition().y, m_gui.getSize().x, m_gui.getSize().y);
+		m_textureRect = rect;
+	}
 
 	Render();
+
 	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 
 	const float SPEED = 1.5f;
@@ -180,4 +180,13 @@ void Gui::SetCursorVector(){
 Animation* Gui::GetIdCursor(int id){
 	CursorVector::iterator i = m_objectCursor.begin() + id-1;
 		return *i;
+}
+
+//Script events, show GUI/draw GUI
+void Gui::SetShowGui(bool showGui){
+	m_showGui = showGui;
+}
+//Script events, pull down GUI
+void Gui::SetIsDownGui(bool down){
+	m_down = down;
 }
