@@ -1,6 +1,0 @@
-fadeout 1
-wait 2
-setlevel 0
-setnodeposition 10 0 0
-setdirection 5 4
-fadein 1
