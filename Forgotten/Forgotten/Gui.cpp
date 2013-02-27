@@ -94,13 +94,6 @@ void Gui::Draw(sf::RenderWindow &window){
 	for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++){
 		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y)){
 			m_mouseHandler.SetCurrentMouseAnimation(Inventory::GetInstance()->GetDirectory(i), Inventory::GetInstance()->GetId(i));
-		}else if(sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
-			m_mouseHandler.SetDefaultMouseAnimation();
-			
-			if(m_mouseHandler.mouse1IsPressed()){
-				std::string text = "I suddenly wanted to walk again";
-				PushText(text, 2, sf::Vector2f(200, 200));
-			}
 		}
 	}
 }
