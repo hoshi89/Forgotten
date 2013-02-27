@@ -1,0 +1,9 @@
+suspend
+fadeout 1
+wait 2
+setlevel 2
+setnodeposition 19 38 3
+setdirection 3 4
+fadein 1
+wait 1
+resume

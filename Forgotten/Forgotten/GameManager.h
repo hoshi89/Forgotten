@@ -15,7 +15,7 @@
 const float FADESPEED = 2.0f;
 const bool FULLSCREEN = false;
 const bool DEBUG = true;
-const bool DEBUG_NODE = false;
+const bool DEBUG_NODE = true;
 
 // SINGLETON
 
