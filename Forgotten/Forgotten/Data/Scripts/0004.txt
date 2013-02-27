@@ -8,6 +8,6 @@ wait 1
 showtext 200 200 2 Forgotten...
 wait 1
 showtext 200 200 2 Forgotten....
-wait 1
+wait 2
 fadein 5
 resume

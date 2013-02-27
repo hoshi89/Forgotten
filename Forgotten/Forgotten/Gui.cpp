@@ -1,4 +1,4 @@
-//Gui class
+//Gui Class
 
 #include "Gui.h"
 #include "FlagManager.h"
@@ -7,7 +7,7 @@
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
 	m_down(false),
-	m_showGui(false),
+	m_showGui(true),
 	m_showItems(false),
 	m_position(200, -50),
 	m_mouseHandler(mouse)
@@ -16,6 +16,8 @@ Gui::Gui(MouseHandler& mouse) :
 	m_guiSprite.setPosition(m_position);
 	m_guiview.setSize(1024, 576);
 	m_guiview.setCenter(512, 288);
+
+	SetCursorVector();
 
 	//Temp for adding items to vector.
 	Inventory::GetInstance()->AddItem(1);
@@ -35,24 +37,13 @@ int Gui::LoadImage(){
 	return 0;
 }
 
-//Move GUI in-X coord
+//Move GUI in X coords
 void Gui::Move(const float SPEED){
 	m_guiSprite.move(0, SPEED);
 }
 
-//Move GUI depend on circumstances
+//Render Gui
 void Gui::Render(){
-	const float SPEED = 1.5f;
-	if(m_guiSprite.getPosition().y < 0 && m_down){
-		Move(SPEED);
-	}else if(m_guiSprite.getPosition().y < -50){
-		Move(0);
-		m_showItems = false;
-	}else if(!m_down){
-		Move(-SPEED);
-	}else{
-		Move(0);
-	}
 }
 
 //Drawing the gui and its items.
@@ -93,7 +84,7 @@ void Gui::Draw(sf::RenderWindow &window){
 
 	for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++){
 		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y)){
-			m_mouseHandler.SetCurrentMouseAnimation(Inventory::GetInstance()->GetDirectory(i), Inventory::GetInstance()->GetId(i));
+			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
 		}
 	}
 }
@@ -106,8 +97,21 @@ void Gui::SetShowGui(bool showGui){
 void Gui::Update(){
 	sf::IntRect rect(m_guiSprite.getPosition().x, m_guiSprite.getPosition().y, m_gui.getSize().x, m_gui.getSize().y);
 	m_textureRect = rect;
+
 	Render();
 	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
+
+	const float SPEED = 1.5f;
+	if(m_guiSprite.getPosition().y < 0 && m_down){
+		Move(SPEED);
+	}else if(m_guiSprite.getPosition().y < -50){
+		Move(0);
+		m_showItems = false;
+	}else if(!m_down){
+		Move(-SPEED);
+	}else{
+		Move(0);
+	}
 }
 
 sf::Vector2f Gui::GetPosition(){
@@ -123,6 +127,7 @@ void Gui::IsOverlap(sf::RenderWindow &window){
 	if(m_textureRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y)){
 		m_down = true;
 		m_showItems = true;
+		m_mouseHandler.SetCursor(5);
 		}else{
 		m_down = false;
 	}
@@ -153,4 +158,26 @@ void Gui::DeleteText(){
 	}
 	m_texts = texts;
 }
-	
+
+//Load from file(items.txt) all objects and push them into a vector
+void Gui::SetCursorVector(){
+	m_objectFile.open("Data/items.txt");
+	while(m_objectFile.good()){
+		int size;
+		m_objectFile >> size;
+		int id;
+		std::string name;
+		std::string directory;
+		for(int i = 0; i < size; i++){
+			m_objectFile >> id >> name >> directory;
+			m_objectCursor.push_back(new Animation(directory, 1000, 1));
+		}
+	}
+	m_objectFile.close();
+}
+
+//Returns Animation of the objectsVector
+Animation* Gui::GetIdCursor(int id){
+	CursorVector::iterator i = m_objectCursor.begin() + id-1;
+		return *i;
+}

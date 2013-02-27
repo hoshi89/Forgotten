@@ -46,8 +46,8 @@ std::string Inventory::GetDirectory(int id){
 	return m_items[id]->GetDirectory();
 }
 
-int Inventory::GetId(int id){
-	return m_items[id]->GetId();
+int Inventory::GetId(int i){
+	return m_items[i]->GetId();
 }
 
 void Inventory::Read(int i){
@@ -66,10 +66,10 @@ void Inventory::Draw(sf::RenderWindow &window){
 	}
 }
 
-std::string Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view){
+int Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view){
 	for(int i = 0; i < m_items.size(); i++){
 		if(m_items[i]->GetRect().contains(window.convertCoords(sf::Mouse::getPosition(window), view).x, window.convertCoords(sf::Mouse::getPosition(window), view).y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
-			return m_items[i]->GetDirectory();
+			return m_items[i]->GetId();
 		}
 	}
 }

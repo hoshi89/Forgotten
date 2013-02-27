@@ -7,7 +7,7 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
 	m_portal("Data/Animations/MouseIcons/portal.png", 50, 14),
-	m_item(m_item),
+	m_grabItem("Data/Animation/MouseIcons/hand.png", 1000, 1),
 	m_currentMouseAnimation(&m_default),
 	m_window(window)
 {
@@ -92,18 +92,18 @@ sf::Vector2f MouseHandler::GetPosition(){
 	return MousePosition;
 }
 
-void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
-	if(m_currentMouseAnimation == m_item){
-		delete m_item;
-		m_item = new Animation(directory, 1000, 1);
-		m_currentMouseAnimation = m_item;
-		m_id = id;
-	}else{
-		m_item = new Animation(directory, 1000, 1);
-		m_currentMouseAnimation = m_item;
-		m_id = id;
-	}
-}
+//void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
+//	if(m_currentMouseAnimation == m_item){
+//		delete m_item;
+//		m_item = new Animation(directory, 1000, 1);
+//		m_currentMouseAnimation = m_item;
+//		m_id = id;
+//	}else{
+//		m_item = new Animation(directory, 1000, 1);
+//		m_currentMouseAnimation = m_item;
+//		m_id = id;
+//	}
+//}
 
 void MouseHandler::Draw(){
 
@@ -127,7 +127,6 @@ bool MouseHandler::IfHoldsItem(){
 }
 
 void MouseHandler::SetCursor(int id){
-
 	switch(id){
 	case 0:
 		m_currentMouseAnimation = &m_default;
@@ -144,9 +143,15 @@ void MouseHandler::SetCursor(int id){
 	case 4:
 		m_currentMouseAnimation = &m_portal;
 		break;
+	case 5:
+		m_currentMouseAnimation = &m_grabItem;
+		break;
 	default:
 		m_currentMouseAnimation = &m_default;
 		break;
 	}
+}
 
+void MouseHandler::SetInventoryCursor(Animation* animation){
+	m_currentMouseAnimation = animation;
 }
