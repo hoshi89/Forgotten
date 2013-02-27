@@ -36,7 +36,6 @@ GameManager::GameManager()
 
 	// Start new game
 	m_levelManager.LoadChapter(0); // Load first chapter
-	LoadScript("Data/Scripts/0004.txt");
 
 	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
 	//m_inventory->Read();
@@ -77,7 +76,7 @@ void GameManager::Process(){
 	m_window.setMouseCursorVisible(false);
 
 	// Check the inital script for the chapter
-	if(m_levelManager.InitialScriptRun()){
+	if(!m_levelManager.InitialScriptRun()){
 		LoadScript(m_levelManager.GetInitialScript());
 	}
 
@@ -176,15 +175,22 @@ void GameManager::Render(){
 						nodeRect.setSize(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize()));
 						nodeRect.setOutlineColor(sf::Color::Black);
 						nodeRect.setOutlineThickness(1);
+
+						int h = m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x;
+
 						if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(x, y)){
 							nodeRect.setFillColor(sf::Color(0, 255, 0, 20));
+
+							if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x == x && m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().y == y){
+								nodeRect.setFillColor(sf::Color(0, 0, 255, 255));
+							}
+							
 						}else{
 							nodeRect.setFillColor(sf::Color(255, 0, 0, 20));
 						}
 						m_window.draw(nodeRect);
 					}
 				}
-				
 			}
 
 			// Mouse position
@@ -548,8 +554,11 @@ void GameManager::UpdateFade(){
 
 		}
 	}
-	m_fadeShape.setSize(m_view.getSize());
-	m_fadeShape.setPosition(((m_view.getCenter().x)-(m_view.getSize().x/2)), ((m_view.getCenter().y)-(m_view.getSize().y/2)));
+
+	sf::Vector2f bgSize(m_levelManager.GetCurrentLevel()->GetBackgroundImage().getTexture()->getSize());
+
+	m_fadeShape.setSize(bgSize);
+	m_fadeShape.setPosition(0, 0);
 }
 
 void GameManager::PlayerFocus(){

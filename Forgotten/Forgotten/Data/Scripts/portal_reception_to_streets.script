@@ -2,8 +2,8 @@ suspend
 fadeout 1
 wait 2
 setlevel 1
-setnodeposition 18 15 0
-setdirection 0 4
+setnodeposition 13 20 1
+setdirection 1 4
 fadein 1
 wait 1
 resume

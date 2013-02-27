@@ -1,0 +1,13 @@
+suspend
+showtext 200 200 2 Forgotten
+wait 1
+showtext 200 200 2 Forgotten.
+wait 1
+showtext 200 200 2 Forgotten..
+wait 1
+showtext 200 200 2 Forgotten...
+wait 1
+showtext 200 200 2 Forgotten....
+wait 20
+fadein 5
+resume

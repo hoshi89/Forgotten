@@ -14,18 +14,22 @@ void LevelManager::LoadChapter(int id){
 	case 0:
 
 		// Set initalizing script
-		m_initializingScript = "Data/Scripts/0004.txt";
+		m_initializingScript = "Data/Scripts/initial_chapter_1.script";
+
+		m_bgMusic.openFromFile("Data/Music/Hotel.ogg");
+		m_bgMusic.play();
+		m_bgMusic.setLoop(true);
 
 		// Create rooms for this level
 		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 52, 975, "Data/Levels/Level1/TEST_hall_fardig.png"));
-		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 20, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png"));
+		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png"));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png"));
 		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/chapter_1_level_art_hotel_room.png"));
 		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 25, "Data/Levels/Level1/Chapter_1_level_art_hotel_bar.png"));
 
 		// Set player position
 		m_levels[0]->GetPlayer()->SetNodePosition(7, 0);
-		m_levels[1]->GetPlayer()->SetNodePosition(30, 21);
+		m_levels[1]->GetPlayer()->SetNodePosition(13, 21);
 		m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
 		m_levels[3]->GetPlayer()->SetNodePosition(4, 49);
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 15);
@@ -44,8 +48,10 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 
 		// Create portals
-		Portal *hall2reception = new Portal(0, sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0), Entity::Direction::LEFT);
 		Portal *hotelroom2hall = new Portal(3, sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 49), Entity::Direction::LEFT);
+
+		Portal *hall2reception = new Portal(0, sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0), Entity::Direction::LEFT);
+		Portal *hall2hotelroom = new Portal(2, sf::IntRect(310, 260, 135, 215), sf::Vector2f(7, 0), Entity::Direction::LEFT);
 
 		Portal *reception2hall = new Portal(2, sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50), Entity::Direction::RIGHT);
 		Portal *reception2bar = new Portal(4, sf::IntRect(920, 140, 120, 250), sf::Vector2f(19, 38), Entity::Direction::DOWN);
@@ -53,16 +59,22 @@ void LevelManager::LoadChapter(int id){
 
 		Portal *bar2reception = new Portal(6, sf::IntRect(870, 210, 110, 180), sf::Vector2f(18, 15), Entity::Direction::UP);
 
+		Portal *streets2reception = new Portal(7, sf::IntRect(615, 280, 130, 135), sf::Vector2f(13, 20), Entity::Direction::UP);
+
 		// Set scripts for portals
-		hall2reception->SetScript("Data/Scripts/0001.txt");
-		reception2hall->SetScript("Data/Scripts/0002.txt");
+		hall2reception->SetScript("Data/Scripts/portal_hall_to_reception.script");
+		hall2hotelroom->SetScript("Data/Scripts/portal_hall_to_hotelroom.script");
+		reception2hall->SetScript("Data/Scripts/portal_reception_to_hall.script");
 		reception2bar->SetScript("Data/Scripts/portal_reception_to_bar.script");
-		hotelroom2hall->SetScript("Data/Scripts/0003.txt");
+		hotelroom2hall->SetScript("Data/Scripts/portal_hotelroom_to_hall.script");
 		bar2reception->SetScript("Data/Scripts/portal_bar_to_reception.script");
 		reception2streets->SetScript("Data/Scripts/portal_reception_to_streets.script");
+		streets2reception->SetScript("Data/Scripts/portal_streets_to_reception.script");
 
 		// Add them to the entity vector
 		m_levels[0]->AddObject(hall2reception);
+		m_levels[0]->AddObject(hall2hotelroom);
+		m_levels[1]->AddObject(streets2reception);
 		m_levels[2]->AddObject(reception2hall);
 		m_levels[2]->AddObject(reception2bar);
 		m_levels[2]->AddObject(reception2streets);
@@ -70,7 +82,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[4]->AddObject(bar2reception);
 
 		// Set first room
-		m_currentLevel = m_levels[1];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		//Add Dialogs
