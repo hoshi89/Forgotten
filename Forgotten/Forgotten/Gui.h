@@ -6,7 +6,7 @@
 #include "ScriptText.h"
 
 #include "LevelDialogsCls.h"
-#include <SFML/Graphics.hpp>
+//#include <SFML/Graphics.hpp>
 
 class Gui{
 public:
@@ -18,6 +18,7 @@ public:
 	void Draw(sf::RenderWindow &window);
 	void PushText(std::string text, int time, sf::Vector2f position);
 	void DeleteText();
+	void SetShowGui(bool showGui);
 
 	//Dialog
 	void SetDeckId(string aDeckId);
@@ -40,6 +41,8 @@ private:
 	TextVector m_texts;
 	void DrawText(sf::RenderWindow& window);
 	sf::Clock m_clock;
+	bool m_showGui;
+	bool m_showItems;
 
 	//Dialog
 	bool m_isWaitingForAnswer;
