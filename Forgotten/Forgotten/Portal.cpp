@@ -65,7 +65,7 @@ void Portal::StartInteraction(){
 bool Portal::MouseOver(MouseHandler& mouse){
 
 	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
-		// Set mouse animation
+		mouse.SetCursor(4);
 		std::cout << "Mouse over portal : x: " << mouse.GetPosition().x << " y: " << mouse.GetPosition().y << std::endl;
 		return true;
 	}

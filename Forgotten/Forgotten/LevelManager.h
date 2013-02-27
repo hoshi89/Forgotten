@@ -8,15 +8,18 @@
 
 class LevelManager{
 public:
-	void LoadChapter(/* CHAPTER1.dat */);
+	LevelManager();
+	void LoadChapter(int id);
 	Level* GetCurrentLevel();
 	void SetLevel(int id);
 	void StopAllSounds();
-
+	bool InitialScriptRun();
+	std::string GetInitialScript();
 private:
 	std::vector<Level*> m_levels;
 	Level *m_currentLevel;
-
+	std::string m_initializingScript;
+	bool m_initialScriptRun;
 };
 
 #endif
