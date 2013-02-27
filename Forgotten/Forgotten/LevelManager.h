@@ -20,6 +20,7 @@ private:
 	Level *m_currentLevel;
 	std::string m_initializingScript;
 	bool m_initialScriptRun;
+	sf::Music m_bgMusic;
 };
 
 #endif
