@@ -8,6 +8,8 @@
 #include "LevelDialogsCls.h"
 //#include <SFML/Graphics.hpp>
 
+using namespace std;
+
 class Gui{
 public:
 	Gui(MouseHandler& mouse);
@@ -22,9 +24,13 @@ public:
 	sf::IntRect GetRect();
 	void SetIsDownGui(bool down);
 
-	//Dialog
-	void SetDeckId(string aDeckId);
-	void WaitingForAnswer(bool aIsWait, MouseHandler* aMouse);
+	////Dialog
+	//void SetDeckId(string aDeckId);
+	//void WaitingForAnswer(bool aIsWait, MouseHandler* aMouse);
+		//Dialog
+	//void SetDeckId(string aDeckId);
+	//void AddItem(int aId);
+	//DialogStateEnum getDialogState();
 
 private:
 	void Move(const float SPEED);
@@ -55,11 +61,16 @@ private:
 	void SetCursorVector();
 	void LoadCursorImages();
 
+	////Dialog
+	//bool m_isWaitingForAnswer;
+	//string m_DeckId;
+	//bool m_isDialogState;
+	//MouseHandler* m_MouseHandler;
+
+	
 	//Dialog
-	bool m_isWaitingForAnswer;
-	string m_DeckId;
-	bool m_isDialogState;
-	MouseHandler* m_MouseHandler;
+	/*string m_DeckId;
+	DialogStateEnum m_DialogState;*/
 };
 
 #endif

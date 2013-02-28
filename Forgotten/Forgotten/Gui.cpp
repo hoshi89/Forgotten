@@ -7,7 +7,7 @@
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
 	m_down(false),
-	m_showGui(false),
+	m_showGui(true),
 	m_showItems(false),
 	m_position(200, -50),
 	m_mouseHandler(mouse)
@@ -27,6 +27,9 @@ Gui::Gui(MouseHandler& mouse) :
 	Inventory::GetInstance()->AddItem(5);
 	Inventory::GetInstance()->AddItem(6);
 	Inventory::GetInstance()->AddItem(7);
+	Inventory::GetInstance()->AddItem(1);
+
+	//	m_DialogState = DialogStateEnum::ContinueDialog;
 }
 
 int Gui::LoadImage(){
@@ -43,7 +46,7 @@ void Gui::Move(const float SPEED){
 }
 
 //Render Gui
-void Gui::Render(){
+void Gui::Render(){ 
 }
 
 //Drawing the gui and its items.
@@ -58,19 +61,49 @@ void Gui::Draw(sf::RenderWindow &window){
 			Inventory::GetInstance()->Draw(window);
 		}
 	}
+	//Gammal
+//	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
+//	if(m_isDialogState)
+//	{
+//		//Hämtar dialogerna för "rätt" level
+//		LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
+//		//if(m_isWaitingForAnswer && m_MouseHandler->mouse1WasPressed())
+//		//{
+////			sf::Vector2f mousePos = m_MouseHandler->GetPosition();
+//			//currentLevelDialogs->Choosed(15);
+////		}
+//		m_isDialogState = currentLevelDialogs->ShowDialog(window, "blabla", GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+//	}
 
-	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
-	if(m_isDialogState)
-	{
-		//Hämtar dialogerna för "rätt" level
-		LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
-		//if(m_isWaitingForAnswer && m_MouseHandler->mouse1WasPressed())
-		//{
-//			sf::Vector2f mousePos = m_MouseHandler->GetPosition();
-			//currentLevelDialogs->Choosed(15);
+	//ny
+//	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
+//	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
+//	switch (m_DialogState)
+//	{
+//	case DialogStateEnum::ContinueDialog:
+//		//Hämtar dialogerna för "rätt" level
+//		//if(m_isWaitingForAnswer && m_MouseHandler->mouse1WasPressed())
+//		//{
+////			sf::Vector2f mousePos = m_MouseHandler->GetPosition();
+//			//currentLevelDialogs->Choosed(15);
+////		}
+//		//"blabla" kommer från script
+//		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+//		break;
+//	case DialogStateEnum::WaitForAnswer:
+//		//Här ska vi fånga upp och skicka in musposition när man har klickat
+//		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+//		if(m_mouseHandler.mouse1IsPressed())
+//		{
+//			sf::Vector2f mousePos = m_mouseHandler.GetPosition();
+//			currentLevelDialogs->ChooseAnswer(&mousePos);
+//			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
 //		}
-		m_isDialogState = currentLevelDialogs->ShowDialog(window, "blabla", GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
-	}
+//		break;
+//	case DialogStateEnum::EndDialog:
+//		break;
+//
+//	}
 	//Update GUI
 	Update();
 
@@ -83,9 +116,14 @@ void Gui::Draw(sf::RenderWindow &window){
 	Inventory::GetInstance()->RemoveItem();
 
 	for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++){
-		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y)){
+		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y) && m_mouseHandler.mouse1IsPressed()){
 			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
+			m_mouseHandler.SetHoldingItem(true);
 		}
+	}
+
+	if(m_mouseHandler.HoldsItem() && m_mouseHandler.mouse1WasPressed()){
+		m_mouseHandler.DropItem();
 	}
 }
 
@@ -102,7 +140,7 @@ void Gui::Update(){
 	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 
 	const float SPEED = 1.5f;
-	if(m_guiSprite.getPosition().y < 0 && m_down){
+	if(m_guiSprite.getPosition().y < -1 && m_down){
 		Move(SPEED);
 	}else if(m_guiSprite.getPosition().y < -50){
 		Move(0);
@@ -186,7 +224,24 @@ Animation* Gui::GetIdCursor(int id){
 void Gui::SetShowGui(bool showGui){
 	m_showGui = showGui;
 }
+
 //Script events, pull down GUI
 void Gui::SetIsDownGui(bool down){
 	m_down = down;
 }
+
+//void Gui::SetDeckId(string aDeckId)
+//{
+//	m_DeckId = aDeckId;
+//	m_DialogState = DialogStateEnum::ContinueDialog;
+//}
+//void Gui::AddItem(int aId)
+//{
+//
+//}
+//
+//DialogStateEnum Gui::getDialogState()
+//{
+//	return m_DialogState;
+//}
+//	

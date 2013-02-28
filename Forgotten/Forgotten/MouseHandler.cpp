@@ -2,6 +2,7 @@
 
 MouseHandler::MouseHandler(sf::RenderWindow& window)
 	:m_m1pressed(false), m_m2pressed(false),
+	m_holdsItem(false),
 	m_default("Data/Animations/MouseIcons/default.png", 1000, 1),
 	m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), 
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
@@ -118,40 +119,50 @@ int MouseHandler::GetId(){
 	return m_id;
 }
 
-bool MouseHandler::IfHoldsItem(){
-	if(m_id == 0){
-		return false;
-	}else{
-		return true;
-	}
-}
-
 void MouseHandler::SetCursor(int id){
-	switch(id){
-	case 0:
-		m_currentMouseAnimation = &m_default;
-		break;
-	case 1:
-		m_currentMouseAnimation = &m_walkGreen;
-		break;
-	case 2:
-		m_currentMouseAnimation = &m_walkRed;
-		break;
-	case 3:
-		m_currentMouseAnimation = &m_walk;
-		break;
-	case 4:
-		m_currentMouseAnimation = &m_portal;
-		break;
-	case 5:
-		m_currentMouseAnimation = &m_grabItem;
-		break;
-	default:
-		m_currentMouseAnimation = &m_default;
-		break;
+	if(!m_holdsItem){
+		switch(id){
+		case 0:
+			m_currentMouseAnimation = &m_default;
+			break;
+		case 1:
+			m_currentMouseAnimation = &m_walkGreen;
+			break;
+		case 2:
+			m_currentMouseAnimation = &m_walkRed;
+			break;
+		case 3:
+			m_currentMouseAnimation = &m_walk;
+			break;
+		case 4:
+			m_currentMouseAnimation = &m_portal;
+			break;
+		case 5:
+			m_currentMouseAnimation = &m_grabItem;
+			break;
+		default:
+			m_currentMouseAnimation = &m_default;
+			break;
+		}
 	}
 }
 
 void MouseHandler::SetInventoryCursor(Animation* animation){
 	m_currentMouseAnimation = animation;
+}
+
+bool MouseHandler::HoldsItem(){
+	if(m_holdsItem){
+		return true;
+	}else{
+		return false;
+	}
+}
+
+void MouseHandler::SetHoldingItem(bool holdItem){
+	m_holdsItem = holdItem;
+}
+
+void MouseHandler::DropItem(){
+	m_holdsItem = false;
 }

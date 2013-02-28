@@ -16,9 +16,11 @@ public:
 	void Draw();
 	void SetCurrentMouseAnimation(std::string& directory, int id);
 	int GetId();
-	bool IfHoldsItem();
+	bool HoldsItem();
+	void DropItem();
 	void SetCursor(int id);
 	void SetInventoryCursor(Animation* animation);
+	void SetHoldingItem(bool holdItem);
 private:
 	Animation m_default;
 	Animation m_walkGreen;
@@ -33,6 +35,8 @@ private:
 	void SetPosition();
 	sf::RenderWindow& m_window;
 	int m_id;
+	bool m_holdsItem;
+	
 };
 
 #endif
