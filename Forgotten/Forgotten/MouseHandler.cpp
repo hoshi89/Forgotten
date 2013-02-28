@@ -8,7 +8,7 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
 	m_portal("Data/Animations/MouseIcons/portal.png", 50, 14),
-	m_grabItem("Data/Animation/MouseIcons/hand.png", 1000, 1),
+	m_grabItem("Data/Animations/MouseIcons/OverGui.png", 1000, 1),
 	m_currentMouseAnimation(&m_default),
 	m_window(window)
 {
