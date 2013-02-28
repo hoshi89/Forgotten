@@ -6,7 +6,7 @@
 
 const float WALKSPEED = 1.8;
 const float X_FEETOFFSET = 48;
-const float Y_FEETOFFSET = 155;
+const float Y_FEETOFFSET = 250;
 
 class Player : public Entity{
 public:

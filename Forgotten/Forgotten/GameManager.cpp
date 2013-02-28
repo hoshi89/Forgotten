@@ -24,18 +24,18 @@ GameManager::GameManager(GameManager const&)
 
 GameManager::GameManager()
 	:gui(m_mouseHandler),
-	m_fadingOut(false),
-	m_fadeAlpha(0),
+	m_fadingOut(true),
+	m_fadeAlpha(255),
 	m_wait(false),
 	m_mouseHandler(m_window),
 	m_suspend(false)
 {
 
 	// Set fadeShape
-	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 0));
+	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 255));
 
 	// Start new game
-	m_levelManager.LoadChapter(); // Load first chapter
+	m_levelManager.LoadChapter(0); // Load first chapter
 
 	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
 	//m_inventory->Read();
@@ -72,6 +72,14 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
+	// Hide the cursor
+	m_window.setMouseCursorVisible(false);
+
+	// Check the inital script for the chapter
+	if(!m_levelManager.InitialScriptRun()){
+		LoadScript(m_levelManager.GetInitialScript());
+	}
+
 	// Get next script event in queue
 	ProcessNextEvent();
 
@@ -87,6 +95,12 @@ void GameManager::Process(){
 	nodePos.x = floor(mousePosition.x / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x);
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
+	// Check if node is walkable
+	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y)){
+		m_mouseHandler.SetCursor(1);
+	}else{
+		m_mouseHandler.SetCursor(2);
+	}
 
 
 	// Sort the vector by Z value
@@ -124,6 +138,8 @@ void GameManager::Process(){
 				m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
 
 		}
+	}else{
+		m_mouseHandler.SetCursor(0);
 	}
 
 }
@@ -159,15 +175,22 @@ void GameManager::Render(){
 						nodeRect.setSize(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize()));
 						nodeRect.setOutlineColor(sf::Color::Black);
 						nodeRect.setOutlineThickness(1);
+
+						int h = m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x;
+
 						if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(x, y)){
 							nodeRect.setFillColor(sf::Color(0, 255, 0, 20));
+
+							if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x == x && m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().y == y){
+								nodeRect.setFillColor(sf::Color(0, 0, 255, 255));
+							}
+							
 						}else{
 							nodeRect.setFillColor(sf::Color(255, 0, 0, 20));
 						}
 						m_window.draw(nodeRect);
 					}
 				}
-				
 			}
 
 			// Mouse position
@@ -210,9 +233,6 @@ void GameManager::Render(){
 
 		}
 
-		// Draw the GUI
-		gui.Draw(m_window);
-
 		// Set view
 		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
 
@@ -223,10 +243,17 @@ void GameManager::Render(){
 			m_view.setCenter(sf::Vector2f(m_view.getSize().x/2, 288));
 		}
 
+		// Set the game view
 		m_window.setView(m_view);
 
 		// Draw the overlay for all items. Fade sprite.
 		m_window.draw(m_fadeShape);
+
+		// Draw the GUI on top of fade
+		gui.Draw(m_window);
+
+		// Set the game view again
+		m_window.setView(m_view);
 
 		// Draw mouse pointer
 		m_mouseHandler.Draw();
@@ -452,6 +479,26 @@ void GameManager::ProcessNextEvent(){
 
 			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
 		}
+		// Show text
+		else if(token == "showtext")
+		{
+			// Get coordinates as strings
+			std::getline(tmpStream, token, ' ');
+			int xcoord = StringToInt(token);
+			
+			std::getline(tmpStream, token, ' ');
+			int ycoord = StringToInt(token);
+
+			// Get time as string
+			std::getline(tmpStream, token, ' ');
+			int time = StringToInt(token);
+
+			// Get text
+			std::getline(tmpStream, token);
+			std::string text = token;
+
+			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord));
+		}
 
 		m_events.pop();
 	}
@@ -507,8 +554,11 @@ void GameManager::UpdateFade(){
 
 		}
 	}
-	m_fadeShape.setSize(m_view.getSize());
-	m_fadeShape.setPosition(((m_view.getCenter().x)-(m_view.getSize().x/2)), ((m_view.getCenter().y)-(m_view.getSize().y/2)));
+
+	sf::Vector2f bgSize(m_levelManager.GetCurrentLevel()->GetBackgroundImage().getTexture()->getSize());
+
+	m_fadeShape.setSize(bgSize);
+	m_fadeShape.setPosition(0, 0);
 }
 
 void GameManager::PlayerFocus(){

@@ -12,10 +12,9 @@
 #include "MouseHandler.h"
 #include <queue>
 
-const float FADESPEED = 2.0f;
-const bool FULLSCREEN = false;
-const bool DEBUG = true;
-const bool DEBUG_NODE = false;
+const bool FULLSCREEN = true;
+const bool DEBUG = false;
+const bool DEBUG_NODE = true;
 
 // SINGLETON
 
@@ -44,14 +43,10 @@ private:
 	Inventory* m_inventory;
 	Gui gui;
 
-	sf::Event evt;
-
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
 
-	bool m_goingThroughPortal;
-	//Portal* m_targetPortal;
-	//sf::RectangleShape m_fade;
+
 
 	// Script stuff
 	typedef std::queue<std::string> EventQueue;

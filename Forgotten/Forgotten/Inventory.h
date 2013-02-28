@@ -2,7 +2,6 @@
 #define INCLUDED_INVENTORY
 
 #include "InventoryItem.h"
-#include <fstream>
 
 class Inventory{
 public:
@@ -12,12 +11,12 @@ public:
 	void SetName(std::string name);
 	void Read(int i);
 	void LoadItems();
-	int GetId(int id);
+	int GetId(int i);
 	sf::Vector2f GetPosition(int id);
 	std::string GetDirectory(int id);
 	void Render(sf::Vector2f position);
 	void Draw(sf::RenderWindow &window);
-	std::string IsOverlap(sf::RenderWindow& window, sf::View& view);
+	int IsOverlap(sf::RenderWindow& window, sf::View& view);
 	sf::IntRect GetItemsRect(int i);
 	std::vector<InventoryItem*> Contains();
 	void RemoveItem();

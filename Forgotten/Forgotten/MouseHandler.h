@@ -15,14 +15,17 @@ public:
 	sf::Vector2f GetPosition();
 	void Draw();
 	void SetCurrentMouseAnimation(std::string& directory, int id);
-	void SetDefaultMouseAnimation();
 	int GetId();
 	bool IfHoldsItem();
+	void SetCursor(int id);
+	void SetInventoryCursor(Animation* animation);
 private:
+	Animation m_default;
 	Animation m_walkGreen;
 	Animation m_walkRed;
 	Animation m_walk;
-	Animation* m_item;
+	Animation m_portal;
+	Animation m_grabItem;
 	Animation* m_currentMouseAnimation;
 	bool m_m1pressed;
 	bool m_m2pressed;

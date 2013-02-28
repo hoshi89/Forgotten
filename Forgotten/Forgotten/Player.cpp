@@ -305,7 +305,6 @@ void Player::Update(){
 		}
 		break;
 	}
-	
 
 	m_pathFinder.FindPath();
 	m_position += m_velocity;
@@ -315,8 +314,8 @@ void Player::Update(){
 	// Set sprite position
 	sf::Vector2f offsetPos;
 
-	offsetPos.x = m_position.x - X_FEETOFFSET;
-	offsetPos.y = m_position.y - Y_FEETOFFSET;
+	offsetPos.x = m_position.x - (X_FEETOFFSET);
+	offsetPos.y = m_position.y - (Y_FEETOFFSET);
 
 	m_currentAnimation->setPosition(offsetPos);
 
@@ -352,6 +351,10 @@ sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
 
 }
 
-const int Player::GetZ(){ return 0; }
+const int Player::GetZ(){
+
+	return m_position.y;
+
+}
 
 void Player::StopSound(){ m_currentAnimation->PauseSound(); }

@@ -1,12 +1,14 @@
 #include "MouseHandler.h"
 
 MouseHandler::MouseHandler(sf::RenderWindow& window)
-	:m_m1pressed(false), m_m2pressed(false), 
+	:m_m1pressed(false), m_m2pressed(false),
+	m_default("Data/Animations/MouseIcons/default.png", 1000, 1),
 	m_walkGreen("Data/Animations/MouseIcons/MousepointerWalkGreen.png", 1000, 1), 
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
-	m_item(m_item),
-	m_currentMouseAnimation(&m_walkGreen),
+	m_portal("Data/Animations/MouseIcons/portal.png", 50, 14),
+	m_grabItem("Data/Animation/MouseIcons/hand.png", 1000, 1),
+	m_currentMouseAnimation(&m_default),
 	m_window(window)
 {
 	m_window.setMouseCursorVisible(false);
@@ -90,25 +92,24 @@ sf::Vector2f MouseHandler::GetPosition(){
 	return MousePosition;
 }
 
-void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
-	if(m_currentMouseAnimation == m_item){
-		delete m_item;
-		m_item = new Animation(directory, 1000, 1);
-		m_currentMouseAnimation = m_item;
-		m_id = id;
-	}else{
-		m_item = new Animation(directory, 1000, 1);
-		m_currentMouseAnimation = m_item;
-		m_id = id;
-	}
-}
-
-void MouseHandler::SetDefaultMouseAnimation(){
-	m_currentMouseAnimation = &m_walkGreen;
-	m_id = 0;
-}
+//void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
+//	if(m_currentMouseAnimation == m_item){
+//		delete m_item;
+//		m_item = new Animation(directory, 1000, 1);
+//		m_currentMouseAnimation = m_item;
+//		m_id = id;
+//	}else{
+//		m_item = new Animation(directory, 1000, 1);
+//		m_currentMouseAnimation = m_item;
+//		m_id = id;
+//	}
+//}
 
 void MouseHandler::Draw(){
+
+	// Update animation
+	m_currentMouseAnimation->update();
+
 	SetPosition();
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
@@ -125,3 +126,32 @@ bool MouseHandler::IfHoldsItem(){
 	}
 }
 
+void MouseHandler::SetCursor(int id){
+	switch(id){
+	case 0:
+		m_currentMouseAnimation = &m_default;
+		break;
+	case 1:
+		m_currentMouseAnimation = &m_walkGreen;
+		break;
+	case 2:
+		m_currentMouseAnimation = &m_walkRed;
+		break;
+	case 3:
+		m_currentMouseAnimation = &m_walk;
+		break;
+	case 4:
+		m_currentMouseAnimation = &m_portal;
+		break;
+	case 5:
+		m_currentMouseAnimation = &m_grabItem;
+		break;
+	default:
+		m_currentMouseAnimation = &m_default;
+		break;
+	}
+}
+
+void MouseHandler::SetInventoryCursor(Animation* animation){
+	m_currentMouseAnimation = animation;
+}
