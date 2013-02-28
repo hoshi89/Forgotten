@@ -5,7 +5,6 @@
 LevelManager::LevelManager()
 	:m_initialScriptRun(false)
 {
-
 }
 
 void LevelManager::LoadChapter(int id){

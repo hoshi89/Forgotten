@@ -14,7 +14,7 @@ public:
 	virtual void SetPosition(int x, int y) abstract;
 	virtual void Update() abstract;
 	virtual const sf::Sprite& GetSprite() const abstract;
-	virtual void Render(sf::RenderWindow &aWindow) abstract;
+	virtual void Render(sf::RenderWindow &window) abstract;
 	virtual const int GetZ() abstract;
 	virtual void StopSound() abstract;
 	virtual void Interact() abstract;
@@ -23,6 +23,7 @@ public:
 	virtual bool MouseOver(MouseHandler&) abstract;
 	virtual void GoTo(sf::Vector2f)=0;
 	virtual void SetDirection(Entity::Direction direction){};
+	virtual void Inspect(){};
 };
 
 #endif
