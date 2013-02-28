@@ -12,9 +12,9 @@
 #include "MouseHandler.h"
 #include <queue>
 
-const bool FULLSCREEN = true;
-const bool DEBUG = false;
-const bool DEBUG_NODE = true;
+const bool FULLSCREEN = false;
+const bool DEBUG = true;
+const bool DEBUG_NODE = false;
 
 // SINGLETON
 

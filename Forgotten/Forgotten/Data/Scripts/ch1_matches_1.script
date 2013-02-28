@@ -1,0 +1,8 @@
+suspend
+showtext 200 200 5 It's a matchbox.
+wait 5
+additem 3
+showtext 500 500 2 Picked up matchbox!
+removeentity 1
+wait 2
+resume

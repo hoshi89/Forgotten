@@ -19,16 +19,6 @@ Gui::Gui(MouseHandler& mouse) :
 
 	SetCursorVector();
 
-	//Temp for adding items to vector.
-	Inventory::GetInstance()->AddItem(1);
-	Inventory::GetInstance()->AddItem(2);
-	Inventory::GetInstance()->AddItem(3);
-	Inventory::GetInstance()->AddItem(4);
-	Inventory::GetInstance()->AddItem(5);
-	Inventory::GetInstance()->AddItem(6);
-	Inventory::GetInstance()->AddItem(7);
-	Inventory::GetInstance()->AddItem(1);
-
 	//	m_DialogState = DialogStateEnum::ContinueDialog;
 }
 

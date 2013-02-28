@@ -1,6 +1,7 @@
 #include "LevelManager.h"
 #include "Portal.h"
 #include "GameManager.h"
+#include "Object.h"
 
 LevelManager::LevelManager()
 	:m_initialScriptRun(false)
@@ -79,6 +80,18 @@ void LevelManager::LoadChapter(int id){
 		m_levels[2]->AddObject(reception2streets);
 		m_levels[3]->AddObject(hotelroom2hall);
 		m_levels[4]->AddObject(bar2reception);
+
+		// Add objects
+		Object *matches = new Object(400, 250, 3, 52, "Data/Animations/Objects/matches2.png", 1000, 1);
+		Object *necklace = new Object(300, 300, 3, 52, "Data/Animations/Objects/necklace.png", 1000, 1);
+
+		// Set object scripts
+		matches->SetInteractScript("Data/Scripts/ch1_matches_1.script");
+		necklace->SetInteractScript("Data/Scripts/ch1_matches_1.script");
+
+		// Add objects to the entity vector
+		m_levels[3]->AddObject(matches);
+		m_levels[3]->AddObject(necklace);
 
 		// Set first room
 		m_currentLevel = m_levels[3];

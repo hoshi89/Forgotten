@@ -102,7 +102,6 @@ void GameManager::Process(){
 		m_mouseHandler.SetCursor(2);
 	}
 
-
 	// Sort the vector by Z value
 	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
 
@@ -505,11 +504,30 @@ void GameManager::ProcessNextEvent(){
 		// Play dialog
 		else if(token == "playdialog")
 		{
-			// Get entity id as string
+			// Get id as string
 			std::getline(tmpStream, token, ' ');
 			std::string id = token;
 
 			gui.SetDeckId(id);
+		}
+		// Add item
+		else if(token == "additem")
+		{
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			int id = StringToInt(token);
+
+			Inventory::GetInstance()->AddItem(id);
+		}
+		// Remove item
+		else if(token == "removeentity")
+		{
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			int id = StringToInt(token);
+
+			m_levelManager.GetCurrentLevel()->GetEntities().erase(m_levelManager.GetCurrentLevel()->GetEntities().begin()+id);
+
 		}
 
 		m_events.pop();

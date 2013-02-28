@@ -1,9 +1,12 @@
 #include "Object.h"
 #include "GameManager.h"
 
-Object::Object()
-	:m_idle("Filnamn", 100, 1)
+Object::Object(int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes)
+	:m_idle(texture, timeperframe, numframes),
+	m_position(xPos, yPos),
+	m_interactionNode(interactionX, interactionY)
 {
+	m_currentAnimation = &m_idle;
 }
 
 void Object::SetPosition(int x, int y)
@@ -59,12 +62,9 @@ bool Object::MouseOver(MouseHandler &mouse)
 {
 	if(m_currentAnimation->getSprite().getGlobalBounds().contains(mouse.GetPosition()))
 	{
-		// The mouse is within the sprite, but is it over the actual object?
-		if(m_currentAnimation->getSprite().getTexture()->copyToImage().getPixel(mouse.GetPosition().x, mouse.GetPosition().y) != sf::Color::Transparent)
-		{
-			// The color isn't transparent
-			return true;
-		}
+		// The mouse is within the sprite
+		mouse.SetCursor(3);
+		return true;
 	}
 	return false;
 }
@@ -77,4 +77,14 @@ void Object::GoTo(sf::Vector2f)
 void Object::Inspect()
 {
 	GameManager::GetInstance()->LoadScript(m_inspectScript);
+}
+
+void Object::SetInteractScript(std::string script)
+{
+	m_interactScript = script;
+}
+
+void Object::SetInspectScript(std::string script)
+{
+	m_inspectScript = script;
 }

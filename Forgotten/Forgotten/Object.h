@@ -5,7 +5,7 @@
 
 class Object : public Entity{
 public:
-	Object();
+	Object(int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes);
 	void SetPosition(int x, int y);
 	void Update();
 	const sf::Sprite& GetSprite() const;
@@ -18,6 +18,8 @@ public:
 	bool MouseOver(MouseHandler &mouse);
 	void GoTo(sf::Vector2f);
 	void Inspect();
+	void SetInteractScript(std::string script);
+	void SetInspectScript(std::string script);
 private:
 	Animation m_idle;
 	Animation *m_currentAnimation;

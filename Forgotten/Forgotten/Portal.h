@@ -12,7 +12,6 @@ public:
 	void Interact();
 	void SetTargetPortal(Portal *portal);
 
-
 	int GetID();
 	Portal* GetTargetPortal();
 
