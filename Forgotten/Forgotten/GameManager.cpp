@@ -286,6 +286,9 @@ Player* GameManager::GetPlayer(){
 
 void GameManager::ProcessNextEvent(){
 
+	if(gui.getDialogState() == DialogStateEnum::ContinueDialog || gui.getDialogState() == DialogStateEnum::WaitForAnswer)
+		return;
+
 	if(m_wait){
 		if(m_waitClock.getElapsedTime().asSeconds() < m_waitTime)
 		{
@@ -498,6 +501,15 @@ void GameManager::ProcessNextEvent(){
 			std::string text = token;
 
 			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord));
+		}
+		// Play dialog
+		else if(token == "playdialog")
+		{
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			std::string id = token;
+
+			gui.SetDeckId(id);
 		}
 
 		m_events.pop();

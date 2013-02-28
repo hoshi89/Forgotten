@@ -24,13 +24,10 @@ public:
 	sf::IntRect GetRect();
 	void SetIsDownGui(bool down);
 
-	////Dialog
-	//void SetDeckId(string aDeckId);
-	//void WaitingForAnswer(bool aIsWait, MouseHandler* aMouse);
-		//Dialog
-	//void SetDeckId(string aDeckId);
-	//void AddItem(int aId);
-	//DialogStateEnum getDialogState();
+	// Dialog
+	void SetDeckId(string aDeckId);
+	void AddItem(int aId);
+	DialogStateEnum getDialogState();
 
 private:
 	void Move(const float SPEED);
@@ -61,16 +58,9 @@ private:
 	void SetCursorVector();
 	void LoadCursorImages();
 
-	////Dialog
-	//bool m_isWaitingForAnswer;
-	//string m_DeckId;
-	//bool m_isDialogState;
-	//MouseHandler* m_MouseHandler;
-
-	
 	//Dialog
-	/*string m_DeckId;
-	DialogStateEnum m_DialogState;*/
+	string m_DeckId;
+	DialogStateEnum m_DialogState;
 };
 
 #endif

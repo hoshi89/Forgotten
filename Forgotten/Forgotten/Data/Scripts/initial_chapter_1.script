@@ -1,17 +1,5 @@
 suspend
-showtext 200 200 2 Forgotten
-wait 1
-showtext 200 200 2 Forgotten.
-wait 1
-showtext 200 200 2 Forgotten..
-wait 1
-showtext 200 200 2 Forgotten...
-wait 1
-showtext 200 200 2 Forgotten....
-<<<<<<< HEAD:Forgotten/Forgotten/Data/Scripts/0004.txt
-wait 2
-=======
-wait 20
->>>>>>> 046049e52ce7827be0c41d417e9ca794418672d1:Forgotten/Forgotten/Data/Scripts/initial_chapter_1.script
-fadein 5
+fadein 1
+playdialog blabla
+additem 1
 resume
