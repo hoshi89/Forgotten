@@ -9,7 +9,7 @@ LevelDialogsCls::LevelDialogsCls(string aScriptName)
 	m_Decks.push_back(m_CurrentDeck);
 }
 
-bool LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow, 
+DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow, 
 	string aDeckId, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos)
 {
@@ -30,16 +30,15 @@ DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
 	return NULL;
 }
 
-
+void LevelDialogsCls::ChooseAnswer(sf::Vector2f* aMousePos)
+{
+	m_CurrentDeck->ChooseAnswer(aMousePos);
+}
 
 LevelDialogsCls::~LevelDialogsCls(void)
 {
 }
 
-void Choosed(int aMousePos)
-{
-
-}
 void LevelDialogsCls::LoadScript(string aScriptName)
 {
 	//pushback hårdkodade dialoger in i vector .. 

@@ -10,28 +10,45 @@ AnswerCls::AnswerCls(string aAnswerId, string aTargetId) :m_AnswerId(aAnswerId),
 void AnswerCls::LoadFromFile(string aAnswerText)
 {
 	//här ska vi ladda Answer som ligger under DETTA Card i loop från scriptfilen
-	m_AnswerText = aAnswerText;
+	m_Answer = aAnswerText;
+	m_AnswerText = sf::Text(m_Answer);
 }
 
-string AnswerCls::ManageAnswer(sf::RenderWindow &aWindow)
+void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow)
 {
-	sf::Text wAnswer = sf::Text(m_AnswerText);
-	if(m_TextPlace.compare("NPC"))
-		wAnswer.setPosition(400, 400);
+	if(m_TextPlace == "NPC")
+		m_AnswerText.setPosition(400, 400);
 	else
 	{
-		wAnswer.setPosition(200, 200);
+		m_AnswerText.setPosition(200, 200);
 	}
-	wAnswer.setCharacterSize(25);
-	wAnswer.setColor(sf::Color::Cyan);
-	aWindow.draw(wAnswer);	
+	m_AnswerText.setCharacterSize(25);
+	m_AnswerText.setColor(sf::Color::Cyan);
+	aWindow.draw(m_AnswerText);	
 
-	return m_TargetCardId;
+	//return m_TargetCardId;
 }
 
-string AnswerCls::GetTargetId()
+string* AnswerCls::GetTargetId()
 {
-	return m_TargetCardId;
+	return &m_TargetCardId;
+}
+
+void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
+{
+	m_AnswerText.setPosition(20, aYpos);
+
+	m_AnswerText.setCharacterSize(25);
+	m_AnswerText.setColor(sf::Color::Cyan);
+	aWindow.draw(m_AnswerText);	
+
+}
+
+bool AnswerCls::isAnswerChoosen(sf::Vector2f* aMousePos)
+{
+	sf::FloatRect* wRect = &m_AnswerText.getGlobalBounds();
+	
+	return wRect->contains(*aMousePos);
 }
 AnswerCls::~AnswerCls(void)
 {

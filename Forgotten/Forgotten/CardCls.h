@@ -10,16 +10,19 @@ const sf::Time ANSWER_ELAPSED_TIME = sf::microseconds(2*5000000);
 const int DISPLAY_HEIGHT = 576;
 const int TEXT_SIZE = 25;
 
+enum DialogStateEnum {EndDialog, ContinueDialog, WaitForAnswer};
 
 using namespace std;
 class CardCls
 {
 public:
 	CardCls(string aCardId, string aTargetCardId);
-	string ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
+	string* ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
 				sf::Vector2f aEntityPos);
 	void LoadFromFile(string aText);
-	string GetCardId();
+	string* GetCardId();
+	DialogStateEnum GetDialogState();
+	string* ChooseAnswer(sf::Vector2f* aMousePos);
 	virtual ~CardCls(void);
 private:
 	string m_CardId;
@@ -30,12 +33,16 @@ private:
 	sf::Vector2f m_EntityPos;
 	sf::Vector2f m_InteractionNode;
 	string m_TargetCardId;
+	DialogStateEnum m_State;
+	sf::Text m_QuestionText;
 
-	string ShowOnlyQuestion(sf::RenderWindow &aWindow);
-	string ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow);
-//	string ShowQuestionAndAnswers(sf::RenderWindow &aWindow);
+	
+	string* ShowOnlyQuestion(sf::RenderWindow &aWindow);
+	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow);
+	string* ShowQuestionAndAnswers(sf::RenderWindow &aWindow);
 	int GetNrOfAnswers();
 	void ManageQuestion(sf::RenderWindow &aWindow);
-	string EndDialog();
+	string* EndDialog();
+	void ContinueDialog();
 };
 

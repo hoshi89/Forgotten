@@ -12,14 +12,17 @@ class AnswerCls
 public:
 	AnswerCls(string aAnswerId, string aTargetId);
 
-	string ManageAnswer(sf::RenderWindow &aWindow);
-	string GetTargetId();
+	void ManageAnswer(sf::RenderWindow &aWindow);
+	void ManageAnswerS(sf::RenderWindow &aWindow, int aYpos);
+	string* GetTargetId();
 	void LoadFromFile(string aAnswerText);
 	virtual ~AnswerCls(void);
+	bool isAnswerChoosen(sf::Vector2f* aMousePos);
 private:
 	string m_AnswerId;
 	string m_TextPlace;
-	string m_AnswerText;
+	string m_Answer;
 	string m_TargetCardId;
+	sf::Text m_AnswerText;
 };
 

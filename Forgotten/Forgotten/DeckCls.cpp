@@ -3,7 +3,7 @@
 
 DeckCls::DeckCls(void)
 {
-	m_CurrentCardId = "";
+	m_CurrentCardId = NULL;
 }
 
 string DeckCls::GetDeckId()
@@ -11,27 +11,29 @@ string DeckCls::GetDeckId()
 	return m_DeckId;
 }
 
-CardCls* DeckCls::GetCardById(string aCardId)
+CardCls* DeckCls::GetCardById(string* aCardId)
 {
-	string wCardId;
-	for(int i = 0; i < m_Cards.size(); i++)
+	string* wCardId;
+ 	for(int i = 0; i < m_Cards.size(); i++)
 	{
 		wCardId = m_Cards[i]->GetCardId();
-		if(wCardId.compare(aCardId) == 0)
+		if(*wCardId == *aCardId)
 			return m_Cards[i];
 	}
 	return NULL;
 }
 
-bool DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
+DialogStateEnum DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos)
 {
-	if(m_CurrentCardId == "")
+	if(m_CurrentCardId == NULL || *m_CurrentCardId == "")
 		m_CurrentCardId = m_Cards[0]->GetCardId();
-	
+
 	m_CurrentCard = GetCardById(m_CurrentCardId);
 	m_CurrentCardId = m_CurrentCard->ShowCard(aWindow, aInteractionNode, aEntityPos);
-	return m_CurrentCardId != "";
+	DialogStateEnum wDlgState = m_CurrentCard->GetDialogState();
+
+	return wDlgState;
 	
 }
 
@@ -40,19 +42,32 @@ void DeckCls::LoadFromFile()
 	m_DeckId = "blabla";
 
 	//här ska vi ladda alla Cards som ligger under DETTA deck i loop från scriptfilen
-	CardCls* CardOne = new CardCls("bajs", "kol");
+	CardCls* CardZero = new CardCls("zerocard", "firstcard");
+	m_Cards.push_back(CardZero);
+	CardZero->LoadFromFile("zerocard!");
+
+	CardCls* CardOne = new CardCls("firstcard", "");
 	m_Cards.push_back(CardOne);
-	CardOne->LoadFromFile("Hello, bajs");
+	CardOne->LoadFromFile("firstcard!");
 
-	CardCls* CardTwo = new CardCls("kol", "yes!");
+	CardCls* CardTwo = new CardCls("secondcard", "");
 	m_Cards.push_back(CardTwo);
-	CardTwo->LoadFromFile("haha, kul");
+	CardTwo->LoadFromFile("secondcard!");
 
-	CardCls* CardThree = new CardCls("yes!", "");
+	CardCls* CardThree = new CardCls("thirdcard", "");
 	m_Cards.push_back(CardThree);
-	CardThree->LoadFromFile("YAAAA");
+	CardThree->LoadFromFile("thirdcard!");
+
+	CardCls* CardFour = new CardCls("fourthcard", "");
+	m_Cards.push_back(CardFour);
+	CardFour->LoadFromFile("fourthcard!");
 	
 	//
+}
+
+void DeckCls::ChooseAnswer(sf::Vector2f* aMousePos)
+{
+	m_CurrentCardId = m_CurrentCard->ChooseAnswer(aMousePos);
 }
 
 DeckCls::~DeckCls(void)

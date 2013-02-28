@@ -1,12 +1,15 @@
 #pragma once
-#include "DialogOwnerCls.h"
+#include "entity.h"
+
+#include <string>
+
+using namespace std;
 
 class NpcCls :
-	public DialogOwnerCls
+	public Entity
 {
 public:
-	NpcCls(int aXpos, int aYpos,
-		Player *aPlayer, const string aSpriteName);
+	NpcCls(int aXpos, int aYpos, const string aSpriteName);
 	/*
 	- Ärver klickbarhet från dialogOwner
 	- 
