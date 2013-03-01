@@ -10,28 +10,17 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_portal("Data/Animations/MouseIcons/portal.png", 50, 14),
 	m_grabItem("Data/Animations/MouseIcons/OverGui.png", 1000, 1),
 	m_currentMouseAnimation(&m_default),
-	m_window(window)
+	m_window(window),
+	m_mouse1_was_pressed(false),
+	m_mouse2_was_pressed(false)
 {
 	m_window.setMouseCursorVisible(false);
 	MousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 }
 
-bool MouseHandler::mouse1WasPressed(){
-
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Left)){
-		if(m_m1pressed){
-			return false;
-		}else{
-			m_m1pressed = true;
-			return true;
-		}
-
-	}else{
-
-		m_m1pressed = false;
-		return false;
-	}
-
+bool MouseHandler::mouse1WasPressed()
+{
+	return m_mouse1_was_pressed;
 }
 
 bool MouseHandler::mouse2WasPressed(){
@@ -74,6 +63,47 @@ bool MouseHandler::mouse2IsPressed(){
 void MouseHandler::Render(){
 	SetPosition();
 	m_window.draw(m_currentMouseAnimation->getSprite());
+}
+
+void MouseHandler::Update(){
+
+	// Mouse 1 was pressed
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
+	{
+		if(m_m1pressed)
+		{
+			m_mouse1_was_pressed = false;
+		}
+		else
+		{
+			m_mouse1_was_pressed = true;
+			m_m1pressed = true;
+		}
+	}
+	else
+	{
+		m_mouse1_was_pressed = false;
+		m_m1pressed = false;
+	}
+
+	// Mouse 2 was pressed
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		if(m_m2pressed)
+		{
+			m_mouse2_was_pressed = false;
+		}
+		else
+		{
+			m_mouse2_was_pressed = true;
+			m_m2pressed = true;
+		}
+	}
+	else
+	{
+		m_mouse2_was_pressed = false;
+		m_m2pressed = false;
+	}
 }
 
 bool MouseHandler::IsOver(sf::IntRect rect){

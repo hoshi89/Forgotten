@@ -23,6 +23,15 @@ void Player::GoTo(sf::Vector2f goal){
 	m_pathFinder.SetPath(ConvertToNodeCoords(m_position), goal);
 }
 
+std::string Player::GetID()
+{
+	return "player";
+}
+
+void Player::SetID(std::string id)
+{
+}
+
 void Player::SetFocus(Entity *entity){
 	m_currentFocus = entity;
 }

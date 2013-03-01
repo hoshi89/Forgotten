@@ -49,7 +49,7 @@ private:
 
 
 	// Script stuff
-	typedef std::queue<std::string> EventQueue;
+	typedef std::vector<std::string> EventQueue;
 	EventQueue m_events;
 
 	void ProcessNextEvent();

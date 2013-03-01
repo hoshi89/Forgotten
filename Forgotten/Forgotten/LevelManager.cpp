@@ -47,19 +47,17 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 100, 1, 370, 384, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 
+		///////////////////// PORTALS BEGIN ///////////////////////////
+
 		// Create portals
-		Portal *hotelroom2hall = new Portal(3, sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 49), Entity::Direction::LEFT);
-
-		Portal *hall2reception = new Portal(0, sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0), Entity::Direction::LEFT);
-		Portal *hall2hotelroom = new Portal(2, sf::IntRect(310, 260, 135, 215), sf::Vector2f(7, 0), Entity::Direction::LEFT);
-
-		Portal *reception2hall = new Portal(2, sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50), Entity::Direction::RIGHT);
-		Portal *reception2bar = new Portal(4, sf::IntRect(920, 140, 120, 250), sf::Vector2f(19, 38), Entity::Direction::DOWN);
-		Portal *reception2streets = new Portal(5, sf::IntRect(1265, 150, 215, 260), sf::Vector2f(27, 41), Entity::Direction::DOWN);
-
-		Portal *bar2reception = new Portal(6, sf::IntRect(870, 210, 110, 180), sf::Vector2f(18, 15), Entity::Direction::UP);
-
-		Portal *streets2reception = new Portal(7, sf::IntRect(615, 280, 130, 135), sf::Vector2f(13, 20), Entity::Direction::UP);
+		Portal *hotelroom2hall = new Portal("hotelroom_to_hall", sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 49));
+		Portal *hall2reception = new Portal("hall_to_reception", sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0));
+		Portal *hall2hotelroom = new Portal("hall_to_hotelroom", sf::IntRect(310, 260, 135, 215), sf::Vector2f(7, 0));
+		Portal *reception2hall = new Portal("reception_to_hall", sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50));
+		Portal *reception2bar = new Portal("reception_to_bar", sf::IntRect(920, 140, 120, 250), sf::Vector2f(19, 38));
+		Portal *reception2streets = new Portal("reception_to_streets", sf::IntRect(1265, 150, 215, 260), sf::Vector2f(27, 41));
+		Portal *bar2reception = new Portal("bar_to_reception", sf::IntRect(870, 210, 110, 180), sf::Vector2f(18, 15));
+		Portal *streets2reception = new Portal("streets_to_reception", sf::IntRect(615, 280, 130, 135), sf::Vector2f(13, 20));
 
 		// Set scripts for portals
 		hall2reception->SetScript("Data/Scripts/portal_hall_to_reception.script");
@@ -81,17 +79,16 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(hotelroom2hall);
 		m_levels[4]->AddObject(bar2reception);
 
+		///////////////////// PORTALS END ///////////////////////////
+
 		// Add objects
-		Object *matches = new Object(400, 250, 3, 52, "Data/Animations/Objects/matches2.png", 1000, 1);
-		Object *necklace = new Object(300, 300, 3, 52, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *matches = new Object("matches", 200, 450, 4, 50, "Data/Animations/Objects/matches2.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_1.script");
-		necklace->SetInteractScript("Data/Scripts/ch1_matches_1.script");
 
 		// Add objects to the entity vector
 		m_levels[3]->AddObject(matches);
-		m_levels[3]->AddObject(necklace);
 
 		// Set first room
 		m_currentLevel = m_levels[3];

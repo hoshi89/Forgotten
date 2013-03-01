@@ -1,12 +1,24 @@
 #include "Object.h"
 #include "GameManager.h"
 
-Object::Object(int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes)
-	:m_idle(texture, timeperframe, numframes),
+Object::Object(std::string id, int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes)
+	:
+	m_id(id),
+	m_idle(texture, timeperframe, numframes),
 	m_position(xPos, yPos),
 	m_interactionNode(interactionX, interactionY)
 {
 	m_currentAnimation = &m_idle;
+}
+
+std::string Object::GetID()
+{
+	return m_id;
+}
+
+void Object::SetID(std::string id)
+{
+	m_id = id;
 }
 
 void Object::SetPosition(int x, int y)

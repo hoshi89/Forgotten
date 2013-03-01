@@ -32,7 +32,6 @@
     <ClCompile Include="MouseHandler.cpp" />
     <ClCompile Include="NpcCls.cpp" />
     <ClCompile Include="Object.cpp" />
-    <ClCompile Include="ObjectCls.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
     <ClCompile Include="ScriptText.cpp" />
@@ -60,7 +59,6 @@
     <ClInclude Include="MouseHandler.h" />
     <ClInclude Include="NpcCls.h" />
     <ClInclude Include="Object.h" />
-    <ClInclude Include="ObjectCls.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
     <ClInclude Include="ScriptText.h" />

@@ -12,6 +12,8 @@ class Player : public Entity{
 public:
 	Player(GenericMap &map);
 	void GoTo(sf::Vector2f goal);
+	std::string GetID();
+	void SetID(std::string id);
 	void SetPosition(int x, int y);
 	void SetNodePosition(int x, int y);
 	void SetDirection(Entity::Direction direction);

@@ -5,6 +5,16 @@ BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame,
 {
 }
 
+std::string BackgroundObject::GetID()
+{
+	return m_id;
+}
+
+void BackgroundObject::SetID(std::string id)
+{
+	m_id = id;
+}
+
 void BackgroundObject::SetPosition(int x, int y){}
 
 void BackgroundObject::Update(){

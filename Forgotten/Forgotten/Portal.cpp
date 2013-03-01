@@ -2,33 +2,36 @@
 #include <SFML/Graphics.hpp>
 #include "GameManager.h"
 
-//GameManager* manager = GameManager::GetInstance();
-
-Portal::Portal(int level, sf::IntRect rect, sf::Vector2f nodePosition, Entity::Direction direction)
-	:m_level(level), m_rect(rect), m_nodePosition(nodePosition), m_direction(direction), m_active(false),
+Portal::Portal(std::string id, sf::IntRect rect, sf::Vector2f nodePosition)
+	:
+	m_id(id),
+	m_rect(rect),
+	m_nodePosition(nodePosition),
 	m_currentScript("Data/Scripts/0001.txt")
 {
 }
 
-void Portal::Interact(){
+std::string Portal::GetID()
+{
+	return m_id;
+}
 
+void Portal::SetID(std::string id)
+{
+	m_id = id;
+}
+
+void Portal::Interact()
+{
 	std::cout << "Interacting with portal..." << std::endl;
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_nodePosition);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
-
 }
 
-void Portal::SetTargetPortal(Portal *portal){ m_targetPortal = portal; }
-
-int Portal::GetID(){ return m_level; }
-
-Portal* Portal::GetTargetPortal(){ return m_targetPortal; }
 
 sf::IntRect Portal::GetPortalRect(){ return m_rect; }
 
 sf::Vector2f Portal::GetNodePosition(){ return m_nodePosition; }
-
-Entity::Direction Portal::GetDirection(){ return m_direction; }
 
 void Portal::SetPosition(int x, int y){
 }
@@ -41,7 +44,7 @@ void Portal::Update(){
 }
 
 const sf::Sprite& Portal::GetSprite() const{
-	return m_sprite;
+	return sf::Sprite();
 }
 
 void Portal::Render(sf::RenderWindow &window){

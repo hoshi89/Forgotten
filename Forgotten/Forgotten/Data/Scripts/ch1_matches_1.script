@@ -1,8 +1,9 @@
 suspend
-showtext 200 200 5 It's a matchbox.
-wait 5
-additem 3
+setdirection player 7
+showtext 200 200 3 It's a matchbox.
+wait 3
+additem 2
 showtext 500 500 2 Picked up matchbox!
-removeentity 1
+removeentity matches
 wait 2
 resume

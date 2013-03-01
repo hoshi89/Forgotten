@@ -11,6 +11,8 @@ public:
 	enum Direction {UP, UP_RIGHT, RIGHT, DOWN_RIGHT, DOWN, DOWN_LEFT, LEFT, UP_LEFT};
 	Entity(){};
 	virtual ~Entity(){};
+	virtual std::string GetID(){ return ""; };
+	virtual void SetID(std::string id){};
 	virtual void SetPosition(int x, int y) abstract;
 	virtual void Update() abstract;
 	virtual const sf::Sprite& GetSprite() const abstract;

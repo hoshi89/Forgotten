@@ -11,6 +11,7 @@ public:
 	bool mouse1IsPressed();
 	bool mouse2IsPressed();
 	void Render();
+	void Update();
 	bool IsOver(sf::IntRect rect);
 	sf::Vector2f GetPosition();
 	void Draw();
@@ -36,7 +37,8 @@ private:
 	sf::RenderWindow& m_window;
 	int m_id;
 	bool m_holdsItem;
-	
+	bool m_mouse1_was_pressed;
+	bool m_mouse2_was_pressed;
 };
 
 #endif

@@ -72,6 +72,9 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
+	// Update mousehandler
+	m_mouseHandler.Update();
+
 	// Hide the cursor
 	m_window.setMouseCursorVisible(false);
 
@@ -273,7 +276,7 @@ void GameManager::LoadScript(std::string filename){
 	{
 		while(std::getline(scriptFile, tmpString))
 		{
-			m_events.push(tmpString);
+			m_events.push_back(tmpString);
 		}
 	}
 
@@ -300,7 +303,7 @@ void GameManager::ProcessNextEvent(){
 	if(m_events.size() > 0 && !m_wait){
 
 		// Get next event as string
-		std::string tmpEvent = m_events.front();
+		std::string tmpEvent = m_events[0];
 
 		// Create temporary stuff
 		std::stringstream tmpStream;
@@ -358,12 +361,17 @@ void GameManager::ProcessNextEvent(){
 
 			// Get entity id as string
 			std::getline(tmpStream, token, ' ');
-			int entityid = StringToInt(token);
+			std::string entity_id = token;
 
-			// Move the entity... if it exists
-			if(m_levelManager.GetCurrentLevel()->GetEntities().size() >= entityid)
+			// Move the entity
+			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
 			{
-				m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->GoTo(sf::Vector2f(xcoord, ycoord));
+				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				{
+					// Found the entity, move it
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->GoTo(sf::Vector2f(xcoord, ycoord));
+					break;
+				}
 			}
 		}
 		// Suspend controls
@@ -402,7 +410,7 @@ void GameManager::ProcessNextEvent(){
 		{
 			// Get the entity id as string
 			std::getline(tmpStream, token, ' ');
-			int entityid = StringToInt(token);
+			std::string entity_id = token;
 
 			// Get the direction as string
 			std::getline(tmpStream, token, ' ');
@@ -442,8 +450,16 @@ void GameManager::ProcessNextEvent(){
 				break;
 			}
 
-			// Set direction
-			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetDirection(enumDirection);
+			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			{
+				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				{
+					// Found the entity, set direction
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetDirection(enumDirection);
+					break;
+				}
+			}
+
 		}
 		// Set position
 		else if(token == "setposition")
@@ -524,13 +540,53 @@ void GameManager::ProcessNextEvent(){
 		{
 			// Get entity id as string
 			std::getline(tmpStream, token, ' ');
-			int id = StringToInt(token);
+			std::string entity_id = token;
 
-			m_levelManager.GetCurrentLevel()->GetEntities().erase(m_levelManager.GetCurrentLevel()->GetEntities().begin()+id);
+			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			{
+				std::string entityname = m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID();
+				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				{
+					// Found the entity to be removed, so remove it
+					m_levelManager.GetCurrentLevel()->GetEntities().erase(m_levelManager.GetCurrentLevel()->GetEntities().begin()+i);
+					break;
+				}
+			}
+
+		}
+		// If statement
+		else if(token == "if")
+		{
+			// Temporary nesting level
+			int nestlevel = 0;
+			int nestdelete = 0;
+
+			// If flag
+			std::getline(tmpStream, token, ' ');
+			if(token == "flag")
+			{
+				// Get flag name
+				std::getline(tmpStream, token, ' ');
+
+				// Check if raised
+				if(FlagManager::GetInstance()->IsFlagSet(token))
+				{
+					// Flag is raised
+					// Remove all scriptlines below elseif and else on this nesting level
+				}
+				else
+				{
+					// Delete every script row until elseif or endif found
+				}
+			}
+		}
+		// Elseif statement
+		else if(token == "elseif")
+		{
 
 		}
 
-		m_events.pop();
+		m_events.erase(m_events.begin());
 	}
 
 }
