@@ -3,6 +3,7 @@
 
 Player::Player(GenericMap &map)
 	:m_pathFinder(map),
+
 	m_walkingRight("Data/Animations/Player/player_walking_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 	m_walkingDownRight("Data/Animations/Player/player_walking_down_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 	m_walkingDown("Data/Animations/Player/player_walking_down.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
@@ -11,6 +12,16 @@ Player::Player(GenericMap &map)
 	m_walkingUpLeft("Data/Animations/Player/player_walking_up_left.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 	m_walkingUp("Data/Animations/Player/player_walking_up.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 	m_walkingUpRight("Data/Animations/Player/player_walking_up_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
+
+	m_idleRight("Data/Animations/Player/player_idle_right.png", 1000, 1),
+	m_idleDownRight("Data/Animations/Player/player_idle_right.png", 1000, 1),
+	m_idleDown("Data/Animations/Player/player_idle_down.png", 1000, 1),
+	m_idleDownLeft("Data/Animations/Player/player_idle_left.png", 1000, 1),
+	m_idleLeft("Data/Animations/Player/player_idle_left.png", 1000, 1),
+	m_idleUpLeft("Data/Animations/Player/player_idle_up_left.png", 1000, 1),
+	m_idleUp("Data/Animations/Player/player_idle_up.png", 1000, 1),
+	m_idleUpRight("Data/Animations/Player/player_idle_up_right.png", 1000, 1),
+
 	m_currentAnimation(&m_walkingRight),
 	m_nodeMap(map),
 	m_currentTarget(-1, -1),
@@ -211,7 +222,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleUp;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 1:

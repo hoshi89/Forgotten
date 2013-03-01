@@ -40,7 +40,7 @@ bool FlagManager::IsFlagSet(std::string flagname)
 {
 	for(unsigned int i = 0; i < m_flags.size(); i++)
 	{
-		if(m_flags[i].compare(flagname))
+		if(!m_flags[i].compare(flagname))
 		{
 			return true;
 		}

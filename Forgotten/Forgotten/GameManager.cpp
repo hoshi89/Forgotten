@@ -557,10 +557,6 @@ void GameManager::ProcessNextEvent(){
 		// If statement
 		else if(token == "if")
 		{
-			// Temporary nesting level
-			int nestlevel = 0;
-			int nestdelete = 0;
-
 			// If flag
 			std::getline(tmpStream, token, ' ');
 			if(token == "flag")
@@ -571,19 +567,75 @@ void GameManager::ProcessNextEvent(){
 				// Check if raised
 				if(FlagManager::GetInstance()->IsFlagSet(token))
 				{
-					// Flag is raised
-					// Remove all scriptlines below elseif and else on this nesting level
+					// Returned true, disregard any elseif or else statements of this if statement
+					// Start by finding the next elseif or else...
+
+					int nestLevel = -1;
+					bool activeDel = false;
+
+					for(unsigned int i = 0; i < m_events.size(); i++)
+					{
+						// Very temporary stuff
+						std::stringstream ifCheckStream;
+						ifCheckStream << m_events[i];
+						std::string ifToken;
+						std::getline(ifCheckStream, ifToken, ' ');
+
+						if(ifToken == "if")
+						{
+							// Do not remove any lines even if they're elseif or else
+							nestLevel++;
+						}
+						else if(ifToken == "endif")
+						{
+							nestLevel--;
+						}
+
+						// Activate delete?
+						if(ifToken == "elseif" || ifToken == "else" && nestLevel == 0)
+						{
+							activeDel = true;
+						}
+
+						if(activeDel && nestLevel == 0){
+							m_events.erase(m_events.begin()+i);
+						}
+
+					}
+
 				}
 				else
 				{
 					// Delete every script row until elseif or endif found
+					for(unsigned int i = 0; i < m_events.size(); i++)
+					{
+						// Very temporary stuff
+						std::stringstream ifCheckStream;
+						ifCheckStream << m_events[i];
+						std::string ifToken;
+						std::getline(ifCheckStream, ifToken, ' ');
+
+						if(ifToken == "endif")
+						{
+							m_events.erase(m_events.begin()+i);
+							return;
+						}
+						else
+						{
+							m_events.erase(m_events.begin()+i);
+						}
+					}
 				}
 			}
 		}
-		// Elseif statement
-		else if(token == "elseif")
+		// Raise flag
+		else if(token == "raiseflag")
 		{
+			// Get flag as string
+			std::getline(tmpStream, token, ' ');
+			std::string flag = token;
 
+			FlagManager::GetInstance()->CreateFlag(flag);
 		}
 
 		m_events.erase(m_events.begin());

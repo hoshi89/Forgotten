@@ -4,7 +4,7 @@
 #include "AStar.h"
 #include "Entity.h"
 
-const float WALKSPEED = 1.8;
+const float WALKSPEED = 3.5;
 const float X_FEETOFFSET = 48;
 const float Y_FEETOFFSET = 250;
 
@@ -32,6 +32,7 @@ public:
 	bool MouseOver(MouseHandler&){ return false; }
 private:
 	int m_direction;
+
 	Animation m_walkingRight;
 	Animation m_walkingDownRight;
 	Animation m_walkingDown;
@@ -40,6 +41,15 @@ private:
 	Animation m_walkingUpLeft;
 	Animation m_walkingUp;
 	Animation m_walkingUpRight;
+
+	Animation m_idleRight;
+	Animation m_idleDownRight;
+	Animation m_idleDown;
+	Animation m_idleDownLeft;
+	Animation m_idleLeft;
+	Animation m_idleUpLeft;
+	Animation m_idleUp;
+	Animation m_idleUpRight;
 
 	Animation *m_currentAnimation;
 
