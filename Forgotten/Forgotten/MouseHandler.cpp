@@ -23,26 +23,30 @@ bool MouseHandler::mouse1WasPressed()
 	return m_mouse1_was_pressed;
 }
 
-bool MouseHandler::mouse2WasPressed(){
+bool MouseHandler::mouse2WasPressed()
+{
 
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Right)){
-		if(m_m2pressed){
+	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
+	{
+		if(m_m2pressed)
+		{
 			return false;
-		}else{
+		}
+		else
+		{
 			m_m2pressed = true;
 			return true;
 		}
-
-	}else{
-
+	}
+	else
+	{
 		m_m2pressed = false;
 		return false;
-
 	}
-
 }
 
-bool MouseHandler::mouse1IsPressed(){
+bool MouseHandler::mouse1IsPressed()
+{
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
 		return true;
@@ -51,7 +55,8 @@ bool MouseHandler::mouse1IsPressed(){
 
 }
 
-bool MouseHandler::mouse2IsPressed(){
+bool MouseHandler::mouse2IsPressed()
+{
 
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
 		return true;
@@ -60,7 +65,8 @@ bool MouseHandler::mouse2IsPressed(){
 
 }
 
-void MouseHandler::Render(){
+void MouseHandler::Render()
+{
 	SetPosition();
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
@@ -106,37 +112,30 @@ void MouseHandler::Update(){
 	}
 }
 
-bool MouseHandler::IsOver(sf::IntRect rect){
+bool MouseHandler::IsOver(sf::IntRect rect)
+{
 	if(rect.contains(MousePosition.x, MousePosition.y)){
 		return true;
-	}else{
+	}
+	else
+	{
 		return false;
 	}
 }
 
-void MouseHandler::SetPosition(){
+void MouseHandler::SetPosition()
+{
 	MousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 	m_currentMouseAnimation->setPosition(MousePosition);
 }
 
-sf::Vector2f MouseHandler::GetPosition(){
+sf::Vector2f MouseHandler::GetPosition()
+{
 	return MousePosition;
 }
 
-//void MouseHandler::SetCurrentMouseAnimation(std::string& directory, int id){
-//	if(m_currentMouseAnimation == m_item){
-//		delete m_item;
-//		m_item = new Animation(directory, 1000, 1);
-//		m_currentMouseAnimation = m_item;
-//		m_id = id;
-//	}else{
-//		m_item = new Animation(directory, 1000, 1);
-//		m_currentMouseAnimation = m_item;
-//		m_id = id;
-//	}
-//}
-
-void MouseHandler::Draw(){
+void MouseHandler::Draw()
+{
 
 	// Update animation
 	m_currentMouseAnimation->update();
@@ -145,13 +144,16 @@ void MouseHandler::Draw(){
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
 
-int MouseHandler::GetId(){
+int MouseHandler::GetId()
+{
 	return m_id;
 }
 
 void MouseHandler::SetCursor(int id){
-	if(!m_holdsItem){
-		switch(id){
+	if(!m_holdsItem)
+	{
+		switch(id)
+		{
 		case 0:
 			m_currentMouseAnimation = &m_default;
 			break;
@@ -177,22 +179,29 @@ void MouseHandler::SetCursor(int id){
 	}
 }
 
-void MouseHandler::SetInventoryCursor(Animation* animation){
+void MouseHandler::SetInventoryCursor(Animation* animation)
+{
 	m_currentMouseAnimation = animation;
 }
 
-bool MouseHandler::HoldsItem(){
-	if(m_holdsItem){
+bool MouseHandler::HoldsItem()
+{
+	if(m_holdsItem)
+	{
 		return true;
-	}else{
+	}
+	else
+	{
 		return false;
 	}
 }
 
-void MouseHandler::SetHoldingItem(bool holdItem){
+void MouseHandler::SetHoldingItem(bool holdItem)
+{
 	m_holdsItem = holdItem;
 }
 
-void MouseHandler::DropItem(){
+void MouseHandler::DropItem()
+{
 	m_holdsItem = false;
 }
