@@ -115,6 +115,27 @@ void Player::Update(){
 		normal.x = distance.x / hypothenuse;
 		normal.y = distance.y / hypothenuse;
 
+		// Fix speed
+		if(normal.x > 0 || normal.x < 0)
+		{
+			if(normal.y > 0 || normal.y < 0)
+			{
+				normal *= WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/1.2f;
+			}
+		}
+		else
+		{
+			if(normal.y > 0 || normal.y < 0)
+			{
+				normal *= WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/2.5f;
+			}
+			else
+			{
+				normal *= WALKSPEED;
+			}
+		}
+
+
 		// Set the walk speed
 		normal *= WALKSPEED;
 
@@ -372,13 +393,24 @@ void Player::Update(){
 	m_pathFinder.FindPath();
 	m_position += m_velocity;
 
+	// Update animation
 	m_currentAnimation->update();
 
-	// Set sprite position
+	// Update scale and sprite position
 	sf::Vector2f offsetPos;
+	float scale = m_nodeMap.GetEntityScale();
+	float yPos = GetNodePosition().y;
 
-	offsetPos.x = m_position.x - (X_FEETOFFSET);
-	offsetPos.y = m_position.y - (Y_FEETOFFSET);
+	if(yPos == 0)
+		yPos = 1;
+
+	float yNodes = m_nodeMap.GetMapSize().y/m_nodeMap.GetNodeSize().y;
+	float scalePerNode = scale/yNodes;
+
+	m_scale = scalePerNode * yPos;
+
+	offsetPos.x = m_position.x - (X_FEETOFFSET)*m_scale;
+	offsetPos.y = m_position.y - (Y_FEETOFFSET)*m_scale;
 
 	m_currentAnimation->setPosition(offsetPos);
 
@@ -386,16 +418,10 @@ void Player::Update(){
 
 void Player::Render(sf::RenderWindow &window){
 
-	sf::Sprite playerSprite = m_currentAnimation->getSprite();
+	sf::Sprite currentSprite = m_currentAnimation->getSprite();
+	currentSprite.setScale(m_scale, m_scale);
 
-	float scale = m_nodeMap.GetEntityScale();
-	float yPos = GetNodePosition().y;
-	float yNodes = m_nodeMap.GetMapSize().y/m_nodeMap.GetNodeSize().y;
-	float scalePerNode = scale/yNodes;
-
-	playerSprite.setScale(m_nodeMap.GetEntityScale(), m_nodeMap.GetEntityScale());
-
-	window.draw(m_currentAnimation->getSprite());
+	window.draw(currentSprite);
 
 }
 

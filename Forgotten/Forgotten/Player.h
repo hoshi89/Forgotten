@@ -5,8 +5,8 @@
 #include "Entity.h"
 
 const float WALKSPEED = 3.5;
-const float X_FEETOFFSET = 48;
-const float Y_FEETOFFSET = 250;
+const float X_FEETOFFSET = 80;
+const float Y_FEETOFFSET = 275;
 
 class Player : public Entity{
 public:
@@ -60,6 +60,7 @@ private:
 	GenericMap &m_nodeMap;
 	Entity *m_currentFocus;
 	bool m_isWalking;
+	float m_scale;
 };
 
 #endif

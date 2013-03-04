@@ -17,6 +17,8 @@ public:
 	void PlaySound();
 	void StopSound();
 	void SetScale(float scale);
+	void SetRelativeSound(bool relative);
+	void SetSoundPosition(int x, int y, int z);
 private:
 	sf::Clock m_frameTimer;
 	sf::Clock m_animationPauseTimer;

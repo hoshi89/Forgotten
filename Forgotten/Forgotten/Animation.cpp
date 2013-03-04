@@ -13,6 +13,9 @@ Animation::~Animation(){
 
 void Animation::update(){
 
+	// Update sound position, Z = 0
+	m_sound.SetSoundPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top, 0);
+
 	if(m_animationPauseTimer.getElapsedTime().asSeconds() > m_pauseTime)
 	{
 
@@ -51,8 +54,17 @@ void Animation::PlaySound(){ m_sound.Play(); }
 
 void Animation::StopSound(){ m_sound.Stop(); }
 
-void Animation::SetScale(float scale){
-
+void Animation::SetScale(float scale)
+{
 	m_sprite.setScale(scale, scale);
+}
 
+void Animation::SetRelativeSound(bool relative)
+{
+	m_sound.SetRelativeSound(relative);
+}
+
+void Animation::SetSoundPosition(int x, int y, int z)
+{
+	m_sound.SetSoundPosition(x, y, z);
 }

@@ -13,3 +13,13 @@ void SFX::Play(){ m_sound.play(); }
 void SFX::Pause(){ m_sound.pause(); }
 
 void SFX::Stop(){ m_sound.stop(); }
+
+void SFX::SetRelativeSound(bool relative)
+{
+	m_sound.setRelativeToListener(relative);
+}
+
+void SFX::SetSoundPosition(int x, int y, int z)
+{
+	m_sound.setPosition(x, y, z);
+}
