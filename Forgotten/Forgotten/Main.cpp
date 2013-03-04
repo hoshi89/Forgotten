@@ -1,33 +1,26 @@
-#include "GameManager.h"
+#include "RenderStates.h"
 
 int main()
 {
-	// Create the manager
-	GameManager *manager;
-	manager = GameManager::GetInstance();
+	//Create RenderState
+	RenderStates* renderStates = new RenderStates;
 
-	while (manager->GetWindow().isOpen())
+	while (renderStates->GetWindow().isOpen())
 	{
 		sf::Event Event;
-		while(manager->GetWindow().pollEvent(Event))
+		while(renderStates->GetWindow().pollEvent(Event))
 		{
 			switch (Event.type)
 			{
 			case sf::Event::Closed:
-				manager->GetWindow().close();
+				renderStates->GetWindow().close();
 				break;
 			default:
 				break;
 			}
 
 		}
-
-		// Process data here
-		manager->Process();
-
-		// Render the screen
-		manager->Render();
+		renderStates->RenderState();
 	}
-
 	return 0;
 }

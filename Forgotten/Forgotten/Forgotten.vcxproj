@@ -35,6 +35,7 @@
     <ClCompile Include="Object.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Portal.cpp" />
+    <ClCompile Include="RenderStates.cpp" />
     <ClCompile Include="ScriptText.cpp" />
     <ClCompile Include="SFX.cpp" />
   </ItemGroup>
@@ -63,6 +64,7 @@
     <ClInclude Include="Object.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Portal.h" />
+    <ClInclude Include="RenderStates.h" />
     <ClInclude Include="ScriptText.h" />
     <ClInclude Include="SFX.h" />
   </ItemGroup>
