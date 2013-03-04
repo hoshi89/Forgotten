@@ -8,7 +8,7 @@
 
 class Animation{
 public:
-	Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename = "");
+	Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename = "", int pauseTime=0);
 	~Animation();
 	void update();
 	void setPosition(const sf::Vector2f& position);
@@ -19,11 +19,13 @@ public:
 	void SetScale(float scale);
 private:
 	sf::Clock m_frameTimer;
+	sf::Clock m_animationPauseTimer;
 	sf::Texture m_texture;
 	sf::Sprite m_sprite;
 	int m_timePerFrame;
 	int m_numFrames;
 	int m_currentFrame;
+	int m_pauseTime;
 	SFX m_sound;
 };
 

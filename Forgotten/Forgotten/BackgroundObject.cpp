@@ -1,7 +1,7 @@
 #include "BackgroundObject.h"
 
-BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename)
-	:m_animation(animationSheet, timePerFrame, numFrames, soundFilename), m_position(posX, posY), m_z(z)
+BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename, int pauseTime)
+	:m_animation(animationSheet, timePerFrame, numFrames, soundFilename, pauseTime), m_position(posX, posY), m_z(z)
 {
 }
 

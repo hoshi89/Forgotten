@@ -1,7 +1,7 @@
 #include "AStar.h"
 
 AStar::AStar(GenericMap &map)
-	:m_goalFound(false), m_nodeMap(map)
+	:m_goalFound(false), m_nodeMap(map), m_initialized(false)
 {
 }
 
@@ -9,11 +9,13 @@ void AStar::FindPath(){
 	
 	//while(true){ // To process entire path
 	// Process the path bit by bit to avoid lag
-	for(int i = 0; i < 50; i++){
-		if(m_openList.empty() || PathComplete()){
-			break;
-		}else{
-			ProcessPath();
+	if(m_initialized){
+		for(int i = 0; i < 50; i++){
+			if(m_openList.empty() || PathComplete()){
+				break;
+			}else{
+				ProcessPath();
+			}
 		}
 	}
 
@@ -42,6 +44,7 @@ void AStar::SetPath(sf::Vector2f start, sf::Vector2f goal){
 	m_openList.push_back(new AStarNode(m_start, m_goal, 0));
 
 	m_goalFound = false;
+	m_initialized = true;
 
 }
 
@@ -123,7 +126,10 @@ void AStar::ExamineNode(AStarNode &node){
 
 }
 
-bool AStar::PathComplete(){ return m_goalFound; }
+bool AStar::PathComplete()
+{
+	return m_goalFound;
+}
 
 AStarNode* AStar::GetNextNode(){
 

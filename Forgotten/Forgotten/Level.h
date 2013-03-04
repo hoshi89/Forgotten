@@ -10,7 +10,7 @@
 
 class Level{
 public:
-	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture);
+	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale);
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
 	void AddObject(Entity* entity);

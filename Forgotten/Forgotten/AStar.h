@@ -26,6 +26,7 @@ private:
 	std::vector<AStarNode*> m_openList;
 	std::vector<AStarNode*> m_closedList;
 	bool m_goalFound;
+	bool m_initialized;
 
 	AStarNode* GetNextNode();
 };

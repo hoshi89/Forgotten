@@ -94,47 +94,49 @@ sf::Vector2f Player::GetNodePosition(){
 
 void Player::Update(){
 
-	if(m_isWalking){
-		// The player has a target, check if he has reached it
-		if(m_position == m_currentTarget){
-			// The player has reached its target, stop player
-			m_isWalking = false;
-			m_velocity.x = 0;
-			m_velocity.y = 0;
+	if(m_position == m_currentTarget)
+	{
+		m_isWalking = false;
+		m_velocity.x = 0;
+		m_velocity.y = 0;
+	}
+
+	if(m_isWalking)
+	{
+		// Move the player towards its target
+		// Calculate distance
+		sf::Vector2f distance = m_currentTarget - m_position;
+
+		// Hypotenuse of distance
+		float hypothenuse = sqrt((distance.x * distance.x) + (distance.y * distance.y));
+
+		// Normalize distance
+		sf::Vector2f normal;
+		normal.x = distance.x / hypothenuse;
+		normal.y = distance.y / hypothenuse;
+
+		// Set the walk speed
+		normal *= WALKSPEED;
+
+		// Check the normal distance
+		float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));
+
+		if(normal_hypothenuse < hypothenuse){
+
+			// Move player the normal distance
+			m_velocity = normal;
+
 		}else{
-			// Move the player towards its target
-			// Calculate distance
-			sf::Vector2f distance = m_currentTarget - m_position;
 
-			// Hypotenuse of distance
-			float hypothenuse = sqrt((distance.x * distance.x) + (distance.y * distance.y));
+			// Move player the remaining distance
+			m_velocity = distance;
 
-			// Normalize distance
-			sf::Vector2f normal;
-			normal.x = distance.x / hypothenuse;
-			normal.y = distance.y / hypothenuse;
-
-			// Set the walk speed
-			normal *= WALKSPEED;
-
-			// Check the normal distance
-			float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));
-
-			if(normal_hypothenuse < hypothenuse){
-
-				// Move player the normal distance
-				m_velocity = normal;
-
-			}else{
-
-				// Move player the remaining distance
-				m_velocity = distance;
-
-			}
 		}
-	}else{
+	}
+	else
+	{
 
-		// The player is idle, check path to go and set new target
+		// The player is idle, check if any new path has been calculated
 		if(m_pathFinder.PathComplete()){
 
 			m_currentTarget = ConvertToPixelCoords(m_pathFinder.GetNextMove());
@@ -208,6 +210,7 @@ void Player::Update(){
 			m_direction = 4;
 		}else{
 			// Standing still
+			m_isWalking = false;
 		}
 	}
 
@@ -239,7 +242,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleUpRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 2:
@@ -251,7 +259,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 3:
@@ -263,7 +276,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleDownRight;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 4:
@@ -276,7 +294,7 @@ void Player::Update(){
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
-			m_currentAnimation = &m_walkingDown;
+			m_currentAnimation = &m_idleDown;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}
@@ -290,7 +308,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleDownLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 6:
@@ -302,7 +325,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	case 7:
@@ -314,7 +342,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleUpLeft;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	default:
@@ -326,7 +359,12 @@ void Player::Update(){
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
 		}else{
-
+			// Pause sound of current animation
+			m_currentAnimation->PauseSound();
+			// Set new animation
+			m_currentAnimation = &m_idleUp;
+			// Play sound of new animation
+			m_currentAnimation->PlaySound();
 		}
 		break;
 	}
@@ -347,6 +385,15 @@ void Player::Update(){
 }
 
 void Player::Render(sf::RenderWindow &window){
+
+	sf::Sprite playerSprite = m_currentAnimation->getSprite();
+
+	float scale = m_nodeMap.GetEntityScale();
+	float yPos = GetNodePosition().y;
+	float yNodes = m_nodeMap.GetMapSize().y/m_nodeMap.GetNodeSize().y;
+	float scalePerNode = scale/yNodes;
+
+	playerSprite.setScale(m_nodeMap.GetEntityScale(), m_nodeMap.GetEntityScale());
 
 	window.draw(m_currentAnimation->getSprite());
 

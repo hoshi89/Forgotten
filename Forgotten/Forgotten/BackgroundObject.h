@@ -6,7 +6,7 @@
 
 class BackgroundObject : public Entity{
 public:
-	BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename = "");
+	BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename = "", int pauseTime=0);
 	virtual std::string GetID();
 	virtual void SetID(std::string id);
 	void SetPosition(int x, int y);

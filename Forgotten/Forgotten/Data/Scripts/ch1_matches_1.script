@@ -1,5 +1,6 @@
 suspend
 setdirection player 7
+playsound 0
 showtext 200 200 3 It's a matchbox.
 wait 3
 additem 2
