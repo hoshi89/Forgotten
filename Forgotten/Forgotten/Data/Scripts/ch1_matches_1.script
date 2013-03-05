@@ -1,10 +1,13 @@
 suspend
 setdirection player 7
-playsound 0
+if flag hej
 showtext 200 200 3 It's a matchbox.
+else
+showtext 200 200 3 NO!
+endif
 wait 3
 additem 2
 showtext 500 500 2 Picked up matchbox!
-removeentity matches
+ removeentity matches
 wait 2
 resume

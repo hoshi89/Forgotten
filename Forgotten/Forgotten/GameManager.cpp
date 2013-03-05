@@ -557,6 +557,11 @@ void GameManager::ProcessNextEvent(){
 		// If statement
 		else if(token == "if")
 		{
+			// Temporary variables
+			int nestLevel = 0;
+			int deleteLevel = 0;
+			bool active_delete = false;
+
 			// If flag
 			std::getline(tmpStream, token, ' ');
 			if(token == "flag")
@@ -567,63 +572,107 @@ void GameManager::ProcessNextEvent(){
 				// Check if raised
 				if(FlagManager::GetInstance()->IsFlagSet(token))
 				{
-					// Returned true, disregard any elseif or else statements of this if statement
-					// Start by finding the next elseif or else...
+					// Set deleteLevel
+					deleteLevel = nestLevel;
 
-					int nestLevel = -1;
-					bool activeDel = false;
-
-					for(unsigned int i = 0; i < m_events.size(); i++)
+					// Flag is raised, search for elseif, else and endif and delete
+					for(unsigned int i = 1; i < m_events.size(); i++)
 					{
-						// Very temporary stuff
-						std::stringstream ifCheckStream;
-						ifCheckStream << m_events[i];
-						std::string ifToken;
-						std::getline(ifCheckStream, ifToken, ' ');
+						// Get tokens and strings
+						std::stringstream delStream;
+						std::string delString;
+						std::string delToken;
 
-						if(ifToken == "if")
+						// Add the string to the stream
+						delStream << m_events[i];
+
+						// Get the event type
+						std::getline(delStream, delToken, ' ');
+
+						// Check and set nestLevel
+						if(!delToken.compare("if"))
 						{
-							// Do not remove any lines even if they're elseif or else
+							// Increase the nestlevel
 							nestLevel++;
 						}
-						else if(ifToken == "endif")
+
+						// Look for elseif and else to initialize delete
+						if(nestLevel == deleteLevel)
 						{
-							nestLevel--;
+							// Initialize delete?
+							if(!delToken.compare("elseif") || !delToken.compare("else"))
+							{
+								active_delete = true;
+							}
+
+							// Deactivate delete?
+							if(!delToken.compare("endif"))
+							{
+								active_delete = false;
+								break;
+							}
 						}
 
-						// Activate delete?
-						if(ifToken == "elseif" || ifToken == "else" && nestLevel == 0)
+						// Delete
+						if(active_delete)
 						{
-							activeDel = true;
-						}
-
-						if(activeDel && nestLevel == 0){
 							m_events.erase(m_events.begin()+i);
+							i--;
 						}
 
 					}
-
 				}
 				else
 				{
-					// Delete every script row until elseif or endif found
-					for(unsigned int i = 0; i < m_events.size(); i++)
-					{
-						// Very temporary stuff
-						std::stringstream ifCheckStream;
-						ifCheckStream << m_events[i];
-						std::string ifToken;
-						std::getline(ifCheckStream, ifToken, ' ');
+					// Delete everything until elseif, else or endif is found
 
-						if(ifToken == "endif")
+					// Set deleteLevel
+					deleteLevel = nestLevel;
+
+					for(unsigned int i = 1; i < m_events.size(); i++)
+					{
+						// Get tokens and strings
+						std::stringstream delStream;
+						std::string delString;
+						std::string delToken;
+
+						// Add the string to the stream
+						delStream << m_events[i];
+
+						// Get the event type
+						std::getline(delStream, delToken, ' ');
+
+						// Check and set nestLevel
+						if(!delToken.compare("if"))
+						{
+							// Increase the nestlevel
+							nestLevel++;
+						}
+
+						// Look for elseif and else to initialize delete
+						if(nestLevel == deleteLevel)
+						{
+							// Initialize delete?
+							if(!delToken.compare("elseif") || !delToken.compare("else"))
+							{
+								active_delete = true;
+							}
+
+							// Deactivate delete?
+							if(!delToken.compare("endif"))
+							{
+								active_delete = false;
+								break;
+							}
+						}
+
+						// Delete
+						if(active_delete)
 						{
 							m_events.erase(m_events.begin()+i);
-							return;
+							i--;
 						}
-						else
-						{
-							m_events.erase(m_events.begin()+i);
-						}
+
 					}
 				}
 			}
