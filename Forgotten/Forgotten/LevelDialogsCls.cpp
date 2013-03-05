@@ -1,12 +1,10 @@
 #include "LevelDialogsCls.h"
 
 
-LevelDialogsCls::LevelDialogsCls(string aScriptName)
+LevelDialogsCls::LevelDialogsCls(string aScriptName, bool isSave)
 {
-	//här ska vi öppna och ladda alla Deck i loop från scriptfilen
-	m_CurrentDeck = new DeckCls();
-	m_CurrentDeck->LoadFromFile();
-	m_Decks.push_back(m_CurrentDeck);
+	if(!isSave)
+		LoadScript(aScriptName);
 }
 
 DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow, 
@@ -15,7 +13,6 @@ DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow,
 {
 	m_CurrentDeck = GetDeckById(aDeckId);
 	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos);
-
 }
 
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
@@ -35,12 +32,28 @@ void LevelDialogsCls::ChooseAnswer(sf::Vector2f* aMousePos)
 	m_CurrentDeck->ChooseAnswer(aMousePos);
 }
 
-LevelDialogsCls::~LevelDialogsCls(void)
-{
-}
-
 void LevelDialogsCls::LoadScript(string aScriptName)
 {
-	//pushback hårdkodade dialoger in i vector .. 
+	m_dlgrw = new DialogReaderWriter(aScriptName, false);
+	bool wIsComplete = false;
+	TagCls* tag = new TagCls();
+	m_dlgrw->getTag(tag);
+	DeckCls *wDeck;
 
+	while(!m_dlgrw->isEndOfFile() && !wIsComplete)
+	{
+		wDeck = this->addDeck(tag->getValue());
+		wIsComplete = wDeck->LoadFromFile(m_dlgrw, tag);
+	}
+}
+
+DeckCls* LevelDialogsCls::addDeck(string aId)
+{
+	DeckCls* wDeck = new DeckCls(aId);
+	m_Decks.push_back(wDeck);
+	return wDeck;
+}
+
+LevelDialogsCls::~LevelDialogsCls(void)
+{
 }

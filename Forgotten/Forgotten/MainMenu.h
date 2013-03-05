@@ -6,7 +6,7 @@
 
 class MainMenu{
 public:
-	MainMenu(MouseHandler& mouse);
+	MainMenu();
 	void Render(sf::RenderWindow& window);
 	void Process();
 	sf::IntRect GetRect();
@@ -24,7 +24,6 @@ private:
 	sf::View m_view;
 	sf::RectangleShape m_shape;
 	bool m_over;
-	MouseHandler& m_mouse;
 };
 
 #endif

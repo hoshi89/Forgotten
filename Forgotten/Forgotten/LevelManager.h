@@ -4,6 +4,7 @@
 #include "Level.h"
 #include <vector>
 #include "BackgroundObject.h"
+#include "NpcCls.h"
 #include "LevelDialogsCls.h"
 
 class LevelManager{

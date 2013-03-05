@@ -1,6 +1,6 @@
 #include "RenderStates.h"
 
-RenderStates::RenderStates(State aState) : m_state(aState), m_menu(GameManager::GetInstance()->GetMouseHandler())
+RenderStates::RenderStates(State aState) : m_state(aState)
 {
 	GameManager* gameManager;
 	GameManager::GetInstance()->GetWindow();

@@ -47,7 +47,7 @@ void Level::PlaySound(int id){
 //DialogStuff
 void Level::LoadLevelDialogs(string aScriptName)
 {
-	m_Dialogs = new LevelDialogsCls(aScriptName);
+	m_Dialogs = new LevelDialogsCls(aScriptName, false);
 }
 
 LevelDialogsCls* Level::GetLevelDialogs()

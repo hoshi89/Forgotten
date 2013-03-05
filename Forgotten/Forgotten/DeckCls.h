@@ -10,14 +10,16 @@ using namespace std;
 class DeckCls
 {
 public:
-	DeckCls(void);
+	DeckCls(string aId);
 	string GetDeckId();
 	DialogStateEnum ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos);
-	void LoadFromFile();
+	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
 	CardCls* GetCardById(string* aCardId);
 	void ChooseAnswer(sf::Vector2f* aMousePos);
 
+	//Scriptfunc
+	CardCls* addCard(string aId);
 	virtual ~DeckCls(void);
 private:
 	string m_DeckId;

@@ -1,0 +1,3 @@
+suspend
+showdialog AngryWomanFirstTime
+resume

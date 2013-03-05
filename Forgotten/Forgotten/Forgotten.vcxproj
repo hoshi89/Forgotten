@@ -19,6 +19,7 @@
     <ClCompile Include="CardCls.cpp" />
     <ClCompile Include="DeckCls.cpp" />
     <ClCompile Include="DialogOwnerCls.cpp" />
+    <ClCompile Include="DialogReaderWriter.cpp" />
     <ClCompile Include="FlagManager.cpp" />
     <ClCompile Include="GameManager.cpp" />
     <ClCompile Include="GenericMap.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="CardCls.h" />
     <ClInclude Include="DeckCls.h" />
     <ClInclude Include="DialogOwnerCls.h" />
+    <ClInclude Include="DialogReaderWriter.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="FlagManager.h" />
     <ClInclude Include="GameManager.h" />

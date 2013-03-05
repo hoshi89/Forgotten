@@ -1,9 +1,9 @@
 #include "DeckCls.h"
 
-
-DeckCls::DeckCls(void)
+DeckCls::DeckCls(string aId)
 {
 	m_CurrentCardId = NULL;
+	m_DeckId = aId;
 }
 
 string DeckCls::GetDeckId()
@@ -32,42 +32,33 @@ DialogStateEnum DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInt
 	m_CurrentCard = GetCardById(m_CurrentCardId);
 	m_CurrentCardId = m_CurrentCard->ShowCard(aWindow, aInteractionNode, aEntityPos);
 	DialogStateEnum wDlgState = m_CurrentCard->GetDialogState();
-
 	return wDlgState;
-	
 }
 
-void DeckCls::LoadFromFile()
+bool DeckCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 {
-	m_DeckId = "blabla";
-
-	//här ska vi ladda alla Cards som ligger under DETTA deck i loop från scriptfilen
-	CardCls* CardZero = new CardCls("zerocard", "firstcard");
-	m_Cards.push_back(CardZero);
-	CardZero->LoadFromFile("zerocard!");
-
-	CardCls* CardOne = new CardCls("firstcard", "");
-	m_Cards.push_back(CardOne);
-	CardOne->LoadFromFile("firstcard!");
-
-	CardCls* CardTwo = new CardCls("secondcard", "");
-	m_Cards.push_back(CardTwo);
-	CardTwo->LoadFromFile("secondcard!");
-
-	CardCls* CardThree = new CardCls("thirdcard", "");
-	m_Cards.push_back(CardThree);
-	CardThree->LoadFromFile("thirdcard!");
-
-	CardCls* CardFour = new CardCls("fourthcard", "");
-	m_Cards.push_back(CardFour);
-	CardFour->LoadFromFile("fourthcard!");
-	
-	//
+	bool isComplete = false;
+	CardCls *wCard;
+	aRw->getTag(aTag);
+	while(!aRw->isEndOfFile() && aTag->getToken() == CARD_ID)
+	{
+		wCard = this->addCard(aTag->getValue());
+		wCard->LoadFromFile(aRw, aTag);
+	}
+	return isComplete;
 }
 
 void DeckCls::ChooseAnswer(sf::Vector2f* aMousePos)
 {
 	m_CurrentCardId = m_CurrentCard->ChooseAnswer(aMousePos);
+}
+
+//ScriptFunc
+CardCls* DeckCls::addCard(string aId)
+{
+	CardCls* wCard = new CardCls(aId);
+	m_Cards.push_back(wCard);
+	return wCard;
 }
 
 DeckCls::~DeckCls(void)

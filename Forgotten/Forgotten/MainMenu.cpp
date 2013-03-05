@@ -1,6 +1,6 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(MouseHandler& mouse) : m_over(false), m_mouse(mouse)
+MainMenu::MainMenu() : m_over(false)
 {
 	LoadImage();
 	//// Set the view size

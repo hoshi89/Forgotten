@@ -94,12 +94,12 @@ void LevelManager::LoadChapter(int id){
 		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
+		//Add NPCS
+		m_levels[2]->AddObject(new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png",
+		sf::Vector2f(15, 43), Entity::Direction::RIGHT, m_levels[0]->GetNodeMap(), "Data/Scripts/AngryWomanScriptStandard.txt"));   
 		//Add Dialogs
-		m_levels[0]->LoadLevelDialogs("blabla");
-		m_levels[1]->LoadLevelDialogs("blabla");
-		m_levels[2]->LoadLevelDialogs("blabla");
-		m_levels[3]->LoadLevelDialogs("blabla");
-		m_levels[4]->LoadLevelDialogs("blabla");
+		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");
+		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelTwoDlg.txt");
 		break;
 	}
 }
