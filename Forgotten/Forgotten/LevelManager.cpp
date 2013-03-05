@@ -99,7 +99,7 @@ void LevelManager::LoadChapter(int id){
 		sf::Vector2f(15, 43), Entity::Direction::RIGHT, m_levels[0]->GetNodeMap(), "Data/Scripts/AngryWomanScriptStandard.txt"));   
 		//Add Dialogs
 		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");
-		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelTwoDlg.txt");
+		m_levels[2]->LoadLevelDialogs("Data/Scripts/LevelTwoDlg.txt");
 		break;
 	}
 }

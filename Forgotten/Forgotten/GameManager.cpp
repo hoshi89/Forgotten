@@ -608,8 +608,16 @@ void GameManager::ProcessNextEvent(){
 							// Deactivate delete?
 							if(!delToken.compare("endif"))
 							{
+								m_events.erase(m_events.begin()+i);
 								active_delete = false;
 								break;
+							}
+						}
+						else
+						{
+							if(!delToken.compare("endif"))
+							{
+								nestLevel--;
 							}
 						}
 
@@ -624,11 +632,10 @@ void GameManager::ProcessNextEvent(){
 				}
 				else
 				{
-					// Delete everything until elseif, else or endif is found
+					// Activate delete
+					active_delete = true;
 
-					// Set deleteLevel
-					deleteLevel = nestLevel;
-
+					// If statement was not true
 					for(unsigned int i = 1; i < m_events.size(); i++)
 					{
 						// Get tokens and strings
@@ -649,30 +656,33 @@ void GameManager::ProcessNextEvent(){
 							nestLevel++;
 						}
 
-						// Look for elseif and else to initialize delete
-						if(nestLevel == deleteLevel)
+						if(deleteLevel == nestLevel)
 						{
-							// Initialize delete?
-							if(!delToken.compare("elseif") || !delToken.compare("else"))
-							{
-								active_delete = true;
-							}
+							// If "else" then delete line, stop delete until endif is found
 
-							// Deactivate delete?
+							if(!delToken.compare("else"))
+							{
+								m_events.erase(m_events.begin()+i);
+								active_delete = false;
+							}
+							else if(!delToken.compare("endif"))
+							{
+								m_events.erase(m_events.begin()+i);
+								break;
+							}
+						}else{
 							if(!delToken.compare("endif"))
 							{
-								active_delete = false;
-								break;
+								// Increase the nestlevel
+								nestLevel--;
 							}
 						}
 
-						// Delete
 						if(active_delete)
 						{
 							m_events.erase(m_events.begin()+i);
 							i--;
 						}
-
 					}
 				}
 			}

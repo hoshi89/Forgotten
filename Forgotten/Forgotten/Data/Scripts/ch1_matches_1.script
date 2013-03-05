@@ -1,13 +1,12 @@
 suspend
 setdirection player 7
-if flag hej
-showtext 200 200 3 It's a matchbox.
-else
-showtext 200 200 3 NO!
-endif
-wait 3
+if flag has_spoken_to_dendi
+showtext 100 200 5 I'd better take these with me I guess...
+showtext 300 50 2 Picked up matchbox!
 additem 2
-showtext 500 500 2 Picked up matchbox!
- removeentity matches
-wait 2
+removeentity matches
+else
+showtext 100 150 5 Unless I need something lit there's nothing more to this matchbox than it looking pretty.
+endif
+wait 5
 resume
