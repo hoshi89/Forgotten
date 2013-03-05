@@ -8,6 +8,7 @@ MouseHandler::MouseHandler(sf::RenderWindow& window)
 	m_walkRed("Data/Animations/MouseIcons/MousepointerWalkRed.png", 1000, 1),
 	m_walk("Data/Animations/MouseIcons/MousepointerWalk.png", 1000, 1),
 	m_portal("Data/Animations/MouseIcons/portal.png", 50, 14),
+	m_interact("Data/Animations/MouseIcons/interact.png", 50, 8),
 	m_grabItem("Data/Animations/MouseIcons/OverGui.png", 1000, 1),
 	m_currentMouseAnimation(&m_default),
 	m_window(window),
@@ -171,6 +172,9 @@ void MouseHandler::SetCursor(int id){
 			break;
 		case 5:
 			m_currentMouseAnimation = &m_grabItem;
+			break;
+		case 6:
+			m_currentMouseAnimation = &m_interact;
 			break;
 		default:
 			m_currentMouseAnimation = &m_default;

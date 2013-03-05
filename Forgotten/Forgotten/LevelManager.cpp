@@ -17,7 +17,7 @@ void LevelManager::LoadChapter(int id){
 		m_initializingScript = "Data/Scripts/initial_chapter_1.script";
 
 		m_bgMusic.openFromFile("Data/Music/Hotel.ogg");
-		//m_bgMusic.play();
+		m_bgMusic.play();
 		m_bgMusic.setLoop(true);
 
 		// Create rooms for this level
@@ -25,7 +25,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png", 0.12));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 0.12));
 		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/chapter_1_level_art_hotel_room.png", 0.12));
-		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 25, "Data/Levels/Level1/Chapter_1_level_art_hotel_bar.png", 0.12));
+		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 25, "Data/Levels/Level1/Chapter_1_level_art_hotel_bar.png", 0.04));
 
 		// Set player position
 		m_levels[0]->GetPlayer()->SetNodePosition(7, 0);

@@ -75,7 +75,7 @@ bool Object::MouseOver(MouseHandler &mouse)
 	if(m_currentAnimation->getSprite().getGlobalBounds().contains(mouse.GetPosition()))
 	{
 		// The mouse is within the sprite
-		mouse.SetCursor(3);
+		mouse.SetCursor(6);
 		return true;
 	}
 	return false;
