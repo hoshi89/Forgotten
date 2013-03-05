@@ -1,6 +1,6 @@
 #include "RenderStates.h"
 
-RenderStates::RenderStates(State aState) : m_state(aState)
+RenderStates::RenderStates(State aState) : m_state(aState), m_menu(GameManager::GetInstance()->GetMouseHandler())
 {
 	GameManager* gameManager;
 	GameManager::GetInstance()->GetWindow();
@@ -22,16 +22,27 @@ void RenderStates::RenderState()
 	case RenderState::Settings:
 
 		break;
+
+	case RenderState::Exit:
+		GetWindow().close();
+		break;
 	}
 }
 
 void RenderStates::ChangeState()
 {
-	if(m_menu.IsOver())
+	if(m_menu.NewGame())
 	{
 		m_state = RenderState::Game;
 	}
-
+	if(m_menu.Exit())
+	{
+		m_state = RenderState::Exit;
+	}
+	if(m_menu.Continue())
+	{
+		m_state = RenderState::Game;
+	}
 }
 
 sf::RenderWindow& RenderStates::GetWindow()

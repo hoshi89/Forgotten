@@ -7,7 +7,7 @@
 
 class RenderStates{
 public:
-	typedef enum RenderState{Menu, Game, Settings} State;
+	typedef enum RenderState{Menu, Game, Settings, Exit} State;
 	RenderStates(State aState);
 	RenderStates::RenderState GetRenderStates();
 	sf::RenderWindow& GetWindow();

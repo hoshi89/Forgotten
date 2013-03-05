@@ -1,15 +1,32 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu() : m_over(false)
+MainMenu::MainMenu(MouseHandler& mouse) : m_newGame(false), m_exit(false), m_continue(false), m_mouse(mouse)
 {
 	LoadImage();
 	//// Set the view size
 	m_view.setSize(1024, 576);
 	m_view.setCenter(855, 288);
+	SetRects();
 }
 
-bool MainMenu::IsOver(){
-	return m_over;
+bool MainMenu::NewGame()
+{
+	return m_newGame;
+}
+
+bool MainMenu::Exit()
+{
+	return m_exit;
+}
+
+bool MainMenu::Continue()
+{
+	return m_continue;
+}
+
+void MainMenu::IsOver(int i)
+{
+
 }
 
 void MainMenu::LoadImage()
@@ -18,14 +35,11 @@ void MainMenu::LoadImage()
 	m_sprite.setTexture(m_texture);
 }
 
-sf::IntRect MainMenu::GetRect()
+void MainMenu::SetRects()
 {
-	m_shape.setFillColor(sf::Color::Blue);
-	m_shape.setSize(sf::Vector2f(200, 100));
-	m_shape.setPosition(400.f, 200.f);
-	sf::IntRect rect = sf::IntRect(m_shape.getPosition().x, m_shape.getPosition().y, m_shape.getSize().x, m_shape.getSize().y);
-	m_shape.setTextureRect(rect);
-	return m_shape.getTextureRect();
+	m_newGameRect = sf::IntRect(950, 300, 270, 100);
+	m_exitRect = sf::IntRect(1150, 440, 200, 80);
+	m_continueRect = sf::IntRect(930, 180, 270, 100);
 }
 
 void MainMenu::Render(sf::RenderWindow& window)
@@ -33,14 +47,17 @@ void MainMenu::Render(sf::RenderWindow& window)
 	// Clear the screen 
 	window.clear(sf::Color(0, 0, 0));
 
-	IsOverSign(window);
+
+	window.setMouseCursorVisible(false);
 
 	// Set the game view again
 	window.setView(m_view);
 
 	window.draw(m_sprite);
 
-	window.draw(m_shape);
+	m_mouse.Render();
+
+	IsOverSign(window);
 
 	// Display all rendered items
 	window.display();
@@ -48,14 +65,25 @@ void MainMenu::Render(sf::RenderWindow& window)
 
 void MainMenu::Process()
 {
-	GetRect();
+	m_mouse.SetCursor(0);
+	m_mouse.Update();
 }
 
 void MainMenu::IsOverSign(sf::RenderWindow& window)
 {
-	if(m_shape.getTextureRect().contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y)){
-		m_over = true;
+	if(m_newGameRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed()){
+		m_newGame = true;
 	}else{
-		m_over = false;
+		m_newGame = false;
 	}
+	if(m_exitRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed()){
+		m_exit = true;
+	}else{
+		m_exit = false;
+	}
+	//if(m_continueRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y)){
+	//	m_continue = true;
+	//}else{
+	//	m_continue = false;
+	//}
 }
