@@ -39,16 +39,16 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 	return true;
 }
 
-void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow)
+void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
 	if(m_TextPlace == "NPC")
 	{
-		m_AnswerText.setPosition(400, 400);
+		m_AnswerText.setPosition(aEntityPos);
 		m_AnswerText.setColor(sf::Color::White);
 	}
 	else
 	{
-		m_AnswerText.setPosition(200, 200);
+		m_AnswerText.setPosition(aInteractionPos);
 		m_AnswerText.setColor(sf::Color::Cyan);
 	}
 

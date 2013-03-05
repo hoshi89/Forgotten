@@ -43,8 +43,8 @@ private:
 	MapVector m_Members;
 
 	string* ShowOnlyQuestion(sf::RenderWindow &aWindow);
-	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow);
-	string* ShowQuestionAndAnswers(sf::RenderWindow &aWindow);
+	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow,  sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);
+	string* ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);
 	int GetNrOfAnswers();
 	void ManageQuestion(sf::RenderWindow &aWindow);
 	string* EndDialog();

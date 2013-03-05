@@ -25,7 +25,7 @@ public:
 	void SetIsDownGui(bool down);
 
 	// Dialog
-	void SetDeckId(string aDeckId);
+	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);
 	void AddItem(int aId);
 	DialogStateEnum getDialogState();
 
@@ -60,6 +60,8 @@ private:
 
 	//Dialog
 	string m_DeckId;
+	sf::Vector2f m_PlayerPos;
+	sf::Vector2f m_EntityPos;
 	DialogStateEnum m_DialogState;
 };
 

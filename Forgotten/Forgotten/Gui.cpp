@@ -66,23 +66,16 @@ void Gui::Draw(sf::RenderWindow &window){
 	switch (m_DialogState)
 	{
 	case DialogStateEnum::ContinueDialog:
-		//Hämtar dialogerna för "rätt" level
-		//if(m_isWaitingForAnswer && m_MouseHandler->mouse1WasPressed())
-		//{
-//			sf::Vector2f mousePos = m_MouseHandler->GetPosition();
-			//currentLevelDialogs->Choosed(15);
-//		}
-		//"blabla" kommer från script
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
 		break;
 	case DialogStateEnum::WaitForAnswer:
 		//Här ska vi fånga upp och skicka in musposition när man har klickat
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
 		if(m_mouseHandler.mouse1WasPressed())
 		{
 			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);//m_mouseHandler.GetPosition();
 			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos);
 		}
 		break;
 	case DialogStateEnum::EndDialog:
@@ -243,9 +236,11 @@ void Gui::SetIsDownGui(bool down)
 	m_down = down;
 }
 
-void Gui::SetDeckId(string aDeckId)
+void Gui::SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos)
 {
 	m_DeckId = aDeckId;
+	m_PlayerPos = aPlayerpos;
+	m_EntityPos = aEntitypos;
 	m_DialogState = DialogStateEnum::ContinueDialog;
 }
 

@@ -20,9 +20,9 @@ string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNo
 		return ShowOnlyQuestion(aWindow);
 	else
 		if(wNrOfAnswers == 1)
-			return ShowQuestionAndOneAnswer(aWindow);
+			return ShowQuestionAndOneAnswer(aWindow, aEntityPos, aInteractionNode);
 		else
-			return ShowQuestionAndAnswers(aWindow);
+			return ShowQuestionAndAnswers(aWindow, aEntityPos, aInteractionNode);
 }
 
 string* CardCls::ShowOnlyQuestion(sf::RenderWindow &aWindow)
@@ -47,8 +47,9 @@ string* CardCls::ShowOnlyQuestion(sf::RenderWindow &aWindow)
 	}
 }
 
-string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow)
+string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
+	
 	if(m_Clock==NULL)
 		m_Clock = new sf::Clock();
 	
@@ -61,7 +62,7 @@ string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow)
 
 	if(m_Clock->getElapsedTime() < ANSWER_ELAPSED_TIME)
 	{
-		m_Answers[0]->ManageAnswer(aWindow);
+		m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
 		return &m_CardId;
 	}
 
@@ -76,7 +77,7 @@ string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow)
 	}
 }
 
-string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow)
+string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
 	ManageQuestion(aWindow);
 	int wY = DISPLAY_HEIGHT-TEXT_SIZE-10;
@@ -98,7 +99,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	}
 	else
 	{
-		m_QuestionText.setPosition(m_InteractionNode.x, m_InteractionNode.y);
+		m_QuestionText.setPosition(m_InteractionNode);
 		m_QuestionText.setColor(sf::Color::Cyan);
 	}
 	m_QuestionText.setStyle(sf::Text::Bold);

@@ -15,7 +15,8 @@ class AnswerCls
 {
 public:
 	AnswerCls(string aAnswerId);
-	void ManageAnswer(sf::RenderWindow &aWindow);
+	void ManageAnswer(sf::RenderWindow &aWindow,
+		sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);
 	void ManageAnswerS(sf::RenderWindow &aWindow, int aYpos);
 	string* GetTargetId();
 	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);

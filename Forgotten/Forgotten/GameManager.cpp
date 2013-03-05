@@ -524,7 +524,21 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			std::string id = token;
 
-			gui.SetDeckId(id);
+			std::getline(tmpStream, token, ' ');
+			int wPlayerXPos = StringToInt(token);
+			std::getline(tmpStream, token, ' ');
+			int wPlayerYPos = StringToInt(token);
+
+			sf::Vector2f wPlayerPos = sf::Vector2f(wPlayerXPos, wPlayerYPos);
+
+			std::getline(tmpStream, token, ' ');
+			int wEntityXPos = StringToInt(token);
+			std::getline(tmpStream, token, ' ');
+			int wEntityYPos = StringToInt(token);
+
+			sf::Vector2f wEntityPos = sf::Vector2f(wEntityXPos, wEntityYPos);
+
+			gui.SetDeckId(id, wPlayerPos, wEntityPos);
 		}
 		// Add item
 		else if(token == "additem")
