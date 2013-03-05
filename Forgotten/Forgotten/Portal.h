@@ -11,7 +11,7 @@ public:
 	virtual std::string GetID();
 	virtual void SetID(std::string id);
 	bool MouseOver(MouseHandler &mouse);
-	void Interact();
+	void Interact(int item=-1);
 	sf::IntRect GetPortalRect();
 	sf::Vector2f GetNodePosition();
 	Entity::Direction GetDirection();

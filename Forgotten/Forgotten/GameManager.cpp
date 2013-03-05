@@ -128,8 +128,10 @@ void GameManager::Process(){
 			// Check all entities for interaction
 			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 
-				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler)){
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact();
+				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler))
+				{
+					// Is holding something?
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact(gui.ItemInHand());
 					interactFound = true;
 				}
 
@@ -796,4 +798,9 @@ void GameManager::PlayerFocus(){
 LevelManager* GameManager::GetLevelManager()
 {
 	return &m_levelManager;
+}
+
+MouseHandler& GameManager::GetMouseHandler()
+{
+	return m_mouseHandler;
 }

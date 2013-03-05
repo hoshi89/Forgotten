@@ -54,7 +54,7 @@ void Object::StopSound()
 	m_currentAnimation->StopSound();
 }
 
-void Object::Interact()
+void Object::Interact(int item)
 {
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_interactionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);

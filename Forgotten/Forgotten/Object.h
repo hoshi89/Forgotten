@@ -14,7 +14,7 @@ public:
 	void Render(sf::RenderWindow &window);
 	const int GetZ();
 	void StopSound();
-	void Interact();
+	void Interact(int item=-1);
 	sf::Vector2f GetInteractionNode();
 	void StartInteraction();
 	bool MouseOver(MouseHandler &mouse);

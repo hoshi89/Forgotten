@@ -50,7 +50,7 @@ void NpcCls::StopSound()
 {
 }
 
-void NpcCls::Interact()
+void NpcCls::Interact(int item)
 {
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_InteractionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);

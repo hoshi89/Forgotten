@@ -28,7 +28,7 @@ public:
 	void StopSound();
 	void SetFocus(Entity *entity);
 	Entity* GetFocus();
-	void Interact(){};
+	void Interact(int item=-1){};
 	bool MouseOver(MouseHandler&){ return false; }
 private:
 	int m_direction;

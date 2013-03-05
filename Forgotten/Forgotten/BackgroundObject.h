@@ -15,7 +15,7 @@ public:
 	void Render(sf::RenderWindow &window);
 	const int GetZ();
 	void StopSound();
-	void Interact(){};
+	void Interact(int item=-1){};
 	bool MouseOver(MouseHandler&){ return false; };
 	void GoTo(sf::Vector2f){};
 private:

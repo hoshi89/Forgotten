@@ -28,6 +28,7 @@ public:
 	void LoadScript(std::string filename);
 	Player* GetPlayer();
 	LevelManager* GetLevelManager();
+	MouseHandler& GetMouseHandler();
 private:
 	GameManager();
 	GameManager(GameManager const&);

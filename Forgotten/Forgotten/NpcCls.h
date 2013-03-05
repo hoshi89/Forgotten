@@ -19,7 +19,7 @@ public:
 	void Update() override;
 	int const GetZ() override;
 	void StopSound() override;
-	void Interact() override;
+	void Interact(int item=-1) override;
 	sf::Vector2f GetInteractionNode() override;
 	void StartInteraction() override;
 	bool MouseOver(MouseHandler&) override;

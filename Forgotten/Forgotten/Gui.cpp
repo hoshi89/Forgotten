@@ -253,3 +253,12 @@ DialogStateEnum Gui::getDialogState()
 {
 	return m_DialogState;
 }
+
+int Gui::ItemInHand()
+{
+	if(m_mouseHandler.HoldsItem())
+	{
+		return m_mouseHandler.GetId();
+	}
+	return -1;
+}

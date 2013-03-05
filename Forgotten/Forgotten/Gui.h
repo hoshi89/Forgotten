@@ -23,6 +23,7 @@ public:
 	Animation* GetIdCursor(int id);
 	sf::IntRect GetRect();
 	void SetIsDownGui(bool down);
+	int ItemInHand();
 
 	// Dialog
 	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);
