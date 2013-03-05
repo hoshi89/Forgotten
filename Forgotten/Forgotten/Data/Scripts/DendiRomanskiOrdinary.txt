@@ -1,1 +1,1 @@
-showdialog DendiRomanskiOrdinary
+playdialog DendiRomanskiOrdinary

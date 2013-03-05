@@ -93,7 +93,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 {
 	if(m_TextPlace == "NPC")
 	{
-		m_QuestionText.setPosition(m_EntityPos.x, m_EntityPos.y-20);
+		m_QuestionText.setPosition(m_EntityPos);
 		m_QuestionText.setColor(sf::Color::White);
 	}
 	else

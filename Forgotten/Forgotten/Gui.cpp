@@ -73,16 +73,16 @@ void Gui::Draw(sf::RenderWindow &window){
 			//currentLevelDialogs->Choosed(15);
 //		}
 		//"blabla" kommer från script
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
 		break;
 	case DialogStateEnum::WaitForAnswer:
 		//Här ska vi fånga upp och skicka in musposition när man har klickat
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
 		if(m_mouseHandler.mouse1WasPressed())
 		{
-			sf::Vector2f mousePos = m_mouseHandler.GetPosition();
+			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);//m_mouseHandler.GetPosition();
 			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(200, 200)); 
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, GameManager::GetInstance()->GetPlayer()->GetPosition(), sf::Vector2f(829, 195)); 
 		}
 		break;
 	case DialogStateEnum::EndDialog:

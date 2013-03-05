@@ -66,11 +66,17 @@ string* AnswerCls::GetTargetId()
 
 void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 {
-	m_AnswerText.setPosition(100, aYpos);
+	m_AnswerText.setPosition(10, aYpos);
 	m_AnswerText.setCharacterSize(25);
 	m_AnswerText.setColor(sf::Color::Cyan);
 	m_AnswerText.setStyle(sf::Text::Bold);
-	aWindow.draw(m_AnswerText);	
+
+	//sf::RectangleShape* wRectShape = new sf::RectangleShape();
+	//wRectShape->getGlobalBounds() = m_AnswerText.getGlobalBounds();
+	//wRectShape->setPosition(30, 400);
+	//wRectShape->setFillColor(sf::Color::Red);
+	//aWindow.draw(*wRectShape);
+	aWindow.draw(m_AnswerText);
 }
 
 bool AnswerCls::isAnswerChoosen(sf::Vector2f* aMousePos)
