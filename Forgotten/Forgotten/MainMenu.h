@@ -3,14 +3,15 @@
 
 #include "MouseHandler.h"
 #include <SFML\Graphics.hpp>
-#include <stack>
 
 class MainMenu{
 public:
-	MainMenu();
+	MainMenu(MouseHandler& mouse);
 	void Render(sf::RenderWindow& window);
 	void Process();
 	sf::IntRect GetRect();
+	void IsOverSign(sf::RenderWindow& window);
+	bool IsOver();
 private:
 	void LoadImage();
 	void PushMenu();
@@ -22,6 +23,8 @@ private:
 	sf::View m_defaultView;
 	sf::View m_view;
 	sf::RectangleShape m_shape;
+	bool m_over;
+	MouseHandler& m_mouse;
 };
 
 #endif

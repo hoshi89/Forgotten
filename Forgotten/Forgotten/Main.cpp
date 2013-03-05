@@ -3,7 +3,7 @@
 int main()
 {
 	//Create RenderState
-	RenderStates* renderStates = new RenderStates;
+	RenderStates* renderStates = new RenderStates(RenderStates::RenderState::Menu);
 
 	while (renderStates->GetWindow().isOpen())
 	{
@@ -15,6 +15,11 @@ int main()
 			case sf::Event::Closed:
 				renderStates->GetWindow().close();
 				break;
+			case sf::Event::KeyPressed:
+				if (Event.key.code == sf::Keyboard::Escape)
+				{
+					renderStates->SetRenderState(RenderStates::RenderState::Menu);
+				}
 			default:
 				break;
 			}
