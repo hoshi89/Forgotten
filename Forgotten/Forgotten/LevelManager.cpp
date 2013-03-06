@@ -97,13 +97,13 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(matches);
 
 		// Set first room
-		m_currentLevel = m_levels[2];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		//Add NPCS
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script");   
 		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", sf::Vector2f(7, 21), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
-		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", sf::Vector2f(10, 10), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script");
+		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", sf::Vector2f(15, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script");
 
 		m_levels[2]->AddObject(angry_woman);
 		m_levels[4]->AddObject(dendi);
