@@ -22,14 +22,21 @@ public:
 	void Inspect();
 	void SetInteractScript(std::string script);
 	void SetInspectScript(std::string script);
+	void SetGiveScript(std::string script);
+	void SetNoCanDoScript(std::string script);
+	void SetWantsItem(int id);
 private:
 	Animation m_idle;
 	Animation *m_currentAnimation;
 	sf::Vector2f m_position;
 	sf::Vector2f m_interactionNode;
 	std::string m_interactScript;
+	std::string m_giveScript;
 	std::string m_inspectScript;
+	std::string m_noCanDoScript;
 	std::string m_id;
+	int m_hasBeenGivenItem;
+	int m_wantsItem;
 };
 
 #endif

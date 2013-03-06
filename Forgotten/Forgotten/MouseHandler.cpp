@@ -26,24 +26,7 @@ bool MouseHandler::mouse1WasPressed()
 
 bool MouseHandler::mouse2WasPressed()
 {
-
-	if(sf::Mouse::isButtonPressed(sf::Mouse::Right))
-	{
-		if(m_m2pressed)
-		{
-			return false;
-		}
-		else
-		{
-			m_m2pressed = true;
-			return true;
-		}
-	}
-	else
-	{
-		m_m2pressed = false;
-		return false;
-	}
+	return m_mouse2_was_pressed;
 }
 
 bool MouseHandler::mouse1IsPressed()

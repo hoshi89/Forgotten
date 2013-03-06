@@ -121,8 +121,8 @@ void GameManager::Process(){
 
 	if(!m_suspend){
 		// Check mouse click
-		if(m_mouseHandler.mouse1WasPressed()){
-
+		if(m_mouseHandler.mouse1WasPressed())
+		{
 			bool interactFound = false;
 
 			// Check all entities for interaction
@@ -140,7 +140,20 @@ void GameManager::Process(){
 			// Else go to node
 			if(!interactFound)
 				m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+		}
+		else if(m_mouseHandler.mouse2WasPressed())
+		{
+			std::cout << "Mouse 2 was pressed..." << std::endl;
 
+			// Check all entities for inspection
+			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+
+				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler))
+				{
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Inspect();
+				}
+
+			}
 		}
 	}else{
 		m_mouseHandler.SetCursor(0);
@@ -513,11 +526,15 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			int time = StringToInt(token);
 
+			// Get rowbreak as string
+			std::getline(tmpStream, token, ' ');
+			int rowbreak = StringToInt(token);
+
 			// Get text
 			std::getline(tmpStream, token);
 			std::string text = token;
 
-			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord));
+			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord), rowbreak);
 		}
 		// Play dialog
 		else if(token == "playdialog")

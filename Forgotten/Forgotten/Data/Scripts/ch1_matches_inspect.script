@@ -1,0 +1,4 @@
+suspend
+showtext 100 100 5 120 A delicate, green match box laced with gold trim. "The Green Hornet" is printed on the back. No address. Figures.
+wait 5
+resume

@@ -1,7 +1,6 @@
 #ifndef INCLUDED_MAINMENU
 #define INCLUDED_MAINMENU
 
-#include "Menu.h"
 #include "MouseHandler.h"
 #include <vector>
 #include <SFML\Graphics.hpp>

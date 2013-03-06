@@ -17,7 +17,7 @@ public:
 	void Update();
 	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow &window);
-	void PushText(std::string text, int time, sf::Vector2f position);
+	void PushText(std::string text, int time, sf::Vector2f position, int rowbreak);
 	void DeleteText();
 	void SetShowGui(bool showGui);
 	Animation* GetIdCursor(int id);
@@ -44,6 +44,7 @@ private:
 	sf::Text* p_text;
 	typedef std::vector<ScriptText*> TextVector;
 	TextVector m_texts;
+	int m_itemInHand;
 
 	void DrawText(sf::RenderWindow& window);
 	sf::Clock m_clock;

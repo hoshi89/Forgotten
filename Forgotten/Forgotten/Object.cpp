@@ -6,7 +6,8 @@ Object::Object(std::string id, int xPos, int yPos, int interactionX, int interac
 	m_id(id),
 	m_idle(texture, timeperframe, numframes),
 	m_position(xPos, yPos),
-	m_interactionNode(interactionX, interactionY)
+	m_interactionNode(interactionX, interactionY),
+	m_hasBeenGivenItem(-1)
 {
 	m_currentAnimation = &m_idle;
 }
@@ -58,6 +59,12 @@ void Object::Interact(int item)
 {
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_interactionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
+
+	if(item >= 0)
+	{
+		m_hasBeenGivenItem = item;
+	}
+
 }
 
 sf::Vector2f Object::GetInteractionNode()
@@ -67,7 +74,23 @@ sf::Vector2f Object::GetInteractionNode()
 
 void Object::StartInteraction()
 {
-	GameManager::GetInstance()->LoadScript(m_interactScript);
+	// Has an object been placed on the object
+	if(m_hasBeenGivenItem >= 0)
+	{
+		if(m_hasBeenGivenItem == m_wantsItem)
+		{
+			GameManager::GetInstance()->LoadScript(m_giveScript);
+		}
+		else
+		{
+			GameManager::GetInstance()->LoadScript(m_noCanDoScript);
+		}
+	}
+	else
+	{
+		GameManager::GetInstance()->LoadScript(m_interactScript);
+	}
+	m_hasBeenGivenItem = -1;
 }
 
 bool Object::MouseOver(MouseHandler &mouse)
@@ -99,4 +122,19 @@ void Object::SetInteractScript(std::string script)
 void Object::SetInspectScript(std::string script)
 {
 	m_inspectScript = script;
+}
+
+void Object::SetGiveScript(std::string script)
+{
+	m_giveScript = script;
+}
+
+void Object::SetNoCanDoScript(std::string script)
+{
+	m_noCanDoScript = script;
+}
+
+void Object::SetWantsItem(int id)
+{
+	m_wantsItem = id;
 }

@@ -5,11 +5,12 @@
 
 class ScriptText{
 public:
-	ScriptText(std::string text, int time, sf::Vector2f position);
+	ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak);
 	void Draw(sf::RenderWindow& window);
 	bool IsExpired();
 private:
 	sf::Text m_text;
+	sf::Text m_bgText;
 	sf::Clock m_clock;
 	int m_time;
 	sf::Vector2f m_position;

@@ -84,14 +84,20 @@ void LevelManager::LoadChapter(int id){
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 4, 50, "Data/Animations/Objects/matches2.png", 1000, 1);
 
+		// Set what objects want
+		matches->SetWantsItem(2);
+
 		// Set object scripts
-		matches->SetInteractScript("Data/Scripts/ch1_matches_1.script");
+		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
+		matches->SetGiveScript("Data/Scripts/ch1_matches_give.script");
+		matches->SetInspectScript("Data/Scripts/ch1_matches_inspect.script");
+		matches->SetNoCanDoScript("Data/Scripts/ch1_matches_nocando.script");
 
 		// Add objects to the entity vector
 		m_levels[3]->AddObject(matches);
 
 		// Set first room
-		m_currentLevel = m_levels[2];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		//Add NPCS

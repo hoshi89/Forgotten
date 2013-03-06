@@ -1,0 +1,16 @@
+suspend
+setdirection player 7
+additem 2
+additem 4
+additem 5
+if flag has_spoken_to_dendi
+showtext 100 200 5 60 I guess I'd better take these with me...
+wait 3
+showtext 300 50 2 Picked up matchbox!
+additem 2
+removeentity matches
+else
+showtext 100 180 5 60 Unless I need something lit there's nothing more to this matchbox than it looking pretty.
+endif
+wait 5
+resume

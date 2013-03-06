@@ -9,7 +9,8 @@ Gui::Gui(MouseHandler& mouse) :
 	m_showGui(true),
 	m_showItems(false),
 	m_position(200, -50),
-	m_mouseHandler(mouse)
+	m_mouseHandler(mouse),
+	m_itemInHand(-1)
 {
 	LoadImage();
 	m_guiSprite.setPosition(m_position);
@@ -42,6 +43,7 @@ void Gui::Render()
 	if(m_mouseHandler.HoldsItem() && m_mouseHandler.mouse1WasPressed())
 	{
 		m_mouseHandler.DropItem();
+		m_itemInHand = -1;
 	}
 }
 
@@ -100,6 +102,7 @@ void Gui::Draw(sf::RenderWindow &window){
 		{
 			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
 			m_mouseHandler.SetHoldingItem(true);
+			m_itemInHand = Inventory::GetInstance()->GetId(i);
 		}
 	}
 }
@@ -165,9 +168,9 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 }
 
 //Handling text event
-void Gui::PushText(std::string text, int time, sf::Vector2f position)
+void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbreak)
 {
-	ScriptText* scriptText = new ScriptText(text, time, position);
+	ScriptText* scriptText = new ScriptText(text, time, position, rowbreak);
 	m_texts.push_back(scriptText);
 }
 
@@ -258,7 +261,7 @@ int Gui::ItemInHand()
 {
 	if(m_mouseHandler.HoldsItem())
 	{
-		return m_mouseHandler.GetId();
+		return m_itemInHand;
 	}
 	return -1;
 }
