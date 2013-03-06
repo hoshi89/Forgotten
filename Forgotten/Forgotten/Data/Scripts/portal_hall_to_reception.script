@@ -3,6 +3,7 @@ fadeout 1
 wait 2
 playsound 0
 setlevel 2
+setnodeposition player 1 50
 setdirection player 2
 wait 6
 fadein 1

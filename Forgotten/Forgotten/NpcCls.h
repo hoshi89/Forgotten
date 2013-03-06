@@ -9,7 +9,7 @@ class NpcCls :
 	public Entity
 {
 public:
-	NpcCls(int aXpos, int aYpos, const string aSpriteName,
+	NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, int timePerFrame,
 		sf::Vector2f aInteractionNode,
 		GenericMap &aMap, string interactionScript, string inspectScript, string giveScript, string noCanDoScript, int wantsItem = -1);
 	sf::Texture m_texture;
@@ -17,7 +17,7 @@ public:
 	const sf::Sprite& GetSprite() const override;
 	void Render(sf::RenderWindow &aWindow) override;
 	void Update() override;
-	int const GetZ() override;
+	int const GetZ();
 	void StopSound() override;
 	void Interact(int item=-1);
 	void Inspect();

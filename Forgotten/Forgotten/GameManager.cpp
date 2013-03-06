@@ -75,17 +75,6 @@ void GameManager::Process(){
 	// Hide the cursor
 	m_window.setMouseCursorVisible(false);
 
-	// Check the inital script for the chapter
-	if(!m_levelManager.InitialScriptRun()){
-		LoadScript(m_levelManager.GetInitialScript());
-	}
-
-	// Get next script event in queue
-	ProcessNextEvent();
-
-	// Check fade status
-	UpdateFade();
-
 	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
@@ -112,9 +101,6 @@ void GameManager::Process(){
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler);
 
 	}
-
-	// Check if the player has reached its focus
-	PlayerFocus();
 
 	if(!m_suspend){
 		// Check mouse click
@@ -155,6 +141,19 @@ void GameManager::Process(){
 		m_mouseHandler.SetCursor(0);
 	}
 
+	// Check if the player has reached its focus
+	PlayerFocus();
+
+	// Check the inital script for the chapter
+	if(!m_levelManager.InitialScriptRun()){
+		LoadScript(m_levelManager.GetInitialScript());
+	}
+
+	// Get next script event in queue
+	ProcessNextEvent();
+
+	// Check fade status
+	UpdateFade();
 }
 
 void GameManager::Render(){
