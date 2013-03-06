@@ -14,7 +14,7 @@
 
 const bool FULLSCREEN = false;
 const bool DEBUG = true;
-const bool DEBUG_NODE = true;
+const bool DEBUG_NODE = false;
 
 // SINGLETON
 
@@ -46,8 +46,6 @@ private:
 
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
-
-
 
 	// Script stuff
 	typedef std::vector<std::string> EventQueue;

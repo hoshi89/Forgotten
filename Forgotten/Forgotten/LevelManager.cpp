@@ -50,7 +50,7 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
 		// Create portals
-		Portal *hotelroom2hall = new Portal("hotelroom_to_hall", sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 49));
+		Portal *hotelroom2hall = new Portal("hotelroom_to_hall", sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 45));
 		Portal *hall2reception = new Portal("hall_to_reception", sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0));
 		Portal *hall2hotelroom = new Portal("hall_to_hotelroom", sf::IntRect(310, 260, 135, 215), sf::Vector2f(7, 0));
 		Portal *reception2hall = new Portal("reception_to_hall", sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50));
@@ -103,9 +103,11 @@ void LevelManager::LoadChapter(int id){
 		//Add NPCS
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script");   
 		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", sf::Vector2f(7, 21), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
+		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", sf::Vector2f(10, 10), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_interact.script");
 
 		m_levels[2]->AddObject(angry_woman);
 		m_levels[4]->AddObject(dendi);
+		m_levels[0]->AddObject(valet);
 
 		//Add Dialogs
 		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");

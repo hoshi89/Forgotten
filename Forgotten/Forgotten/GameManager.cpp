@@ -37,9 +37,6 @@ GameManager::GameManager()
 	// Start new game
 	m_levelManager.LoadChapter(0); // Load first chapter
 
-	//m_inventory = new Inventory("Data/Levels/Level1_items.txt");
-	//m_inventory->Read();
-
 	// Set the view size
 	m_view.setSize(1024, 576);
 	m_view.setCenter(512, 288);
@@ -89,9 +86,6 @@ void GameManager::Process(){
 	// Check fade status
 	UpdateFade();
 
-	// Check if the player has reached its focus
-	PlayerFocus();
-
 	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
@@ -118,6 +112,9 @@ void GameManager::Process(){
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler);
 
 	}
+
+	// Check if the player has reached its focus
+	PlayerFocus();
 
 	if(!m_suspend){
 		// Check mouse click
@@ -494,6 +491,10 @@ void GameManager::ProcessNextEvent(){
 		// Set nodeposition
 		else if(token == "setnodeposition")
 		{
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			std::string entity_id = token;
+
 			// Get coordinates as strings
 			std::getline(tmpStream, token, ' ');
 			int xcoord = StringToInt(token);
@@ -501,15 +502,19 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			int ycoord = StringToInt(token);
 
-			// Get entity id as string
-			std::getline(tmpStream, token, ' ');
-			int entityid = StringToInt(token);
-
 			// Calculate nodepos
 			xcoord = xcoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x/2);
 			ycoord = ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
 
-			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
+			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			{
+				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				{
+					// Found the entity, set position
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetPosition(xcoord, ycoord);
+					break;
+				}
+			}
 		}
 		// Show text
 		else if(token == "showtext")
@@ -831,6 +836,9 @@ void GameManager::PlayerFocus(){
 		{
 			// Player is on the interaction node
 			m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus()->StartInteraction();
+
+			// Start first event
+			ProcessNextEvent();
 
 			// Remove focus
 			m_levelManager.GetCurrentLevel()->GetPlayer()->SetFocus(NULL);
