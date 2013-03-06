@@ -1,4 +1,5 @@
 #include "CardCls.h"
+#include "FlagManager.h"
 
 CardCls::CardCls(string aId)
 {
@@ -8,6 +9,7 @@ CardCls::CardCls(string aId)
 	m_Members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_Members.push_back(new CaseValues(ANSWERSTR, ANSWER));
 	m_Members.push_back(new CaseValues(QUESTIONSTR, QUESTION));
+	m_Members.push_back(new CaseValues(QUESTIONSETFLAG, QUESTION_SET_FLAG));
 }
 
 string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
@@ -83,8 +85,17 @@ string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f 
 	int wY = DISPLAY_HEIGHT-TEXT_SIZE-10;
 	for(int i=GetNrOfAnswers()-1; i>=0; i--)
 	{
-		m_Answers[i]->ManageAnswerS(aWindow, wY);
-		wY-=(TEXT_SIZE+3);
+		string* wFlag = m_Answers[i]->GetNeedFlag();
+		bool wBoolFlag = FlagManager::GetInstance()->IsFlagSet(*wFlag);
+		if(wBoolFlag || *wFlag == "")
+		{
+			m_Answers[i]->ManageAnswerS(aWindow, wY);
+			wY-=(TEXT_SIZE+3);
+		}
+		else
+		{
+		}
+
 	}
 	m_State = DialogStateEnum::WaitForAnswer;
 	return &m_CardId;
@@ -113,7 +124,12 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 		m_QuestionText.setColor(sf::Color::Cyan);
 	}
 	m_QuestionText.setCharacterSize(TEXT_SIZE);
-	aWindow.draw(m_QuestionText);	
+	aWindow.draw(m_QuestionText);
+	if(m_QuestionSetFlag != "")
+	{
+		FlagManager::GetInstance()->CreateFlag(m_QuestionSetFlag);
+		m_QuestionSetFlag = "";
+	}
 }
 
 string* CardCls::GetCardId()
@@ -172,6 +188,9 @@ bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 				wAnswer->LoadFromFile(aRw, aTag);
 				isComplete = false;
 				continue;
+			case QUESTION_SET_FLAG:
+				m_QuestionSetFlag = aTag->getValue();
+				break;
 			default:
 				return true;
 		}

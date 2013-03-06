@@ -7,6 +7,7 @@ DECK=AngryWomanStandard
 			TARGET=AskingNiceStartCard
 			TEXTPLACE=AskingCard
 			ANSWERTEXT=Asking Nice
+			ANSWERNEEDFLAG=has_spoken_to_piccolo
 		ANSWER=GoAway
 			TARGET=GoAwayStartCard
 			TEXTPLACE=YYYY

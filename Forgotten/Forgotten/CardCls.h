@@ -31,6 +31,7 @@ private:
 	static const int TEXT_PLACE = 2;
 	static const int ANSWER = 3;
 	static const int QUESTION = 4;
+	static const int QUESTION_SET_FLAG = 5;
 
 	string m_CardId;
 	vector<AnswerCls*> m_Answers;
@@ -42,6 +43,8 @@ private:
 	DialogStateEnum m_State;
 	sf::Text m_QuestionText;
 	MapVector m_Members;
+	string m_QuestionSetFlag;
+	string m_QuestionNeedFlag;
 
 	string* ShowOnlyQuestion(sf::RenderWindow &aWindow);
 	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow,  sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);

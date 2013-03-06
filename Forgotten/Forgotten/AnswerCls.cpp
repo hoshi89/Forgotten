@@ -1,4 +1,5 @@
 #include "AnswerCls.h"
+#include "FlagManager.h"
 
 AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 		sf::Vector2f aEntityPos): m_AnswerId(aAnswerId), m_EntityPos(aEntityPos),
@@ -7,7 +8,8 @@ AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 	m_Members.push_back(new CaseValues(TARGETSTR, TARGET_ID));
 	m_Members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_Members.push_back(new CaseValues(ANSWERTEXTSTR, ANSWER_TEXT));
-
+	m_Members.push_back(new CaseValues(ANSWERSETFLAG, ANSWER_SET_FLAG));
+	m_Members.push_back(new CaseValues(ANSWERNEEDFLAG, ANSWER_NEED_FLAG));
 }
 
 bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
@@ -53,6 +55,12 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 				}
 				break;
 				}
+			case ANSWER_SET_FLAG:
+				m_AnswerSetFlag = aTag->getValue();
+				break;
+			case ANSWER_NEED_FLAG:
+				m_AnswerNeedFlag = aTag->getValue();
+				break;
 			default:
 				return true;
 		}
@@ -116,6 +124,11 @@ bool AnswerCls::isAnswerChoosen(sf::Vector2f* aMousePos)
 string* AnswerCls::GetAnswerId()
 {
 	return &m_AnswerId;
+}
+
+string* AnswerCls::GetNeedFlag()
+{
+	return &m_AnswerNeedFlag;
 }
 
 AnswerCls::~AnswerCls(void)

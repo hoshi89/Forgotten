@@ -15,9 +15,13 @@ const string TEXT_PLACESTR = "TEXTPLACE";
 const string ANSWERSTR = "ANSWER";
 const string QUESTIONSTR = "QUESTION";
 const string ANSWERTEXTSTR = "ANSWERTEXT";
-//const string ANSWERSETFLAG = "ANSWERSETFLAG";
 const string CARD_ID = "CARD";
 const string DECK_ID = "DECK";
+const string ANSWERSETFLAG = "ANSWERSETFLAG";
+const string ANSWERNEEDFLAG = "ANSWERNEEDFLAG";
+const string QUESTIONSETFLAG = "QUESTIONSETFLAG";
+const string QUESTIONNEEDFLAG = "QUESTIONNEEDFLAG";
+
 
 class TagCls
 {
