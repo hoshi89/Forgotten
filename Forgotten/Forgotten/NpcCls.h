@@ -11,7 +11,7 @@ class NpcCls :
 public:
 	NpcCls(int aXpos, int aYpos, const string aSpriteName,
 		sf::Vector2f aInteractionNode,
-		GenericMap &aMap, string aScript);
+		GenericMap &aMap, string interactionScript, string inspectScript, string giveScript, string noCanDoScript, int wantsItem = -1);
 	sf::Texture m_texture;
 	void SetPosition(int x, int y) override;
 	const sf::Sprite& GetSprite() const override;
@@ -20,6 +20,7 @@ public:
 	int const GetZ() override;
 	void StopSound() override;
 	void Interact(int item=-1);
+	void Inspect();
 	sf::Vector2f GetInteractionNode() override;
 	void StartInteraction() override;
 	bool MouseOver(MouseHandler&) override;
@@ -27,15 +28,18 @@ public:
 	void SetDirection(Entity::Direction aDirection) override;
 	virtual ~NpcCls(void);
 private:
-	string m_CurrentScript;
+	string m_interactScript;
+	string m_inspectScript;
+	string m_giveScript;
+	string m_noCanDoScript;
 	int posX;
 	int posY;
+	int m_hasBeenGivenItem;
+	int m_wantsItem;
 	GenericMap &m_nodeMap;
 	Animation m_currentAnimation;
 	sf::Vector2f m_position;
 	sf::Vector2f m_InteractionNode;
 	Entity::Direction m_Direction;
-
-
 };
 

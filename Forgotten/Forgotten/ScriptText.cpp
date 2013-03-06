@@ -8,18 +8,23 @@ ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int ro
 	{
 	case 'I':
 		m_text.setStyle(sf::Text::Italic);
+		m_bgText.setStyle(sf::Text::Italic);
 		break;
 	case 'B':
 		m_text.setStyle(sf::Text::Bold);
+		m_bgText.setStyle(sf::Text::Bold);
 		break;
 	case 'N':
 		m_text.setStyle(sf::Text::Regular);
+		m_bgText.setStyle(sf::Text::Regular);
 		break;
 	case 'U':
 		m_text.setStyle(sf::Text::Underlined);
+		m_bgText.setStyle(sf::Text::Underlined);
 		break;
 	default:
 		m_text.setStyle(sf::Text::Regular);
+		m_bgText.setStyle(sf::Text::Regular);
 		break;
 	}
 

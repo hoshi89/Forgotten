@@ -45,7 +45,6 @@ void Gui::Render()
 		m_mouseHandler.DropItem();
 		m_itemInHand = -1;
 	}
-	cout << "x:" << m_mouseHandler.GetPosition().x << "\n" << "y:" << m_mouseHandler.GetPosition().y << "\n";
 }
 
 //Drawing the gui and its items.

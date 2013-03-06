@@ -94,6 +94,12 @@ sf::IntRect Inventory::GetItemsRect(int i){
 	return m_items[i]->GetRect();
 }
 
-void Inventory::KillItem(int i){
-	m_items[i]->SetDead();
+void Inventory::KillItem(int id){
+	for(int i = 0; i < m_items.size(); i++)
+	{
+		if(m_items[i]->GetId() == id)
+		{
+			m_items[i]->SetDead();
+		}
+	}
 }

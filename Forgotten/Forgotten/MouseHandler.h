@@ -29,6 +29,7 @@ private:
 	Animation m_walk;
 	Animation m_portal;
 	Animation m_interact;
+	Animation m_dialog;
 	Animation m_grabItem;
 	Animation* m_currentMouseAnimation;
 	bool m_m1pressed;

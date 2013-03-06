@@ -20,7 +20,7 @@ public:
 	sf::IntRect GetItemsRect(int i);
 	std::vector<InventoryItem*> Contains();
 	void RemoveItem();
-	void KillItem(int i);
+	void KillItem(int id);
 private:
 	Inventory();
 	Inventory(Inventory const&){};

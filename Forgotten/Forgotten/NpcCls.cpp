@@ -5,10 +5,14 @@
 
 NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName,
 	sf::Vector2f aInteractionNode,
-	GenericMap &aMap, string aScript)
+	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, int wantsItem)
 	: Entity(), m_currentAnimation(aSpriteName, 1000, 1),
 	m_position(sf::Vector2f(aXpos, aYpos)), m_nodeMap(aMap),
-	m_CurrentScript(aScript)
+	m_interactScript(interactScript),
+	m_inspectScript(inspectScript),
+	m_giveScript(giveScript),
+	m_noCanDoScript(noCanDoScript),
+	m_wantsItem(wantsItem)
 {
 	posX = aXpos;
 	posY = aYpos;
@@ -52,6 +56,11 @@ void NpcCls::Interact(int item)
 {
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_InteractionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
+
+	if(item >= 0)
+	{
+		m_hasBeenGivenItem = item;
+	}
 }
 
 sf::Vector2f NpcCls::GetInteractionNode()
@@ -61,16 +70,42 @@ sf::Vector2f NpcCls::GetInteractionNode()
 
 void NpcCls::StartInteraction()
 {
-	std::cout <<"Player has reached interactionNode";
-	GameManager::GetInstance()->LoadScript(m_CurrentScript);
+	// Has an object been dropped on the npc?
+	if(m_hasBeenGivenItem >= 0)
+	{
+		if(m_hasBeenGivenItem == m_wantsItem)
+		{
+			GameManager::GetInstance()->LoadScript(m_giveScript);
+		}
+		else
+		{
+			GameManager::GetInstance()->LoadScript(m_noCanDoScript);
+		}
+	}
+	else
+	{
+		GameManager::GetInstance()->LoadScript(m_interactScript);
+	}
+	m_hasBeenGivenItem = -1;
 }
 
 bool NpcCls::MouseOver(MouseHandler& mouse)
 {
 	if(m_currentAnimation.getSprite().getGlobalBounds().contains(mouse.GetPosition())){
-		// Set mouse animation
-		std::cout << "Mouse over NPC : x: " << mouse.GetPosition().x << " y: " << mouse.GetPosition().y << std::endl;
-		return true;
+
+		sf::Vector2f mousePixel(mouse.GetPosition().x-m_currentAnimation.getSprite().getPosition().x, mouse.GetPosition().y-m_currentAnimation.getSprite().getPosition().y);
+		sf::Image npcImage = m_currentAnimation.getSprite().getTexture()->copyToImage();
+		mousePixel.x += m_currentAnimation.getSprite().getTextureRect().left;
+		mousePixel.y += m_currentAnimation.getSprite().getTextureRect().top;
+
+		sf::Color cPoint = npcImage.getPixel(mousePixel.x, mousePixel.y);
+
+		if(cPoint.a != 0)
+		{
+			// Set mouse animation
+			mouse.SetCursor(7);
+			return true;
+		}
 	}
 
 	return false;
@@ -88,4 +123,9 @@ void NpcCls::SetDirection(Entity::Direction aDirection)
 }
 NpcCls::~NpcCls(void)
 {
+}
+
+void NpcCls::Inspect()
+{
+	GameManager::GetInstance()->LoadScript(m_inspectScript);
 }
