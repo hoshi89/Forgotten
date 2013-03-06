@@ -45,6 +45,7 @@ void Gui::Render()
 		m_mouseHandler.DropItem();
 		m_itemInHand = -1;
 	}
+	cout << "x:" << m_mouseHandler.GetPosition().x << "\n" << "y:" << m_mouseHandler.GetPosition().y << "\n";
 }
 
 //Drawing the gui and its items.
@@ -75,7 +76,10 @@ void Gui::Draw(sf::RenderWindow &window){
 		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
 		if(m_mouseHandler.mouse1WasPressed())
 		{
-			sf::Vector2f mousePos = sf::Vector2f(sf::Mouse::getPosition(window).x, sf::Mouse::getPosition(window).y);//m_mouseHandler.GetPosition();
+			sf::Vector2f mousePos;
+			mousePos.x = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x;
+			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
+
 			currentLevelDialogs->ChooseAnswer(&mousePos);
 			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos);
 		}

@@ -67,8 +67,6 @@ CaseValues::CaseValues(string aName, int aId): m_Name(aName), m_Id(aId)
 
 int CaseValues::isMatch(string& aName)
 {
-//	string wName = aName;
-//	string wMname = m_Name;
 	if(aName == m_Name)
 		return m_Id;
 	else

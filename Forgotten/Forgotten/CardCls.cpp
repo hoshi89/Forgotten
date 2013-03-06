@@ -94,15 +94,24 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 {
 	if(m_TextPlace == "NPC")
 	{
-		m_QuestionText.setPosition(m_EntityPos);
+		string tmpString = m_QuestionText.getString();
+		if(m_EntityPos.x < m_InteractionNode.x && tmpString.size() <= 10)
+		{
+			m_EntityPos.x = m_EntityPos.x + 100;
+		}
+		m_QuestionText.setPosition(m_EntityPos.x, m_EntityPos.y);
 		m_QuestionText.setColor(sf::Color::White);
 	}
 	else
 	{
+		string tmpString = m_QuestionText.getString();
+		if(m_EntityPos.x > m_InteractionNode.x && tmpString.size() <= 10)
+		{
+			m_InteractionNode.x = m_InteractionNode.x+100;
+		}
 		m_QuestionText.setPosition(m_InteractionNode);
 		m_QuestionText.setColor(sf::Color::Cyan);
 	}
-	m_QuestionText.setStyle(sf::Text::Bold);
 	m_QuestionText.setCharacterSize(TEXT_SIZE);
 	aWindow.draw(m_QuestionText);	
 }
@@ -133,10 +142,33 @@ bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 				m_TextPlace = aTag->getValue();
 				break;
 			case QUESTION:
+				{
 				m_QuestionText = sf::Text(aTag->getValue());
+				// Wrap text
+				int chars_before_linebreak = 20;
+				int charCounter = 0;
+
+				sf::String tmpString = m_QuestionText.getString();
+
+				// Iterate through the string
+				for(int i = 0; i < tmpString.getSize(); i++)
+				{
+					if(charCounter >= chars_before_linebreak)
+					{
+						int rowBreak = tmpString.find(sf::String(" "), i);
+
+						tmpString.insert(rowBreak+1, "\n");
+						m_QuestionText.setString(tmpString);
+
+						charCounter = 0;
+					}
+					charCounter++;
+				}
+
 				break;
+				}
 			case ANSWER:
-				wAnswer = this->AddAnswer(aTag->getValue());
+				wAnswer = this->AddAnswer(aTag->getValue(), m_InteractionNode, m_EntityPos);
 				wAnswer->LoadFromFile(aRw, aTag);
 				isComplete = false;
 				continue;
@@ -193,9 +225,10 @@ string* CardCls::ChooseAnswer(sf::Vector2f* aMousePos)
 }
 
 //Scriptfunc
-AnswerCls* CardCls::AddAnswer(string aAnswerId)
+AnswerCls* CardCls::AddAnswer(string aAnswerId, sf::Vector2f aInteractionNode,
+		sf::Vector2f aEntityPos)
 {
-	AnswerCls* wAnswer = new AnswerCls(aAnswerId);
+	AnswerCls* wAnswer = new AnswerCls(aAnswerId, aInteractionNode, aEntityPos);
 	m_Answers.push_back(wAnswer);
 	return wAnswer;
 }

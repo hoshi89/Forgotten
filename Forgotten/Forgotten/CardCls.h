@@ -23,7 +23,8 @@ public:
 	string* ChooseAnswer(sf::Vector2f* aMousePos);
 
 	//Scriptfunc
-	AnswerCls* AddAnswer(string aAnswerId);
+	AnswerCls* AddAnswer(string aAnswerId, sf::Vector2f aInteractionNode,
+		sf::Vector2f aEntityPos);
 	virtual ~CardCls(void);
 private:
 	static const int TARGET_ID = 1;

@@ -14,7 +14,8 @@ const int TEXT_SIZE = 17;
 class AnswerCls
 {
 public:
-	AnswerCls(string aAnswerId);
+	AnswerCls(string aAnswerId,  sf::Vector2f aInteractionNode,
+		sf::Vector2f aEntityPos);
 	void ManageAnswer(sf::RenderWindow &aWindow,
 		sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);
 	void ManageAnswerS(sf::RenderWindow &aWindow, int aYpos);
@@ -33,4 +34,6 @@ private:
 	string m_TargetCardId;
 	sf::Text m_AnswerText;
 	MapVector m_Members;
+	sf::Vector2f m_EntityPos;
+	sf::Vector2f m_InteractionPos;
 };

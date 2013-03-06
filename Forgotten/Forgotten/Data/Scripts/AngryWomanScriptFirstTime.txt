@@ -1,3 +1,0 @@
-suspend
-playdialog AngryWomanFirstTime 300 200 500 170
-resume

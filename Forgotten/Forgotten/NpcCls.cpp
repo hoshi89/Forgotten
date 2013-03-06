@@ -5,7 +5,6 @@
 
 NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName,
 	sf::Vector2f aInteractionNode,
-	Entity::Direction aDirection,
 	GenericMap &aMap, string aScript)
 	: Entity(), m_currentAnimation(aSpriteName, 1000, 1),
 	m_position(sf::Vector2f(aXpos, aYpos)), m_nodeMap(aMap),
@@ -14,7 +13,6 @@ NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName,
 	posX = aXpos;
 	posY = aYpos;
 	m_InteractionNode = aInteractionNode;
-	m_Direction = aDirection;
 }
 
 void NpcCls::Render(sf::RenderWindow &aWindow)
@@ -64,15 +62,6 @@ sf::Vector2f NpcCls::GetInteractionNode()
 void NpcCls::StartInteraction()
 {
 	std::cout <<"Player has reached interactionNode";
-	if(!FlagManager::GetInstance()->IsFlagSet("TalkedToAngryWomanOnce"))
-	{
-		m_CurrentScript = "Data/Scripts/AngryWomanScriptFirstTime.txt";
-		FlagManager::GetInstance()->CreateFlag("TalkedToAngryWomanOnce");
-	}
-	else if(FlagManager::GetInstance()->IsFlagSet("TalkedToAngryWomanOnce"))
-	{
-		m_CurrentScript = "Data/Scripts/AngryWomanScriptStandard.txt";
-	}
 	GameManager::GetInstance()->LoadScript(m_CurrentScript);
 }
 

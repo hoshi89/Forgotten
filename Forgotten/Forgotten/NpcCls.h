@@ -10,7 +10,7 @@ class NpcCls :
 {
 public:
 	NpcCls(int aXpos, int aYpos, const string aSpriteName,
-		sf::Vector2f aInteractionNode, Entity::Direction aDirection,
+		sf::Vector2f aInteractionNode,
 		GenericMap &aMap, string aScript);
 	sf::Texture m_texture;
 	void SetPosition(int x, int y) override;

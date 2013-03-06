@@ -1,0 +1,3 @@
+suspend
+playdialog Piccolo 400 300 760 340
+resume

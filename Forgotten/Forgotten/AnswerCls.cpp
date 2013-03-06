@@ -1,10 +1,13 @@
 #include "AnswerCls.h"
 
-AnswerCls::AnswerCls(string aAnswerId): m_AnswerId(aAnswerId)
+AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
+		sf::Vector2f aEntityPos): m_AnswerId(aAnswerId), m_EntityPos(aEntityPos),
+		m_InteractionPos(aInteractionNode)
 {
 	m_Members.push_back(new CaseValues(TARGETSTR, TARGET_ID));
 	m_Members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_Members.push_back(new CaseValues(ANSWERTEXTSTR, ANSWER_TEXT));
+
 }
 
 bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
@@ -26,8 +29,30 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 				m_TextPlace = aTag->getValue();
 				break;
 			case ANSWER_TEXT:
+				{
 				m_AnswerText = sf::Text(aTag->getValue());
+				// Wrap text
+				int chars_before_linebreak = 20;
+				int charCounter = 0;
+
+				sf::String tmpString = m_AnswerText.getString();
+
+				// Iterate through the string
+				for(int i = 0; i < tmpString.getSize(); i++)
+				{
+					if(charCounter >= chars_before_linebreak)
+					{
+						int rowBreak = tmpString.find(sf::String(" "), i);
+
+						tmpString.insert(rowBreak+1, "\n");
+						m_AnswerText.setString(tmpString);
+
+						charCounter = 0;
+					}
+					charCounter++;
+				}
 				break;
+				}
 			default:
 				return true;
 		}
@@ -43,16 +68,21 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 {
 	if(m_TextPlace == "NPC")
 	{
+		string tmpString = m_AnswerText.getString();
+		if(m_EntityPos.x < m_InteractionPos.x && tmpString.size() <= 10)
+			aEntityPos.x = aEntityPos.x+100;
 		m_AnswerText.setPosition(aEntityPos);
 		m_AnswerText.setColor(sf::Color::White);
 	}
 	else
 	{
+		string tmpString = m_AnswerText.getString();
+		if(m_EntityPos.x > m_InteractionPos.x && tmpString.size() <= 20)
+			aInteractionPos.x = aInteractionPos.x+100;
 		m_AnswerText.setPosition(aInteractionPos);
 		m_AnswerText.setColor(sf::Color::Cyan);
 	}
 
-	m_AnswerText.setStyle(sf::Text::Bold);
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
 	aWindow.draw(m_AnswerText);	
 	string wStr = string(m_AnswerText.getString());
@@ -69,8 +99,6 @@ void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 	m_AnswerText.setPosition(10, aYpos);
 	m_AnswerText.setCharacterSize(25);
 	m_AnswerText.setColor(sf::Color::Cyan);
-	m_AnswerText.setStyle(sf::Text::Bold);
-
 	//sf::RectangleShape* wRectShape = new sf::RectangleShape();
 	//wRectShape->getGlobalBounds() = m_AnswerText.getGlobalBounds();
 	//wRectShape->setPosition(30, 400);
