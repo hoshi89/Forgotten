@@ -1,0 +1,10 @@
+suspend
+if flag valet_1
+showtext 390 220 3 1000 I 255 0 255 17 Seems to be in a fucking hurry... can't raise flag!
+lowerflag valet_1
+else
+showtext 390 220 3 1000 I 255 0 255 17 Hmm...maybe he has some information.
+raiseflag valet_1
+endif
+wait 2
+resume

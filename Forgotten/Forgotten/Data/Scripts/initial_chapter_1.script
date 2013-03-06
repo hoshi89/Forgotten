@@ -1,1 +1,13 @@
-fadein 1
+suspend
+wait 2
+showtext 200 300 5 100 B 255 255 255 20 Ngh...
+wait 3
+showtext 500 200 5 100 B 255 255 255 20 Where am I???
+wait 3
+showtext 400 500 5 100 B 255 255 255 20 What has happened?
+wait 3
+showtext 0 200 5 100 B 0 0 200 150 FORGOTTEN!!
+wait 3
+fadein 2
+showgui
+resume

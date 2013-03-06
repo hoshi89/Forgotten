@@ -1,22 +1,10 @@
 suspend
-if flag has_spoken_to_angry_woman_1
-if flag has_spoken_to_angry_woman_2
-if flag has_spoken_to_angry_woman_3
-showtext 200 120 8 100 I 255 0 255 17 Annoying as she may be, she's not moving until she's gotten that old necklace of hers.
-lowerflag has_spoken_to_angry_woman_1
-lowerflag has_spoken_to_angry_woman_2
-lowerflag has_spoken_to_angry_woman_3
+if flag has_spoken_to_dendi
+showtext 100 120 5 100 I 255 0 255 17 That's a man befit the term 'grizzled' if I ever saw one.
+lowerflag has_spoken_to_dendi
 else
-showtext 430 120 8 100 I 255 0 255 17 Well that is a problem.
-raiseflag has_spoken_to_angry_woman_3
+showtext 100 120 5 100 I 255 0 255 17 Grey hair but still quite the frame. Gotta be a construction worker or something. Probably not the friendliest kind either.
+raiseflag has_spoken_to_dendi
 endif
-else
-showtext 500 120 8 100 I 255 0 255 17 Ugh.
-raiseflag has_spoken_to_angry_woman_2
-endif
-else
-showtext 300 120 8 65 I 255 0 255 17 A woman of 'higher standing'. Acting like one at least. Loudly.
-raiseflag has_spoken_to_angry_woman_1
-endif
-wait 8
+wait 3
 resume
