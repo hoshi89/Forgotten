@@ -172,9 +172,9 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 }
 
 //Handling text event
-void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbreak)
+void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbreak, char style, sf::Color color, int fontsize)
 {
-	ScriptText* scriptText = new ScriptText(text, time, position, rowbreak);
+	ScriptText* scriptText = new ScriptText(text, time, position, rowbreak, style, color, fontsize);
 	m_texts.push_back(scriptText);
 }
 

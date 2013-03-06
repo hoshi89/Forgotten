@@ -5,7 +5,7 @@
 
 class ScriptText{
 public:
-	ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak);
+	ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak, char style, sf::Color color, int fontsize);
 	void Draw(sf::RenderWindow& window);
 	bool IsExpired();
 private:

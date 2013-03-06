@@ -1,15 +1,38 @@
 #include "ScriptText.h"
 
 //Constructor
-ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak) : m_text(text), m_time(time), m_position(position), m_expired(false){
+ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak, char style, sf::Color color, int fontsize) : m_text(text), m_time(time), m_position(position), m_expired(false){
 
-	// White text
+	// Text style
+	switch(style)
+	{
+	case 'I':
+		m_text.setStyle(sf::Text::Italic);
+		break;
+	case 'B':
+		m_text.setStyle(sf::Text::Bold);
+		break;
+	case 'N':
+		m_text.setStyle(sf::Text::Regular);
+		break;
+	case 'U':
+		m_text.setStyle(sf::Text::Underlined);
+		break;
+	default:
+		m_text.setStyle(sf::Text::Regular);
+		break;
+	}
+
+	// Text color
+	m_text.setColor(color);
+
+	// Position and size
 	m_text.setPosition(m_position);
-	m_text.setCharacterSize(16);
+	m_text.setCharacterSize(fontsize);
 
 	// Background text
 	m_bgText.setPosition(m_position.x+1, m_position.y+1);
-	m_bgText.setCharacterSize(16);
+	m_bgText.setCharacterSize(fontsize);
 	m_bgText.setColor(sf::Color::Black);
 
 	// Wrap text

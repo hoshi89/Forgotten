@@ -17,7 +17,7 @@ public:
 	void Update();
 	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow &window);
-	void PushText(std::string text, int time, sf::Vector2f position, int rowbreak);
+	void PushText(std::string text, int time, sf::Vector2f position, int rowbreak, char style, sf::Color color, int fontsize);
 	void DeleteText();
 	void SetShowGui(bool showGui);
 	Animation* GetIdCursor(int id);

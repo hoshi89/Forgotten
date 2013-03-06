@@ -143,8 +143,6 @@ void GameManager::Process(){
 		}
 		else if(m_mouseHandler.mouse2WasPressed())
 		{
-			std::cout << "Mouse 2 was pressed..." << std::endl;
-
 			// Check all entities for inspection
 			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 
@@ -530,11 +528,29 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			int rowbreak = StringToInt(token);
 
+			// Get text style as string
+			std::getline(tmpStream, token, ' ');
+			char style = token[0];
+
+			// Get colors as string
+			std::getline(tmpStream, token, ' ');
+			int c1 = StringToInt(token);
+
+			std::getline(tmpStream, token, ' ');
+			int c2 = StringToInt(token);
+
+			std::getline(tmpStream, token, ' ');
+			int c3 = StringToInt(token);
+
+			// Get text font size as string
+			std::getline(tmpStream, token, ' ');
+			int fontsize = StringToInt(token);
+
 			// Get text
 			std::getline(tmpStream, token);
 			std::string text = token;
 
-			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord), rowbreak);
+			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord), rowbreak, style, sf::Color(c1, c2, c3), fontsize);
 		}
 		// Play dialog
 		else if(token == "playdialog")
