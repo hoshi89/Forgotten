@@ -19,7 +19,7 @@ public:
 	virtual void Render(sf::RenderWindow &window) abstract;
 	virtual const int GetZ() abstract;
 	virtual void StopSound() abstract;
-	virtual void Interact() abstract;
+	virtual void Interact(int item = -1) abstract;
 	virtual sf::Vector2f GetInteractionNode(){ return sf::Vector2f(); };
 	virtual void StartInteraction(){};
 	virtual bool MouseOver(MouseHandler&) abstract;
