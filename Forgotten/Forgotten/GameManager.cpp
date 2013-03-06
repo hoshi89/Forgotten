@@ -124,6 +124,7 @@ void GameManager::Process(){
 		if(m_mouseHandler.mouse1WasPressed())
 		{
 			bool interactFound = false;
+			m_levelManager.GetCurrentLevel()->GetPlayer()->SetFocus(NULL);
 
 			// Check all entities for interaction
 			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
@@ -744,6 +745,15 @@ void GameManager::ProcessNextEvent(){
 			std::string flag = token;
 
 			FlagManager::GetInstance()->CreateFlag(flag);
+		}
+		// Lower flag
+		else if(token == "lowerflag")
+		{
+			// Get flag as string
+			std::getline(tmpStream, token, ' ');
+			std::string flag = token;
+
+			FlagManager::GetInstance()->DeleteFlag(flag);
 		}
 
 		m_events.erase(m_events.begin());

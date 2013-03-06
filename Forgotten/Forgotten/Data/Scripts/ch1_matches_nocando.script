@@ -1,5 +1,5 @@
 suspend
 setdirection player 7
-showtext 100 180 2 100 I can't do that...
+showtext 180 205 2 100 N 255 255 255 17 I can't do that...
 wait 2
 resume
