@@ -9,6 +9,6 @@ raiseflag spoken_to_receptionist_once
 endif
 else
 setdirection player 4
-loud conversation with the angry lady.
+showtext 250 250 5 30 I 255 0 255 17 I can't talk to the receptionist as she is in a loud conversation with the angry lady.
 endif
 resume
