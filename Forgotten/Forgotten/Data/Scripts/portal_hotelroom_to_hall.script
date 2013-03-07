@@ -3,6 +3,8 @@ setdirection player 1
 fadeout 1
 wait 2
 setlevel 0
+setnodeposition player 7 0
+move player 7 0
 setdirection player 4
 fadein 1
 resume

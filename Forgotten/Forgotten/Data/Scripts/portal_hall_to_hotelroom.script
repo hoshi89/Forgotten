@@ -1,9 +1,9 @@
 suspend
-setdirection player 7
 setdirection player 0
 fadeout 1
 wait 2
 setlevel 3
+setnodeposition player 21 45
 setdirection player 5
 fadein 1
 wait 1

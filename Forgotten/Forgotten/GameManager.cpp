@@ -75,17 +75,6 @@ void GameManager::Process(){
 	// Hide the cursor
 	m_window.setMouseCursorVisible(false);
 
-	// Check the inital script for the chapter
-	if(!m_levelManager.InitialScriptRun()){
-		LoadScript(m_levelManager.GetInitialScript());
-	}
-
-	// Get next script event in queue
-	ProcessNextEvent();
-
-	// Check fade status
-	UpdateFade();
-
 	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
@@ -112,9 +101,6 @@ void GameManager::Process(){
 		m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler);
 
 	}
-
-	// Check if the player has reached its focus
-	PlayerFocus();
 
 	if(!m_suspend){
 		// Check mouse click
@@ -155,6 +141,19 @@ void GameManager::Process(){
 		m_mouseHandler.SetCursor(0);
 	}
 
+	// Check if the player has reached its focus
+	PlayerFocus();
+
+	// Check the inital script for the chapter
+	if(!m_levelManager.InitialScriptRun()){
+		LoadScript(m_levelManager.GetInitialScript());
+	}
+
+	// Get next script event in queue
+	ProcessNextEvent();
+
+	// Check fade status
+	UpdateFade();
 }
 
 void GameManager::Render(){
@@ -363,16 +362,17 @@ void GameManager::ProcessNextEvent(){
 		// Move entity
 		else if(token == "move")
 		{
+
+			// Get the entity id as string
+			std::getline(tmpStream, token, ' ');
+			std::string entity_id = token;
+
 			// Get coordinates as strings
 			std::getline(tmpStream, token, ' ');
 			int xcoord = StringToInt(token);
 			
 			std::getline(tmpStream, token, ' ');
 			int ycoord = StringToInt(token);
-
-			// Get entity id as string
-			std::getline(tmpStream, token, ' ');
-			std::string entity_id = token;
 
 			// Move the entity
 			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
@@ -504,7 +504,7 @@ void GameManager::ProcessNextEvent(){
 
 			// Calculate nodepos
 			xcoord = xcoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x/2);
-			ycoord = ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
+			ycoord = (ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y) + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
 
 			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
 			{

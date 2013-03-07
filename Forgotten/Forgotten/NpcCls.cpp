@@ -3,10 +3,10 @@
 #include "FlagManager.h"
 
 
-NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName,
+NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, int timePerFrame,
 	sf::Vector2f aInteractionNode,
 	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, int wantsItem)
-	: Entity(), m_currentAnimation(aSpriteName, 1000, 1),
+	: Entity(), m_currentAnimation(aSpriteName, timePerFrame, numFrames),
 	m_position(sf::Vector2f(aXpos, aYpos)), m_nodeMap(aMap),
 	m_interactScript(interactScript),
 	m_inspectScript(inspectScript),
@@ -45,7 +45,7 @@ void NpcCls::Update()
 
 int const NpcCls::GetZ()
 {
-	return 1;
+	return m_position.y;
 }
 
 void NpcCls::StopSound()
@@ -114,13 +114,13 @@ bool NpcCls::MouseOver(MouseHandler& mouse)
 
 void NpcCls::GoTo(sf::Vector2f aInteractionNode)
 {
-
 }
 
 void NpcCls::SetDirection(Entity::Direction aDirection)
 {
 	m_Direction = aDirection;
 }
+
 NpcCls::~NpcCls(void)
 {
 }

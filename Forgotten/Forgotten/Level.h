@@ -10,7 +10,7 @@
 
 class Level{
 public:
-	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale);
+	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale, int scaleOffset);
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
 	void AddObject(Entity* entity);
@@ -29,6 +29,7 @@ private:
 	std::vector<Entity*> m_entities;
 	std::vector<SFX*> m_soundEffects;
 	int m_id;
+	int m_scaleOffset;
 	sf::Texture m_bgTexture;
 	sf::Sprite m_bgSprite;
 	GenericMap m_nodeMap;
