@@ -103,9 +103,13 @@ void LevelManager::LoadChapter(int id){
 
 		//Add NPCS
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script");   
-		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 21), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
+		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
 		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", 1, 1000, sf::Vector2f(15, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script");
 		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(10, 10), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script");
+
+		dendi->SetWantsItem(1);
+		angry_woman->SetWantsItem(4);
+		receptionist->SetWantsItem(3);
 
 		m_levels[2]->AddObject(angry_woman);
 		m_levels[4]->AddObject(dendi);
@@ -115,6 +119,7 @@ void LevelManager::LoadChapter(int id){
 		//Add Dialogs
 		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");
 		m_levels[2]->LoadLevelDialogs("Data/Scripts/LevelTwoDlg.txt");
+		m_levels[4]->LoadLevelDialogs("Data/Scripts/LevelFourDlg.txt");
 		break;
 	}
 }
