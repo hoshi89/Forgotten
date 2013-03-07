@@ -1,9 +1,14 @@
 suspend
 setdirection player 7
 if flag angry_woman_gone
-showtext 430 120 4 100 I 255 0 255 17 The angry lady is gone, now speak.
+if flag spoken_to_receptionist_once
+playdialog ReceptionistStandard 700 120 400 80
+else
+playdialog ReceptionistFirstTime 700 120 400 80
+raiseflag spoken_to_receptionist_once
+endif
 else
 setdirection player 4
-showtext 430 120 4 30 I 255 0 255 17 I can't talk to the receptionist right now, she's in a loud conversation with the angry lady.
+loud conversation with the angry lady.
 endif
 resume

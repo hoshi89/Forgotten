@@ -1,0 +1,5 @@
+suspend
+showtext 390 220 3 1000 I 255 0 255 20 Here you go, from Dendi.
+raiseflag has_delivered_letter
+removeitem 3 
+resume
