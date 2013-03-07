@@ -106,7 +106,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(matches);
 
 		// Set first room
-		m_currentLevel = m_levels[1];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		// Add NPCS
