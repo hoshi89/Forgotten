@@ -1,7 +1,7 @@
 suspend
-if flag jeremy_know_lady_wants_necklace
+if flag jeremy_knows_lady_wants_necklace
 if flag necklace_open_for_grabs
-showtext 250 120 5 65 I 255 0 255 17 It’s now or never.
+showtext 500 220 5 65 I 255 0 255 17 It's now or never.
 else
 showtext 250 120 5 65 I 255 0 255 17 Fake or not, looks like I need to take matters into my own hands and get this necklace to that lady if I'm ever going to get rid of her.
 endif

@@ -778,6 +778,15 @@ void GameManager::ProcessNextEvent(){
 
 			FlagManager::GetInstance()->DeleteFlag(flag);
 		}
+		// Remove item from Inventory
+		else if(token == "removeitem")
+		{
+			// Get flag as string
+			std::getline(tmpStream, token, ' ');
+			int item_id = StringToInt(token);
+
+			Inventory::GetInstance()->KillItem(item_id);
+		}
 
 		m_events.erase(m_events.begin());
 	}

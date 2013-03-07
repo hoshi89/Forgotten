@@ -1,6 +1,7 @@
 suspend
 if flag can_give_matches
 playdialog DendiRomanskiMatchBoxGiven 295 120 90 80
+raiseflag jeremy_knows_where_to_go
 additem 3
 else
 showtext 180 120 5 100 I 255 0 255 17 Why would I give my match box to this guy?

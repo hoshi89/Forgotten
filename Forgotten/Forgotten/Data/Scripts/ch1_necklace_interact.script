@@ -4,6 +4,7 @@ if flag necklace_open_for_grabs
 fadeout 1
 wait 2
 additem 4
+removeentity necklace
 fadein 1
 else
 showtext 700 300 5 30 N 255 255 255 17 I'm sorry sir, but that does not belong to you. Please refrain from this action or I will have to report your action to the management.
