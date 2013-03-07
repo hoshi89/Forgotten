@@ -5,6 +5,7 @@ wait 2
 playsound 0
 setlevel 0
 setnodeposition player 43 0
+move player 43 0
 setdirection player 6
 wait 6
 fadein 1

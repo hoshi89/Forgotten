@@ -1,7 +1,7 @@
 #include "Level.h"
 
-Level::Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale)
-	:m_id(id), m_nodeMap(nodeData, nodeWidth, nodeHeight, entityScale)
+Level::Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale, int scaleOffset)
+	:m_id(id), m_nodeMap(nodeData, nodeWidth, nodeHeight, entityScale, scaleOffset)
 {
 	// Set background
 	m_bgTexture.loadFromFile(bgTexture);
