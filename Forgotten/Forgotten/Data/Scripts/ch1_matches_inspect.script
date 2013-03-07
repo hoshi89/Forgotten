@@ -6,15 +6,3 @@ showtext 250 120 5 65 I 255 0 255 17 A delicate, green match box laced with gold
 endif
 wait 5
 resume
-
-			for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++)
-			{
-				if(Inventory::GetInstance()->GetId(i) == id)
-				{
-					hasItem = true;
-				}
-			}
-			if(!hasItem)
-			{
-				Inventory::GetInstance()->AddItem(id);
-			}
