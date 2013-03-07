@@ -220,9 +220,10 @@ void Gui::SetCursorVector()
 		int id;
 		std::string name;
 		std::string directory;
+		std::string script;
 		for(int i = 0; i < size; i++)
 		{
-			m_objectFile >> id >> name >> directory;
+			m_objectFile >> id >> name >> directory >> script;
 			m_objectCursor.push_back(new Animation(directory, 1000, 1));
 		}
 	}

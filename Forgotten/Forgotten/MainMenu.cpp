@@ -7,6 +7,7 @@ MainMenu::MainMenu(MouseHandler& mouse) : m_newGame(false), m_exit(false), m_con
 	m_view.setSize(1024, 576);
 	m_view.setCenter(855, 288);
 	SetRects();
+	m_mouse.SetCursor(0);
 }
 
 bool MainMenu::NewGame()

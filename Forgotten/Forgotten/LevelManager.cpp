@@ -17,7 +17,7 @@ void LevelManager::LoadChapter(int id){
 		m_initializingScript = "Data/Scripts/initial_chapter_1.script";
 
 		m_bgMusic.openFromFile("Data/Music/Hotel.ogg");
-		//m_bgMusic.play();
+		m_bgMusic.play();
 		m_bgMusic.setLoop(true);
 
 		// Create rooms for this level
@@ -47,6 +47,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 100, 1, 370, 384, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 500));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -84,7 +85,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
-		Object *necklace = new Object("necklace", 570, 430, 10, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 650, 10, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -97,6 +98,9 @@ void LevelManager::LoadChapter(int id){
 		necklace->SetInspectScript("Data/Scripts/ch1_necklace_inspect.script");
 		necklace->SetNoCanDoScript("Data/Scripts/ch1_necklace_nocando.script");
 
+		// Set sprite offsets
+		necklace->SetSpriteOffset(0, 200);
+
 		// Add objects to the entity vector
 		m_levels[0]->AddObject(necklace);
 		m_levels[3]->AddObject(matches);
@@ -105,12 +109,16 @@ void LevelManager::LoadChapter(int id){
 		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
-		//Add NPCS
-		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script");   
-		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
-		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", 1, 1000, sf::Vector2f(15, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script");
-		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(10, 10), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script");
+		// Add NPCS
+		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", "angry_woman");   
+		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", "dendi");
+		NpcCls *valet = new NpcCls(1250, 580, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(20, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", "valet");
+		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(10, 10), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", "receptionist");
 
+		// Set sprite offset
+		valet->SetSpriteOffset(100, 200);
+
+		// Set wants item
 		dendi->SetWantsItem(1);
 		angry_woman->SetWantsItem(4);
 		receptionist->SetWantsItem(3);

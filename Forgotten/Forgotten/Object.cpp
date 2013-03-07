@@ -7,7 +7,9 @@ Object::Object(std::string id, int xPos, int yPos, int interactionX, int interac
 	m_idle(texture, timeperframe, numframes),
 	m_position(xPos, yPos),
 	m_interactionNode(interactionX, interactionY),
-	m_hasBeenGivenItem(-1)
+	m_hasBeenGivenItem(-1),
+	xOffset(0),
+	yOffset(0)
 {
 	m_currentAnimation = &m_idle;
 }
@@ -30,9 +32,11 @@ void Object::SetPosition(int x, int y)
 
 void Object::Update()
 {
+	// Fix sprite offset
+	m_currentAnimation->setPosition(sf::Vector2f(m_position.x-xOffset, m_position.y-yOffset));
+
 	// Update current animation
 	m_currentAnimation->update();
-	m_currentAnimation->setPosition(m_position);
 }
 
 const sf::Sprite& Object::GetSprite() const
@@ -137,4 +141,10 @@ void Object::SetNoCanDoScript(std::string script)
 void Object::SetWantsItem(int id)
 {
 	m_wantsItem = id;
+}
+
+void Object::SetSpriteOffset(int x, int y)
+{
+	xOffset = x;
+	yOffset = y;
 }
