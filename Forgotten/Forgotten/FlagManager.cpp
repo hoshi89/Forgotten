@@ -12,7 +12,19 @@ FlagManager* FlagManager::GetInstance()
 
 void FlagManager::CreateFlag(std::string flagname)
 {
-	m_flags.push_back(flagname);
+	bool already_exists = false;
+
+	for(unsigned int i = 0; i < m_flags.size(); i++)
+	{
+		if(!m_flags[i].compare(flagname))
+		{
+			already_exists = true;
+			break;
+		}
+	}
+
+	if(!already_exists)
+		m_flags.push_back(flagname);
 }
 
 void FlagManager::DeleteFlag(std::string flagname)
