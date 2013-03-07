@@ -4,4 +4,5 @@ playdialog DendiRomanskiStandard 280 70 90 80
 else
 playdialog DendiRomanskiFirstTime 280 70 90 80
 raiseflag has_talked_to_dendi_once
+endif
 resume
