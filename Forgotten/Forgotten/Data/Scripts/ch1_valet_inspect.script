@@ -1,5 +1,4 @@
 suspend
-additem 4
 if flag has_spoken_with_piccolo
 showtext 390 220 3 1000 I 255 0 255 20 Thingamajigger doodle woop beep
 else

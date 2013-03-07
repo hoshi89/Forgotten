@@ -1,6 +1,17 @@
 suspend
 if flag has_talked_to_dendi_once
+if flag has_delivered_letter
+if flag money_taken
+showtext 150 120 5 100 I 255 0 255 17 No point in bothering him anymore, I've got my money...
+else
+showtext 200 200 5 30 I 255 255 255 20 Thank's for delivering the letter, here's some money for your trouble!
+wait 5
+additem 2
+raiseflag money_taken
+endif
+else
 playdialog DendiRomanskiStandard 280 70 90 80
+endif
 else
 playdialog DendiRomanskiFirstTime 280 70 90 80
 raiseflag has_talked_to_dendi_once
