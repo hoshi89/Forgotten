@@ -84,9 +84,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
-
-		// Set what objects want
-		matches->SetWantsItem(2);
+		Object *necklace = new Object("necklace", 570, 430, 10, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -94,7 +92,13 @@ void LevelManager::LoadChapter(int id){
 		matches->SetInspectScript("Data/Scripts/ch1_matches_inspect.script");
 		matches->SetNoCanDoScript("Data/Scripts/ch1_matches_nocando.script");
 
+		necklace->SetInteractScript("Data/Scripts/ch1_necklace_interact.script");
+		necklace->SetGiveScript("Data/Scripts/ch1_necklace_give.script");
+		necklace->SetInspectScript("Data/Scripts/ch1_necklace_inspect.script");
+		necklace->SetNoCanDoScript("Data/Scripts/ch1_necklace_nocando.script");
+
 		// Add objects to the entity vector
+		m_levels[0]->AddObject(necklace);
 		m_levels[3]->AddObject(matches);
 
 		// Set first room

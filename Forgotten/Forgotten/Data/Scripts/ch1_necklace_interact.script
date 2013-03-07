@@ -1,0 +1,9 @@
+if flag has_talked_to_dendi_once
+suspend
+playdialog DendiRomanskiStandard 280 70 90 80
+resume
+else
+suspend
+playdialog DendiRomanskiFirstTime 280 70 90 80
+raiseflag has_talked_to_dendi_once
+resume
