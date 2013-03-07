@@ -590,11 +590,23 @@ void GameManager::ProcessNextEvent(){
 		// Add item
 		else if(token == "additem")
 		{
+			bool hasItem = false;
+
 			// Get entity id as string
 			std::getline(tmpStream, token, ' ');
 			int id = StringToInt(token);
 
-			Inventory::GetInstance()->AddItem(id);
+			for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++)
+			{
+				if(Inventory::GetInstance()->GetId(i) == id)
+				{
+					hasItem = true;
+				}
+			}
+			if(!hasItem)
+			{
+				Inventory::GetInstance()->AddItem(id);
+			}
 		}
 		// Remove item
 		else if(token == "removeentity")
