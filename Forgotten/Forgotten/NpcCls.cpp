@@ -5,14 +5,17 @@
 
 NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, int timePerFrame,
 	sf::Vector2f aInteractionNode,
-	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, int wantsItem)
+	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, std::string id, int wantsItem)
 	: Entity(), m_currentAnimation(aSpriteName, timePerFrame, numFrames),
 	m_position(sf::Vector2f(aXpos, aYpos)), m_nodeMap(aMap),
 	m_interactScript(interactScript),
 	m_inspectScript(inspectScript),
 	m_giveScript(giveScript),
 	m_noCanDoScript(noCanDoScript),
-	m_wantsItem(wantsItem)
+	m_id(id),
+	m_wantsItem(wantsItem),
+	xOffset(0),
+	yOffset(0)
 {
 	posX = aXpos;
 	posY = aYpos;
@@ -38,8 +41,11 @@ const sf::Sprite& NpcCls::GetSprite() const
 
 void NpcCls::Update()
 {
-
 	m_currentAnimation.setPosition(sf::Vector2f(posX, posY));
+
+	// Fix sprite offset
+	m_currentAnimation.setPosition(sf::Vector2f(posX-xOffset, posY-yOffset));
+
 	m_currentAnimation.update();
 }
 
@@ -133,4 +139,15 @@ void NpcCls::Inspect()
 void NpcCls::SetWantsItem(int id)
 {
 	m_wantsItem = id;
+}
+
+void NpcCls::SetSpriteOffset(int x, int y)
+{
+	xOffset = x;
+	yOffset = y;
+}
+
+std::string NpcCls::GetID()
+{
+	return m_id;
 }
