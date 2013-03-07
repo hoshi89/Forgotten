@@ -1,8 +1,8 @@
 suspend
 if flag has_spoken_with_piccolo
-showtext 390 220 3 1000 I 255 0 255 20 Thingamajigger doodle woop beep
+showtext 390 220 3 1000 I 255 0 255 17 Thingamajigger doodle woop beep
 else
-showtext 390 220 3 1000 I 255 0 255 20 A service robot. And a shoddy one at that.
+showtext 390 220 3 1000 I 255 0 255 17 A service robot. And a shoddy one at that.
 endif
 wait 3
 resume
