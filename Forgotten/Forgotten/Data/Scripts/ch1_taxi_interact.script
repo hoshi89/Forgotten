@@ -1,4 +1,8 @@
 suspend
-showtext 750 250 5 75 I 255 0 255 17 Take my money!!!
+if flag jeremy_knows_where_to_go
+showtext 550 250 5 30 I 255 0 255 17 I could probably use this to get to the club. Shame I don't have any money.
+else
+showtext 600 250 5 30 I 255 0 255 17 I've no idea where I'd go even if I had the money to hitch a ride.
+endif
 wait 3
 resume

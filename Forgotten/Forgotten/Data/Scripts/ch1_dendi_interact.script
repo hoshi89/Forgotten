@@ -1,5 +1,4 @@
 suspend
-raiseflag has_delivered_letter
 if flag has_talked_to_dendi_once
 if flag has_delivered_letter
 if flag money_taken
