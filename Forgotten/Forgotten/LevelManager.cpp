@@ -85,7 +85,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
-		Object *necklace = new Object("necklace", 1100, 650, 10, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 650, 16, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");

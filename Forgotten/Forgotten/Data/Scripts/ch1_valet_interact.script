@@ -1,8 +1,13 @@
 suspend
 setdirection player 3
-removeentity valet
 if flag has_talked_to_piccolo_once
 playdialog PiccoloStandard 400 300 760 340
+if flag valet_gone
+fadeout 1
+wait 2
+entityremove valet
+fadein 1
+endif
 else
 playdialog PiccoloFirstTime 400 300 760 340
 raiseflag has_talked_to_piccolo_once 
