@@ -84,9 +84,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
-
-		// Set what objects want
-		matches->SetWantsItem(2);
+		Object *necklace = new Object("necklace", 570, 430, 10, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -94,7 +92,13 @@ void LevelManager::LoadChapter(int id){
 		matches->SetInspectScript("Data/Scripts/ch1_matches_inspect.script");
 		matches->SetNoCanDoScript("Data/Scripts/ch1_matches_nocando.script");
 
+		necklace->SetInteractScript("Data/Scripts/ch1_necklace_interact.script");
+		necklace->SetGiveScript("Data/Scripts/ch1_necklace_give.script");
+		necklace->SetInspectScript("Data/Scripts/ch1_necklace_inspect.script");
+		necklace->SetNoCanDoScript("Data/Scripts/ch1_necklace_nocando.script");
+
 		// Add objects to the entity vector
+		m_levels[0]->AddObject(necklace);
 		m_levels[3]->AddObject(matches);
 
 		// Set first room
@@ -103,9 +107,13 @@ void LevelManager::LoadChapter(int id){
 
 		//Add NPCS
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script");   
-		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 21), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
+		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script");
 		NpcCls *valet = new NpcCls(500, 100, "Data/Animations/NPC/valet.png", 1, 1000, sf::Vector2f(15, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script");
 		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(10, 10), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script");
+
+		dendi->SetWantsItem(1);
+		angry_woman->SetWantsItem(4);
+		receptionist->SetWantsItem(3);
 
 		m_levels[2]->AddObject(angry_woman);
 		m_levels[4]->AddObject(dendi);
@@ -115,6 +123,7 @@ void LevelManager::LoadChapter(int id){
 		//Add Dialogs
 		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");
 		m_levels[2]->LoadLevelDialogs("Data/Scripts/LevelTwoDlg.txt");
+		m_levels[4]->LoadLevelDialogs("Data/Scripts/LevelFourDlg.txt");
 		break;
 	}
 }

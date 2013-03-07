@@ -21,6 +21,8 @@ public:
 	std::vector<InventoryItem*> Contains();
 	void RemoveItem();
 	void KillItem(int id);
+	std::string GetName(int id);
+	std::string GetScript(int id);
 private:
 	Inventory();
 	Inventory(Inventory const&){};

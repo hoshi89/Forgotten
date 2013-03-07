@@ -27,12 +27,14 @@ void Inventory::AddItem(int aId){
 	int id;
 	std::string name;
 	std::string directory;
+	std::string scriptName;
 	for(int i = 0; i < size; i++){
 		//Local variables to hold values
-		levelfile >> id >> name >> directory;
+		levelfile >> id >> name >> directory >> scriptName;
 		//Pushes right(id) object into inventory vector
-		if(id == aId){
-			m_items.push_back(new InventoryItem(id, name, directory));
+		if(id == aId)
+		{
+			m_items.push_back(new InventoryItem(id, name, directory, scriptName));
 		}
 	}
 	levelfile.close();
@@ -44,6 +46,15 @@ sf::Vector2f Inventory::GetPosition(int id){
 
 std::string Inventory::GetDirectory(int id){
 	return m_items[id]->GetDirectory();
+}
+
+std::string Inventory::GetName(int id){
+	return m_items[id]->GetName();
+}
+
+std::string Inventory::GetScript(int id)
+{
+	return m_items[id]->GetScript();
 }
 
 int Inventory::GetId(int i){

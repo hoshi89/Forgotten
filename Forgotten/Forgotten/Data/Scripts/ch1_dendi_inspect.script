@@ -1,10 +1,10 @@
 suspend
-if flag has_spoken_to_dendi
+if flag has_inspected_dendi
 showtext 100 120 5 100 I 255 0 255 17 That's a man befit the term 'grizzled' if I ever saw one.
-lowerflag has_spoken_to_dendi
+lowerflag has_inspected_dendi
 else
 showtext 100 120 5 100 I 255 0 255 17 Grey hair but still quite the frame. Gotta be a construction worker or something. Probably not the friendliest kind either.
-raiseflag has_spoken_to_dendi
+raiseflag has_inspected_dendi
 endif
-wait 3
+wait 5
 resume

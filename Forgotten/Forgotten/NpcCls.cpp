@@ -129,3 +129,8 @@ void NpcCls::Inspect()
 {
 	GameManager::GetInstance()->LoadScript(m_inspectScript);
 }
+
+void NpcCls::SetWantsItem(int id)
+{
+	m_wantsItem = id;
+}
