@@ -1,1 +1,9 @@
-showtext 200 120 8 100 I 255 0 255 17 Dendi
+if flag has_talked_to_dendi_once
+suspend
+playdialog DendiRomanskiStandard 280 70 90 80
+resume
+else
+suspend
+playdialog DendiRomanskiFirstTime 280 70 90 80
+raiseflag has_talked_to_dendi_once
+resume

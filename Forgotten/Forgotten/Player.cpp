@@ -14,9 +14,9 @@ Player::Player(GenericMap &map)
 	m_walkingUpRight("Data/Animations/Player/player_walking_up_right.png", 100, 9, "Data/Sounds/GympadojorSten 1.wav"),
 
 	m_idleRight("Data/Animations/Player/player_idle_right.png", 1000, 1),
-	m_idleDownRight("Data/Animations/Player/player_idle_right.png", 1000, 1),
+	m_idleDownRight("Data/Animations/Player/player_idle_down_right.png", 1000, 1),
 	m_idleDown("Data/Animations/Player/player_idle_down.png", 1000, 1),
-	m_idleDownLeft("Data/Animations/Player/player_idle_left.png", 1000, 1),
+	m_idleDownLeft("Data/Animations/Player/player_idle_down_left.png", 1000, 1),
 	m_idleLeft("Data/Animations/Player/player_idle_left.png", 1000, 1),
 	m_idleUpLeft("Data/Animations/Player/player_idle_up_left.png", 1000, 1),
 	m_idleUp("Data/Animations/Player/player_idle_up.png", 1000, 1),
@@ -399,15 +399,24 @@ void Player::Update(){
 	// Update scale and sprite position
 	sf::Vector2f offsetPos;
 	float scale = m_nodeMap.GetEntityScale();
+	int scaleOffset = m_nodeMap.GetScaleOffset();
 	float yPos = GetNodePosition().y;
 
 	if(yPos == 0)
 		yPos = 1;
 
-	float yNodes = m_nodeMap.GetMapSize().y/m_nodeMap.GetNodeSize().y;
+	float yNodes = m_nodeMap.GetMapSize().y;
 	float scalePerNode = scale/yNodes;
 
-	m_scale = scalePerNode * yPos;
+	if(yPos >= scaleOffset)
+	{
+		yPos = yPos-scaleOffset;
+		m_scale = scalePerNode * yPos;
+	}
+	else
+	{
+		m_scale = 1.0;
+	}
 
 	offsetPos.x = m_position.x - (X_FEETOFFSET)*m_scale;
 	offsetPos.y = m_position.y - (Y_FEETOFFSET)*m_scale;

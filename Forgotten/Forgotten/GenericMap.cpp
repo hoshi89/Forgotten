@@ -1,7 +1,7 @@
 #include "GenericMap.h"
 
-GenericMap::GenericMap(std::string mapdata, int nodeWidth, int nodeHeight, float entityScale)
-	:m_nodeWidth(nodeWidth), m_nodeHeight(nodeHeight), m_entityScale(entityScale)
+GenericMap::GenericMap(std::string mapdata, int nodeWidth, int nodeHeight, float entityScale, int scaleOffset)
+	:m_nodeWidth(nodeWidth), m_nodeHeight(nodeHeight), m_entityScale(entityScale), m_scaleOffset(scaleOffset)
 {
 	m_mapImage.loadFromFile(mapdata);
 	m_xSize = m_mapImage.getSize().x;
@@ -45,4 +45,9 @@ bool GenericMap::isWalkable(int x, int y){
 const float GenericMap::GetEntityScale()
 {
 	return m_entityScale;
+}
+
+const int GenericMap::GetScaleOffset()
+{
+	return m_scaleOffset;
 }

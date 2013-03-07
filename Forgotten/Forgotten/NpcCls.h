@@ -26,6 +26,7 @@ public:
 	bool MouseOver(MouseHandler&) override;
 	void GoTo(sf::Vector2f aInteractionNode) override;
 	void SetDirection(Entity::Direction aDirection) override;
+	void SetWantsItem(int id);
 	virtual ~NpcCls(void);
 private:
 	string m_interactScript;

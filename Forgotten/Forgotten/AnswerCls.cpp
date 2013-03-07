@@ -92,6 +92,7 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 	}
 
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
+
 	aWindow.draw(m_AnswerText);	
 	string wStr = string(m_AnswerText.getString());
 	wStr = wStr+"siodj";
@@ -113,6 +114,12 @@ void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 	//wRectShape->setFillColor(sf::Color::Red);
 	//aWindow.draw(*wRectShape);
 	aWindow.draw(m_AnswerText);
+	if(m_AnswerSetFlag != "")
+	{
+		FlagManager::GetInstance()->CreateFlag(m_AnswerSetFlag);
+		m_AnswerSetFlag = "";
+	}
+
 }
 
 bool AnswerCls::isAnswerChoosen(sf::Vector2f* aMousePos)

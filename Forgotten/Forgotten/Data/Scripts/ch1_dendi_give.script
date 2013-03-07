@@ -1,0 +1,4 @@
+suspend
+playdialog DendiRomanskiMatchBoxGiven 280 70 90 80
+resume
+additem 3

@@ -362,16 +362,17 @@ void GameManager::ProcessNextEvent(){
 		// Move entity
 		else if(token == "move")
 		{
+
+			// Get the entity id as string
+			std::getline(tmpStream, token, ' ');
+			std::string entity_id = token;
+
 			// Get coordinates as strings
 			std::getline(tmpStream, token, ' ');
 			int xcoord = StringToInt(token);
 			
 			std::getline(tmpStream, token, ' ');
 			int ycoord = StringToInt(token);
-
-			// Get entity id as string
-			std::getline(tmpStream, token, ' ');
-			std::string entity_id = token;
 
 			// Move the entity
 			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
@@ -503,7 +504,7 @@ void GameManager::ProcessNextEvent(){
 
 			// Calculate nodepos
 			xcoord = xcoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x/2);
-			ycoord = ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
+			ycoord = (ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y) + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
 
 			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
 			{
