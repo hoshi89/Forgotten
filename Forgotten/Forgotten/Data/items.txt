@@ -1,8 +1,8 @@
 7
-1 Cash1 Data/Inventory/Objects/cash.png
-2 Cash2 Data/Inventory/Objects/cash2.png
-3 Letter Data/Inventory/Objects/LetterV2.png
-4 Necklace Data/Inventory/Objects/Necklace.png
-5 Revolver Data/inventory/Objects/Revolver.png
-6 Cigg Data/Inventory/Objects/cigg2.png
-7 Cane Data/Inventory/Objects/cane.png
+1 Matches Data/Inventory/Objects/matches2.png Data/Scripts/ch1_matches_inspect.script
+2 Cash Data/Inventory/Objects/cash2.png Data/Scripts/ch1_angry_woman_inspect.script
+3 Letter Data/Inventory/Objects/LetterV2.png Data/Scripts/ch1_letter_inspect.script
+4 Necklace Data/Inventory/Objects/Necklace.png Data/Scripts/ch1_cash_inspect.script
+5 Revolver Data/inventory/Objects/Revolver.png Data/Scripts/ch1_cash_inspect.script
+6 Cigg Data/Inventory/Objects/cigg2.png Data/Scripts/ch1_cash_inspect.script
+7 Cane Data/Inventory/Objects/cane.png Data/Scripts/ch1_cash_inspect.script
