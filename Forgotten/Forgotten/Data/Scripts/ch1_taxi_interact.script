@@ -1,0 +1,4 @@
+suspend
+showtext 750 250 5 75 I 255 0 255 17 Take my money!!!
+wait 3
+resume
