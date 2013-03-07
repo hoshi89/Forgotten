@@ -15,6 +15,7 @@ void RenderStates::RenderState()
 		GameManager::GetInstance()->Render();
 		break;
 	case RenderState::Menu:
+		GameManager::GetInstance()->GetMouseHandler().DropItem();
 		m_menu.Process();
 		m_menu.Render(GameManager::GetInstance()->GetWindow());
 		ChangeState();

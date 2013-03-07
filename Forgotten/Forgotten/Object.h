@@ -25,6 +25,7 @@ public:
 	void SetGiveScript(std::string script);
 	void SetNoCanDoScript(std::string script);
 	void SetWantsItem(int id);
+	void SetSpriteOffset(int x, int y);
 private:
 	Animation m_idle;
 	Animation *m_currentAnimation;
@@ -37,6 +38,8 @@ private:
 	std::string m_id;
 	int m_hasBeenGivenItem;
 	int m_wantsItem;
+	int xOffset;
+	int yOffset;
 };
 
 #endif
