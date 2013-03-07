@@ -127,15 +127,21 @@ void GameManager::Process(){
 		}
 		else if(m_mouseHandler.mouse2WasPressed())
 		{
+
+			int toBeInspected = -1;
+
 			// Check all entities for inspection
 			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
 
 				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler))
 				{
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Inspect();
+					toBeInspected = i;
 				}
 
 			}
+
+			if(toBeInspected >= 0)
+				m_levelManager.GetCurrentLevel()->GetEntities()[toBeInspected]->Inspect();
 		}
 	}else{
 		m_mouseHandler.SetCursor(0);

@@ -1,4 +1,6 @@
 suspend
-playdialog DendiRomanskiMatchBoxGiven 280 70 90 80
-resume
+if flag can_give_matches
+playdialog DendiRomanskiMatchBoxGiven 295 120 90 80
 additem 3
+endif
+resume
