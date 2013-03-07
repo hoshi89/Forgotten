@@ -1,3 +1,4 @@
+setdirection player 2
 if flag talked_to_angry_woman
 suspend
 playdialog AngryWomanStandard 400 200 730 200

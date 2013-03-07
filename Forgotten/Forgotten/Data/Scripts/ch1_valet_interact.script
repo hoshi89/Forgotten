@@ -1,0 +1,9 @@
+if flag has_talked_to_piccolo_once
+suspend
+playdialog PiccoloStandard 400 300 760 340
+resume
+else
+suspend
+playdialog PiccoloFirstTime 400 300 760 340
+raiseflag has_talked_to_piccolo_once 
+resume
