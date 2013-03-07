@@ -1,6 +1,10 @@
 suspend
 if flag jeremy_know_lady_wants_necklace
+if flag necklace_open_for_grabs
+showtext 250 120 5 65 I 255 0 255 17 It’s now or never.
+else
 showtext 250 120 5 65 I 255 0 255 17 Fake or not, looks like I need to take matters into my own hands and get this necklace to that lady if I'm ever going to get rid of her.
+endif
 else
 showtext 275 120 5 100 I 255 0 255 17 A diamond necklace. Probably fake, judging by how safely stowed it is.
 endif

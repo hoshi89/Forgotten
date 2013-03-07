@@ -85,7 +85,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
-		Object *necklace = new Object("necklace", 1100, 650, 16, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 650, 21, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -113,7 +113,7 @@ void LevelManager::LoadChapter(int id){
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", "angry_woman");   
 		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", "dendi");
 		NpcCls *valet = new NpcCls(1250, 580, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(20, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", "valet");
-		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(10, 10), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", "receptionist");
+		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(15, 43), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", "receptionist");
 
 		// Set sprite offset
 		valet->SetSpriteOffset(100, 200);
