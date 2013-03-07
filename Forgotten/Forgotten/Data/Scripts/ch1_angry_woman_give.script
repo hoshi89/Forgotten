@@ -1,0 +1,8 @@
+suspend
+playdialog AngryWomanGiveNecklace 400 200 800 200
+fadeout 1
+wait 2
+removeentity angry_woman
+fadein 1
+raiseflag angry_woman_gone
+resume

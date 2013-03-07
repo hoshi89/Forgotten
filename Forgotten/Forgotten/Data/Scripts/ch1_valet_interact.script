@@ -3,6 +3,7 @@ setdirection player 3
 if flag has_talked_to_piccolo_once
 playdialog PiccoloStandard 400 300 760 340
 if flag valet_gone
+raiseflag necklace_open_for_grabs
 fadeout 1
 wait 2
 entityremove valet

@@ -1,0 +1,9 @@
+suspend
+setdirection player 7
+if flag angry_woman_gone
+showtext 430 120 4 100 I 255 0 255 17 The angry lady is gone, now speak.
+else
+setdirection player 4
+showtext 430 120 4 30 I 255 0 255 17 I can't talk to the receptionist right now, she's in a loud conversation with the angry lady.
+endif
+resume

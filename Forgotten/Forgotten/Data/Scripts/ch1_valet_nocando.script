@@ -1,0 +1,4 @@
+suspend
+showtext 180 120 5 100 I 255 0 255 17 Why would I want to do that?
+wait 5
+resume

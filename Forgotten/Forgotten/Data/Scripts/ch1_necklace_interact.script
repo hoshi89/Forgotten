@@ -1,9 +1,14 @@
-if flag has_talked_to_dendi_once
 suspend
-playdialog DendiRomanskiStandard 280 70 90 80
-resume
+setdirection player 4
+if flag necklace_open_for_grabs
+fadeout 1
+wait 2
+additem 4
+fadein 1
 else
-suspend
-playdialog DendiRomanskiFirstTime 280 70 90 80
-raiseflag has_talked_to_dendi_once
+showtext 700 300 5 30 N 255 255 255 17 I'm sorry sir, but that does not belong to you. Please refrain from this action or I will have to report your action to the management.
+wait 5
+showtext 200 200 3 60 N 0 255 255 17 No use, that toolbox got more moves than Jagger.
+wait 3
+endif
 resume
