@@ -31,7 +31,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->GetPlayer()->SetNodePosition(7, 0);
 		m_levels[1]->GetPlayer()->SetNodePosition(13, 21);
 		m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
-		m_levels[3]->GetPlayer()->SetNodePosition(4, 49);
+		m_levels[3]->GetPlayer()->SetNodePosition(7, 47);
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 20);
 
 		// Add sounds
@@ -83,7 +83,7 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 200, 450, 4, 50, "Data/Animations/Objects/matches2.png", 1000, 1);
+		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
 
 		// Set what objects want
 		matches->SetWantsItem(2);
@@ -98,7 +98,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(matches);
 
 		// Set first room
-		m_currentLevel = m_levels[2];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		//Add NPCS
