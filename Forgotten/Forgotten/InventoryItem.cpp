@@ -1,6 +1,6 @@
 #include "InventoryItem.h"
 
-InventoryItem::InventoryItem(int id, std::string name, std::string directory) : m_id(id), m_name(name), m_directory(directory), m_isAlive(true){
+InventoryItem::InventoryItem(int id, std::string name, std::string directory, std::string aScriptName) : m_id(id), m_name(name), m_directory(directory), m_isAlive(true), m_scriptName(aScriptName){
 	m_texture.loadFromFile(m_directory);
 	m_sprite.setTexture(m_texture);
 }
@@ -27,6 +27,11 @@ std::string InventoryItem::GetDirectory(){
 
 std::string InventoryItem::GetName(){
 	return m_name;
+}
+
+std::string InventoryItem::GetScript(){
+
+	return m_scriptName;
 }
 
 

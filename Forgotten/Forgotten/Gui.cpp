@@ -101,11 +101,17 @@ void Gui::Draw(sf::RenderWindow &window){
 
 	for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++)
 	{
-		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y) && m_mouseHandler.mouse1WasPressed())
+		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y))
 		{
+			if(m_mouseHandler.mouse1WasPressed()){
 			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
 			m_mouseHandler.SetHoldingItem(true);
 			m_itemInHand = Inventory::GetInstance()->GetId(i);
+			}
+			else if(m_mouseHandler.mouse2WasPressed())
+			{
+				GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
+			}
 		}
 	}
 }
@@ -248,11 +254,6 @@ void Gui::SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntit
 	m_PlayerPos = aPlayerpos;
 	m_EntityPos = aEntitypos;
 	m_DialogState = DialogStateEnum::ContinueDialog;
-}
-
-void Gui::AddItem(int aId)
-{
-
 }
 
 DialogStateEnum Gui::getDialogState()
