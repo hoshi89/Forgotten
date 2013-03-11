@@ -182,12 +182,33 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 		m_QuestionText.setPosition(m_InteractionNode);
 		m_QuestionText.setColor(sf::Color::Cyan);
 	}
+
 	m_QuestionText.setCharacterSize(TEXT_SIZE);
-	sf::Text outline(m_QuestionText);
-	outline.setColor(sf::Color::Black);
-	outline.setCharacterSize(TEXT_SIZE);
-	outline.setPosition(m_QuestionText.getPosition().x+2, m_QuestionText.getPosition().y+2); 
-	aWindow.draw(outline);
+	//outline1
+	sf::Text outline1(m_QuestionText);
+	outline1.setColor(sf::Color::Black);
+	outline1.setCharacterSize(TEXT_SIZE);
+	outline1.setPosition(m_QuestionText.getPosition().x+1, m_QuestionText.getPosition().y+1); 
+	//outline1
+	sf::Text outline2(m_QuestionText);
+	outline2.setColor(sf::Color::Black);
+	outline2.setCharacterSize(TEXT_SIZE);
+	outline2.setPosition(m_QuestionText.getPosition().x+1, m_QuestionText.getPosition().y-1); 
+	//outline1
+	sf::Text outline3(m_QuestionText);
+	outline3.setColor(sf::Color::Black);
+	outline3.setCharacterSize(TEXT_SIZE);
+	outline3.setPosition(m_QuestionText.getPosition().x-1, m_QuestionText.getPosition().y+1); 
+	//outline1
+	sf::Text outline4(m_QuestionText);
+	outline4.setColor(sf::Color::Black);
+	outline4.setCharacterSize(TEXT_SIZE);
+	outline4.setPosition(m_QuestionText.getPosition().x-1, m_QuestionText.getPosition().y-1); 
+
+	aWindow.draw(outline1);
+	aWindow.draw(outline2);
+	aWindow.draw(outline3);
+	aWindow.draw(outline4);
 	aWindow.draw(m_QuestionText);
 	if(m_QuestionSetFlag != "")
 	{

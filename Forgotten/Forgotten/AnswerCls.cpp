@@ -91,11 +91,30 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 		m_AnswerText.setColor(sf::Color::Cyan);
 	}
 
-	sf::Text outline(m_AnswerText);
-	outline.setColor(sf::Color::Black);
-	outline.setCharacterSize(TEXT_SIZE);
-	outline.setPosition(m_AnswerText.getPosition().x+2, m_AnswerText.getPosition().y+2); 
-	aWindow.draw(outline);
+	sf::Text outline1(m_AnswerText);
+	outline1.setColor(sf::Color::Black);
+	outline1.setCharacterSize(TEXT_SIZE);
+	outline1.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y+1); 
+	//outline1
+	sf::Text outline2(m_AnswerText);
+	outline2.setColor(sf::Color::Black);
+	outline2.setCharacterSize(TEXT_SIZE);
+	outline2.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y-1); 
+	//outline1
+	sf::Text outline3(m_AnswerText);
+	outline3.setColor(sf::Color::Black);
+	outline3.setCharacterSize(TEXT_SIZE);
+	outline3.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y+1); 
+	//outline1
+	sf::Text outline4(m_AnswerText);
+	outline4.setColor(sf::Color::Black);
+	outline4.setCharacterSize(TEXT_SIZE);
+	outline4.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y-1); 
+
+	aWindow.draw(outline1);
+	aWindow.draw(outline2);
+	aWindow.draw(outline3);
+	aWindow.draw(outline4);
 
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
 	aWindow.draw(m_AnswerText);	
@@ -118,6 +137,31 @@ void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 	//wRectShape->setPosition(30, 400);
 	//wRectShape->setFillColor(sf::Color::Red);
 	//aWindow.draw(*wRectShape);
+	//sf::Text outline1(m_AnswerText);
+	//outline1.setColor(sf::Color::Black);
+	//outline1.setCharacterSize(TEXT_SIZE);
+	//outline1.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y+1); 
+	////outline1
+	//sf::Text outline2(m_AnswerText);
+	//outline2.setColor(sf::Color::Black);
+	//outline2.setCharacterSize(TEXT_SIZE);
+	//outline2.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y-1); 
+	////outline1
+	//sf::Text outline3(m_AnswerText);
+	//outline3.setColor(sf::Color::Black);
+	//outline3.setCharacterSize(TEXT_SIZE);
+	//outline3.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y+1); 
+	////outline1
+	//sf::Text outline4(m_AnswerText);
+	//outline4.setColor(sf::Color::Black);
+	//outline4.setCharacterSize(TEXT_SIZE);
+	//outline4.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y-1); 
+
+	//aWindow.draw(outline1);
+	//aWindow.draw(outline2);
+	//aWindow.draw(outline3);
+	//aWindow.draw(outline4);
+
 	aWindow.draw(m_AnswerText);
 	if(m_AnswerSetFlag != "")
 	{
