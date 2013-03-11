@@ -18,8 +18,6 @@ Gui::Gui(MouseHandler& mouse) :
 	m_guiview.setCenter(512, 288);
 
 	SetCursorVector();
-
-	//	m_DialogState = DialogStateEnum::ContinueDialog;
 }
 
 int Gui::LoadImage()
@@ -63,16 +61,24 @@ void Gui::Draw(sf::RenderWindow &window){
 	}
 
 	//ny
+	bool mousepressed;
 	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
 	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
 	switch (m_DialogState)
 	{
 	case DialogStateEnum::ContinueDialog:
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
+		mousepressed = false;
+		if(m_mouseHandler.mouse1WasPressed())
+			mousepressed = true;
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
+		mousepressed = false;
 		break;
 	case DialogStateEnum::WaitForAnswer:
 		//Här ska vi fånga upp och skicka in musposition när man har klickat
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
+		mousepressed = false;
+		if(m_mouseHandler.mouse1WasPressed())
+			mousepressed = true;
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed); 
 		if(m_mouseHandler.mouse1WasPressed())
 		{
 			sf::Vector2f mousePos;
@@ -80,8 +86,9 @@ void Gui::Draw(sf::RenderWindow &window){
 			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
 
 			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos);
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
 		}
+		mousepressed = false;
 		break;
 	case DialogStateEnum::EndDialog:
 		break;

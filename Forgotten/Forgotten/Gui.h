@@ -6,7 +6,6 @@
 #include "ScriptText.h"
 
 #include "LevelDialogsCls.h"
-//#include <SFML/Graphics.hpp>
 
 using namespace std;
 

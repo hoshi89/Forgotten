@@ -91,11 +91,16 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 		m_AnswerText.setColor(sf::Color::Cyan);
 	}
 
-	m_AnswerText.setCharacterSize(TEXT_SIZE);
+	sf::Text outline(m_AnswerText);
+	outline.setColor(sf::Color::Black);
+	outline.setCharacterSize(TEXT_SIZE);
+	outline.setPosition(m_AnswerText.getPosition().x+2, m_AnswerText.getPosition().y+2); 
+	aWindow.draw(outline);
 
+	m_AnswerText.setCharacterSize(TEXT_SIZE);
 	aWindow.draw(m_AnswerText);	
-	string wStr = string(m_AnswerText.getString());
-	wStr = wStr+"siodj";
+	//string wStr = string(m_AnswerText.getString());
+	//wStr = wStr+"siodj";
 }
 
 string* AnswerCls::GetTargetId()
