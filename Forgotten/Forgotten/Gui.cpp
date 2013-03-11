@@ -56,27 +56,34 @@ void Gui::Draw(sf::RenderWindow &window){
 	//Update GUI
 	Update();
 
-	//ny
-	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
-	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
-	switch (m_DialogState)
-	{
-	case DialogStateEnum::ContinueDialog:
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
-		break;
-	case DialogStateEnum::WaitForAnswer:
-		//Här ska vi fånga upp och skicka in musposition när man har klickat
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
-		if(m_mouseHandler.mouse1WasPressed())
-		{
-			sf::Vector2f mousePos;
-			mousePos.x = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x;
-			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
+ 	//ny
+	bool mousepressed;
 
-			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos);
-		}
-		break;
+ 	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
+ 	switch (m_DialogState)
+ 	{
+ 	case DialogStateEnum::ContinueDialog:
+		mousepressed = false;
+		if(m_mouseHandler.mouse1WasPressed())
+			mousepressed = true;
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
+		mousepressed = false;
+ 		break;
+ 	case DialogStateEnum::WaitForAnswer:
+		mousepressed = false;
+		if(m_mouseHandler.mouse1WasPressed())
+			mousepressed = true;
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed); 
+ 		if(m_mouseHandler.mouse1WasPressed())
+ 		{
+ 			sf::Vector2f mousePos;
+ 			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
+ 
+ 			currentLevelDialogs->ChooseAnswer(&mousePos);
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
+ 		}
+		mousepressed = false;
+ 		break;
 	case DialogStateEnum::EndDialog:
 		break;
 
