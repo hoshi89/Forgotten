@@ -1,9 +1,12 @@
 suspend
 setdirection player 7
-showtext 100 200 5 60 N 255 255 255 17 I guess I'd better take these with me...
+showtext 175 200 5 60 N 255 255 255 17 I guess I'd better take these with me...
 wait 3
-showtext 10 530 2 50 I 255 0 0 17 Picked up matchbox!
-additem 1
-removeentity matches
+showtext 100 100 2 50 IC 66 244 48 17 Picked up match box!
+bgvolume 20
+wait 2
+ additem 1
+ removeentity matches
+bgvolume 100
 wait 2
 resume

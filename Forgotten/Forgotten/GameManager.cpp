@@ -30,7 +30,6 @@ GameManager::GameManager()
 	m_mouseHandler(m_window),
 	m_suspend(false)
 {
-
 	// Set fadeShape
 	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 255));
 
@@ -541,7 +540,7 @@ void GameManager::ProcessNextEvent(){
 
 			// Get text style as string
 			std::getline(tmpStream, token, ' ');
-			char style = token[0];
+			std::string style = token;
 
 			// Get colors as string
 			std::getline(tmpStream, token, ' ');
