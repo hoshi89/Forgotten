@@ -35,8 +35,9 @@ void LevelManager::LoadChapter(int id){
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 20);
 
 		// Add sounds
-		m_levels[0]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
-		m_levels[2]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
+		m_levels[0]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav", "elevator_open"));
+		m_levels[3]->AddSound(new SFX("Data/Sounds/Cello Complete Em.wav", "cello_complete_em"));
+		m_levels[2]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav", "elevator_open"));
 
 		// Add background animations
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/Trasig lampa.wav", 3));
@@ -110,11 +111,11 @@ void LevelManager::LoadChapter(int id){
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		// Add NPCS
-		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", "angry_woman");   
-		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", "dendi");
-		NpcCls *valet = new NpcCls(1250, 580, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(20, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", "valet");
-		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(15, 43), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", "receptionist");
-		NpcCls *taxi = new NpcCls(1100, 480, "Data/Animations/NPC/taxi.png", 1, 100, sf::Vector2f(23, 21), m_levels[1]->GetNodeMap(), "Data/Scripts/ch1_taxi_interact.script", "Data/Scripts/ch1_taxi_inspect.script", "Data/Scripts/ch1_taxi_give.script", "Data/Scripts/ch1_taxi_nocando.script", "taxi");
+		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", "angry_woman", sf::IntRect(830, 215, 60, 225));   
+		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", "dendi", sf::IntRect(120, 200, 180, 330));
+		NpcCls *valet = new NpcCls(1250, 580, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(20, 0), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", "valet", sf::IntRect(1150, 380, 100, 140));
+		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(15, 43), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", "receptionist", sf::IntRect(645, 170, 125, 140));
+		NpcCls *taxi = new NpcCls(1100, 480, "Data/Animations/NPC/taxi.png", 1, 100, sf::Vector2f(23, 21), m_levels[1]->GetNodeMap(), "Data/Scripts/ch1_taxi_interact.script", "Data/Scripts/ch1_taxi_inspect.script", "Data/Scripts/ch1_taxi_give.script", "Data/Scripts/ch1_taxi_nocando.script", "taxi", sf::IntRect(1030, 380, 260, 80));
 
 		// Set sprite offset
 		valet->SetSpriteOffset(100, 200);
@@ -156,6 +157,11 @@ void LevelManager::StopAllSounds(){
 		(*i)->StopAllSounds();
 	}
 
+}
+
+void LevelManager::SetBackgroundMusicVolume(float volume)
+{
+	m_bgMusic.setVolume(volume);
 }
 
 bool LevelManager::InitialScriptRun(){ return m_initialScriptRun; }

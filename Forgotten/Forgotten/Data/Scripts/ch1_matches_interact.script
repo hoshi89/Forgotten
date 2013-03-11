@@ -5,5 +5,5 @@ wait 3
 showtext 10 530 2 50 I 255 0 0 17 Picked up matchbox!
 additem 1
 removeentity matches
-wait 5
+wait 2
 resume
