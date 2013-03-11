@@ -5,10 +5,11 @@
 
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
+	m_script(false),
 	m_down(false),
 	m_showGui(true),
 	m_showItems(false),
-	m_position(200, -50),
+	m_position(256, -50),
 	m_mouseHandler(mouse),
 	m_itemInHand(-1)
 {
@@ -52,15 +53,8 @@ void Gui::Draw(sf::RenderWindow &window){
 
 	window.setView(m_guiview);
 
-	if(m_showGui)
-	{
-		window.draw(m_guiSprite);
-			
-		if(m_showItems)
-		{
-			Inventory::GetInstance()->Draw(window);
-		}
-	}
+	//Update GUI
+	Update();
 
 	//ny
 	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
@@ -88,10 +82,21 @@ void Gui::Draw(sf::RenderWindow &window){
 
 	}
 
-	//Update GUI
-	Update();
+	if(m_showGui)
+	{
+		window.draw(m_guiSprite);
+			
+	if(m_showItems)
+	{
+		Inventory::GetInstance()->Draw(window);	
+	}
 
-	IsOverlap(window);
+	if(!m_script)
+	{
+		IsOverlap(window);
+	}
+
+	}
 
 	DrawText(window);
 
@@ -131,19 +136,21 @@ void Gui::Update()
 	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 
 	const float SPEED = 1.5f;
+
 	if(m_guiSprite.getPosition().y < -1 && m_down)
 	{
 		Move(SPEED);
+		m_showItems = true;
 	}
 	else if(m_guiSprite.getPosition().y < -50)
 	{
 		Move(0);
 		m_showItems = false;
-
 	}
 	else if(!m_down)
 	{
 		Move(-SPEED);
+		m_showItems = true;
 	}
 	else
 	{
@@ -169,7 +176,7 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 		m_down = true;
 		m_showItems = true;
 		m_mouseHandler.SetCursor(5);
-		}
+	}
 	else
 	{
 		m_down = false;
@@ -269,4 +276,9 @@ int Gui::ItemInHand()
 		return m_itemInHand;
 	}
 	return -1;
+}
+
+void Gui::IsInScript(bool script)
+{
+	m_script = script;
 }
