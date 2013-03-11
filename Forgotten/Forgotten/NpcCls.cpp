@@ -5,7 +5,7 @@
 
 NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, int timePerFrame,
 	sf::Vector2f aInteractionNode,
-	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, std::string id, sf::IntRect hitbox, int wantsItem)
+	GenericMap &aMap, string interactScript, string inspectScript, string giveScript, string noCanDoScript, std::string id, int wantsItem)
 	: Entity(), m_currentAnimation(aSpriteName, timePerFrame, numFrames),
 	m_position(sf::Vector2f(aXpos, aYpos)), m_nodeMap(aMap),
 	m_interactScript(interactScript),
@@ -15,8 +15,7 @@ NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, in
 	m_id(id),
 	m_wantsItem(wantsItem),
 	xOffset(0),
-	yOffset(0),
-	m_hitbox(hitbox)
+	yOffset(0)
 {
 	posX = aXpos;
 	posY = aYpos;
@@ -64,7 +63,10 @@ void NpcCls::Interact(int item)
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_InteractionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
 
-	m_hasBeenGivenItem = item;
+	if(item >= 0)
+	{
+		m_hasBeenGivenItem = item;
+	}
 }
 
 sf::Vector2f NpcCls::GetInteractionNode()
@@ -95,13 +97,25 @@ void NpcCls::StartInteraction()
 
 bool NpcCls::MouseOver(MouseHandler& mouse)
 {
-	// Test if mouse pointer is within hitbox
-	if(m_hitbox.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
-		// Set mouse animation
-		mouse.SetCursor(7);
-		return true;
+	if(m_currentAnimation.getSprite().getGlobalBounds().contains(mouse.GetPosition())){
+
+		sf::Vector2f mousePixel(mouse.GetPosition().x-m_currentAnimation.getSprite().getPosition().x, mouse.GetPosition().y-m_currentAnimation.getSprite().getPosition().y);
+		sf::Image npcImage = m_currentAnimation.getSprite().getTexture()->copyToImage();
+		mousePixel.x += m_currentAnimation.getSprite().getTextureRect().left;
+		mousePixel.y += m_currentAnimation.getSprite().getTextureRect().top;
+
+		sf::Color cPoint = npcImage.getPixel(mousePixel.x, mousePixel.y);
+
+		if(cPoint.a != 0)
+		{
+			// Set mouse animation
+			mouse.SetCursor(7);
+			return true;
+		}
 	}
+
 	return false;
+
 }
 
 void NpcCls::GoTo(sf::Vector2f aInteractionNode)

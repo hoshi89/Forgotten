@@ -14,8 +14,7 @@ public:
 	virtual ~LevelDialogsCls(void);
 	DialogStateEnum ShowDialog(sf::RenderWindow &aWindow, string aDeckId,
 					sf::Vector2f aInteractionNode,
-					sf::Vector2f aEntityPos,
-					bool aIsPressed);
+					sf::Vector2f aEntityPos);
 	void ChooseAnswer(sf::Vector2f* aMousePos);
 
 	//Scriptfunc

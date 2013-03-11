@@ -24,13 +24,13 @@ CardCls* DeckCls::GetCardById(string* aCardId)
 }
 
 DialogStateEnum DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
-					sf::Vector2f aEntityPos, bool aIsPressed)
+					sf::Vector2f aEntityPos)
 {
 	if(m_CurrentCardId == NULL || *m_CurrentCardId == "")
 		m_CurrentCardId = m_Cards[0]->GetCardId();
 
 	m_CurrentCard = GetCardById(m_CurrentCardId);
-	m_CurrentCardId = m_CurrentCard->ShowCard(aWindow, aInteractionNode, aEntityPos, aIsPressed);
+	m_CurrentCardId = m_CurrentCard->ShowCard(aWindow, aInteractionNode, aEntityPos);
 	DialogStateEnum wDlgState = m_CurrentCard->GetDialogState();
 	return wDlgState;
 }

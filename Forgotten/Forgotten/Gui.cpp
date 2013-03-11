@@ -5,10 +5,11 @@
 
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
+	m_script(false),
 	m_down(false),
 	m_showGui(true),
 	m_showItems(false),
-	m_position(200, -50),
+	m_position(256, -50),
 	m_mouseHandler(mouse),
 	m_itemInHand(-1)
 {
@@ -18,6 +19,8 @@ Gui::Gui(MouseHandler& mouse) :
 	m_guiview.setCenter(512, 288);
 
 	SetCursorVector();
+
+	//	m_DialogState = DialogStateEnum::ContinueDialog;
 }
 
 int Gui::LoadImage()
@@ -50,35 +53,20 @@ void Gui::Draw(sf::RenderWindow &window){
 
 	window.setView(m_guiview);
 
-	if(m_showGui)
-	{
-		window.draw(m_guiSprite);
-			
-		if(m_showItems)
-		{
-			Inventory::GetInstance()->Draw(window);
-		}
-	}
+	//Update GUI
+	Update();
 
 	//ny
-	bool mousepressed;
 	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
 	//Om m_isWaitingForAnswer är true och mouseClicked anropa choose(mousPosition)
 	switch (m_DialogState)
 	{
 	case DialogStateEnum::ContinueDialog:
-		mousepressed = false;
-		if(m_mouseHandler.mouse1WasPressed())
-			mousepressed = true;
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
-		mousepressed = false;
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
 		break;
 	case DialogStateEnum::WaitForAnswer:
 		//Här ska vi fånga upp och skicka in musposition när man har klickat
-		mousepressed = false;
-		if(m_mouseHandler.mouse1WasPressed())
-			mousepressed = true;
-		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed); 
+		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos); 
 		if(m_mouseHandler.mouse1WasPressed())
 		{
 			sf::Vector2f mousePos;
@@ -86,19 +74,29 @@ void Gui::Draw(sf::RenderWindow &window){
 			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
 
 			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos);
 		}
-		mousepressed = false;
 		break;
 	case DialogStateEnum::EndDialog:
 		break;
 
 	}
 
-	//Update GUI
-	Update();
+	if(m_showGui)
+	{
+		window.draw(m_guiSprite);
+			
+	if(m_showItems)
+	{
+		Inventory::GetInstance()->Draw(window);	
+	}
 
-	IsOverlap(window);
+	if(!m_script)
+	{
+		IsOverlap(window);
+	}
+
+	}
 
 	DrawText(window);
 
@@ -111,9 +109,9 @@ void Gui::Draw(sf::RenderWindow &window){
 		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y))
 		{
 			if(m_mouseHandler.mouse1WasPressed()){
-				m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
-				m_mouseHandler.SetHoldingItem(true);
-				m_itemInHand = Inventory::GetInstance()->GetId(i);
+			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
+			m_mouseHandler.SetHoldingItem(true);
+			m_itemInHand = Inventory::GetInstance()->GetId(i);
 			}
 			else if(m_mouseHandler.mouse2WasPressed())
 			{
@@ -138,19 +136,21 @@ void Gui::Update()
 	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 
 	const float SPEED = 1.5f;
+
 	if(m_guiSprite.getPosition().y < -1 && m_down)
 	{
 		Move(SPEED);
+		m_showItems = true;
 	}
 	else if(m_guiSprite.getPosition().y < -50)
 	{
 		Move(0);
 		m_showItems = false;
-
 	}
 	else if(!m_down)
 	{
 		Move(-SPEED);
+		m_showItems = true;
 	}
 	else
 	{
@@ -176,7 +176,7 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 		m_down = true;
 		m_showItems = true;
 		m_mouseHandler.SetCursor(5);
-		}
+	}
 	else
 	{
 		m_down = false;
@@ -276,4 +276,9 @@ int Gui::ItemInHand()
 		return m_itemInHand;
 	}
 	return -1;
+}
+
+void Gui::IsInScript(bool script)
+{
+	m_script = script;
 }

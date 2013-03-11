@@ -117,9 +117,10 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 	aWindow.draw(outline4);
 
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
+
 	aWindow.draw(m_AnswerText);	
-	//string wStr = string(m_AnswerText.getString());
-	//wStr = wStr+"siodj";
+	string wStr = string(m_AnswerText.getString());
+	wStr = wStr+"siodj";
 }
 
 string* AnswerCls::GetTargetId()

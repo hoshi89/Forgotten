@@ -3,7 +3,11 @@ setdirection player 7
 showtext 100 200 5 60 N 255 255 255 17 I guess I'd better take these with me...
 wait 3
 showtext 10 530 2 50 I 255 0 0 17 Picked up matchbox!
+pulldowngui
+wait 1
 additem 1
 removeentity matches
+wait 2
+pullupgui
 wait 2
 resume

@@ -9,10 +9,10 @@ LevelDialogsCls::LevelDialogsCls(string aScriptName, bool isSave)
 
 DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow, 
 	string aDeckId, sf::Vector2f aInteractionNode,
-					sf::Vector2f aEntityPos, bool aIsPressed)
+					sf::Vector2f aEntityPos)
 {
 	m_CurrentDeck = GetDeckById(aDeckId);
-	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos, aIsPressed);
+	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos);
 }
 
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)

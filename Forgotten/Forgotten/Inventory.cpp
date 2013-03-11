@@ -8,7 +8,9 @@ Inventory* Inventory::GetInstance(){
 		return m_instance;
 }
 
-Inventory::Inventory(){
+Inventory::Inventory()
+{
+
 }
 
 Inventory::~Inventory(){

@@ -6,10 +6,12 @@
 #include "ScriptText.h"
 
 #include "LevelDialogsCls.h"
+//#include <SFML/Graphics.hpp>
 
 using namespace std;
 
-class Gui{
+class Gui
+{
 public:
 	Gui(MouseHandler& mouse);
 	void Render();
@@ -23,6 +25,7 @@ public:
 	sf::IntRect GetRect();
 	void SetIsDownGui(bool down);
 	int ItemInHand();
+	void IsInScript(bool script);
 
 	// Dialog
 	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);
@@ -49,6 +52,7 @@ private:
 	sf::Clock m_clock;
 	bool m_showGui;
 	bool m_showItems;
+	bool m_script;
 	std::ifstream m_objectFile;
 	void IsOverlap(sf::RenderWindow &window);
 	void IsOverItem();

@@ -1,6 +1,6 @@
 #include "Animation.h"
 
-Animation::Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename, int pauseTime):m_timePerFrame(timePerFrame), m_numFrames(numFrames), m_currentFrame(0), m_sound(soundFilename, ""), m_pauseTime(pauseTime){
+Animation::Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename, int pauseTime):m_timePerFrame(timePerFrame), m_numFrames(numFrames), m_currentFrame(0), m_sound(soundFilename), m_pauseTime(pauseTime){
 	m_texture.loadFromFile(filename);
 	m_sprite.setTexture(m_texture);
 

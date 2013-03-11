@@ -118,6 +118,7 @@ void GameManager::Process(){
 					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact(gui.ItemInHand());
 					interactFound = true;
 				}
+
 			}
 
 			// Else go to node
@@ -251,7 +252,7 @@ void GameManager::Render(){
 		}
 
 		// Set view
-		m_view.setCenter(m_levelManager.GetCurrentLevel()->GetPlayer()->GetCenter().x, 288);
+		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
 
 		// Is the camera out of bounds?
 		if(m_view.getCenter().x + (m_view.getSize().x/2) > m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width){
@@ -406,8 +407,8 @@ void GameManager::ProcessNextEvent(){
 		{
 			// Get the soundid as string
 			std::getline(tmpStream, token, ' ');
-			std::string soundid = token;
-
+			int soundid = StringToInt(token);
+			
 			// Play the sound
 			m_levelManager.GetCurrentLevel()->PlaySound(soundid);
 		}
@@ -785,15 +786,6 @@ void GameManager::ProcessNextEvent(){
 			int item_id = StringToInt(token);
 
 			Inventory::GetInstance()->KillItem(item_id);
-		}
-		// Set background music volume
-		else if(token == "bgvolume")
-		{
-			// Get volume as string
-			std::getline(tmpStream, token, ' ');
-			float volume = StringToInt(token);
-
-			m_levelManager.SetBackgroundMusicVolume(volume);
 		}
 
 		m_events.erase(m_events.begin());

@@ -5,7 +5,6 @@ CardCls::CardCls(string aId)
 {
 	m_CardId = aId;
 	m_Clock = NULL;
-	m_ShowWhat = ShowWhatEnum::ShowQuestion;
 	m_Members.push_back(new CaseValues(TARGETSTR, TARGET_ID));
 	m_Members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_Members.push_back(new CaseValues(ANSWERSTR, ANSWER));
@@ -14,9 +13,8 @@ CardCls::CardCls(string aId)
 }
 
 string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
-					sf::Vector2f aEntityPos, bool aIsPressed)
+					sf::Vector2f aEntityPos)
 {
-	m_WasMousePressed = aIsPressed;
 	m_EntityPos = aEntityPos;
 	m_InteractionNode = aInteractionNode;
 	int wNrOfAnswers = GetNrOfAnswers();
@@ -31,111 +29,54 @@ string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNo
 
 string* CardCls::ShowOnlyQuestion(sf::RenderWindow &aWindow)
 {
-	ManageQuestion(aWindow);
-	if(m_WasMousePressed)
-		if(m_TargetCardId == "")
-			return EndDialog();
-		else
-			return &m_TargetCardId;
-	else
+	if(m_Clock==NULL)
+		m_Clock = new sf::Clock();
+	
+	if(m_Clock->getElapsedTime() < QUESTION_ELAPSED_TIME)
 	{
+		ManageQuestion(aWindow);
 		m_State = DialogStateEnum::ContinueDialog;
 		return &m_CardId;
 	}
-		
-	//if(m_Clock==NULL)
-	//	m_Clock = new sf::Clock();
-	//if(m_WasMousePressed)
-	//{
-	//	if(m_TargetCardId == "")
-	//		return EndDialog();
-	//	else
-	//	{
-	//		return &m_TargetCardId;
-	//	}
-	//}
 
-	//if(m_Clock->getElapsedTime() < QUESTION_ELAPSED_TIME)
-	//{
-	//	ManageQuestion(aWindow);
-	//	m_State = DialogStateEnum::ContinueDialog;
-	//	return &m_CardId;
-	//}
-
-	//if(m_TargetCardId == "")
-	//	return EndDialog();
-	//else
-	//{
-	//	ContinueDialog();
-	//	m_Clock = NULL;
-	//	return &m_TargetCardId;
-	//}
+	if(m_TargetCardId == "")
+		return EndDialog();
+	else
+	{
+		ContinueDialog();
+		m_Clock = NULL;
+		return &m_TargetCardId;
+	}
 }
 
 string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
-	switch(m_ShowWhat)
+	
+	if(m_Clock==NULL)
+		m_Clock = new sf::Clock();
+	
+	m_State = DialogStateEnum::ContinueDialog;
+	if(m_Clock->getElapsedTime() < QUESTION_ELAPSED_TIME)
 	{
-	case ShowQuestion:
 		ManageQuestion(aWindow);
-		m_State = DialogStateEnum::ContinueDialog;
-		if(m_WasMousePressed)
-			m_ShowWhat = ShowAnswer;
 		return &m_CardId;
-	case ShowAnswer:
-		m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
-		if(m_WasMousePressed)
-		{
-			string* wString = m_Answers[0]->GetTargetId();
-			if(*wString == "")
-				return EndDialog();
-			else
-				return wString;
-		}
-		else
-			return &m_CardId;
-	//case GoToNextCard:
-	//	if(m_TargetCardId == "")
-	//		return EndDialog();
-	//	else
-	//	{
-	//		return &m_TargetCardId;
-	//	}
-
 	}
-	//if(m_Clock==NULL)
-	//	m_Clock = new sf::Clock();
-	//
-	//m_State = DialogStateEnum::ContinueDialog;
-	////if(m_Clock->getElapsedTime() < QUESTION_ELAPSED_TIME)
-	////{
-	//	sf::Time wtimebefore = m_Clock->getElapsedTime();
-	//	if(m_WasMousePressed)
-	//		m_Clock->getElapsedTime() + QUESTION_ELAPSED_TIME;
-	//		//m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
 
-	//	//debug
-	//	sf::Time wTime = m_Clock->getElapsedTime();
-	//	string wQuest = m_QuestionText.getString();
-	//	ManageQuestion(aWindow);
-	//	return &m_CardId;
-	////}
+	if(m_Clock->getElapsedTime() < ANSWER_ELAPSED_TIME)
+	{
+		m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
+		return &m_CardId;
+	}
 
-	//if(m_Clock->getElapsedTime() < ANSWER_ELAPSED_TIME)
-	//{
-	//	m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
-	//	return &m_CardId;
-	//}
-
-	//string* wTargetId = m_Answers[0]->GetTargetId();
-	//if(*wTargetId == "")
-	//	return EndDialog();
-	//else
-	//{
-	//	delete m_Clock;
-	//	m_Clock = NULL;
-	//	return wTargetId;
-	//}
+	string* wTargetId = m_Answers[0]->GetTargetId();
+	if(*wTargetId == "")
+		return EndDialog();
+	else
+	{
+		delete m_Clock;
+		m_Clock = NULL;
+		return wTargetId;
+	}
 }
 
 string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
@@ -184,6 +125,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	}
 
 	m_QuestionText.setCharacterSize(TEXT_SIZE);
+
 	//outline1
 	sf::Text outline1(m_QuestionText);
 	outline1.setColor(sf::Color::Black);
@@ -209,6 +151,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	aWindow.draw(outline2);
 	aWindow.draw(outline3);
 	aWindow.draw(outline4);
+
 	aWindow.draw(m_QuestionText);
 	if(m_QuestionSetFlag != "")
 	{

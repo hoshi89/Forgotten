@@ -9,7 +9,6 @@ const sf::Time ANSWER_ELAPSED_TIME = sf::microseconds(2*5000000);
 const int DISPLAY_HEIGHT = 576;
 
 enum DialogStateEnum {EndDialog, ContinueDialog, WaitForAnswer};
-enum ShowWhatEnum {ShowQuestion, ShowAnswer, GoToNextCard};
 
 using namespace std;
 class CardCls
@@ -17,7 +16,7 @@ class CardCls
 public:
 	CardCls(string aId);
 	string* ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
-				sf::Vector2f aEntityPos, bool aIsPressed);
+				sf::Vector2f aEntityPos);
 	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
 	string* GetCardId();
 	DialogStateEnum GetDialogState();
@@ -34,7 +33,6 @@ private:
 	static const int QUESTION = 4;
 	static const int QUESTION_SET_FLAG = 5;
 
-	bool m_WasMousePressed;
 	string m_CardId;
 	vector<AnswerCls*> m_Answers;
 	sf::Clock *m_Clock;
@@ -47,7 +45,6 @@ private:
 	MapVector m_Members;
 	string m_QuestionSetFlag;
 	string m_QuestionNeedFlag;
-	ShowWhatEnum m_ShowWhat;
 
 	string* ShowOnlyQuestion(sf::RenderWindow &aWindow);
 	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow,  sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);

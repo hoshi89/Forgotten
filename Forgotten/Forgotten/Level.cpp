@@ -34,19 +34,14 @@ void Level::StopAllSounds(){
 
 }
 
-void Level::PlaySound(std::string& id){
-	if(!m_soundEffects.empty())
-	{
-		for(unsigned int i = 0; i < m_soundEffects.size(); i++)
-		{
-			if(!m_soundEffects[i]->GetID().compare(id))
-			{
-				// Found the entity, play the sound
-				m_soundEffects[i]->Play();
-				break;
-			}
-		}
+void Level::PlaySound(int id){
+
+	if(!m_soundEffects.empty() && m_soundEffects.size() >= id){
+
+		m_soundEffects[id]->Play();
+
 	}
+
 }
 
 //DialogStuff
