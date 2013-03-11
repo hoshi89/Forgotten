@@ -4,8 +4,36 @@
 #include "Object.h"
 
 LevelManager::LevelManager()
-	:m_initialScriptRun(false)
+	:m_initialScriptRun(false), m_bgVolume(100.f), m_fadeSpeed(3.f)
 {
+}
+
+void LevelManager::update()
+{
+	if(m_bgMusic.getVolume() < m_bgVolume)
+	{
+		float nextVolume = m_bgMusic.getVolume()+m_fadeSpeed;
+		if(nextVolume > m_bgVolume)
+		{
+			m_bgMusic.setVolume(m_bgVolume);
+		}
+		else
+		{
+			m_bgMusic.setVolume(nextVolume);
+		}
+	}
+	else if(m_bgMusic.getVolume() > m_bgVolume)
+	{
+		float nextVolume = m_bgMusic.getVolume()-m_fadeSpeed;
+		if(nextVolume < m_bgVolume)
+		{
+			m_bgMusic.setVolume(m_bgVolume);
+		}
+		else
+		{
+			m_bgMusic.setVolume(nextVolume);
+		}
+	}
 }
 
 void LevelManager::LoadChapter(int id){
@@ -35,8 +63,9 @@ void LevelManager::LoadChapter(int id){
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 20);
 
 		// Add sounds
-		m_levels[0]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
-		m_levels[2]->AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav"));
+		AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav", "elevator_open"));
+		AddSound(new SFX("Data/Sounds/Cello Complete Em.wav", "cello_complete_em"));
+		AddSound(new SFX("Data/Sounds/Tändstickask.wav", "matchbox"));
 
 		// Add background animations
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/Trasig lampa.wav", 3));
@@ -45,7 +74,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22, 60, 136, 34));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
-		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 100, 1, 370, 384, 470));
+		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 345, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 500));
 
@@ -84,7 +113,7 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 200, 450, 5, 49, "Data/Animations/Objects/matches2.png", 1000, 1);
+		Object *matches = new Object("matches", 210, 400, 5, 49, "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
 		Object *necklace = new Object("necklace", 1100, 650, 21, 0, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
@@ -158,6 +187,11 @@ void LevelManager::StopAllSounds(){
 
 }
 
+void LevelManager::SetBackgroundMusicVolume(float volume)
+{
+	m_bgVolume = volume;
+}
+
 bool LevelManager::InitialScriptRun(){ return m_initialScriptRun; }
 
 std::string LevelManager::GetInitialScript(){
@@ -166,4 +200,24 @@ std::string LevelManager::GetInitialScript(){
 
 	return m_initializingScript;
 
+}
+
+void LevelManager::AddSound(SFX* sfx)
+{
+	m_sounds.push_back(sfx);
+}
+
+void LevelManager::PlaySound(std::string& id){
+	if(!m_sounds.empty())
+	{
+		for(unsigned int i = 0; i < m_sounds.size(); i++)
+		{
+			if(!m_sounds[i]->GetID().compare(id))
+			{
+				// Found the entity, play the sound
+				m_sounds[i]->Play();
+				break;
+			}
+		}
+	}
 }

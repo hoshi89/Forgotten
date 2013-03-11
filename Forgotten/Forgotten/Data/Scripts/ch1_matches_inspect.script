@@ -1,9 +1,9 @@
 suspend
 removegui
 if flag has_spoken_to_dendi
-showtext 150 120 5 100 I 255 0 255 17 A high quality matchbox from the exclusive night club "The Green Hornet". The type of place you don't belong at if you don't already know where it is.
+showtext 0 120 5 500 IC 255 0 255 17 A high quality matchbox from the exclusive night club "The Green Hornet". The type of place you don't belong at if you don't already know where it is.
 else
-showtext 250 120 5 65 I 255 0 255 17 A delicate, green match box laced with gold trim. "The Green Hornet" is printed on the back. No address. Figures.
+showtext 0 120 5 70 IC 255 0 255 17 A delicate, green match box laced with gold trim. "The Green Hornet" is printed on the back. No address. Figures.
 endif
 wait 5
 showgui

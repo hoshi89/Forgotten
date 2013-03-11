@@ -10,7 +10,10 @@ public:
 	bool IsExpired();
 private:
 	sf::Text m_text;
-	sf::Text m_bgText;
+	sf::Text m_bgText0;
+	sf::Text m_bgText1;
+	sf::Text m_bgText2;
+	sf::Text m_bgText3;
 	sf::Clock m_clock;
 	int m_time;
 	sf::Vector2f m_position;

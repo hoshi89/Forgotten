@@ -69,6 +69,9 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
+	// Update levelmanager
+	m_levelManager.update();
+
 	// Update mousehandler
 	m_mouseHandler.Update();
 
@@ -410,7 +413,7 @@ void GameManager::ProcessNextEvent(){
 			int soundid = StringToInt(token);
 			
 			// Play the sound
-			m_levelManager.GetCurrentLevel()->PlaySound(soundid);
+			m_levelManager.PlaySound(soundid);
 		}
 		// Set level
 		else if(token == "setlevel")

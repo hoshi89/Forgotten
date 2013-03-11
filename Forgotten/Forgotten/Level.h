@@ -14,7 +14,6 @@ public:
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
 	void AddObject(Entity* entity);
-	void AddSound(SFX* sfx);
 	std::vector<Entity*>& GetEntities();
 	std::vector<Portal*>& GetPortals();
 	Player* GetPlayer();
