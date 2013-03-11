@@ -1,5 +1,11 @@
 suspend
-showtext 390 220 3 1000 I 255 0 255 20 Here you go, from Dendi.
+setdirection player 7
+if flag angry_woman_gone
+showtext 390 220 3 1000 I 255 0 255 17 Here you go, from Dendi.
 raiseflag has_delivered_letter
-removeitem 3 
+removeitem 3
+else
+setdirection player 4
+showtext 250 250 5 30 I 255 0 255 17 I can't talk to the receptionist as she is in a loud conversation with the angry lady.
+endif
 resume

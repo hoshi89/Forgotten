@@ -19,7 +19,7 @@ public:
 	std::vector<Portal*>& GetPortals();
 	Player* GetPlayer();
 	void StopAllSounds();
-	void PlaySound(int id);
+	void PlaySound(std::string& id);
 
 	//Dialog
 	LevelDialogsCls* GetLevelDialogs();

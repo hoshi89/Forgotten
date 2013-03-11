@@ -111,9 +111,9 @@ void Gui::Draw(sf::RenderWindow &window){
 		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y))
 		{
 			if(m_mouseHandler.mouse1WasPressed()){
-			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
-			m_mouseHandler.SetHoldingItem(true);
-			m_itemInHand = Inventory::GetInstance()->GetId(i);
+				m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
+				m_mouseHandler.SetHoldingItem(true);
+				m_itemInHand = Inventory::GetInstance()->GetId(i);
 			}
 			else if(m_mouseHandler.mouse2WasPressed())
 			{

@@ -30,6 +30,7 @@ public:
 	Entity* GetFocus();
 	void Interact(int item=-1){};
 	bool MouseOver(MouseHandler&){ return false; }
+	sf::Vector2f GetCenter();
 private:
 	int m_direction;
 

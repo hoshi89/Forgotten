@@ -465,3 +465,16 @@ const int Player::GetZ(){
 }
 
 void Player::StopSound(){ m_currentAnimation->PauseSound(); }
+
+sf::Vector2f Player::GetCenter()
+{
+	sf::Vector2f tmpCenter;
+
+	float x_center = (m_currentAnimation->getSprite().getGlobalBounds().width*m_scale)*0.5f;
+	float y_center = (m_currentAnimation->getSprite().getGlobalBounds().height*m_scale)*0.5f;
+
+	tmpCenter.x = (m_position.x - (X_FEETOFFSET)*m_scale)+x_center;
+	tmpCenter.y = (m_position.y - (Y_FEETOFFSET)*m_scale)+y_center;
+
+	return tmpCenter;
+}

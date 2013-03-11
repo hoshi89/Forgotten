@@ -14,6 +14,7 @@ public:
 	Level* GetCurrentLevel();
 	void SetLevel(int id);
 	void StopAllSounds();
+	void SetBackgroundMusicVolume(float volume);
 	bool InitialScriptRun();
 	std::string GetInitialScript();
 private:
