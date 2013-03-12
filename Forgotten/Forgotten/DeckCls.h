@@ -13,7 +13,7 @@ public:
 	DeckCls(string aId);
 	string GetDeckId();
 	DialogStateEnum ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
-					sf::Vector2f aEntityPos);
+					sf::Vector2f aEntityPos, bool aIsPressed);
 	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
 	CardCls* GetCardById(string* aCardId);
 	void ChooseAnswer(sf::Vector2f* aMousePos);
