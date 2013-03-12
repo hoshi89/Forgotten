@@ -410,7 +410,7 @@ void GameManager::ProcessNextEvent(){
 		{
 			// Get the soundid as string
 			std::getline(tmpStream, token, ' ');
-			int soundid = StringToInt(token);
+			std::string soundid = token;
 			
 			// Play the sound
 			m_levelManager.PlaySound(soundid);
@@ -545,7 +545,7 @@ void GameManager::ProcessNextEvent(){
 
 			// Get text style as string
 			std::getline(tmpStream, token, ' ');
-			char style = token[0];
+			std::string style = token;
 
 			// Get colors as string
 			std::getline(tmpStream, token, ' ');

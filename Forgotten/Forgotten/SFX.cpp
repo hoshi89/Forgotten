@@ -1,6 +1,6 @@
 #include "SFX.h"
 
-SFX::SFX(const std::string& filename)
+SFX::SFX(const std::string& filename, const std::string& id)
 {
 	if(filename.length() > 0){
 		m_buffer.loadFromFile(filename);
@@ -22,4 +22,9 @@ void SFX::SetRelativeSound(bool relative)
 void SFX::SetSoundPosition(int x, int y, int z)
 {
 	m_sound.setPosition(x, y, z);
+}
+
+std::string SFX::GetID()
+{
+	return m_id;
 }
