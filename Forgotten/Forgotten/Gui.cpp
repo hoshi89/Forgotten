@@ -78,9 +78,10 @@ void Gui::Draw(sf::RenderWindow &window){
  		{
  			sf::Vector2f mousePos;
  			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
- 
+			mousePos.x = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x; 
  			currentLevelDialogs->ChooseAnswer(&mousePos);
 			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
+			mousepressed = false;
  		}
 		mousepressed = false;
  		break;
@@ -191,7 +192,7 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 }
 
 //Handling text event
-void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbreak, char style, sf::Color color, int fontsize)
+void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbreak, std::string style, sf::Color color, int fontsize)
 {
 	ScriptText* scriptText = new ScriptText(text, time, position, rowbreak, style, color, fontsize);
 	m_texts.push_back(scriptText);
