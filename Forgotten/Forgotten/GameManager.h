@@ -12,8 +12,8 @@
 #include "MouseHandler.h"
 #include <queue>
 
-const bool FULLSCREEN = true;
-const bool DEBUG = true;
+const bool FULLSCREEN = false;
+const bool DEBUG = false;
 const bool DEBUG_NODE = false;
 
 // SINGLETON
@@ -70,6 +70,9 @@ private:
 
 	// Suspend controls
 	bool m_suspend;
+
+	// FPS limit
+	sf::Clock m_fpsClock;
 
 	// Debug stuff
 	sf::Font m_debugFont;

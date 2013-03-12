@@ -50,9 +50,7 @@ ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int ro
 		if(charCounter >= chars_before_linebreak)
 		{
 			int breakAt = tmpString.find(sf::String(" "), i);
-
 			tmpString.insert(breakAt+1, "\n");
-
 			charCounter = 0;
 		}
 		charCounter++;
@@ -122,14 +120,18 @@ ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int ro
 	}
 }
 
-void ScriptText::Draw(sf::RenderWindow& window){
-	if(m_clock.getElapsedTime().asSeconds() < m_time){
+void ScriptText::Draw(sf::RenderWindow& window)
+{
+	if(m_clock.getElapsedTime().asSeconds() < m_time)
+	{
 		window.draw(m_bgText0);
 		window.draw(m_bgText1);
 		window.draw(m_bgText2);
 		window.draw(m_bgText3);
 		window.draw(m_text);
-	}else{
+	}
+	else
+	{
 		m_expired = true;
 	}
 }

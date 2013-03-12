@@ -69,7 +69,6 @@ bool Portal::MouseOver(MouseHandler& mouse){
 
 	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
 		mouse.SetCursor(4);
-		std::cout << "Mouse over portal : x: " << mouse.GetPosition().x << " y: " << mouse.GetPosition().y << std::endl;
 		return true;
 	}
 

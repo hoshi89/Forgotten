@@ -49,14 +49,14 @@ void LevelManager::LoadChapter(int id){
 		m_bgMusic.setLoop(true);
 
 		// Create rooms for this level
-		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 52, 975, "Data/Levels/Level1/TEST_hall_fardig.png", 0.8, 0));
+		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 25, 10, "Data/Levels/Level1/TEST_hall_fardig.png", 0.9, 0));
 		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png", 0.7, 0));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 1.2, 0));
 		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/chapter_1_level_art_hotel_room.png", 1.2, 0));
 		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 20, "Data/Levels/Level1/chapter1_bar.png", 2.5, 12));
 
 		// Set player position
-		m_levels[0]->GetPlayer()->SetNodePosition(7, 0);
+		m_levels[0]->GetPlayer()->SetNodePosition(15, 48);
 		m_levels[1]->GetPlayer()->SetNodePosition(13, 21);
 		m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
 		m_levels[3]->GetPlayer()->SetNodePosition(7, 47);
@@ -69,12 +69,12 @@ void LevelManager::LoadChapter(int id){
 
 		// Add background animations
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/Trasig lampa.wav", 3));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 1000));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 510));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, 0, 0, 33));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22, 60, 136, 34));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
-		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 345, 470));
+		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 349, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 500));
 
@@ -82,8 +82,8 @@ void LevelManager::LoadChapter(int id){
 
 		// Create portals
 		Portal *hotelroom2hall = new Portal("hotelroom_to_hall", sf::IntRect(1050, 180, 150, 270), sf::Vector2f(21, 45));
-		Portal *hall2reception = new Portal("hall_to_reception", sf::IntRect(2236, 260, 50, 230), sf::Vector2f(43, 0));
-		Portal *hall2hotelroom = new Portal("hall_to_hotelroom", sf::IntRect(310, 260, 135, 215), sf::Vector2f(7, 0));
+		Portal *hall2reception = new Portal("hall_to_reception", sf::IntRect(2136, 260, 150, 230), sf::Vector2f(91, 48));
+		Portal *hall2hotelroom = new Portal("hall_to_hotelroom", sf::IntRect(310, 260, 135, 215), sf::Vector2f(15, 48));
 		Portal *reception2hall = new Portal("reception_to_hall", sf::IntRect(0, 425, 150, 150), sf::Vector2f(1, 50));
 		Portal *reception2bar = new Portal("reception_to_bar", sf::IntRect(920, 140, 120, 250), sf::Vector2f(19, 38));
 		Portal *reception2streets = new Portal("reception_to_streets", sf::IntRect(1265, 150, 215, 260), sf::Vector2f(27, 41));
@@ -208,16 +208,13 @@ void LevelManager::AddSound(SFX* sfx)
 }
 
 void LevelManager::PlaySound(std::string& id){
-	if(!m_sounds.empty())
+	for(unsigned int i = 0; i < m_sounds.size(); i++)
 	{
-		for(unsigned int i = 0; i < m_sounds.size(); i++)
+		if(!m_sounds[i]->GetID().compare(id))
 		{
-			if(!m_sounds[i]->GetID().compare(id))
-			{
-				// Found the entity, play the sound
-				m_sounds[i]->Play();
-				break;
-			}
+			// Found the entity, play the sound
+			m_sounds[i]->Play();
+			break;
 		}
 	}
 }
