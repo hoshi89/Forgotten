@@ -11,7 +11,7 @@ class NpcCls :
 public:
 	NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, int timePerFrame,
 		sf::Vector2f aInteractionNode,
-		GenericMap &aMap, string interactionScript, string inspectScript, string giveScript, string noCanDoScript, std::string id, int wantsItem = -1);
+		GenericMap &aMap, string interactionScript, string inspectScript, string giveScript, string noCanDoScript, sf::IntRect hitbox, std::string id, int wantsItem = -1);
 	sf::Texture m_texture;
 	void SetPosition(int x, int y) override;
 	const sf::Sprite& GetSprite() const override;
@@ -47,5 +47,6 @@ private:
 	sf::Vector2f m_InteractionNode;
 	Entity::Direction m_Direction;
 	std::string m_id;
+	sf::IntRect m_hitbox;
 };
 
