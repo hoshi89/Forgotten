@@ -790,6 +790,26 @@ void GameManager::ProcessNextEvent(){
 
 			Inventory::GetInstance()->KillItem(item_id);
 		}
+		// Show gui
+		else if(token == "showgui")
+		{
+			std::getline(tmpStream, token, ' ');
+			gui.SetShowGui(true);
+		}
+		// Pull down the gui
+		else if(token == "pulldowngui")
+		{
+			std::getline(tmpStream, token, ' ');
+			gui.SetIsDownGui(true);
+			gui.IsInScript(true);
+		}
+		// Push the gui up
+		else if(token == "pullupgui")
+		{
+			std::getline(tmpStream, token, ' ');
+			gui.SetIsDownGui(false);
+			gui.IsInScript(false);
+		}
 
 		m_events.erase(m_events.begin());
 	}
