@@ -73,17 +73,20 @@ string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow, sf::Vector2
 			m_ShowWhat = ShowAnswer;
 		return &m_CardId;
 	case ShowAnswer:
-	m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
-	if(m_WasMousePressed)
-	{
-		string* wString = m_Answers[0]->GetTargetId();
-		if(*wString == "")
-			return EndDialog();
+		m_Answers[0]->ManageAnswer(aWindow, aEntityPos, aInteractionPos);
+		if(m_WasMousePressed)
+		{
+			string* wString = m_Answers[0]->GetTargetId();
+			if(*wString == "")
+				return EndDialog();
+			else
+			{
+				m_ShowWhat = ShowWhatEnum::ShowQuestion;
+				return wString;
+			}
+		}
 		else
-			return wString;
-	}
-	else
-		return &m_CardId;
+			return &m_CardId;
 }
 
 	
@@ -267,14 +270,17 @@ bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 
 string* CardCls::EndDialog()
 {
-	delete m_Clock;
-	m_Clock = NULL;
+	//delete m_Clock;
+	//m_Clock = NULL;
+	m_ShowWhat = ShowWhatEnum::ShowQuestion;
 	m_State = DialogStateEnum::EndDialog;
+	m_WasMousePressed = false;
 	return &m_TargetCardId;
 }
 
 void CardCls::ContinueDialog()
 {
+	m_ShowWhat = ShowWhatEnum::ShowQuestion;
 	m_State = DialogStateEnum::ContinueDialog;
 }
 

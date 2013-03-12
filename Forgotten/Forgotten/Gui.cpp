@@ -71,8 +71,8 @@ void Gui::Draw(sf::RenderWindow &window){
  		break;
  	case DialogStateEnum::WaitForAnswer:
 		mousepressed = false;
-		if(m_mouseHandler.mouse1WasPressed())
-			mousepressed = true;
+		//if(m_mouseHandler.mouse1WasPressed())
+		//	mousepressed = true;
 		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed); 
  		if(m_mouseHandler.mouse1WasPressed())
  		{
@@ -80,8 +80,8 @@ void Gui::Draw(sf::RenderWindow &window){
  			mousePos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
 			mousePos.x = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x; 
  			currentLevelDialogs->ChooseAnswer(&mousePos);
-			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
 			mousepressed = false;
+			m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed);
  		}
 		mousepressed = false;
  		break;
