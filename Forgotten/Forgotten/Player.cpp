@@ -120,14 +120,14 @@ void Player::Update(){
 		{
 			if(normal.y > 0 || normal.y < 0)
 			{
-				normal *= WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/1.2f;
+				normal *= (WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/1.2f);
 			}
 		}
 		else
 		{
 			if(normal.y > 0 || normal.y < 0)
 			{
-				normal *= WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/2.5f;
+				normal *= (WALKSPEED * (m_nodeMap.GetNodeSize().y/m_nodeMap.GetNodeSize().x)/2.5f);
 			}
 			else
 			{
@@ -137,7 +137,7 @@ void Player::Update(){
 
 
 		// Set the walk speed
-		normal *= WALKSPEED;
+		normal *= (WALKSPEED*m_scale);
 
 		// Check the normal distance
 		float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));

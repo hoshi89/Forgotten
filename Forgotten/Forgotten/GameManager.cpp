@@ -51,9 +51,6 @@ GameManager::GameManager()
 		m_window.create(sf::VideoMode(1024, 576, 32), "Forgotten");
 	}
 
-	// Set frame limit
-	m_window.setFramerateLimit(60);
-
 	// Load debug font
 	const unsigned int fontSize = 8;
 	m_debugFont.loadFromFile("Data/Fonts/Minecraftia.ttf");
@@ -68,6 +65,12 @@ GameManager::GameManager()
 }
 
 void GameManager::Process(){
+
+	// FPS limit
+	while(m_fpsClock.getElapsedTime().asSeconds() < (1.0f/60))
+	{
+	}
+	m_fpsClock.restart();
 
 	// Update levelmanager
 	m_levelManager.update();

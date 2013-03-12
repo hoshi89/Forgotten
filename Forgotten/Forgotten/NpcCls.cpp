@@ -26,14 +26,6 @@ NpcCls::NpcCls(int aXpos, int aYpos, const string aSpriteName, int numFrames, in
 void NpcCls::Render(sf::RenderWindow &aWindow)
 {
 	aWindow.draw(m_currentAnimation.getSprite());
-	
-	sf::RectangleShape tmpRect;
-	tmpRect.setSize(sf::Vector2f(m_hitbox.width, m_hitbox.height));
-	tmpRect.setPosition(m_hitbox.left, m_hitbox.top);
-	tmpRect.setFillColor(sf::Color(0, 255, 0, 100));
-	
-	aWindow.draw(tmpRect);
-
 }
 
 void NpcCls::SetPosition(int x, int y)
