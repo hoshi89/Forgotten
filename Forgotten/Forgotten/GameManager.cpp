@@ -69,6 +69,9 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
+	// Update levelmanager
+	m_levelManager.update();
+
 	// Update mousehandler
 	m_mouseHandler.Update();
 
@@ -407,10 +410,10 @@ void GameManager::ProcessNextEvent(){
 		{
 			// Get the soundid as string
 			std::getline(tmpStream, token, ' ');
-			int soundid = StringToInt(token);
+			std::string soundid = token;
 			
 			// Play the sound
-			m_levelManager.GetCurrentLevel()->PlaySound(soundid);
+			m_levelManager.PlaySound(soundid);
 		}
 		// Set level
 		else if(token == "setlevel")
@@ -542,7 +545,7 @@ void GameManager::ProcessNextEvent(){
 
 			// Get text style as string
 			std::getline(tmpStream, token, ' ');
-			char style = token[0];
+			std::string style = token;
 
 			// Get colors as string
 			std::getline(tmpStream, token, ' ');
