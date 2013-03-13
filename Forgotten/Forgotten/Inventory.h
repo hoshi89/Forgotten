@@ -23,6 +23,7 @@ public:
 	void KillItem(int id);
 	std::string GetName(int id);
 	std::string GetScript(int id);
+	void Combine(int requires, int itemInHand);
 private:
 	Inventory();
 	Inventory(Inventory const&){};
@@ -36,7 +37,6 @@ private:
 	std::string m_filename;
 	sf::Sprite mouseSprite;
 	sf::Texture mouseTexture;
-
 };
 
 #endif

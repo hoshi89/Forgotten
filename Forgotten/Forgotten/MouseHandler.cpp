@@ -56,7 +56,8 @@ void MouseHandler::Render()
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
 
-void MouseHandler::Update(){
+void MouseHandler::Update()
+{
 
 	// Mouse 1 was pressed
 	if(sf::Mouse::isButtonPressed(sf::Mouse::Left))
@@ -134,7 +135,8 @@ int MouseHandler::GetId()
 	return m_id;
 }
 
-void MouseHandler::SetCursor(int id){
+void MouseHandler::SetCursor(int id)
+{
 	if(!m_holdsItem)
 	{
 		switch(id)
@@ -174,6 +176,7 @@ void MouseHandler::SetInventoryCursor(Animation* animation)
 {
 	m_currentMouseAnimation = animation;
 }
+
 
 bool MouseHandler::HoldsItem()
 {

@@ -2,7 +2,8 @@
 
 Inventory* Inventory::m_instance = NULL;
 
-Inventory* Inventory::GetInstance(){
+Inventory* Inventory::GetInstance()
+{
 	if(!m_instance)
 		m_instance = new Inventory;
 		return m_instance;
@@ -13,15 +14,18 @@ Inventory::Inventory()
 
 }
 
-Inventory::~Inventory(){
+Inventory::~Inventory()
+{
 	//Clearing the vector
-	while(!m_items.empty()){
+	while(!m_items.empty())
+	{
 		delete m_items.back();
 		m_items.pop_back();
 	}
 }
 
-void Inventory::AddItem(int aId){
+void Inventory::AddItem(int aId)
+{
 	levelfile.open("Data/items.txt");
 	//Put Item into vector
 	int size;
@@ -30,27 +34,32 @@ void Inventory::AddItem(int aId){
 	std::string name;
 	std::string directory;
 	std::string scriptName;
-	for(int i = 0; i < size; i++){
+	int requires;
+	for(int i = 0; i < size; i++)
+	{
 		//Local variables to hold values
-		levelfile >> id >> name >> directory >> scriptName;
+		levelfile >> id >> name >> directory >> scriptName >> requires;
 		//Pushes right(id) object into inventory vector
 		if(id == aId)
 		{
-			m_items.push_back(new InventoryItem(id, name, directory, scriptName));
+			m_items.push_back(new InventoryItem(id, name, directory, scriptName, requires));
 		}
 	}
 	levelfile.close();
 }
 
-sf::Vector2f Inventory::GetPosition(int id){
+sf::Vector2f Inventory::GetPosition(int id)
+{
 	return m_items[id]->GetPosition();
 }
 
-std::string Inventory::GetDirectory(int id){
+std::string Inventory::GetDirectory(int id)
+{
 	return m_items[id]->GetDirectory();
 }
 
-std::string Inventory::GetName(int id){
+std::string Inventory::GetName(int id)
+{
 	return m_items[id]->GetName();
 }
 
@@ -59,60 +68,96 @@ std::string Inventory::GetScript(int id)
 	return m_items[id]->GetScript();
 }
 
-int Inventory::GetId(int i){
+int Inventory::GetId(int i)
+{
 	return m_items[i]->GetId();
 }
 
-void Inventory::Read(int i){
+void Inventory::Read(int i)
+{
 	std::cout << m_items[i]->GetName();
 }
 
-void Inventory::Render(sf::Vector2f position){
-	for(int i = 0; i < m_items.size(); i++){
-		m_items[i]->SetPosition(position.x+55*i+40, position.y+10);
+void Inventory::Render(sf::Vector2f position)
+{
+	for(int i = 0; i < m_items.size(); i++)
+	{
+		m_items[i]->SetPosition(position.x+56*i+40, position.y+10);
 	}
 }
 
-void Inventory::Draw(sf::RenderWindow &window){
-	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
+void Inventory::Draw(sf::RenderWindow &window)
+{
+	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++)
+	{
 		(*i)->Draw(window);
 	}
 }
 
-int Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view){
-	for(int i = 0; i < m_items.size(); i++){
-		if(m_items[i]->GetRect().contains(window.convertCoords(sf::Mouse::getPosition(window), view).x, window.convertCoords(sf::Mouse::getPosition(window), view).y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left)){
+int Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view)
+{
+	for(int i = 0; i < m_items.size(); i++)
+	{
+		if(m_items[i]->GetRect().contains(window.convertCoords(sf::Mouse::getPosition(window), view).x, window.convertCoords(sf::Mouse::getPosition(window), view).y) && sf::Mouse::isButtonPressed(sf::Mouse::Button::Left))
+		{
 			return m_items[i]->GetId();
 		}
 	}
 }
 
-std::vector<InventoryItem*> Inventory::Contains(){
+std::vector<InventoryItem*> Inventory::Contains()
+{
 	return m_items;
 }
 
-void Inventory::RemoveItem(){
+void Inventory::RemoveItem()
+{
 	InventoryVector items;
-	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++){
-		if((*i)->IsAlive()){
+
+	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++)
+	{
+		if((*i)->IsAlive())
+		{
 			items.push_back((*i));
-		}else{
+		}
+		else
+		{
 			delete (*i);
 		}
 	}
 	m_items = items;
 }
 
-sf::IntRect Inventory::GetItemsRect(int i){
+sf::IntRect Inventory::GetItemsRect(int i)
+{
 	return m_items[i]->GetRect();
 }
 
-void Inventory::KillItem(int id){
+void Inventory::KillItem(int id)
+{
 	for(int i = 0; i < m_items.size(); i++)
 	{
 		if(m_items[i]->GetId() == id)
 		{
 			m_items[i]->SetDead();
 		}
+	}
+}
+
+void Inventory::Combine(int requires, int itemInHand)
+{
+	switch(requires)
+	{
+	case 1:
+		Inventory::GetInstance()->AddItem(8);
+		Inventory::GetInstance()->Contains()[itemInHand]->SetDead();
+		break;
+	case 3:
+		Inventory::GetInstance()->AddItem(8);
+		Inventory::GetInstance()->Contains()[itemInHand]->SetDead();
+		break;
+	default:
+		//Don't add
+		break;
 	}
 }

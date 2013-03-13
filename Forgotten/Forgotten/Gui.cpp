@@ -41,11 +41,7 @@ void Gui::Move(const float SPEED)
 //Render Gui
 void Gui::Render()
 {
-	if(m_mouseHandler.HoldsItem() && m_mouseHandler.mouse1WasPressed())
-	{
-		m_mouseHandler.DropItem();
-		m_itemInHand = -1;
-	}
+
 }
 
 //Drawing the gui and its items.
@@ -116,14 +112,23 @@ void Gui::Draw(sf::RenderWindow &window){
 	{
 		if(Inventory::GetInstance()->GetItemsRect(i).contains(window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x, window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y))
 		{
-			if(m_mouseHandler.mouse1WasPressed()){
-			m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
-			m_mouseHandler.SetHoldingItem(true);
-			m_itemInHand = Inventory::GetInstance()->GetId(i);
-			}
-			else if(m_mouseHandler.mouse2WasPressed())
+			if(m_mouseHandler.mouse1WasPressed())
 			{
-				GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
+				if(!m_mouseHandler.HoldsItem())
+				{
+				m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
+				m_mouseHandler.SetHoldingItem(true);
+				m_itemInHand = Inventory::GetInstance()->GetId(i);
+				}
+				else if(m_mouseHandler.mouse2WasPressed())
+				{
+					GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
+				}
+				else if(m_itemInHand == Inventory::GetInstance()->Contains()[i]->GetRequires())
+				{
+					Inventory::GetInstance()->AddItem(8);
+					RemoveHand();
+				}
 			}
 		}
 	}
@@ -188,6 +193,9 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 	else
 	{
 		m_down = false;
+		if(m_mouseHandler.mouse1WasPressed() && m_mouseHandler.HoldsItem()){
+			RemoveHand();
+		}
 	}
 }
 
@@ -210,7 +218,7 @@ void Gui::DrawText(sf::RenderWindow& window)
 void Gui::DeleteText()
 {
 
-	/*TextVector texts;
+	TextVector texts;
 	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++)
 	{
 		if((*i)->IsExpired())
@@ -220,7 +228,7 @@ void Gui::DeleteText()
 			texts.push_back((*i));
 		}
 	}
-	m_texts = texts;*/
+	m_texts = texts;
 }
 
 //Load from file(items.txt) all objects and push them into a vector
@@ -236,9 +244,10 @@ void Gui::SetCursorVector()
 		std::string name;
 		std::string directory;
 		std::string script;
+		int requires;
 		for(int i = 0; i < size; i++)
 		{
-			m_objectFile >> id >> name >> directory >> script;
+			m_objectFile >> id >> name >> directory >> script >> requires;
 			m_objectCursor.push_back(new Animation(directory, 1000, 1));
 		}
 	}
@@ -290,3 +299,9 @@ void Gui::IsInScript(bool script)
 {
 	m_script = script;
 }
+
+void Gui::RemoveHand()
+{
+	m_mouseHandler.DropItem();
+	m_itemInHand = -1;
+}					

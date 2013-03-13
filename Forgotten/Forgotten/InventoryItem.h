@@ -9,7 +9,7 @@
 
 class InventoryItem{
 public:
-	InventoryItem(int nr, std::string name, std::string directory, std::string scriptName);
+	InventoryItem(int nr, std::string name, std::string directory, std::string scriptName, int requires);
 	~InventoryItem();
 	int GetId();
 	std::string GetDirectory();
@@ -23,6 +23,7 @@ public:
 	bool IsAlive();
 	void SetDead();
 	std::string GetScript();
+	int GetRequires();
 private:
 	int m_id;
 	std::string m_name;
@@ -33,6 +34,7 @@ private:
 	sf::IntRect m_textureRect;
 	bool m_isAlive;
 	std::string m_scriptName;
+	int m_requires;
 };
 
 #endif

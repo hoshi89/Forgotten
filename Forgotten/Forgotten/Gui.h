@@ -26,6 +26,7 @@ public:
 	void SetIsDownGui(bool down);
 	int ItemInHand();
 	void IsInScript(bool script);
+	void RemoveHand();
 
 	// Dialog
 	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);

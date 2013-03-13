@@ -2,6 +2,11 @@ suspend
 setdirection player 7
 showtext 0 100 2 50 IC 255 0 0 17 Picked up match box!
 additem 1
+additem 2
+additem 3
+additem 4
+additem 5
+additem 6
 playsound matchbox
 removeentity matches
 showtext 175 200 3 60 N 255 255 255 17 I guess I'd better take these with me...
