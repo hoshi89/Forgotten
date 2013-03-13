@@ -1,5 +1,6 @@
 #include "AnswerCls.h"
 #include "FlagManager.h"
+#include "GameManager.h"
 
 AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 		sf::Vector2f aEntityPos): m_AnswerId(aAnswerId), m_EntityPos(aEntityPos),
@@ -94,21 +95,25 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 	sf::Text outline1(m_AnswerText);
 	outline1.setColor(sf::Color::Black);
 	outline1.setCharacterSize(TEXT_SIZE);
+	outline1.setFont(GameManager::GetInstance()->GetFont());
 	outline1.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y+1); 
 	//outline1
 	sf::Text outline2(m_AnswerText);
 	outline2.setColor(sf::Color::Black);
 	outline2.setCharacterSize(TEXT_SIZE);
+	outline2.setFont(GameManager::GetInstance()->GetFont());
 	outline2.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y-1); 
 	//outline1
 	sf::Text outline3(m_AnswerText);
 	outline3.setColor(sf::Color::Black);
 	outline3.setCharacterSize(TEXT_SIZE);
+	outline3.setFont(GameManager::GetInstance()->GetFont());
 	outline3.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y+1); 
 	//outline1
 	sf::Text outline4(m_AnswerText);
 	outline4.setColor(sf::Color::Black);
 	outline4.setCharacterSize(TEXT_SIZE);
+	outline4.setFont(GameManager::GetInstance()->GetFont());
 	outline4.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y-1); 
 
 	aWindow.draw(outline1);
@@ -117,6 +122,7 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 	aWindow.draw(outline4);
 
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
+	m_AnswerText.setFont(GameManager::GetInstance()->GetFont());
 
 	aWindow.draw(m_AnswerText);	
 	string wStr = string(m_AnswerText.getString());
