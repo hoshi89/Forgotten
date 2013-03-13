@@ -12,10 +12,6 @@
 #include "MouseHandler.h"
 #include <queue>
 
-const bool FULLSCREEN = false;
-const bool DEBUG = false;
-const bool DEBUG_NODE = false;
-
 // SINGLETON
 
 class GameManager{
@@ -34,32 +30,30 @@ private:
 	GameManager(GameManager const&);
 	GameManager& operator=(GameManager const&){};
 	static GameManager *m_instance;
-
 	void PlayerFocus();
-
+	void LoadConfig();
 	sf::RenderWindow m_window;
 	sf::View m_defaultView;
 	sf::View m_view;
-
 	Inventory* m_inventory;
 	Gui gui;
-
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
+
+	// Config
+	bool FULLSCREEN;
+	bool DEBUG;
+	bool DEBUG_NODE;
 
 	// Script stuff
 	typedef std::vector<std::string> EventQueue;
 	EventQueue m_events;
-
 	void ProcessNextEvent();
 	int StringToInt(const std::string &str);
-	
-	//Script variables
 	//Wait
 	bool m_wait;
 	int m_waitTime;
 	sf::Clock m_waitClock;
-
 	//Fading
 	sf::Clock m_fadeClock;
 	void UpdateFade();
@@ -67,13 +61,10 @@ private:
 	int m_fadeAlpha;
 	sf::RectangleShape m_fadeShape;
 	int m_fadeSpeed;
-
 	// Suspend controls
 	bool m_suspend;
-
 	// FPS limit
 	sf::Clock m_fpsClock;
-
 	// Debug stuff
 	sf::Font m_debugFont;
 	sf::Text m_mousePosition;
