@@ -115,15 +115,15 @@ void Gui::Draw(sf::RenderWindow &window){
 				m_mouseHandler.SetHoldingItem(true);
 				m_itemInHand = Inventory::GetInstance()->GetId(i);
 				}
-				else if(m_mouseHandler.mouse2WasPressed())
-				{
-					GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
-				}
 				else if(m_itemInHand == Inventory::GetInstance()->Contains()[i]->GetRequires())
 				{
 					GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetWantScript(i));
 					RemoveHand();
 				}
+			}
+			else if(m_mouseHandler.mouse2WasPressed())
+			{
+				GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
 			}
 		}
 	}
