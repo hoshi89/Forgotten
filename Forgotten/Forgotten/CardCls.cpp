@@ -299,6 +299,7 @@ string* CardCls::ChooseAnswer(sf::Vector2f* aMousePos)
 	for(int i = 0; i<m_Answers.size(); i++)
 		if(m_Answers[i]->isAnswerChoosen(aMousePos))
 		{
+			m_Answers[i]->setChosen();
 			m_State = DialogStateEnum::EndDialog;
 			string* wTargetId = m_Answers[i]->GetTargetId();
 			if(*wTargetId == "")

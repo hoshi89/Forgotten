@@ -130,9 +130,13 @@ string* AnswerCls::GetTargetId()
 
 void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 {
+	if(m_hasAnswerBeenChosen == true)
+		m_AnswerText.setColor(sf::Color::Red);
+	else
+		m_AnswerText.setColor(sf::Color::Cyan);
+
 	m_AnswerText.setPosition(10, aYpos);
 	m_AnswerText.setCharacterSize(25);
-	m_AnswerText.setColor(sf::Color::Cyan);
 	aWindow.draw(m_AnswerText);
 	if(m_AnswerSetFlag != "")
 	{
@@ -156,6 +160,16 @@ string* AnswerCls::GetAnswerId()
 string* AnswerCls::GetNeedFlag()
 {
 	return &m_AnswerNeedFlag;
+}
+
+void AnswerCls::setChosen()
+{
+	m_hasAnswerBeenChosen = true;
+}
+
+bool AnswerCls::getChosen()
+{
+	return m_hasAnswerBeenChosen;
 }
 
 AnswerCls::~AnswerCls(void)
