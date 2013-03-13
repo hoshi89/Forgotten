@@ -35,14 +35,15 @@ void Inventory::AddItem(int aId)
 	std::string directory;
 	std::string scriptName;
 	int requires;
+	std::string wantScript;
 	for(int i = 0; i < size; i++)
 	{
 		//Local variables to hold values
-		levelfile >> id >> name >> directory >> scriptName >> requires;
+		levelfile >> id >> name >> directory >> scriptName >> requires >> wantScript;
 		//Pushes right(id) object into inventory vector
 		if(id == aId)
 		{
-			m_items.push_back(new InventoryItem(id, name, directory, scriptName, requires));
+			m_items.push_back(new InventoryItem(id, name, directory, scriptName, requires, wantScript));
 		}
 	}
 	levelfile.close();
@@ -68,6 +69,11 @@ std::string Inventory::GetScript(int id)
 	return m_items[id]->GetScript();
 }
 
+std::string Inventory::GetWantScript(int id)
+{
+	return m_items[id]->GetWantScript();
+}
+
 int Inventory::GetId(int i)
 {
 	return m_items[i]->GetId();
@@ -82,7 +88,7 @@ void Inventory::Render(sf::Vector2f position)
 {
 	for(int i = 0; i < m_items.size(); i++)
 	{
-		m_items[i]->SetPosition(position.x+56*i+40, position.y+10);
+		m_items[i]->SetPosition(position.x+58*i+40, position.y+10);
 	}
 }
 
