@@ -37,6 +37,9 @@ GameManager::GameManager()
 	// Load config
 	LoadConfig();
 
+	// Load font
+	m_font.loadFromFile("Data/Fonts/BebasNeue.otf");
+
 	// Set fadeShape
 	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 255));
 
@@ -961,4 +964,9 @@ void GameManager::LoadConfig()
 			tmpStream.clear();
 		}
 	}
+}
+
+sf::Font& GameManager::GetFont()
+{
+	return m_font;
 }

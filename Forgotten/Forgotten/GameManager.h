@@ -25,6 +25,7 @@ public:
 	Player* GetPlayer();
 	LevelManager* GetLevelManager();
 	MouseHandler& GetMouseHandler();
+	sf::Font& GetFont();
 private:
 	GameManager();
 	GameManager(GameManager const&);
@@ -39,6 +40,7 @@ private:
 	Gui gui;
 	LevelManager m_levelManager;
 	MouseHandler m_mouseHandler;
+	sf::Font m_font;
 
 	// Config
 	bool FULLSCREEN;
