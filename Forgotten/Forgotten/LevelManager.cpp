@@ -10,6 +10,7 @@ LevelManager::LevelManager()
 
 void LevelManager::update()
 {
+	// Background music
 	if(m_bgMusic.getVolume() < m_bgVolume)
 	{
 		float nextVolume = m_bgMusic.getVolume()+m_fadeSpeed;
@@ -76,7 +77,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 349, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 500));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -114,7 +115,7 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 210, 400, 5, 49, "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
-		Object *necklace = new Object("necklace", 1100, 650, 44, 54, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 520, 44, 54, "Data/Animations/Objects/necklace.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -128,7 +129,7 @@ void LevelManager::LoadChapter(int id){
 		necklace->SetNoCanDoScript("Data/Scripts/ch1_necklace_nocando.script");
 
 		// Set sprite offsets
-		necklace->SetSpriteOffset(0, 200);
+		necklace->SetSpriteOffset(0, 70);
 
 		// Add objects to the entity vector
 		m_levels[0]->AddObject(necklace);
@@ -141,12 +142,12 @@ void LevelManager::LoadChapter(int id){
 		// Add NPCS
 		NpcCls *angry_woman = new NpcCls(800, 210, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", sf::IntRect(830, 220, 60, 220 ), "angry_woman");   
 		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", sf::IntRect(120, 210, 160, 310), "dendi");
-		NpcCls *valet = new NpcCls(1250, 580, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(45, 54), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", sf::IntRect(1150, 380, 100, 140), "valet");
+		NpcCls *valet = new NpcCls(1255, 500, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(45, 54), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", sf::IntRect(1150, 380, 100, 140), "valet");
 		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(15, 43), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", sf::IntRect(650, 170, 120, 130), "receptionist");
 		NpcCls *taxi = new NpcCls(1100, 480, "Data/Animations/NPC/taxi.png", 1, 100, sf::Vector2f(23, 21), m_levels[1]->GetNodeMap(), "Data/Scripts/ch1_taxi_interact.script", "Data/Scripts/ch1_taxi_inspect.script", "Data/Scripts/ch1_taxi_give.script", "Data/Scripts/ch1_taxi_nocando.script", sf::IntRect(1020, 380, 290, 80), "taxi");
 
 		// Set sprite offset
-		valet->SetSpriteOffset(100, 200);
+		valet->SetSpriteOffset(100, 130);
 		taxi->SetSpriteOffset(100, 200);
 
 		// Set wants item

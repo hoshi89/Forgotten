@@ -1,12 +1,10 @@
 #include "ScriptText.h"
+#include "GameManager.h"
 
 //Constructor
 ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak, std::string style, sf::Color color, int fontsize) : m_text(text), m_time(time), m_position(position), m_expired(false){
 
 	const int OUTLINE_THICKNESS = 1;
-
-	// Load font
-	m_font.loadFromFile("Data/Fonts/BebasNeue.otf");
 
 	// Text color
 	m_text.setColor(color);
@@ -33,11 +31,11 @@ ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int ro
 	m_bgText3.setColor(sf::Color::Black);
 
 	// Set fonts
-	m_text.setFont(m_font);
-	m_bgText0.setFont(m_font);
-	m_bgText1.setFont(m_font);
-	m_bgText2.setFont(m_font);
-	m_bgText3.setFont(m_font);
+	m_text.setFont(GameManager::GetInstance()->GetFont());
+	m_bgText0.setFont(GameManager::GetInstance()->GetFont());
+	m_bgText1.setFont(GameManager::GetInstance()->GetFont());
+	m_bgText2.setFont(GameManager::GetInstance()->GetFont());
+	m_bgText3.setFont(GameManager::GetInstance()->GetFont());
 
 	// Wrap text
 	sf::String tmpString = m_text.getString();

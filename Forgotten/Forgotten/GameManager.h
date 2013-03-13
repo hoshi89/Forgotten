@@ -25,7 +25,7 @@ public:
 	Player* GetPlayer();
 	LevelManager* GetLevelManager();
 	MouseHandler& GetMouseHandler();
-	sf::Font& GetFont();
+	const sf::Font& GetFont();
 private:
 	GameManager();
 	GameManager(GameManager const&);

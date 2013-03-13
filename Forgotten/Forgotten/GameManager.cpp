@@ -966,7 +966,7 @@ void GameManager::LoadConfig()
 	}
 }
 
-sf::Font& GameManager::GetFont()
+const sf::Font& GameManager::GetFont()
 {
 	return m_font;
 }
