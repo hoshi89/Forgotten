@@ -4,7 +4,7 @@ fadeout 1
 wait 2
 playsound elevator_open
 setlevel 0
-setnodeposition player 90 48
+setnodeposition player 91 48
 setdirection player 6
 wait 6
 fadein 1

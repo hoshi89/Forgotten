@@ -1,5 +1,5 @@
 suspend
-setdirection player 3
+setdirection player 1
 if flag has_talked_to_piccolo_once
 playdialog PiccoloStandard 400 300 760 340
 if flag valet_gone

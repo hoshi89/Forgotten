@@ -25,6 +25,8 @@ public:
 	bool isAnswerChoosen(sf::Vector2f* aMousePos);
 	string* GetAnswerId();
 	string* GetNeedFlag();
+	void setChosen();
+	bool getChosen();
 private:
 	static const int TARGET_ID = 1;
 	static const int TEXT_PLACE = 2;
@@ -41,4 +43,5 @@ private:
 	MapVector m_Members;
 	sf::Vector2f m_EntityPos;
 	sf::Vector2f m_InteractionPos;
+	bool m_hasAnswerBeenChosen;
 };

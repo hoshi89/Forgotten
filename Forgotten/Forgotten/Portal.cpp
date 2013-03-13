@@ -23,7 +23,6 @@ void Portal::SetID(std::string id)
 
 void Portal::Interact(int item)
 {
-	std::cout << "Interacting with portal..." << std::endl;
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_nodePosition);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
 }

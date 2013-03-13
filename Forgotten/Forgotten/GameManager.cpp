@@ -28,8 +28,14 @@ GameManager::GameManager()
 	m_fadeAlpha(255),
 	m_wait(false),
 	m_mouseHandler(m_window),
-	m_suspend(false)
+	m_suspend(false),
+	FULLSCREEN(false),
+	DEBUG(false),
+	DEBUG_NODE(false)
 {
+
+	// Load config
+	LoadConfig();
 
 	// Set fadeShape
 	m_fadeShape.setFillColor(sf::Color(0, 0, 0, 255));
@@ -907,4 +913,52 @@ LevelManager* GameManager::GetLevelManager()
 MouseHandler& GameManager::GetMouseHandler()
 {
 	return m_mouseHandler;
+}
+
+void GameManager::LoadConfig()
+{
+	// Create temporary stuff
+	std::stringstream tmpStream;
+	std::string tmpString;
+	std::string tmpSettingName;
+	std::string tmpSettingValue;
+	std::ifstream configFile("Data/Config.ini");
+
+	if(configFile)
+	{
+		while(std::getline(configFile, tmpString))
+		{
+			// Add the string to the stream
+			tmpStream << tmpString;
+
+			// Get setting name
+			std::getline(tmpStream, tmpSettingName, ' '); // Ex. Fullscreen
+			// Setting value
+			std::getline(tmpStream, tmpSettingValue, ' '); // 1 / 0
+
+			if(tmpSettingName == "Fullscreen")
+			{
+				if(StringToInt(tmpSettingValue) > 0)
+				{
+					FULLSCREEN = true;
+				}
+			}
+			else if(tmpSettingName == "Debug")
+			{
+				if(StringToInt(tmpSettingValue) > 0)
+				{
+					DEBUG = true;
+				}
+			}
+			else if(tmpSettingName == "DebugNode")
+			{
+				if(StringToInt(tmpSettingValue) > 0)
+				{
+					DEBUG_NODE = true;
+				}
+			}
+			// Reset variables
+			tmpStream.clear();
+		}
+	}
 }

@@ -63,6 +63,8 @@ void NpcCls::Interact(int item)
 {
 	GameManager::GetInstance()->GetPlayer()->GoTo(m_InteractionNode);
 	GameManager::GetInstance()->GetPlayer()->SetFocus(this);
+
+	m_hasBeenGivenItem = item;
 }
 
 sf::Vector2f NpcCls::GetInteractionNode()

@@ -125,8 +125,14 @@ void MouseHandler::Draw()
 
 	// Update animation
 	m_currentMouseAnimation->update();
-
 	SetPosition();
+
+	// Fix position
+	int x = MousePosition.x-(m_currentMouseAnimation->getSprite().getGlobalBounds().width/2);
+	int y = MousePosition.y-(m_currentMouseAnimation->getSprite().getGlobalBounds().height/2);
+
+	m_currentMouseAnimation->setPosition(sf::Vector2f(x, y));
+
 	m_window.draw(m_currentMouseAnimation->getSprite());
 }
 
