@@ -26,6 +26,7 @@ public:
 	virtual void GoTo(sf::Vector2f)=0;
 	virtual void SetDirection(Entity::Direction direction){};
 	virtual void Inspect(){};
+	virtual void Move(){};
 };
 
 #endif

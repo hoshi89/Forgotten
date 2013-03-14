@@ -398,11 +398,10 @@ void GameManager::ProcessNextEvent(){
 			// Move the entity
 			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
 			{
-				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
 				{
 					// Found the entity, move it
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->GoTo(sf::Vector2f(xcoord, ycoord));
-					break;
+					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetPosition(xcoord, ycoord);
 				}
 			}
 		}
@@ -640,7 +639,6 @@ void GameManager::ProcessNextEvent(){
 					break;
 				}
 			}
-
 		}
 		// If statement
 		else if(token == "if")
@@ -822,10 +820,14 @@ void GameManager::ProcessNextEvent(){
 			gui.SetIsDownGui(false);
 			gui.IsInScript(false);
 		}
+		else if(token == "addentity")
+		{
+			NpcCls *angry_woman = new NpcCls(990, 180, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levelManager.GetLevel()[4]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", sf::IntRect(830, 220, 60, 220 ), "angry_woman");
+			m_levelManager.GetLevel()[4]->AddObject(angry_woman);
+		}
 
 		m_events.erase(m_events.begin());
 	}
-
 }
 
 int GameManager::StringToInt(const std::string &str)

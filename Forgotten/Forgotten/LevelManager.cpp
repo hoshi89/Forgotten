@@ -180,6 +180,11 @@ void LevelManager::SetLevel(int id){
 	StopAllSounds();
 }
 
+std::vector<Level*> LevelManager::GetLevel()
+{
+	return m_levels;
+}
+
 void LevelManager::StopAllSounds(){
 
 	for(std::vector<Level*>::iterator i = m_levels.begin(); i != m_levels.end(); i++){
