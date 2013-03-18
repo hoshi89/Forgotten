@@ -78,6 +78,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 349, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 10000));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -114,8 +115,9 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 210, 400, 5, 49, "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
-		Object *necklace = new Object("necklace", 1100, 520, 44, 54, "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(100, 100, 100, 100), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(100, 100, 100, 100), "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *bed = new Object("bed", 100, 100, 1000, 1000, sf::IntRect(100, 100, 100, 100), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -134,6 +136,7 @@ void LevelManager::LoadChapter(int id){
 		// Add objects to the entity vector
 		m_levels[0]->AddObject(necklace);
 		m_levels[3]->AddObject(matches);
+		m_levels[3]->AddObject(bed);
 
 		// Set first room
 		m_currentLevel = m_levels[3];

@@ -100,7 +100,7 @@ void GameManager::Process(){
 	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y)){
 		m_mouseHandler.SetCursor(1);
 	}else{
-		m_mouseHandler.SetCursor(2);
+		m_mouseHandler.SetCursor(0);
 	}
 
 	// Sort the vector by Z value

@@ -1,7 +1,7 @@
 #include "Object.h"
 #include "GameManager.h"
 
-Object::Object(std::string id, int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes)
+Object::Object(std::string id, int xPos, int yPos, int interactionX, int interactionY, sf::IntRect hitbox, std::string texture, int timeperframe, int numframes)
 	:
 	m_id(id),
 	m_idle(texture, timeperframe, numframes),
@@ -9,7 +9,8 @@ Object::Object(std::string id, int xPos, int yPos, int interactionX, int interac
 	m_interactionNode(interactionX, interactionY),
 	m_hasBeenGivenItem(-1),
 	xOffset(0),
-	yOffset(0)
+	yOffset(0),
+	m_hitbox(hitbox)
 {
 	m_currentAnimation = &m_idle;
 }
@@ -47,6 +48,8 @@ const sf::Sprite& Object::GetSprite() const
 void Object::Render(sf::RenderWindow &window)
 {
 	window.draw(m_currentAnimation->getSprite());
+
+	// Test rectangle
 }
 
 const int Object::GetZ()
@@ -99,7 +102,7 @@ void Object::StartInteraction()
 
 bool Object::MouseOver(MouseHandler &mouse)
 {
-	if(m_currentAnimation->getSprite().getGlobalBounds().contains(mouse.GetPosition()))
+	if(m_hitbox.contains(mouse.GetPosition().x, mouse.GetPosition().y))
 	{
 		// The mouse is within the sprite
 		mouse.SetCursor(6);
