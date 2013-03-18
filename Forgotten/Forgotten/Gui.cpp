@@ -54,6 +54,7 @@ void Gui::Draw(sf::RenderWindow &window){
 
  	//ny
 	bool mousepressed;
+	sf::Vector2f mouseOverPos;
 
  	LevelDialogsCls* currentLevelDialogs = GameManager::GetInstance()->GetLevelManager()->GetCurrentLevel()->GetLevelDialogs();
  	switch (m_DialogState)
@@ -70,6 +71,9 @@ void Gui::Draw(sf::RenderWindow &window){
 		//if(m_mouseHandler.mouse1WasPressed())
 		//	mousepressed = true;
 		m_DialogState = currentLevelDialogs->ShowDialog(window, m_DeckId, m_PlayerPos, m_EntityPos, mousepressed); 
+		mouseOverPos.y = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).y;
+		mouseOverPos.x = window.convertCoords(sf::Mouse::getPosition(window), m_guiview).x; 
+		currentLevelDialogs->IsMouseOverAnswer(&mouseOverPos);
  		if(m_mouseHandler.mouse1WasPressed())
  		{
  			sf::Vector2f mousePos;

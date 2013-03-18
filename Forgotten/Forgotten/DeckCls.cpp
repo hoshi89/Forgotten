@@ -35,6 +35,11 @@ DialogStateEnum DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInt
 	return wDlgState;
 }
 
+void DeckCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
+{
+	m_CurrentCard->IsMouseOverAnswer(aMousePos);
+}
+
 bool DeckCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 {
 	bool isComplete = false;

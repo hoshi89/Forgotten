@@ -16,7 +16,7 @@ public:
 					sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos, bool aIsPressed);
 	void ChooseAnswer(sf::Vector2f* aMousePos);
-
+	void IsMouseOverAnswer(sf::Vector2f* aMousePos);
 	//Scriptfunc
 	DeckCls* addDeck(string aId);
 private:

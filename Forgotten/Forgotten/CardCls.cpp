@@ -203,6 +203,14 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	}
 }
 
+void CardCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
+{
+	for(int i = 0; i < m_Answers.size(); i++)
+	{
+		m_Answers[i]->IsMouseOverAnswer(aMousePos);
+	}
+}
+
 string* CardCls::GetCardId()
 {
 	return &m_CardId;

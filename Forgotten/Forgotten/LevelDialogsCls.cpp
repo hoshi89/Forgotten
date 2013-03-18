@@ -15,6 +15,11 @@ DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow,
 	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos, aIsPressed);
 }
 
+void LevelDialogsCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
+{
+	m_CurrentDeck->IsMouseOverAnswer(aMousePos);
+}
+
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
 {
 	string wDeckId;

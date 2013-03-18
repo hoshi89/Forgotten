@@ -123,7 +123,6 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 
 	m_AnswerText.setCharacterSize(TEXT_SIZE);
 	m_AnswerText.setFont(GameManager::GetInstance()->GetFont());
-
 	aWindow.draw(m_AnswerText);	
 	string wStr = string(m_AnswerText.getString());
 	wStr = wStr+"siodj";
@@ -142,7 +141,40 @@ void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 		m_AnswerText.setColor(sf::Color::Cyan);
 
 	m_AnswerText.setPosition(10, aYpos);
-	m_AnswerText.setCharacterSize(25);
+	m_AnswerText.setCharacterSize(TEXT_SIZE);
+	if(m_MouseOverAnswer)
+		m_AnswerText.setColor(sf::Color::Blue);
+
+	sf::Text outline1(m_AnswerText);
+	outline1.setColor(sf::Color::Black);
+	outline1.setCharacterSize(TEXT_SIZE);
+	outline1.setFont(GameManager::GetInstance()->GetFont());
+	outline1.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y+1); 
+	//outline1
+	sf::Text outline2(m_AnswerText);
+	outline2.setColor(sf::Color::Black);
+	outline2.setCharacterSize(TEXT_SIZE);
+	outline2.setFont(GameManager::GetInstance()->GetFont());
+	outline2.setPosition(m_AnswerText.getPosition().x+1, m_AnswerText.getPosition().y-1); 
+	//outline1
+	sf::Text outline3(m_AnswerText);
+	outline3.setColor(sf::Color::Black);
+	outline3.setCharacterSize(TEXT_SIZE);
+	outline3.setFont(GameManager::GetInstance()->GetFont());
+	outline3.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y+1); 
+	//outline1
+	sf::Text outline4(m_AnswerText);
+	outline4.setColor(sf::Color::Black);
+	outline4.setCharacterSize(TEXT_SIZE);
+	outline4.setFont(GameManager::GetInstance()->GetFont());
+	outline4.setPosition(m_AnswerText.getPosition().x-1, m_AnswerText.getPosition().y-1); 
+
+	aWindow.draw(outline1);
+	aWindow.draw(outline2);
+	aWindow.draw(outline3);
+	aWindow.draw(outline4);
+
+	m_AnswerText.setFont(GameManager::GetInstance()->GetFont());
 	aWindow.draw(m_AnswerText);
 	if(m_AnswerSetFlag != "")
 	{
@@ -157,6 +189,11 @@ bool AnswerCls::isAnswerChoosen(sf::Vector2f* aMousePos)
 	sf::FloatRect* wRect = &m_AnswerText.getGlobalBounds();
 	return wRect->contains(*aMousePos);
 }
+
+void AnswerCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
+{
+	m_MouseOverAnswer = m_AnswerText.getGlobalBounds().contains(*aMousePos);
+}	
 
 string* AnswerCls::GetAnswerId()
 {

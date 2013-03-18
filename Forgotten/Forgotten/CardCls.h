@@ -22,6 +22,7 @@ public:
 	string* GetCardId();
 	DialogStateEnum GetDialogState();
 	string* ChooseAnswer(sf::Vector2f* aMousePos);
+	void IsMouseOverAnswer(sf::Vector2f* aMousePos);
 
 	//Scriptfunc
 	AnswerCls* AddAnswer(string aAnswerId, sf::Vector2f aInteractionNode,

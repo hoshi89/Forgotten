@@ -23,6 +23,7 @@ public:
 	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
 	virtual ~AnswerCls(void);
 	bool isAnswerChoosen(sf::Vector2f* aMousePos);
+	void IsMouseOverAnswer(sf::Vector2f* aMousePos);
 	string* GetAnswerId();
 	string* GetNeedFlag();
 	void setChosen();
@@ -34,6 +35,7 @@ private:
 	static const int ANSWER_SET_FLAG = 4;
 	static const int ANSWER_NEED_FLAG = 5;
 
+	bool m_MouseOverAnswer;
 	string m_AnswerId;
 	string m_TextPlace;
 	string m_TargetCardId;

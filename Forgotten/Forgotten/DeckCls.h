@@ -17,6 +17,7 @@ public:
 	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
 	CardCls* GetCardById(string* aCardId);
 	void ChooseAnswer(sf::Vector2f* aMousePos);
+	void IsMouseOverAnswer(sf::Vector2f* aMousePos);
 
 	//Scriptfunc
 	CardCls* addCard(string aId);
