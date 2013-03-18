@@ -6,6 +6,7 @@ AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 		sf::Vector2f aEntityPos): m_AnswerId(aAnswerId), m_EntityPos(aEntityPos),
 		m_InteractionPos(aInteractionNode)
 {
+	m_MouseOverAnswer = false;
 	m_Members.push_back(new CaseValues(TARGETSTR, TARGET_ID));
 	m_Members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_Members.push_back(new CaseValues(ANSWERTEXTSTR, ANSWER_TEXT));
@@ -75,13 +76,14 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 
 void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
+	sf::Color NPCAnswerColor(226, 90, 75);
 	if(m_TextPlace == "NPC")
 	{
 		string tmpString = m_AnswerText.getString();
 		if(m_EntityPos.x < m_InteractionPos.x && tmpString.size() <= 10)
 			aEntityPos.x = aEntityPos.x+100;
 		m_AnswerText.setPosition(aEntityPos);
-		m_AnswerText.setColor(sf::Color::White);
+		m_AnswerText.setColor(NPCAnswerColor);
 	}
 	else
 	{
@@ -89,7 +91,7 @@ void AnswerCls::ManageAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos,
 		if(m_EntityPos.x > m_InteractionPos.x && tmpString.size() <= 20)
 			aInteractionPos.x = aInteractionPos.x+100;
 		m_AnswerText.setPosition(aInteractionPos);
-		m_AnswerText.setColor(sf::Color::Cyan);
+		m_AnswerText.setColor(sf::Color::White);
 	}
 
 	sf::Text outline1(m_AnswerText);
@@ -135,10 +137,12 @@ string* AnswerCls::GetTargetId()
 
 void AnswerCls::ManageAnswerS(sf::RenderWindow &aWindow, int aYpos)
 {
+	sf::Color answerScolor(255, 209, 138);
+	sf::Color answerHasBeenChosenColor(255, 157, 28);
 	if(m_hasAnswerBeenChosen == true)
-		m_AnswerText.setColor(sf::Color::Red);
+		m_AnswerText.setColor(answerHasBeenChosenColor);
 	else
-		m_AnswerText.setColor(sf::Color::Cyan);
+		m_AnswerText.setColor(answerScolor);
 
 	m_AnswerText.setPosition(10, aYpos);
 	m_AnswerText.setCharacterSize(TEXT_SIZE);

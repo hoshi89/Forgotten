@@ -1,5 +1,5 @@
 DECK=PiccoloFirstTime
-	CARD=PiccoloStartCard
+	CARD=PiccoloFirstTimeStartCard
 		QUESTION=Greetings sir. May I be of assistance?
 		TEXTPLACE=NPC
 		ANSWER=firstcardonlyanswer
@@ -41,8 +41,8 @@ DECK=PiccoloFirstTime
 	CARD=seventhcard
 		QUESTION=I shall.
 		TEXTPLACE=NPC
+		TARGET=PiccoloStartCard
 		QUESTIONSETFLAG=has_spoken_with_piccolo
-DECK=PiccoloStandard
 	CARD=PiccoloStartCard
 		QUESTION=Yes sir?
 		TEXTPLACE=NPC

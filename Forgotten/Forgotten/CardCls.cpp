@@ -142,6 +142,7 @@ string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f 
 
 void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 {
+	sf::Color NPCQuestionColor(226, 90, 75);
 	if(m_TextPlace == "NPC")
 	{
 		string tmpString = m_QuestionText.getString();
@@ -150,7 +151,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 			m_EntityPos.x = m_EntityPos.x + 100;
 		}
 		m_QuestionText.setPosition(m_EntityPos.x, m_EntityPos.y);
-		m_QuestionText.setColor(sf::Color::White);
+		m_QuestionText.setColor(NPCQuestionColor);
 	}
 	else
 	{
@@ -160,7 +161,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 			m_InteractionNode.x = m_InteractionNode.x+100;
 		}
 		m_QuestionText.setPosition(m_InteractionNode);
-		m_QuestionText.setColor(sf::Color::Cyan);
+		m_QuestionText.setColor(sf::Color::White);
 	}
 	m_QuestionText.setFont(GameManager::GetInstance()->GetFont());
 	m_QuestionText.setCharacterSize(TEXT_SIZE);
