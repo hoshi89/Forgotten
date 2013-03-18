@@ -5,7 +5,7 @@
 
 class Object : public Entity{
 public:
-	Object(std::string id, int xPos, int yPos, int interactionX, int interactionY, std::string texture, int timeperframe, int numframes);
+	Object(std::string id, int xPos, int yPos, int interactionX, int interactionY, sf::IntRect hitbox, std::string texture, int timeperframe, int numframes);
 	virtual std::string GetID();
 	virtual void SetID(std::string id);
 	void SetPosition(int x, int y);
@@ -36,6 +36,7 @@ private:
 	std::string m_inspectScript;
 	std::string m_noCanDoScript;
 	std::string m_id;
+	sf::IntRect m_hitbox;
 	int m_hasBeenGivenItem;
 	int m_wantsItem;
 	int xOffset;
