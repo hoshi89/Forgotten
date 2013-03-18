@@ -1,8 +1,12 @@
 suspend
 if flag can_give_matches
+if flag jeremy_knows_where_to_go
+showtext 180 120 5 100 I 255 0 255 17 I already know everything I need, no point in asking him about the match box again.
+else
 playdialog DendiRomanskiMatchBoxGiven 295 120 90 80
 raiseflag jeremy_knows_where_to_go
 additem 3
+endif
 else
 showtext 180 120 5 100 I 255 0 255 17 Why would I give my match box to this guy?
 endif

@@ -18,7 +18,6 @@ private:
 	int m_time;
 	sf::Vector2f m_position;
 	bool m_expired;
-	sf::Font m_font;
 };
 
 #endif

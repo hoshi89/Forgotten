@@ -24,6 +24,7 @@ public:
 	std::string GetName(int id);
 	std::string GetScript(int id);
 	void Combine(int requires, int itemInHand);
+	std::string GetWantScript(int id);
 private:
 	Inventory();
 	Inventory(Inventory const&){};

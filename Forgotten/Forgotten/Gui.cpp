@@ -99,11 +99,6 @@ void Gui::Draw(sf::RenderWindow &window){
 		Inventory::GetInstance()->Draw(window);	
 	}
 
-	if(!m_script)
-	{
-		IsOverlap(window);
-	}
-
 	}
 
 	DrawText(window);
@@ -124,17 +119,22 @@ void Gui::Draw(sf::RenderWindow &window){
 				m_mouseHandler.SetHoldingItem(true);
 				m_itemInHand = Inventory::GetInstance()->GetId(i);
 				}
-				else if(m_mouseHandler.mouse2WasPressed())
-				{
-					GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
-				}
 				else if(m_itemInHand == Inventory::GetInstance()->Contains()[i]->GetRequires())
 				{
-					Inventory::GetInstance()->AddItem(8);
+					GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetWantScript(i));
 					RemoveHand();
 				}
 			}
+			else if(m_mouseHandler.mouse2WasPressed())
+			{
+				GameManager::GetInstance()->LoadScript(Inventory::GetInstance()->GetScript(i));
+			}
 		}
+	}
+
+	if(!m_script)
+	{
+		IsOverlap(window);
 	}
 }
 
@@ -193,11 +193,16 @@ void Gui::IsOverlap(sf::RenderWindow &window)
 		m_down = true;
 		m_showItems = true;
 		m_mouseHandler.SetCursor(5);
+		if(m_mouseHandler.mouse1WasPressed() && !m_mouseHandler.HoldsItem())
+		{
+			RemoveHand();
+		}
 	}
 	else
 	{
 		m_down = false;
-		if(m_mouseHandler.mouse1WasPressed() && m_mouseHandler.HoldsItem()){
+		if(m_mouseHandler.mouse1WasPressed() && m_mouseHandler.HoldsItem())
+		{
 			RemoveHand();
 		}
 	}
@@ -249,9 +254,10 @@ void Gui::SetCursorVector()
 		std::string directory;
 		std::string script;
 		int requires;
+		std::string wantScript;
 		for(int i = 0; i < size; i++)
 		{
-			m_objectFile >> id >> name >> directory >> script >> requires;
+			m_objectFile >> id >> name >> directory >> script >> requires >> wantScript;
 			m_objectCursor.push_back(new Animation(directory, 1000, 1));
 		}
 	}

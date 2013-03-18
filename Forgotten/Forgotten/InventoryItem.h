@@ -9,7 +9,7 @@
 
 class InventoryItem{
 public:
-	InventoryItem(int nr, std::string name, std::string directory, std::string scriptName, int requires);
+	InventoryItem(int nr, std::string name, std::string directory, std::string scriptName, int requires, std::string wantScript);
 	~InventoryItem();
 	int GetId();
 	std::string GetDirectory();
@@ -24,10 +24,12 @@ public:
 	void SetDead();
 	std::string GetScript();
 	int GetRequires();
+	std::string GetWantScript();
 private:
 	int m_id;
 	std::string m_name;
 	std::string m_directory;
+	std::string m_wantScript;
 	sf::Vector2f m_position;
 	sf::Sprite m_sprite;
 	sf::Texture m_texture;
