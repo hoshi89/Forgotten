@@ -6,6 +6,7 @@ showtext 150 120 5 100 I 255 0 255 17 No point in bothering him anymore, I've go
 wait 5
 else
 showtext 150 150 5 30 N 255 255 255 17 Thank's for delivering the letter, here's some money for your trouble!
+pulldowngui
 wait 5
 additem 2
 raiseflag money_taken
@@ -17,4 +18,5 @@ else
 playdialog DendiRomanskiFirstTime 280 70 90 80
 raiseflag has_talked_to_dendi_once
 endif
+pullupgui
 resume

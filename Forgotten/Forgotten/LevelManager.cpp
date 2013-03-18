@@ -49,7 +49,7 @@ void LevelManager::LoadChapter(int id){
 		m_bgMusic.play();
 		m_bgMusic.setLoop(true);
 
-		// Create rooms for this level
+		// Create rooms for this level 
 		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 25, 10, "Data/Levels/Level1/TEST_hall_fardig.png", 0.9, 0));
 		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png", 0.7, 0));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 1.2, 0));
@@ -79,6 +79,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
 		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 10000));
+		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/table.png", 100, 1, 532, 302, 400));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 

@@ -177,7 +177,8 @@ void GameManager::Process(){
 	UpdateFade();
 }
 
-void GameManager::Render(){
+void GameManager::Render()
+{
 
 		// Clear the screen 
 		m_window.clear(sf::Color(0, 0, 0));
@@ -820,9 +821,10 @@ void GameManager::ProcessNextEvent(){
 			gui.SetIsDownGui(false);
 			gui.IsInScript(false);
 		}
+		//Add new entity
 		else if(token == "addentity")
 		{
-			NpcCls *angry_woman = new NpcCls(990, 180, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(15, 43), m_levelManager.GetLevel()[4]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", sf::IntRect(830, 220, 60, 220 ), "angry_woman");
+			NpcCls *angry_woman = new NpcCls(570, 200, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(20, 80), m_levelManager.GetLevel()[4]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", sf::IntRect(830, 220, 60, 220 ), "angry_woman");
 			m_levelManager.GetLevel()[4]->AddObject(angry_woman);
 		}
 
@@ -838,7 +840,8 @@ int GameManager::StringToInt(const std::string &str)
 	return t;
 }
 
-void GameManager::UpdateFade(){
+void GameManager::UpdateFade()
+{
 
 	float fadeAddition = m_fadeSpeed*m_fadeClock.getElapsedTime().asSeconds();
 	m_fadeClock.restart();
