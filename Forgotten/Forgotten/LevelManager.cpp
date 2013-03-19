@@ -81,7 +81,6 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22, 60, 136, 34));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
-		//m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
 		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 10000));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, "Data/Sounds/keyboard.wav", 10));
@@ -123,10 +122,13 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects
 		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
-		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(100, 100, 100, 100), "Data/Animations/Objects/necklace.png", 1000, 1);
+		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(1100, 445, 33, 50), "Data/Animations/Objects/necklace.png", 1000, 1);
 		Object *bed = new Object("bed", 271, 470, 10, 54, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/chapter_1_bed.png", 1000, 1);
 		Object *poster = new Object("poster", 0, 0, 17, 46, sf::IntRect(810, 180, 115, 220), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *room_items = new Object("room_items", 765, 680, 20, 54, sf::IntRect(1040, 425, 260, 135), "Data/Levels/Level1/chapter_1_books.png", 1000, 1);
+		Object *silhouettes = new Object("silhouettes", 60, 136, 12, 51, sf::IntRect(100, 290, 200, 185), "Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22);
+		Object *broken_light = new Object("broken_light", 0, 0, 53, 53, sf::IntRect(1275, 205, 130, 35), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *payphones = new Object("payphones", 0, 0, 6, 44, sf::IntRect(100, 200, 370, 120), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		// Matches
@@ -159,6 +161,18 @@ void LevelManager::LoadChapter(int id){
 		room_items->SetInspectScript("Data/Scripts/ch1_room_items_inspect.script");
 		room_items->SetNoCanDoScript("Data/Scripts/ch1_room_items_nocando.script");
 
+		// Silhouettes
+		silhouettes->SetInteractScript("Data/Scripts/ch1_silhouettes_interact.script");
+		silhouettes->SetGiveScript("Data/Scripts/ch1_silhouettes_give.script");
+		silhouettes->SetInspectScript("Data/Scripts/ch1_silhouettes_inspect.script");
+		silhouettes->SetNoCanDoScript("Data/Scripts/ch1_silhouettes_nocando.script");
+
+		// Broken light
+		broken_light->SetInteractScript("Data/Scripts/ch1_broken_light_interact.script");
+		broken_light->SetGiveScript("Data/Scripts/ch1_broken_light_give.script");
+		broken_light->SetInspectScript("Data/Scripts/ch1_broken_light_inspect.script");
+		broken_light->SetNoCanDoScript("Data/Scripts/ch1_broken_light_nocando.script");
+
 		// Set sprite offsets
 		necklace->SetSpriteOffset(0, 70);
 		bed->SetSpriteOffset(0, 123);
@@ -166,6 +180,9 @@ void LevelManager::LoadChapter(int id){
 
 		// Add objects to the entity vector
 		m_levels[0]->AddObject(necklace);
+		m_levels[0]->AddObject(silhouettes);
+		m_levels[0]->AddObject(broken_light);
+		m_levels[2]->AddObject(payphones);
 		m_levels[3]->AddObject(matches);
 		m_levels[3]->AddObject(bed);
 		m_levels[3]->AddObject(poster);
