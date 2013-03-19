@@ -13,5 +13,12 @@ else
 playdialog PiccoloFirstTime 400 300 760 340
 playdialog PiccoloStandard 400 300 760 340
 raiseflag has_talked_to_piccolo_once
+if flag valet_gone
+raiseflag necklace_open_for_grabs
+fadeout 1
+wait 2
+removeentity valet
+fadein 1
+endif
 endif
 resume
