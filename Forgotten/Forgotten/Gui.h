@@ -27,6 +27,7 @@ public:
 	int ItemInHand();
 	void IsInScript(bool script);
 	void RemoveHand();
+	bool WaitForText();
 
 	// Dialog
 	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);
@@ -48,6 +49,7 @@ private:
 	typedef std::vector<ScriptText*> TextVector;
 	TextVector m_texts;
 	int m_itemInHand;
+	bool m_waitForText;
 
 	void DrawText(sf::RenderWindow& window);
 	sf::Clock m_clock;

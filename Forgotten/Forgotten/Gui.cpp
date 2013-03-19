@@ -11,7 +11,8 @@ Gui::Gui(MouseHandler& mouse) :
 	m_showItems(false),
 	m_position(256, -50),
 	m_mouseHandler(mouse),
-	m_itemInHand(-1)
+	m_itemInHand(-1),
+	m_waitForText(false)
 {
 	LoadImage();
 	m_guiSprite.setPosition(m_position);
@@ -218,15 +219,18 @@ void Gui::PushText(std::string text, int time, sf::Vector2f position, int rowbre
 //Drawing text
 void Gui::DrawText(sf::RenderWindow& window)
 {
-	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++){
-		(*i)->Draw(window);
+	m_waitForText = false;
+	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++)
+	{
+		(*i)->Draw(window, m_mouseHandler);
+		if((*i)->WaitForText())
+			m_waitForText = true;
 	}
 }
 
 //Delete text vector
 void Gui::DeleteText()
 {
-
 	TextVector texts;
 	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++)
 	{
@@ -234,7 +238,7 @@ void Gui::DeleteText()
 		{
 			delete (*i);
 		}else{
-			texts.push_back((*i));
+			texts.push_back(*i);
 		}
 	}
 	m_texts = texts;
@@ -314,4 +318,9 @@ void Gui::RemoveHand()
 {
 	m_mouseHandler.DropItem();
 	m_itemInHand = -1;
-}					
+}
+
+bool Gui::WaitForText()
+{
+	return m_waitForText;
+}
