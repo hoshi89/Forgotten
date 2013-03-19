@@ -4,7 +4,7 @@
 #include "Object.h"
 
 LevelManager::LevelManager()
-	:m_initialScriptRun(false), m_bgVolume(100.f), m_fadeSpeed(3.f)
+	:m_initialScriptRun(false), m_bgVolume(10.f), m_fadeSpeed(3.f)
 {
 }
 
@@ -49,7 +49,7 @@ void LevelManager::LoadChapter(int id){
 		m_bgMusic.play();
 		m_bgMusic.setLoop(true);
 
-		// Create rooms for this level 
+		// Create rooms for this level
 		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 25, 10, "Data/Levels/Level1/TEST_hall_fardig.png", 0.9, 0));
 		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png", 0.7, 0));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 1.2, 0));
@@ -64,22 +64,28 @@ void LevelManager::LoadChapter(int id){
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 20);
 
 		// Add sounds
-		AddSound(new SFX("Data/Sounds/Hiss dörr öppna.wav", "elevator_open"));
+		AddSound(new SFX("Data/Sounds/elevator_open.wav", "elevator_open"));
+		AddSound(new SFX("Data/Sounds/elevator_open.wav", "elevator_close"));
 		AddSound(new SFX("Data/Sounds/Cello Complete Em.wav", "cello_complete_em"));
-		AddSound(new SFX("Data/Sounds/Tändstickask.wav", "matchbox"));
+		AddSound(new SFX("Data/Sounds/matchbox.wav", "matchbox"));
+		AddSound(new SFX("Data/Sounds/necklace.wav", "necklace"));
+		AddSound(new SFX("Data/Sounds/letter.wav", "letter"));
+		AddSound(new SFX("Data/Sounds/cash.wav", "cash"));
+		AddSound(new SFX("Data/Sounds/door_1.wav", "door_1"));
+		AddSound(new SFX("Data/Sounds/door_2.wav", "door_2"));
 
 		// Add background animations
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/Trasig lampa.wav", 3));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/broken_lamp.wav", 3));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 510));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, 0, 0, 33));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22, 60, 136, 34));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
-		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_bed.png", 1000, 1, 271, 349, 470));
 		m_levels[3]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_books.png", 100, 1, 765, 480, 870));
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
 		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 10000));
-		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/table.png", 100, 1, 532, 302, 400));
+		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, "Data/Sounds/keyboard.wav", 10));
+		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 47, 0, 0, 0, "Data/Sounds/ambient_bar.wav"));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -116,9 +122,10 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(100, 100, 100, 100), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
+		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
 		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(100, 100, 100, 100), "Data/Animations/Objects/necklace.png", 1000, 1);
-		Object *bed = new Object("bed", 100, 100, 1000, 1000, sf::IntRect(100, 100, 100, 100), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *bed = new Object("bed", 271, 470, 1000, 1000, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/chapter_1_bed.png", 1000, 1);
+		Object *poster = new Object("poster", 0, 0, 0, 0, sf::IntRect(100, 100, 100, 100), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		matches->SetInteractScript("Data/Scripts/ch1_matches_interact.script");
@@ -131,13 +138,20 @@ void LevelManager::LoadChapter(int id){
 		necklace->SetInspectScript("Data/Scripts/ch1_necklace_inspect.script");
 		necklace->SetNoCanDoScript("Data/Scripts/ch1_necklace_nocando.script");
 
+		bed->SetInteractScript("Data/Scripts/ch1_bed_interact.script");
+		bed->SetGiveScript("Data/Scripts/ch1_bed_give.script");
+		bed->SetInspectScript("Data/Scripts/ch1_bed_inspect.script");
+		bed->SetNoCanDoScript("Data/Scripts/ch1_bed_nocando.script");
+
 		// Set sprite offsets
 		necklace->SetSpriteOffset(0, 70);
+		bed->SetSpriteOffset(0, 123);
 
 		// Add objects to the entity vector
 		m_levels[0]->AddObject(necklace);
 		m_levels[3]->AddObject(matches);
 		m_levels[3]->AddObject(bed);
+		m_levels[3]->AddObject(poster);
 
 		// Set first room
 		m_currentLevel = m_levels[3];

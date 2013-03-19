@@ -1,11 +1,13 @@
 suspend
 fadeout 1
 wait 2
-playsound elevator_open
+playsound elevator_close
 setlevel 2
 setnodeposition player 1 50
 setdirection player 2
-wait 6
+wait 3
+playsound elevator_open
+wait 3
 fadein 1
 wait 1
 resume

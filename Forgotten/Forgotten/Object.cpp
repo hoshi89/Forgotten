@@ -50,6 +50,13 @@ void Object::Render(sf::RenderWindow &window)
 	window.draw(m_currentAnimation->getSprite());
 
 	// Test rectangle
+	sf::RectangleShape tmpShape;
+	tmpShape.setSize(sf::Vector2f(m_hitbox.width, m_hitbox.height));
+	tmpShape.setPosition(m_hitbox.left, m_hitbox.top);
+	tmpShape.setFillColor(sf::Color(255, 0, 0, 100));
+	
+	window.draw(tmpShape);
+
 }
 
 const int Object::GetZ()

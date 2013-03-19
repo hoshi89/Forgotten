@@ -1,6 +1,7 @@
 #include "SFX.h"
 
 SFX::SFX(const std::string& filename, const std::string& id)
+	:m_id(id)
 {
 	if(filename.length() > 0){
 		m_buffer.loadFromFile(filename);

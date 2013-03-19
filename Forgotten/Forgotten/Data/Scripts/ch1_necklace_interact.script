@@ -4,7 +4,7 @@ if flag necklace_open_for_grabs
 fadeout 1
 wait 2
 additem 4
-showtext 0 100 2 50 IC 255 0 0 17 Picked up Necklace!
+playsound necklace
 removeentity necklace
 fadein 1
 else

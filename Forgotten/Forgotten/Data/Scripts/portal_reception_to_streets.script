@@ -1,7 +1,8 @@
 suspend
 setdirection player 1
 fadeout 1
-wait 2
+playsound door_2
+wait 1
 setlevel 1
 setnodeposition player 13 21
 setdirection player 4
