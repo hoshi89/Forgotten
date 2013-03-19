@@ -35,6 +35,7 @@ private:
 	std::ifstream levelfile;
 	typedef std::vector<InventoryItem*> InventoryVector;
 	InventoryVector m_items;
+	InventoryVector m_itemsContainer;
 	std::string m_filename;
 	sf::Sprite mouseSprite;
 	sf::Texture mouseTexture;

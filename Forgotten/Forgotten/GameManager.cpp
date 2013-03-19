@@ -332,6 +332,9 @@ void GameManager::ProcessNextEvent(){
 		}
 	}
 
+	if(gui.WaitForText())
+		return;
+
 	if(m_events.size() > 0 && !m_wait){
 
 		// Get next event as string

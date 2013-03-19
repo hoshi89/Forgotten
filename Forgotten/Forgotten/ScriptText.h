@@ -2,12 +2,14 @@
 #define INCLUDED_SCRIPTTEXT
 
 #include <SFML\Graphics.hpp>
+#include "MouseHandler.h"
 
 class ScriptText{
 public:
 	ScriptText(std::string text, int time, sf::Vector2f position, int rowBreak, std::string style, sf::Color color, int fontsize);
-	void Draw(sf::RenderWindow& window);
+	void Draw(sf::RenderWindow& window, MouseHandler& mouse);
 	bool IsExpired();
+	bool WaitForText();
 private:
 	sf::Text m_text;
 	sf::Text m_bgText0;

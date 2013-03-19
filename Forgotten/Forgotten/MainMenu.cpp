@@ -5,7 +5,7 @@ MainMenu::MainMenu(MouseHandler& mouse) : m_newGame(false), m_exit(false), m_con
 	LoadImage();
 	//// Set the view size
 	m_view.setSize(1024, 576);
-	m_view.setCenter(855, 288);
+	m_view.setCenter(850, 288);
 	SetRects();
 	m_mouse.SetCursor(0);
 }

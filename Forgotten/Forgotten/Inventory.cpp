@@ -11,7 +11,8 @@ Inventory* Inventory::GetInstance()
 
 Inventory::Inventory()
 {
-
+	//Puts items into a vector
+	LoadItems();
 }
 
 Inventory::~Inventory()
@@ -24,7 +25,7 @@ Inventory::~Inventory()
 	}
 }
 
-void Inventory::AddItem(int aId)
+void Inventory::LoadItems()
 {
 	levelfile.open("Data/items.txt");
 	//Put Item into vector
@@ -41,12 +42,22 @@ void Inventory::AddItem(int aId)
 		//Local variables to hold values
 		levelfile >> id >> name >> directory >> scriptName >> requires >> wantScript;
 		//Pushes right(id) object into inventory vector
-		if(id == aId)
+		m_itemsContainer.push_back(new InventoryItem(id, name, directory, scriptName, requires, wantScript));
+	}
+
+	levelfile.close();
+}
+
+//Adds required item of an id to a vector to draw items.
+void Inventory::AddItem(int aId)
+{
+	for(InventoryVector::iterator i = m_itemsContainer.begin(); i != m_itemsContainer.end(); i++)
+	{
+		if(aId == (*i)->GetId())
 		{
-			m_items.push_back(new InventoryItem(id, name, directory, scriptName, requires, wantScript));
+			m_items.push_back((*i));
 		}
 	}
-	levelfile.close();
 }
 
 sf::Vector2f Inventory::GetPosition(int id)
@@ -152,6 +163,8 @@ void Inventory::KillItem(int id)
 
 void Inventory::Combine(int requires, int itemInHand)
 {
+	//Combines two objects
+	//If itemInHand gets it's required number it combines to a new item...
 	switch(requires)
 	{
 	case 1:

@@ -118,23 +118,46 @@ ScriptText::ScriptText(std::string text, int time, sf::Vector2f position, int ro
 	}
 }
 
-void ScriptText::Draw(sf::RenderWindow& window)
+void ScriptText::Draw(sf::RenderWindow& window, MouseHandler& mouse)
 {
-	if(m_clock.getElapsedTime().asSeconds() < m_time)
+	if(m_time <= 0)
 	{
+		// Mouse click based text, always draw
 		window.draw(m_bgText0);
 		window.draw(m_bgText1);
 		window.draw(m_bgText2);
 		window.draw(m_bgText3);
 		window.draw(m_text);
+
+		if(mouse.mouse1IsPressed())
+		{
+			m_expired = true;
+		}
+
 	}
 	else
 	{
-		m_expired = true;
+		if(m_clock.getElapsedTime().asSeconds() < m_time)
+		{
+			window.draw(m_bgText0);
+			window.draw(m_bgText1);
+			window.draw(m_bgText2);
+			window.draw(m_bgText3);
+			window.draw(m_text);
+		}
+		else
+		{
+			m_expired = true;
+		}
 	}
 }
 
-bool ScriptText::IsExpired(){
+bool ScriptText::IsExpired()
+{
 	return m_expired;
 }
 
+bool ScriptText::WaitForText()
+{
+	return m_time <= 0;
+}
