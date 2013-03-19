@@ -121,7 +121,6 @@ DECK=ReceptionistFirstTime
 		TEXTPLACE=NPC
 	CARD=ReceptionistFirstTimeThirdCard
 		QUESTION=I am sorry, but I am not authorized to acknowledge that you did arrive with anyone else or have been visited by anyone during your stay at the Bellmont Hotel.
-		TARGET=ReceptionistStandardStartCard
 		TEXTPLACE=NPC
 DECK=ReceptionistStandard
 	CARD=ReceptionistStandardStartCard
