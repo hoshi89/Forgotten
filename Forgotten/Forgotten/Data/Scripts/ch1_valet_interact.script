@@ -11,6 +11,7 @@ fadein 1
 endif
 else
 playdialog PiccoloFirstTime 400 300 760 340
+playdialog PiccoloStandard 400 300 760 340
 raiseflag has_talked_to_piccolo_once
 endif
 resume

@@ -7,6 +7,7 @@ resume
 else
 suspend
 playdialog AngryWomanFirstTime 200 300 730 200
+playdialog AngryWomanStandard 400 200 730 200
 raiseflag talked_to_angry_woman
 resume
 endif

@@ -5,6 +5,7 @@ if flag spoken_to_receptionist_once
 playdialog ReceptionistStandard 700 120 400 80
 else
 playdialog ReceptionistFirstTime 700 120 400 80
+playdialog ReceptionistStandard 700 120 400 80
 raiseflag spoken_to_receptionist_once
 endif
 else
