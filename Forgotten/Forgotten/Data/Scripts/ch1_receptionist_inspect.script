@@ -1,16 +1,15 @@
 suspend
 if flag has_spoken_to_receptionist_1
 if flag has_spoken_to_receptionist_2
-showtext 200 120 4 100 I 255 0 255 17 Reminds me of someone...nope, but damn she’s good.
+showtext 200 120 0 100 I 255 0 255 17 Reminds me of someone...nope, but damn she’s good.
 lowerflag has_spoken_to_receptionist_1
 lowerflag has_spoken_to_receptionist_2
 else
-showtext 430 120 4 100 I 255 0 255 17 The receptionist, good-looking too.
+showtext 430 120 0 100 I 255 0 255 17 The receptionist, good-looking too.
 raiseflag has_spoken_to_receptionist_2
 endif
 else
-showtext 500 120 4 100 I 255 0 255 17 He-hey!
+showtext 500 120 0 100 I 255 0 255 17 He-hey!
 raiseflag has_spoken_to_receptionist_1
 endif
-wait 4
 resume

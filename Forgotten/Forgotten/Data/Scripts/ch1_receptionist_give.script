@@ -1,10 +1,10 @@
 suspend
 if flag angry_woman_gone
-showtext 390 220 3 1000 I 255 0 255 17 Here you go, from Dendi.
+showtext 390 220 1 1000 I 255 0 255 17 Here you go, from Dendi.
 raiseflag has_delivered_letter
 removeitem 3
 playsound letter
 else
-showtext 250 250 5 30 I 255 0 255 17 I can't give the letter to the the receptionist as she is in a loud conversation with the angry lady.
+showtext 250 250 0 30 I 255 0 255 17 I can't give the letter to the the receptionist as she is in a loud conversation with the angry lady.
 endif
 resume

@@ -15,6 +15,7 @@ Inventory::Inventory()
 	LoadItems();
 }
 
+//Destructor, removing every item in vector
 Inventory::~Inventory()
 {
 	//Clearing the vector
@@ -23,8 +24,15 @@ Inventory::~Inventory()
 		delete m_items.back();
 		m_items.pop_back();
 	}
+	//Clearing container vector of items
+	while(!m_itemsContainer.empty())
+	{
+		delete m_itemsContainer.back();
+		m_itemsContainer.pop_back();
+	}
 }
 
+//Load all items from a file, putting them into computers memory
 void Inventory::LoadItems()
 {
 	levelfile.open("Data/items.txt");
@@ -60,49 +68,58 @@ void Inventory::AddItem(int aId)
 	}
 }
 
+//Get position from specific item in a position in vector
 sf::Vector2f Inventory::GetPosition(int id)
 {
 	return m_items[id]->GetPosition();
 }
 
+//Get a items directory
 std::string Inventory::GetDirectory(int id)
 {
 	return m_items[id]->GetDirectory();
 }
 
+//Get name from a item
 std::string Inventory::GetName(int id)
 {
 	return m_items[id]->GetName();
 }
 
+//Get a script from a item in vector
 std::string Inventory::GetScript(int id)
 {
 	return m_items[id]->GetScript();
 }
 
+//Get a script that a item wants.
 std::string Inventory::GetWantScript(int id)
 {
 	return m_items[id]->GetWantScript();
 }
 
+//Get a id from a item in vector
 int Inventory::GetId(int i)
 {
 	return m_items[i]->GetId();
 }
 
+//Read a name from items a vector
 void Inventory::Read(int i)
 {
 	std::cout << m_items[i]->GetName();
 }
 
+//Set all position for items in vector
 void Inventory::Render(sf::Vector2f position)
 {
 	for(int i = 0; i < m_items.size(); i++)
 	{
-		m_items[i]->SetPosition(position.x+58*i+40, position.y+10);
+		m_items[i]->SetPosition(position.x+58*i+39, position.y+10);
 	}
 }
 
+//Draw every item in vector
 void Inventory::Draw(sf::RenderWindow &window)
 {
 	for(InventoryVector::iterator i = m_items.begin(); i != m_items.end(); i++)
@@ -111,6 +128,7 @@ void Inventory::Draw(sf::RenderWindow &window)
 	}
 }
 
+//Get if mouse overlaps a item in vector
 int Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view)
 {
 	for(int i = 0; i < m_items.size(); i++)
@@ -122,11 +140,13 @@ int Inventory::IsOverlap(sf::RenderWindow& window, sf::View& view)
 	}
 }
 
+//Return items vector
 std::vector<InventoryItem*> Inventory::Contains()
 {
 	return m_items;
 }
 
+//Clear dead items from memory
 void Inventory::RemoveItem()
 {
 	InventoryVector items;
@@ -145,11 +165,13 @@ void Inventory::RemoveItem()
 	m_items = items;
 }
 
+//Return every items rect
 sf::IntRect Inventory::GetItemsRect(int i)
 {
 	return m_items[i]->GetRect();
 }
 
+//Remove a item in vector
 void Inventory::KillItem(int id)
 {
 	for(int i = 0; i < m_items.size(); i++)
@@ -161,6 +183,7 @@ void Inventory::KillItem(int id)
 	}
 }
 
+//Combine two items into a specific, it requires...
 void Inventory::Combine(int requires, int itemInHand)
 {
 	//Combines two objects
