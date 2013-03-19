@@ -1,16 +1,15 @@
 suspend
 if flag has_spoken_to_angry_woman_1
 if flag has_spoken_to_angry_woman_2
-showtext 200 120 8 100 I 255 0 255 17 Annoying as she may be, she's not moving until she's gotten that old necklace of hers.
+showtext 200 120 0 100 I 255 0 255 17 Annoying as she may be, she's not moving until she's gotten that old necklace of hers.
 lowerflag has_spoken_to_angry_woman_1
 lowerflag has_spoken_to_angry_woman_2
 else
-showtext 500 120 8 100 I 255 0 255 17 Ugh.
+showtext 500 120 0 100 I 255 0 255 17 Ugh.
 raiseflag has_spoken_to_angry_woman_2
 endif
 else
-showtext 300 120 8 65 I 255 0 255 17 A woman of 'higher standing'. Acting like one at least. Loudly.
+showtext 300 120 0 65 I 255 0 255 17 A woman of 'higher standing'. Acting like one at least. Loudly.
 raiseflag has_spoken_to_angry_woman_1
 endif
-wait 8
 resume

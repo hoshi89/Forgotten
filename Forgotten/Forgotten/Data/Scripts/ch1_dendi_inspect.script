@@ -1,14 +1,13 @@
 suspend
 if flag has_inspected_dendi
 if flag has_talked_to_dendi_once
-showtext 100 120 5 100 I 255 0 255 17 Cheese!
+showtext 100 120 0 100 I 255 0 255 17 Cheese!
 else
-showtext 100 120 5 100 I 255 0 255 17 Grey hair but still quite the frame. Gotta be a construction worker or something. Probably not the friendliest kind either.
+showtext 100 120 0 100 I 255 0 255 17 Grey hair but still quite the frame. Gotta be a construction worker or something. Probably not the friendliest kind either.
 lowerflag has_inspected_dendi
 endif
 else
-showtext 100 120 5 100 I 255 0 255 17 That's a man befit the term 'grizzled' if I ever saw one.
+showtext 100 120 0 100 I 255 0 255 17 That's a man befit the term 'grizzled' if I ever saw one.
 raiseflag has_inspected_dendi
 endif
-wait 5
 resume

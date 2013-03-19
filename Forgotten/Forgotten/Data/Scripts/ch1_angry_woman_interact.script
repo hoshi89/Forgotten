@@ -1,6 +1,5 @@
 setdirection player 2
 if flag talked_to_angry_woman
-additem 4
 suspend
 playdialog AngryWomanStandard 400 200 730 200
 resume
