@@ -14,7 +14,7 @@ AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 	m_Members.push_back(new CaseValues(ANSWERNEEDFLAG, ANSWER_NEED_FLAG));
 }
 
-bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
+bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag, vector<AnswerCls*>* aNrOfAnswers)
 {
 	//här ska vi ladda Answer som ligger under DETTA Card i loop från scriptfilen
 	int wMemberId;
@@ -35,25 +35,29 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 			case ANSWER_TEXT:
 				{
 				m_AnswerText = sf::Text(aTag->getValue());
+
 				// Wrap text
+
 				int chars_before_linebreak = 20;
 				int charCounter = 0;
-
 				sf::String tmpString = m_AnswerText.getString();
-
-				// Iterate through the string
-				for(int i = 0; i < tmpString.getSize(); i++)
+				//om antalet svar är 1 eller mindre så ska vi göra radbrytning annars inte
+				if(aNrOfAnswers->size() <= 1)
 				{
-					if(charCounter >= chars_before_linebreak)
+				// Iterate through the string
+					for(int i = 0; i < tmpString.getSize(); i++)
 					{
-						int rowBreak = tmpString.find(sf::String(" "), i);
+						if(charCounter >= chars_before_linebreak && charCounter <= 40)
+						{
+							int rowBreak = tmpString.find(sf::String(" "), i);
 
-						tmpString.insert(rowBreak+1, "\n");
-						m_AnswerText.setString(tmpString);
+							tmpString.insert(rowBreak+1, "\n");
+							m_AnswerText.setString(tmpString);
 
-						charCounter = 0;
+							charCounter = 0;
+						}
+						charCounter++;
 					}
-					charCounter++;
 				}
 				break;
 				}

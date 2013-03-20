@@ -41,7 +41,6 @@ DECK=PiccoloFirstTime
 	CARD=seventhcard
 		QUESTION=I shall.
 		TEXTPLACE=NPC
-		QUESTIONSETFLAG=has_spoken_with_piccolo
 DECK=PiccoloStandard
 	CARD=PiccoloStartCard
 		QUESTION=Yes sir?

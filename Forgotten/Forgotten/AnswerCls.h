@@ -9,7 +9,7 @@
 
 using namespace std;
 
-const int TEXT_SIZE = 17;
+const int TEXT_SIZE = 24;
 
 class AnswerCls
 {
@@ -20,7 +20,7 @@ public:
 		sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);
 	void ManageAnswerS(sf::RenderWindow &aWindow, int aYpos);
 	string* GetTargetId();
-	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag);
+	bool LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag, vector<AnswerCls*>* aNrOfAnswers);
 	virtual ~AnswerCls(void);
 	bool isAnswerChoosen(sf::Vector2f* aMousePos);
 	void IsMouseOverAnswer(sf::Vector2f* aMousePos);

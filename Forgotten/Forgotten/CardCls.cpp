@@ -265,7 +265,7 @@ bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 				}
 			case ANSWER:
 				wAnswer = this->AddAnswer(aTag->getValue(), m_InteractionNode, m_EntityPos);
-				wAnswer->LoadFromFile(aRw, aTag);
+				wAnswer->LoadFromFile(aRw, aTag, &m_Answers);
 				isComplete = false;
 				continue;
 			case QUESTION_SET_FLAG:
