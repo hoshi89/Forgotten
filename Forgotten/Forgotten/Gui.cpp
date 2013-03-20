@@ -3,6 +3,8 @@
 #include "FlagManager.h"
 #include "GameManager.h"
 
+static const float SPEED = 1.5f;
+
 //Constructor for GUI
 Gui::Gui(MouseHandler& mouse) : 
 	m_script(false),
@@ -21,9 +23,9 @@ Gui::Gui(MouseHandler& mouse) :
 
 	SetCursorVector();
 
-	//	m_DialogState = DialogStateEnum::ContinueDialog;
+	//m_DialogState = DialogStateEnum::ContinueDialog;
 }
-
+	 
 int Gui::LoadImage()
 {
 	if(!m_gui.loadFromFile("Data/Inventory/InventoryV2.png")){
@@ -46,8 +48,8 @@ void Gui::Render()
 }
 
 //Drawing the gui and its items.
-void Gui::Draw(sf::RenderWindow &window){
-
+void Gui::Draw(sf::RenderWindow &window)
+{
 	window.setView(m_guiview);
 
 	//Update GUI
@@ -88,24 +90,25 @@ void Gui::Draw(sf::RenderWindow &window){
  		break;
 	case DialogStateEnum::EndDialog:
 		break;
-
 	}
 
 	if(m_showGui)
 	{
 		window.draw(m_guiSprite);
 			
-	if(m_showItems)
-	{
-		Inventory::GetInstance()->Draw(window);	
+		if(m_showItems)
+		{
+			Inventory::GetInstance()->Draw(window);	
+		}
 	}
 
-	}
-
+	//Draw text
 	DrawText(window);
 
+	//Delete text that have expired
 	DeleteText();
 
+	//Remove dead Items
 	Inventory::GetInstance()->RemoveItem();
 
 	for(int i = 0; i < Inventory::GetInstance()->Contains().size(); i++)
@@ -116,9 +119,9 @@ void Gui::Draw(sf::RenderWindow &window){
 			{
 				if(!m_mouseHandler.HoldsItem())
 				{
-				m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
-				m_mouseHandler.SetHoldingItem(true);
-				m_itemInHand = Inventory::GetInstance()->GetId(i);
+					m_mouseHandler.SetInventoryCursor(GetIdCursor(Inventory::GetInstance()->GetId(i)));
+					m_mouseHandler.SetHoldingItem(true);
+					m_itemInHand = Inventory::GetInstance()->GetId(i);
 				}
 				else if(m_itemInHand == Inventory::GetInstance()->Contains()[i]->GetRequires())
 				{
@@ -142,7 +145,7 @@ void Gui::Draw(sf::RenderWindow &window){
 //Update GUI Rect for collision and render(Get Guis' position) Items
 void Gui::Update()
 {
-
+	//Set Rect into right coords
 	if(m_showGui)
 	{
 		sf::IntRect rect(m_guiSprite.getPosition().x, m_guiSprite.getPosition().y, m_gui.getSize().x, m_gui.getSize().y);
@@ -151,10 +154,7 @@ void Gui::Update()
 
 	Render();
 
-	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
-
-	const float SPEED = 1.5f;
-
+	//Move GUI
 	if(m_guiSprite.getPosition().y < -1 && m_down)
 	{
 		Move(SPEED);
@@ -174,6 +174,9 @@ void Gui::Update()
 	{
 		Move(0);
 	}
+
+	//Get Position of Gui to items
+	Inventory::GetInstance()->Render(m_guiSprite.getPosition());
 }
 
 sf::Vector2f Gui::GetPosition()
@@ -251,6 +254,7 @@ void Gui::SetCursorVector()
 
 	while(m_objectFile.good())
 	{
+		//Create local temp holders
 		int size;
 		m_objectFile >> size;
 		int id;
@@ -272,7 +276,8 @@ void Gui::SetCursorVector()
 Animation* Gui::GetIdCursor(int id)
 {
 	CursorVector::iterator i = m_objectCursor.begin() + id-1;
-		return *i;
+		
+	return *i;
 }
 
 //Script events, show GUI/draw GUI

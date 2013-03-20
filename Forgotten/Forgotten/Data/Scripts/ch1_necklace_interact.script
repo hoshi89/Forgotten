@@ -9,6 +9,7 @@ additem 4
 playsound necklace
 removeentity necklace
 showtext 0 100 2 50 IC 255 0 0 17 Picked up Necklace!
+wait 2
 pullupgui
 fadein 1
 else
