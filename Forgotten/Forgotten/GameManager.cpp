@@ -81,6 +81,9 @@ void GameManager::Process(){
 	}
 	m_fpsClock.restart();
 
+	// Vertical sync
+	m_window.setVerticalSyncEnabled(true);
+
 	// Update levelmanager
 	m_levelManager.update();
 
