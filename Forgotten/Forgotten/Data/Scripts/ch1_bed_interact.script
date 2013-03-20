@@ -1,1 +1,4 @@
+suspend
 setdirection player 0
+showtext 175 200 0 60 N 255 255 255 17 I guess I'd better take these with me...
+resume

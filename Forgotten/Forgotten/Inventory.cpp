@@ -115,7 +115,7 @@ void Inventory::Render(sf::Vector2f position)
 {
 	for(int i = 0; i < m_items.size(); i++)
 	{
-		m_items[i]->SetPosition(position.x+58*i+39, position.y+10);
+		m_items[i]->SetPosition(position.x+57*i+39, position.y+10);
 	}
 }
 
@@ -180,26 +180,5 @@ void Inventory::KillItem(int id)
 		{
 			m_items[i]->SetDead();
 		}
-	}
-}
-
-//Combine two items into a specific, it requires...
-void Inventory::Combine(int requires, int itemInHand)
-{
-	//Combines two objects
-	//If itemInHand gets it's required number it combines to a new item...
-	switch(requires)
-	{
-	case 1:
-		Inventory::GetInstance()->AddItem(8);
-		Inventory::GetInstance()->Contains()[itemInHand]->SetDead();
-		break;
-	case 3:
-		Inventory::GetInstance()->AddItem(8);
-		Inventory::GetInstance()->Contains()[itemInHand]->SetDead();
-		break;
-	default:
-		//Don't add
-		break;
 	}
 }

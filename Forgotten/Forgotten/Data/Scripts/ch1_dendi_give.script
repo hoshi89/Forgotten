@@ -4,15 +4,16 @@ if flag jeremy_knows_where_to_go
 showtext 180 120 5 100 I 255 0 255 17 I already know everything I need, no point in asking him about the match box again.
 else
 playdialog DendiRomanskiMatchBoxGiven 295 120 90 80
-pulldowngui
 raiseflag jeremy_knows_where_to_go
+pulldowngui
+wait 1
 additem 3
 playsound letter
 showtext 0 100 2 50 IC 255 0 0 17 Picked up Letter!
 wait 2
+pullupgui
 endif
 else
 showtext 180 120 5 100 I 255 0 255 17 Why would I give my match box to this guy?
 endif
-pullupgui
 resume

@@ -3,7 +3,8 @@
 
 #include "InventoryItem.h"
 
-class Inventory{
+class Inventory
+{
 public:
 	~Inventory();
 	static Inventory* GetInstance();
