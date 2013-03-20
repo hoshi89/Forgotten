@@ -129,7 +129,7 @@ void ScriptText::Draw(sf::RenderWindow& window, MouseHandler& mouse)
 		window.draw(m_bgText3);
 		window.draw(m_text);
 
-		if(mouse.mouse1IsPressed())
+		if(mouse.mouse1IsPressed() && m_clock.getElapsedTime().asMilliseconds() > 100)
 		{
 			m_expired = true;
 		}

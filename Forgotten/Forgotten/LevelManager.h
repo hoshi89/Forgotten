@@ -20,6 +20,7 @@ public:
 	void AddSound(SFX* sfx);
 	void PlaySound(std::string& id);
 	void SetBackgroundMusicVolume(float volume);
+	void BackgroundMusicPlay(bool play);
 	std::vector<Level*> GetLevel();
 private:
 	std::vector<Level*> m_levels;

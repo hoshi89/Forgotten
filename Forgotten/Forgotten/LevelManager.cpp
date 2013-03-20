@@ -51,14 +51,14 @@ void LevelManager::LoadChapter(int id){
 
 		// Create rooms for this level
 		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 25, 10, "Data/Levels/Level1/TEST_hall_fardig.png", 0.9, 0));
-		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/chapter_1_level_art_hotel_exterior.png", 0.7, 0));
+		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/hotelexterior.png", 0.6, 0));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 1.2, 0));
 		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/chapter_1_level_art_hotel_room.png", 1.2, 0));
 		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 20, "Data/Levels/Level1/chapter1_bar.png", 2.5, 12));
 
 		// Set player position
 		m_levels[0]->GetPlayer()->SetNodePosition(15, 48);
-		m_levels[1]->GetPlayer()->SetNodePosition(13, 21);
+		m_levels[1]->GetPlayer()->SetNodePosition(13, 24);
 		m_levels[2]->GetPlayer()->SetNodePosition(10, 50);
 		m_levels[3]->GetPlayer()->SetNodePosition(7, 47);
 		m_levels[4]->GetPlayer()->SetNodePosition(18, 20);
@@ -75,16 +75,17 @@ void LevelManager::LoadChapter(int id){
 		AddSound(new SFX("Data/Sounds/door_2.wav", "door_2"));
 
 		// Add background animations
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, "Data/Sounds/broken_lamp.wav", 3));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 510));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, 0, 0, 33));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22, 60, 136, 34));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510));
-		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 10000));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, "Data/Sounds/keyboard.wav", 10));
-		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 47, 0, 0, 0, "Data/Sounds/ambient_bar.wav"));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, Behaviour::STATIC, "Data/Sounds/broken_lamp.wav", 3));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 510, Behaviour::STATIC));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, 0, 0, 33, Behaviour::STATIC));
+		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000, Behaviour::STATIC));
+		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200, Behaviour::STATIC));
+		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510, Behaviour::STATIC));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 1000, Behaviour::STATIC));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/camera.png", 1000, 1, 62, 0, 1001, Behaviour::STATIC));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/blink.png", 1000, 2, 300, 70, 1002, Behaviour::MOVING_CAR));
+		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/keyboard.wav", 10));
+		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 47, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/ambient_bar.wav"));
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -96,7 +97,7 @@ void LevelManager::LoadChapter(int id){
 		Portal *reception2bar = new Portal("reception_to_bar", sf::IntRect(920, 140, 120, 250), sf::Vector2f(19, 38));
 		Portal *reception2streets = new Portal("reception_to_streets", sf::IntRect(1265, 150, 215, 260), sf::Vector2f(27, 41));
 		Portal *bar2reception = new Portal("bar_to_reception", sf::IntRect(870, 210, 110, 180), sf::Vector2f(18, 19));
-		Portal *streets2reception = new Portal("streets_to_reception", sf::IntRect(615, 280, 130, 135), sf::Vector2f(13, 21));
+		Portal *streets2reception = new Portal("streets_to_reception", sf::IntRect(570, 355, 170, 120), sf::Vector2f(13, 24));
 
 		// Set scripts for portals
 		hall2reception->SetScript("Data/Scripts/portal_hall_to_reception.script");
@@ -124,11 +125,15 @@ void LevelManager::LoadChapter(int id){
 		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
 		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(1100, 445, 33, 50), "Data/Animations/Objects/necklace.png", 1000, 1);
 		Object *bed = new Object("bed", 271, 470, 10, 54, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/chapter_1_bed.png", 1000, 1);
-		Object *poster = new Object("poster", 0, 0, 17, 46, sf::IntRect(810, 180, 115, 220), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *room_poster = new Object("poster", 0, 0, 17, 46, sf::IntRect(810, 180, 115, 220), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *room_items = new Object("room_items", 765, 680, 20, 54, sf::IntRect(1040, 425, 260, 135), "Data/Levels/Level1/chapter_1_books.png", 1000, 1);
 		Object *silhouettes = new Object("silhouettes", 60, 136, 12, 51, sf::IntRect(100, 290, 200, 185), "Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22);
 		Object *broken_light = new Object("broken_light", 0, 0, 53, 53, sf::IntRect(1275, 205, 130, 35), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *payphones = new Object("payphones", 0, 0, 6, 44, sf::IntRect(100, 200, 370, 120), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *belmont_fees = new Object("belmont_fees", 0, 0, 12, 43, sf::IntRect(525, 120, 90, 200), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *posters = new Object("posters", 0, 0, 23, 44, sf::IntRect(1050, 170, 210, 170), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *neon_sign = new Object("neon_sign", 0, 0, 15, 21, sf::IntRect(710, 180, 120, 210), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *empty_bar = new Object("empty_bar", 0, 0, 21, 25, sf::IntRect(1100, 290, 400, 200), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		// Matches
@@ -149,11 +154,11 @@ void LevelManager::LoadChapter(int id){
 		bed->SetInspectScript("Data/Scripts/ch1_bed_inspect.script");
 		bed->SetNoCanDoScript("Data/Scripts/ch1_bed_nocando.script");
 
-		// Poster
-		poster->SetInteractScript("Data/Scripts/ch1_poster_interact.script");
-		poster->SetGiveScript("Data/Scripts/ch1_poster_give.script");
-		poster->SetInspectScript("Data/Scripts/ch1_poster_inspect.script");
-		poster->SetNoCanDoScript("Data/Scripts/ch1_poster_nocando.script");
+		// Room poster
+		room_poster->SetInteractScript("Data/Scripts/ch1_room_poster_interact.script");
+		room_poster->SetGiveScript("Data/Scripts/ch1_room_poster_give.script");
+		room_poster->SetInspectScript("Data/Scripts/ch1_room_poster_inspect.script");
+		room_poster->SetNoCanDoScript("Data/Scripts/ch1_room_poster_nocando.script");
 
 		// Room items
 		room_items->SetInteractScript("Data/Scripts/ch1_room_items_interact.script");
@@ -173,6 +178,36 @@ void LevelManager::LoadChapter(int id){
 		broken_light->SetInspectScript("Data/Scripts/ch1_broken_light_inspect.script");
 		broken_light->SetNoCanDoScript("Data/Scripts/ch1_broken_light_nocando.script");
 
+		// Payphones
+		payphones->SetInteractScript("Data/Scripts/ch1_payphones_interact.script");
+		payphones->SetGiveScript("Data/Scripts/ch1_payphones_give.script");
+		payphones->SetInspectScript("Data/Scripts/ch1_payphones_inspect.script");
+		payphones->SetNoCanDoScript("Data/Scripts/ch1_payphones_nocando.script");
+
+		// Belmont fees
+		belmont_fees->SetInteractScript("Data/Scripts/ch1_belmont_fees_interact.script");
+		belmont_fees->SetGiveScript("Data/Scripts/ch1_belmont_fees_give.script");
+		belmont_fees->SetInspectScript("Data/Scripts/ch1_belmont_fees_inspect.script");
+		belmont_fees->SetNoCanDoScript("Data/Scripts/ch1_belmont_fees_nocando.script");
+
+		// Posters
+		posters->SetInteractScript("Data/Scripts/ch1_posters_interact.script");
+		posters->SetGiveScript("Data/Scripts/ch1_posters_give.script");
+		posters->SetInspectScript("Data/Scripts/ch1_posters_inspect.script");
+		posters->SetNoCanDoScript("Data/Scripts/ch1_posters_nocando.script");
+
+		// Neon sign
+		neon_sign->SetInteractScript("Data/Scripts/ch1_neon_sign_interact.script");
+		neon_sign->SetGiveScript("Data/Scripts/ch1_neon_sign_give.script");
+		neon_sign->SetInspectScript("Data/Scripts/ch1_neon_sign_inspect.script");
+		neon_sign->SetNoCanDoScript("Data/Scripts/ch1_neon_sign_nocando.script");
+
+		// Empty bar
+		empty_bar->SetInteractScript("Data/Scripts/ch1_empty_bar_interact.script");
+		empty_bar->SetGiveScript("Data/Scripts/ch1_empty_bar_give.script");
+		empty_bar->SetInspectScript("Data/Scripts/ch1_empty_bar_inspect.script");
+		empty_bar->SetNoCanDoScript("Data/Scripts/ch1_empty_bar_nocando.script");
+
 		// Set sprite offsets
 		necklace->SetSpriteOffset(0, 70);
 		bed->SetSpriteOffset(0, 123);
@@ -183,13 +218,17 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->AddObject(silhouettes);
 		m_levels[0]->AddObject(broken_light);
 		m_levels[2]->AddObject(payphones);
+		m_levels[2]->AddObject(belmont_fees);
+		m_levels[2]->AddObject(posters);
 		m_levels[3]->AddObject(matches);
 		m_levels[3]->AddObject(bed);
-		m_levels[3]->AddObject(poster);
+		m_levels[3]->AddObject(room_poster);
 		m_levels[3]->AddObject(room_items);
+		m_levels[4]->AddObject(neon_sign);
+		m_levels[4]->AddObject(empty_bar);
 
 		// Set first room
-		m_currentLevel = m_levels[3];
+		m_currentLevel = m_levels[1];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		// Add NPCS
@@ -197,7 +236,7 @@ void LevelManager::LoadChapter(int id){
 		NpcCls *dendi = new NpcCls(100, 200, "Data/Animations/NPC/dendi.png", 1, 1000, sf::Vector2f(7, 26), m_levels[4]->GetNodeMap(), "Data/Scripts/ch1_dendi_interact.script", "Data/Scripts/ch1_dendi_inspect.script", "Data/Scripts/ch1_dendi_give.script", "Data/Scripts/ch1_dendi_nocando.script", sf::IntRect(120, 210, 160, 310), "dendi");
 		NpcCls *valet = new NpcCls(1255, 500, "Data/Animations/NPC/chapter_1_valet.png", 1, 1000, sf::Vector2f(45, 54), m_levels[0]->GetNodeMap(), "Data/Scripts/ch1_valet_interact.script", "Data/Scripts/ch1_valet_inspect.script", "Data/Scripts/ch1_valet_give.script", "Data/Scripts/ch1_valet_nocando.script", sf::IntRect(1150, 380, 100, 140), "valet");
 		NpcCls *receptionist = new NpcCls(680, 190, "Data/Animations/NPC/receptionist.png", 34, 100, sf::Vector2f(15, 43), m_levels[2]->GetNodeMap(), "Data/Scripts/ch1_receptionist_interact.script", "Data/Scripts/ch1_receptionist_inspect.script", "Data/Scripts/ch1_receptionist_give.script", "Data/Scripts/ch1_receptionist_nocando.script", sf::IntRect(650, 170, 120, 130), "receptionist");
-		NpcCls *taxi = new NpcCls(1100, 480, "Data/Animations/NPC/taxi.png", 1, 100, sf::Vector2f(23, 21), m_levels[1]->GetNodeMap(), "Data/Scripts/ch1_taxi_interact.script", "Data/Scripts/ch1_taxi_inspect.script", "Data/Scripts/ch1_taxi_give.script", "Data/Scripts/ch1_taxi_nocando.script", sf::IntRect(1020, 380, 290, 80), "taxi");
+		NpcCls *taxi = new NpcCls(1100, 540, "Data/Animations/NPC/taxi.png", 1, 100, sf::Vector2f(23, 25), m_levels[1]->GetNodeMap(), "Data/Scripts/ch1_taxi_interact.script", "Data/Scripts/ch1_taxi_inspect.script", "Data/Scripts/ch1_taxi_give.script", "Data/Scripts/ch1_taxi_nocando.script", sf::IntRect(1020, 450, 290, 80), "taxi");
 
 		// Set sprite offset
 		valet->SetSpriteOffset(100, 130);
@@ -275,5 +314,17 @@ void LevelManager::PlaySound(std::string& id){
 			m_sounds[i]->Play();
 			break;
 		}
+	}
+}
+
+void LevelManager::BackgroundMusicPlay(bool play)
+{
+	if(play)
+	{
+		m_bgMusic.play();
+	}
+	else
+	{
+		m_bgMusic.stop();
 	}
 }

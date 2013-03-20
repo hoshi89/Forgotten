@@ -1,7 +1,10 @@
 #include "BackgroundObject.h"
 
-BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, const std::string& soundFilename, int pauseTime)
-	:m_animation(animationSheet, timePerFrame, numFrames, soundFilename, pauseTime), m_position(posX, posY), m_z(z)
+BackgroundObject::BackgroundObject(std::string animationSheet, int timePerFrame, int numFrames, int posX, int posY, int z, Behaviour behaviour, const std::string& soundFilename, int pauseTime)
+	:m_animation(animationSheet, timePerFrame, numFrames, soundFilename, pauseTime),
+	m_behaviour(behaviour),
+	m_position(posX, posY),
+	m_z(z)
 {
 }
 
@@ -19,6 +22,18 @@ void BackgroundObject::SetPosition(int x, int y){}
 
 void BackgroundObject::Update(){
 
+	// Behaviours
+	switch(m_behaviour)
+	{
+	case 1:
+		MovingCar();
+		break;
+	default:
+		break;
+	}
+
+	m_position += m_velocity;
+
 	m_animation.setPosition(m_position);
 	m_animation.update();
 
@@ -35,3 +50,8 @@ void BackgroundObject::Render(sf::RenderWindow &window){
 const int BackgroundObject::GetZ(){ return m_z; }
 
 void BackgroundObject::StopSound(){ m_animation.StopSound(); }
+
+void BackgroundObject::MovingCar()
+{
+	m_position.x = cos(m_clock.getElapsedTime().asSeconds())*100;
+}
