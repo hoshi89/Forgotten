@@ -53,5 +53,13 @@ void BackgroundObject::StopSound(){ m_animation.StopSound(); }
 
 void BackgroundObject::MovingCar()
 {
-	m_position.x = cos(m_clock.getElapsedTime().asSeconds())*100;
+	m_velocity.y = 0;
+	m_velocity.x = 30;
+
+	if(m_clock.getElapsedTime().asSeconds() > 5)
+	{
+		m_animation.PlaySound();
+		m_position.x = -300;
+		m_clock.restart();
+	}
 }

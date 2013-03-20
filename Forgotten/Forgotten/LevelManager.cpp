@@ -83,7 +83,8 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510, Behaviour::STATIC));
 		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 1000, Behaviour::STATIC));
 		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/camera.png", 1000, 1, 62, 0, 1001, Behaviour::STATIC));
-		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/blink.png", 1000, 2, 300, 70, 1002, Behaviour::MOVING_CAR));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/blink.png", 1000, 2, 300, 70, 1002, Behaviour::STATIC));
+		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/car_1.png", 5000, 1, -300, 420, 999, Behaviour::MOVING_CAR, "Data/Sounds/car_1.wav"));
 		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/keyboard.wav", 10));
 		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 47, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/ambient_bar.wav"));
 
@@ -134,6 +135,9 @@ void LevelManager::LoadChapter(int id){
 		Object *posters = new Object("posters", 0, 0, 23, 44, sf::IntRect(1050, 170, 210, 170), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *neon_sign = new Object("neon_sign", 0, 0, 15, 21, sf::IntRect(710, 180, 120, 210), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *empty_bar = new Object("empty_bar", 0, 0, 21, 25, sf::IntRect(1100, 290, 400, 200), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *hotel_sign = new Object("hotel_sign", 0, 0, 13, 25, sf::IntRect(530, 190, 230, 100), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *security_camera = new Object("security_camera", 0, 0, 11, 25, sf::IntRect(180, 90, 280, 180), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *streets = new Object("streets", 0, 0, 12, 25, sf::IntRect(270, 520, 750, 50), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		// Matches
@@ -208,6 +212,24 @@ void LevelManager::LoadChapter(int id){
 		empty_bar->SetInspectScript("Data/Scripts/ch1_empty_bar_inspect.script");
 		empty_bar->SetNoCanDoScript("Data/Scripts/ch1_empty_bar_nocando.script");
 
+		// Hotel sign
+		hotel_sign->SetInteractScript("Data/Scripts/ch1_hotel_sign_interact.script");
+		hotel_sign->SetGiveScript("Data/Scripts/ch1_hotel_sign_give.script");
+		hotel_sign->SetInspectScript("Data/Scripts/ch1_hotel_sign_inspect.script");
+		hotel_sign->SetNoCanDoScript("Data/Scripts/ch1_hotel_sign_nocando.script");
+
+		// Security camera
+		security_camera->SetInteractScript("Data/Scripts/ch1_security_camera_interact.script");
+		security_camera->SetGiveScript("Data/Scripts/ch1_security_camera_give.script");
+		security_camera->SetInspectScript("Data/Scripts/ch1_security_camera_inspect.script");
+		security_camera->SetNoCanDoScript("Data/Scripts/ch1_security_camera_nocando.script");
+
+		// Streets
+		streets->SetInteractScript("Data/Scripts/ch1_streets_interact.script");
+		streets->SetGiveScript("Data/Scripts/ch1_streets_give.script");
+		streets->SetInspectScript("Data/Scripts/ch1_streets_inspect.script");
+		streets->SetNoCanDoScript("Data/Scripts/ch1_streets_nocando.script");
+
 		// Set sprite offsets
 		necklace->SetSpriteOffset(0, 70);
 		bed->SetSpriteOffset(0, 123);
@@ -217,6 +239,9 @@ void LevelManager::LoadChapter(int id){
 		m_levels[0]->AddObject(necklace);
 		m_levels[0]->AddObject(silhouettes);
 		m_levels[0]->AddObject(broken_light);
+		m_levels[1]->AddObject(hotel_sign);
+		m_levels[1]->AddObject(security_camera);
+		m_levels[1]->AddObject(streets);
 		m_levels[2]->AddObject(payphones);
 		m_levels[2]->AddObject(belmont_fees);
 		m_levels[2]->AddObject(posters);

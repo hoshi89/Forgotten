@@ -29,6 +29,7 @@ private:
 	int m_currentFrame;
 	int m_pauseTime;
 	SFX m_sound;
+	bool m_soundIsPlaying;
 };
 
 #endif

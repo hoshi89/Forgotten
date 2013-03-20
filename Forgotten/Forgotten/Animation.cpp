@@ -19,8 +19,13 @@ void Animation::update(){
 	if(m_animationPauseTimer.getElapsedTime().asSeconds() > m_pauseTime)
 	{
 
-		if(m_currentFrame == 0){
-			m_sound.Play();
+		if(m_currentFrame == 0 && m_numFrames > 0)
+		{
+			if(!m_soundIsPlaying)
+			{
+				m_sound.Play();
+				m_soundIsPlaying = true;
+			}
 		}
 
 		if(m_frameTimer.getElapsedTime().asMilliseconds() > m_timePerFrame){
@@ -30,6 +35,7 @@ void Animation::update(){
 				m_sound.Stop();
 				m_currentFrame = 0;
 				m_animationPauseTimer.restart();
+				m_soundIsPlaying = false;
 			}
 
 		}
