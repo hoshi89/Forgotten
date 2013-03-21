@@ -8,4 +8,6 @@ setnodeposition player 21 45
 setdirection player 5
 fadein 1
 wait 2
+playsound door_1
+setanimation hotel_room_interior_door door_close
 resume

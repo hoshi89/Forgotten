@@ -27,6 +27,7 @@ public:
 	virtual void SetDirection(Entity::Direction direction){};
 	virtual void Inspect(){};
 	virtual void Move(){};
+	virtual void SetAnimation(const std::string&){};
 };
 
 #endif

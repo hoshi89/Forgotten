@@ -8,7 +8,7 @@
 
 class Animation{
 public:
-	Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename = "", int pauseTime=0);
+	Animation(const std::string& filename, int timePerFrame, int numFrames, bool loop = true, const std::string& soundFilename = "", int pauseTime=0);
 	~Animation();
 	void update();
 	void setPosition(const sf::Vector2f& position);
@@ -19,6 +19,8 @@ public:
 	void SetScale(float scale);
 	void SetRelativeSound(bool relative);
 	void SetSoundPosition(int x, int y, int z);
+	void Restart();
+	void SetFrame(int frame);
 private:
 	sf::Clock m_frameTimer;
 	sf::Clock m_animationPauseTimer;
@@ -30,6 +32,8 @@ private:
 	int m_pauseTime;
 	SFX m_sound;
 	bool m_soundIsPlaying;
+	bool m_loop;
+
 };
 
 #endif

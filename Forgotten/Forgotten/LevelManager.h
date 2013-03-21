@@ -22,6 +22,7 @@ public:
 	void SetBackgroundMusicVolume(float volume);
 	void BackgroundMusicPlay(bool play);
 	std::vector<Level*> GetLevel();
+	void SetAnimation(const std::string& objectId, const std::string& animationId);
 private:
 	std::vector<Level*> m_levels;
 	std::vector<SFX*> m_sounds;

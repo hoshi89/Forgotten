@@ -13,19 +13,20 @@ public:
 	Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::string bgTexture, float entityScale, int scaleOffset);
 	GenericMap& GetNodeMap();
 	const sf::Sprite& GetBackgroundImage() const;
-	void AddObject(Entity* entity);
+	void AddObject(const std::string& id, Entity* entity);
 	std::vector<Entity*>& GetEntities();
-	std::vector<Portal*>& GetPortals();
 	Player* GetPlayer();
 	void StopAllSounds();
 	void PlaySound(int id);
+	Entity* GetEntity(const std::string& id);
 
 	//Dialog
 	LevelDialogsCls* GetLevelDialogs();
 	void LoadLevelDialogs(string aScriptName);
 private:
+	std::map<std::string, Entity*> m_entitiesMap;
+	std::vector<Entity*> m_entitiesVector;
 	Player *m_player;
-	std::vector<Entity*> m_entities;
 	std::vector<SFX*> m_soundEffects;
 	int m_id;
 	int m_scaleOffset;

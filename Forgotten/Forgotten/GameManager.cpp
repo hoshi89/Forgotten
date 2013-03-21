@@ -31,7 +31,8 @@ GameManager::GameManager()
 	m_suspend(false),
 	FULLSCREEN(false),
 	DEBUG(false),
-	DEBUG_NODE(false)
+	DEBUG_NODE(false),
+	FPSLIMIT(60)
 {
 
 	// Load config
@@ -75,8 +76,23 @@ GameManager::GameManager()
 
 void GameManager::Process(){
 
+	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
+	{
+		if(FPSLIMIT < 1000)
+			FPSLIMIT += 10;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad2))
+	{
+		if(FPSLIMIT > 10)
+			FPSLIMIT -= 10;
+	}
+	else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad3))
+	{
+		FPSLIMIT = 0.3;
+	}
+
 	// FPS limit
-	while(m_fpsClock.getElapsedTime().asSeconds() < (1.0f/60))
+	while(m_fpsClock.getElapsedTime().asSeconds() < (1.0f/FPSLIMIT))
 	{
 	}
 	m_fpsClock.restart();
@@ -93,6 +109,9 @@ void GameManager::Process(){
 	// Hide the cursor
 	m_window.setMouseCursorVisible(false);
 
+	// Get next script event in queue
+	ProcessNextEvent();
+
 	// Mouse coords
 	sf::Vector2f nodePos;
 	sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
@@ -106,21 +125,20 @@ void GameManager::Process(){
 		m_mouseHandler.SetCursor(0);
 	}
 
-	// Sort the vector by Z value
-	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
-
 	// Update all entities
-	for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
-
+	for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
+	{
 		// Update the entity
-		m_levelManager.GetCurrentLevel()->GetEntities()[i]->Update();
-
+		(*i)->Update();
 		// Update mouse icon
-		m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler);
-
+		(*i)->MouseOver(m_mouseHandler);
 	}
 
-	if(!m_suspend){
+	// Sort the entity vector for later drawing
+	std::sort(m_levelManager.GetCurrentLevel()->GetEntities().begin(), m_levelManager.GetCurrentLevel()->GetEntities().end(), EntitySort);
+
+	if(!m_suspend)
+	{
 		// Check mouse click
 		if(m_mouseHandler.mouse1WasPressed())
 		{
@@ -128,43 +146,49 @@ void GameManager::Process(){
 			m_levelManager.GetCurrentLevel()->GetPlayer()->SetFocus(NULL);
 
 			// Check all entities for interaction
-			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
-
-				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler))
+			//for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
+			{
+				if((*i)->MouseOver(m_mouseHandler))
 				{
 					// Is holding something?
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->Interact(gui.ItemInHand());
+					(*i)->Interact(gui.ItemInHand());
 					interactFound = true;
 				}
 
-			}
-
+			
+			
 			// Else go to node
 			if(!interactFound)
 				m_levelManager.GetCurrentLevel()->GetPlayer()->GoTo(nodePos);
+			}
+			
 		}
 		else if(m_mouseHandler.mouse2WasPressed())
 		{
 
-			int toBeInspected = -1;
+			std::string toBeInspected = "";
 
 			// Check all entities for inspection
-			for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
+			{
 
-				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->MouseOver(m_mouseHandler))
+				if((*i)->MouseOver(m_mouseHandler))
 				{
-					toBeInspected = i;
+					toBeInspected = (*i)->GetID();
 				}
 
+
+				if(toBeInspected == (*i)->GetID())
+					(*i)->Inspect();
 			}
-
-			if(toBeInspected >= 0)
-				m_levelManager.GetCurrentLevel()->GetEntities()[toBeInspected]->Inspect();
 		}
-	}else{
-		m_mouseHandler.SetCursor(0);
 	}
-
+		else
+		{
+			m_mouseHandler.SetCursor(0);
+		}
+		
 	// Check if the player has reached its focus
 	PlayerFocus();
 
@@ -173,11 +197,9 @@ void GameManager::Process(){
 		LoadScript(m_levelManager.GetInitialScript());
 	}
 
-	// Get next script event in queue
-	ProcessNextEvent();
-
 	// Check fade status
 	UpdateFade();
+
 }
 
 void GameManager::Render()
@@ -190,8 +212,9 @@ void GameManager::Render()
 		m_window.draw(m_levelManager.GetCurrentLevel()->GetBackgroundImage());
 
 		// Draw entities
-		for(int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++){
-			m_levelManager.GetCurrentLevel()->GetEntities()[i]->Render(m_window);
+		for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
+		{
+			(*i)->Render(m_window);
 		}
 
 		// Draw all debug stuff on top layer
@@ -403,12 +426,13 @@ void GameManager::ProcessNextEvent(){
 			int ycoord = StringToInt(token);
 
 			// Move the entity
-			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			//for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
 			{
-				if(m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				if((*i)->GetID().compare(entity_id))
 				{
 					// Found the entity, move it
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetPosition(xcoord, ycoord);
+					(*i)->SetPosition(xcoord, ycoord);
 				}
 			}
 		}
@@ -488,12 +512,13 @@ void GameManager::ProcessNextEvent(){
 				break;
 			}
 
-			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			//for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
 			{
-				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				if(!(*i)->GetID().compare(entity_id))
 				{
 					// Found the entity, set direction
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetDirection(enumDirection);
+					(*i)->SetDirection(enumDirection);
 					break;
 				}
 			}
@@ -513,7 +538,7 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			int entityid = StringToInt(token);
 
-			m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
+			//m_levelManager.GetCurrentLevel()->GetEntities()[entityid]->SetPosition(xcoord, ycoord);
 		}
 		// Set nodeposition
 		else if(token == "setnodeposition")
@@ -533,12 +558,12 @@ void GameManager::ProcessNextEvent(){
 			xcoord = xcoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x/2);
 			ycoord = (ycoord * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y) + (m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y/2);
 
-			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
 			{
-				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				if(!(*i)->GetID().compare(entity_id))
 				{
 					// Found the entity, set position
-					m_levelManager.GetCurrentLevel()->GetEntities()[i]->SetPosition(xcoord, ycoord);
+					(*i)->SetPosition(xcoord, ycoord);
 					break;
 				}
 			}
@@ -636,13 +661,13 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token, ' ');
 			std::string entity_id = token;
 
-			for(unsigned int i = 0; i < m_levelManager.GetCurrentLevel()->GetEntities().size(); i++)
+			for(std::vector<Entity*>::iterator i = m_levelManager.GetCurrentLevel()->GetEntities().begin(); i != m_levelManager.GetCurrentLevel()->GetEntities().end(); i++)
 			{
-				std::string entityname = m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID();
-				if(!m_levelManager.GetCurrentLevel()->GetEntities()[i]->GetID().compare(entity_id))
+				std::string entityname = (*i)->GetID();
+				if(!(*i)->GetID().compare(entity_id))
 				{
 					// Found the entity to be removed, so remove it
-					m_levelManager.GetCurrentLevel()->GetEntities().erase(m_levelManager.GetCurrentLevel()->GetEntities().begin()+i);
+					m_levelManager.GetCurrentLevel()->GetEntities().erase(i);
 					break;
 				}
 			}
@@ -827,11 +852,24 @@ void GameManager::ProcessNextEvent(){
 			gui.SetIsDownGui(false);
 			gui.IsInScript(false);
 		}
-		//Add new entity
+		// Add new entity
 		else if(token == "addentity")
 		{
 			NpcCls *angry_woman = new NpcCls(570, 200, "Data/Animations/NPC/TEST_kapitel_1_lady.png", 1, 1000, sf::Vector2f(20, 80), m_levelManager.GetLevel()[4]->GetNodeMap(), "Data/Scripts/ch1_angry_woman_interact.script", "Data/Scripts/ch1_angry_woman_inspect.script", "Data/Scripts/ch1_angry_woman_give.script", "Data/Scripts/ch1_angry_woman_nocando.script", sf::IntRect(830, 220, 60, 220 ), "angry_woman");
-			m_levelManager.GetLevel()[4]->AddObject(angry_woman);
+			m_levelManager.GetLevel()[4]->AddObject("Margareth", angry_woman);
+		}
+		// Set animation
+		else if(token == "setanimation")
+		{
+			// Get entity id as string
+			std::getline(tmpStream, token, ' ');
+			std::string entity_id = token;
+
+			// Get animation id as string
+			std::getline(tmpStream, token, ' ');
+			std::string animation_id = token;
+
+			m_levelManager.GetCurrentLevel()->GetEntity(entity_id)->SetAnimation(animation_id);
 		}
 
 		m_events.erase(m_events.begin());
