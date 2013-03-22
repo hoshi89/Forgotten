@@ -3,8 +3,7 @@
 
 #include "InventoryItem.h"
 
-class Inventory
-{
+class Inventory{
 public:
 	~Inventory();
 	static Inventory* GetInstance();
@@ -12,20 +11,19 @@ public:
 	void SetName(std::string name);
 	void Read(int i);
 	void LoadItems();
-	int GetId(int i);
-	sf::Vector2f GetPosition(int id);
-	std::string GetDirectory(int id);
 	void Render(sf::Vector2f position);
 	void Draw(sf::RenderWindow &window);
-	int IsOverlap(sf::RenderWindow& window, sf::View& view);
-	sf::IntRect GetItemsRect(int i);
 	std::vector<InventoryItem*> Contains();
 	void RemoveItem();
 	void KillItem(int id);
+	int IsOverlap(sf::RenderWindow& window, sf::View& view);
+	int GetId(int i);
+	sf::Vector2f GetPosition(int id);
+	std::string GetDirectory(int id);
 	std::string GetName(int id);
 	std::string GetScript(int id);
-	void Combine(int requires, int itemInHand);
 	std::string GetWantScript(int id);
+	sf::IntRect GetItemsRect(int i);
 private:
 	Inventory();
 	Inventory(Inventory const&){};

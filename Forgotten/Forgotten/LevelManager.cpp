@@ -53,7 +53,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels.push_back(new Level(0, "Data/Levels/Level1/kapitel_1_test_hall_node.png", 25, 10, "Data/Levels/Level1/TEST_hall_fardig.png", 0.9, 0));
 		m_levels.push_back(new Level(1, "Data/Levels/Level1/chapter_1_exterior_node.png", 50, 20, "Data/Levels/Level1/hotelexterior.png", 0.6, 0));
 		m_levels.push_back(new Level(2, "Data/Levels/Level1/kapitel_1_test_reception_node.png", 50, 10, "Data/Levels/Level1/test_reception_inget_ljus.png", 1.2, 0));
-		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/chapter_1_level_art_hotel_room.png", 1.2, 0));
+		m_levels.push_back(new Level(3, "Data/Levels/Level1/chapter_1_hotel_room_node.png", 50, 10, "Data/Levels/Level1/hotel_room.png", 1.2, 0));
 		m_levels.push_back(new Level(4, "Data/Levels/Level1/chapter_1_bar_node.png", 50, 20, "Data/Levels/Level1/chapter1_bar.png", 2.5, 12));
 
 		// Set player position
@@ -75,17 +75,24 @@ void LevelManager::LoadChapter(int id){
 		AddSound(new SFX("Data/Sounds/door_2.wav", "door_2"));
 
 		// Add background animations
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, 1150, 70, 0, Behaviour::STATIC, "Data/Sounds/broken_lamp.wav", 3));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, 2191, 190, 510, Behaviour::STATIC));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, 0, 0, 33, Behaviour::STATIC));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/test_ljus_overlay.png", 100, 1, 430, 70, 1000, Behaviour::STATIC));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/reception_booth.png", 1000, 1, 580, 90, 200, Behaviour::STATIC));
-		m_levels[0]->AddObject(new BackgroundObject("Data/Levels/Level1/chapter_1_cart.png", 1000, 1, 1045, 413, 510, Behaviour::STATIC));
-		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/smoke.png", 100, 20, 400, 400, 1000, Behaviour::STATIC));
-		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/camera.png", 1000, 1, 62, 0, 1001, Behaviour::STATIC));
-		m_levels[1]->AddObject(new BackgroundObject("Data/Levels/Level1/blink.png", 1000, 2, 300, 70, 1002, Behaviour::MOVING_CAR));
-		m_levels[2]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 21, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/keyboard.wav", 10));
-		m_levels[4]->AddObject(new BackgroundObject("Data/Levels/Level1/null.png", 1000, 47, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/ambient_bar.wav"));
+		m_levels[0]->AddObject("Broken_lamp", new BackgroundObject("Broken lamp", "Data/Levels/Level1/TEST_hall_animation_lampa.png", 100, 16, true, 1150, 70, 0, Behaviour::STATIC, "Data/Sounds/broken_lamp.wav", 3));
+		m_levels[0]->AddObject("Elevator wall", new BackgroundObject("Elevator wall", "Data/Levels/Level1/TEST_hall_hiss.png", 1000, 1, true, 2191, 190, 510, Behaviour::STATIC));
+		m_levels[0]->AddObject("Hall shadow", new BackgroundObject("Hall shadow", "Data/Levels/Level1/TEST_hall_skuggning.png", 1000, 1, true, 0, 0, 33, Behaviour::STATIC));
+		m_levels[2]->AddObject("Overlay light", new BackgroundObject("Overlay light", "Data/Levels/Level1/test_ljus_overlay.png", 100, 1, true, 430, 70, 1000, Behaviour::STATIC));
+		m_levels[2]->AddObject("Reception booth", new BackgroundObject("Reception booth", "Data/Levels/Level1/reception_booth.png", 1000, 1, true, 580, 90, 200, Behaviour::STATIC));
+		m_levels[0]->AddObject("Cart", new BackgroundObject("Cart", "Data/Levels/Level1/chapter_1_cart.png", 1000, 1, true, 1045, 413, 510, Behaviour::STATIC));
+		m_levels[1]->AddObject("Smoke", new BackgroundObject("Smoke", "Data/Levels/Level1/smoke.png", 100, 20, true, 400, 400, 1000, Behaviour::STATIC));
+		m_levels[1]->AddObject("Camera", new BackgroundObject("Camera", "Data/Levels/Level1/camera.png", 1000, 1, true, 62, 0, 1001, Behaviour::STATIC));
+		m_levels[1]->AddObject("Blinking light", new BackgroundObject("Blinking light", "Data/Levels/Level1/blink.png", 1000, 2, true, 300, 70, 1002, Behaviour::STATIC));
+		m_levels[1]->AddObject("Car", new BackgroundObject("Car", "Data/Levels/Level1/car_1.png", 5000, 1, true, -300, 420, 999, Behaviour::MOVING_CAR, "Data/Sounds/car_1.wav"));
+		m_levels[2]->AddObject("Keyboard", new BackgroundObject("Keyboard", "Data/Levels/Level1/null.png", 1000, 21, true, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/keyboard.wav", 10));
+		m_levels[4]->AddObject("Ambient bar sounds", new BackgroundObject("Ambient bar sounds", "Data/Levels/Level1/null.png", 1000, 47, true, 0, 0, 0, Behaviour::STATIC, "Data/Sounds/ambient_bar.wav"));
+
+		// Add multiple animations background objects
+		BackgroundObject *elevator_door = new BackgroundObject("door_close", "Data/Levels/Level1/level_room_door_close_sheet.png", 50, 9, false, 1057, 179, 100, Behaviour::STATIC);
+		elevator_door->AddAnimation("door_open", "Data/Levels/Level1/level_room_door_open_sheet.png", 50, 9, false);
+
+		m_levels[3]->AddObject("hotel_room_interior_door", elevator_door);
 
 		///////////////////// PORTALS BEGIN ///////////////////////////
 
@@ -110,21 +117,21 @@ void LevelManager::LoadChapter(int id){
 		streets2reception->SetScript("Data/Scripts/portal_streets_to_reception.script");
 
 		// Add them to the entity vector
-		m_levels[0]->AddObject(hall2reception);
-		m_levels[0]->AddObject(hall2hotelroom);
-		m_levels[1]->AddObject(streets2reception);
-		m_levels[2]->AddObject(reception2hall);
-		m_levels[2]->AddObject(reception2bar);
-		m_levels[2]->AddObject(reception2streets);
-		m_levels[3]->AddObject(hotelroom2hall);
-		m_levels[4]->AddObject(bar2reception);
+		m_levels[0]->AddObject("Hall2Reception", hall2reception);
+		m_levels[0]->AddObject("Hall2hotelroom", hall2hotelroom);
+		m_levels[1]->AddObject("Streets2Reception", streets2reception);
+		m_levels[2]->AddObject("reception2hall", reception2hall);
+		m_levels[2]->AddObject("reception2bar", reception2bar);
+		m_levels[2]->AddObject("reception2streets", reception2streets);
+		m_levels[3]->AddObject("Hotelroom2hall", hotelroom2hall);
+		m_levels[4]->AddObject("bar2Reception", bar2reception);
 
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 210, 400, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
+		Object *matches = new Object("matches", 210, 200, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
 		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(1100, 445, 33, 50), "Data/Animations/Objects/necklace.png", 1000, 1);
-		Object *bed = new Object("bed", 271, 470, 10, 54, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/chapter_1_bed.png", 1000, 1);
+		Object *bed = new Object("bed", 172, 471, 10, 54, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/hotel_room_bed.png", 1000, 1);
 		Object *room_poster = new Object("poster", 0, 0, 17, 46, sf::IntRect(810, 180, 115, 220), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *room_items = new Object("room_items", 765, 680, 20, 54, sf::IntRect(1040, 425, 260, 135), "Data/Levels/Level1/chapter_1_books.png", 1000, 1);
 		Object *silhouettes = new Object("silhouettes", 60, 136, 12, 51, sf::IntRect(100, 290, 200, 185), "Data/Levels/Level1/TEST_hall_animation_fonster.png", 100, 22);
@@ -134,6 +141,9 @@ void LevelManager::LoadChapter(int id){
 		Object *posters = new Object("posters", 0, 0, 23, 44, sf::IntRect(1050, 170, 210, 170), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *neon_sign = new Object("neon_sign", 0, 0, 15, 21, sf::IntRect(710, 180, 120, 210), "Data/Levels/Level1/null.png", 1000, 1);
 		Object *empty_bar = new Object("empty_bar", 0, 0, 21, 25, sf::IntRect(1100, 290, 400, 200), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *hotel_sign = new Object("hotel_sign", 0, 0, 13, 25, sf::IntRect(530, 190, 230, 100), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *security_camera = new Object("security_camera", 0, 0, 11, 25, sf::IntRect(180, 90, 280, 180), "Data/Levels/Level1/null.png", 1000, 1);
+		Object *streets = new Object("streets", 0, 0, 12, 25, sf::IntRect(270, 520, 750, 50), "Data/Levels/Level1/null.png", 1000, 1);
 
 		// Set object scripts
 		// Matches
@@ -208,27 +218,48 @@ void LevelManager::LoadChapter(int id){
 		empty_bar->SetInspectScript("Data/Scripts/ch1_empty_bar_inspect.script");
 		empty_bar->SetNoCanDoScript("Data/Scripts/ch1_empty_bar_nocando.script");
 
+		// Hotel sign
+		hotel_sign->SetInteractScript("Data/Scripts/ch1_hotel_sign_interact.script");
+		hotel_sign->SetGiveScript("Data/Scripts/ch1_hotel_sign_give.script");
+		hotel_sign->SetInspectScript("Data/Scripts/ch1_hotel_sign_inspect.script");
+		hotel_sign->SetNoCanDoScript("Data/Scripts/ch1_hotel_sign_nocando.script");
+
+		// Security camera
+		security_camera->SetInteractScript("Data/Scripts/ch1_security_camera_interact.script");
+		security_camera->SetGiveScript("Data/Scripts/ch1_security_camera_give.script");
+		security_camera->SetInspectScript("Data/Scripts/ch1_security_camera_inspect.script");
+		security_camera->SetNoCanDoScript("Data/Scripts/ch1_security_camera_nocando.script");
+
+		// Streets
+		streets->SetInteractScript("Data/Scripts/ch1_streets_interact.script");
+		streets->SetGiveScript("Data/Scripts/ch1_streets_give.script");
+		streets->SetInspectScript("Data/Scripts/ch1_streets_inspect.script");
+		streets->SetNoCanDoScript("Data/Scripts/ch1_streets_nocando.script");
+
 		// Set sprite offsets
 		necklace->SetSpriteOffset(0, 70);
 		bed->SetSpriteOffset(0, 123);
 		room_items->SetSpriteOffset(0, 200);
 
 		// Add objects to the entity vector
-		m_levels[0]->AddObject(necklace);
-		m_levels[0]->AddObject(silhouettes);
-		m_levels[0]->AddObject(broken_light);
-		m_levels[2]->AddObject(payphones);
-		m_levels[2]->AddObject(belmont_fees);
-		m_levels[2]->AddObject(posters);
-		m_levels[3]->AddObject(matches);
-		m_levels[3]->AddObject(bed);
-		m_levels[3]->AddObject(room_poster);
-		m_levels[3]->AddObject(room_items);
-		m_levels[4]->AddObject(neon_sign);
-		m_levels[4]->AddObject(empty_bar);
+		m_levels[0]->AddObject("Neclace", necklace);
+		m_levels[0]->AddObject("Silhouettes", silhouettes);
+		m_levels[0]->AddObject("Broken Light", broken_light);
+		m_levels[1]->AddObject("Hotel Sign", hotel_sign);
+		m_levels[1]->AddObject("Security Camera", security_camera);
+		m_levels[1]->AddObject("Streets", streets);
+		m_levels[2]->AddObject("Payphones", payphones);
+		m_levels[2]->AddObject("Belmont fees", belmont_fees);
+		m_levels[2]->AddObject("Posters", posters);
+		m_levels[3]->AddObject("Matches", matches);
+		m_levels[3]->AddObject("Bed", bed);
+		m_levels[3]->AddObject("Room poster", room_poster);
+		m_levels[3]->AddObject("Room items", room_items);
+		m_levels[4]->AddObject("Neon sign", neon_sign);
+		m_levels[4]->AddObject("Empty bar", empty_bar);
 
 		// Set first room
-		m_currentLevel = m_levels[1];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		// Add NPCS
@@ -248,11 +279,11 @@ void LevelManager::LoadChapter(int id){
 		receptionist->SetWantsItem(3);
 		taxi->SetWantsItem(2);
 
-		m_levels[2]->AddObject(angry_woman);
-		m_levels[4]->AddObject(dendi);
-		m_levels[0]->AddObject(valet);
-		m_levels[2]->AddObject(receptionist);
-		m_levels[1]->AddObject(taxi);
+		m_levels[2]->AddObject("Angry_woman", angry_woman);
+		m_levels[4]->AddObject("Dendi", dendi);
+		m_levels[0]->AddObject("Valet", valet);
+		m_levels[2]->AddObject("Receptionist", receptionist);
+		m_levels[1]->AddObject("Taxi", taxi);
 
 		//Add Dialogs
 		m_levels[0]->LoadLevelDialogs("Data/Scripts/LevelNullDlg.txt");
@@ -327,4 +358,9 @@ void LevelManager::BackgroundMusicPlay(bool play)
 	{
 		m_bgMusic.stop();
 	}
+}
+
+void LevelManager::SetAnimation(const std::string& objectId, const std::string& animationId)
+{
+
 }

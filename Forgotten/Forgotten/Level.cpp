@@ -10,23 +10,31 @@ Level::Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::s
 	// Create player for this room
 	m_player = new Player(m_nodeMap);
 
-	// Push the player into the entity vector
-	m_entities.push_back(m_player);
+	// Push the player into the entity vector and map
+	m_entitiesVector.push_back(m_player);
+	m_entitiesMap["player"] = m_player;
 }
 
 GenericMap& Level::GetNodeMap(){ return m_nodeMap; }
 
 const sf::Sprite& Level::GetBackgroundImage() const { return m_bgSprite; }
 
-void Level::AddObject(Entity* entity){ m_entities.push_back(entity); }
+void Level::AddObject(const std::string& id, Entity *entity)
+{
+	m_entitiesMap[id] = entity;
+	m_entitiesVector.push_back(entity);
+}
 
-std::vector<Entity*>& Level::GetEntities(){ return m_entities; }
+std::vector<Entity*>& Level::GetEntities()
+{
+	return m_entitiesVector;
+}
 
 Player* Level::GetPlayer(){ return m_player; }
 
 void Level::StopAllSounds(){
 
-	for(std::vector<Entity*>::iterator i = m_entities.begin(); i != m_entities.end(); i++){
+	for(std::vector<Entity*>::iterator i = m_entitiesVector.begin(); i != m_entitiesVector.end(); i++){
 		(*i)->StopSound();
 	}
 
@@ -43,3 +51,7 @@ LevelDialogsCls* Level::GetLevelDialogs()
 	return m_Dialogs;
 }
 
+Entity* Level::GetEntity(const std::string& id)
+{
+	return m_entitiesMap.find(id)->second;
+}

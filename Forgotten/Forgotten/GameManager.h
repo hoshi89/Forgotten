@@ -46,6 +46,7 @@ private:
 	bool FULLSCREEN;
 	bool DEBUG;
 	bool DEBUG_NODE;
+	float FPSLIMIT;
 
 	// Script stuff
 	typedef std::vector<std::string> EventQueue;

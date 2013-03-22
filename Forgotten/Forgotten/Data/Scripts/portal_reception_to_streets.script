@@ -4,7 +4,7 @@ fadeout 1
 playsound door_2
 wait 1
 setlevel 1
-setnodeposition player 13 21
+setnodeposition player 13 24
 setdirection player 4
 fadein 1
 wait 1

@@ -1,6 +1,13 @@
 #include "Animation.h"
 
-Animation::Animation(const std::string& filename, int timePerFrame, int numFrames, const std::string& soundFilename, int pauseTime):m_timePerFrame(timePerFrame), m_numFrames(numFrames), m_currentFrame(0), m_sound(soundFilename), m_pauseTime(pauseTime){
+Animation::Animation(const std::string& filename, int timePerFrame, int numFrames, bool loop, const std::string& soundFilename, int pauseTime)
+	:m_timePerFrame(timePerFrame),
+	m_numFrames(numFrames),
+	m_currentFrame(0),
+	m_sound(soundFilename),
+	m_pauseTime(pauseTime),
+	m_loop(loop)
+{
 	m_texture.loadFromFile(filename);
 	m_sprite.setTexture(m_texture);
 
@@ -16,24 +23,32 @@ void Animation::update(){
 	// Update sound position, Z = 0
 	m_sound.SetSoundPosition(m_sprite.getGlobalBounds().left, m_sprite.getGlobalBounds().top, 0);
 
-	if(m_animationPauseTimer.getElapsedTime().asSeconds() > m_pauseTime)
+	if(m_pauseTime > 0 && m_animationPauseTimer.getElapsedTime().asSeconds() <= m_pauseTime)
+		return;
+
+	if(!m_loop && m_currentFrame == m_numFrames-1)
+		return;
+
+	if(m_currentFrame == 0 && m_numFrames > 0)
 	{
-
-		if(m_currentFrame == 0){
+		if(!m_soundIsPlaying)
+		{
 			m_sound.Play();
+			m_soundIsPlaying = true;
 		}
+	}
 
-		if(m_frameTimer.getElapsedTime().asMilliseconds() > m_timePerFrame){
-			m_frameTimer.restart();
-			m_currentFrame++;
-			if(m_currentFrame >= m_numFrames){
-				m_sound.Stop();
-				m_currentFrame = 0;
-				m_animationPauseTimer.restart();
-			}
-
+	if(m_frameTimer.getElapsedTime().asMilliseconds() > m_timePerFrame){
+		m_frameTimer.restart();
+		m_currentFrame++;
+		
+		if(m_currentFrame >= m_numFrames){
+			m_sound.Stop();
+			m_currentFrame = 0;
+			m_animationPauseTimer.restart();
+			m_soundIsPlaying = false;
 		}
-
+		
 	}
 
 	sf::IntRect currentRect = m_sprite.getTextureRect();
@@ -67,4 +82,9 @@ void Animation::SetRelativeSound(bool relative)
 void Animation::SetSoundPosition(int x, int y, int z)
 {
 	m_sound.SetSoundPosition(x, y, z);
+}
+
+void Animation::Restart()
+{
+	m_currentFrame = 0;
 }
