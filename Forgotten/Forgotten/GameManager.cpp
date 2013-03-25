@@ -871,6 +871,22 @@ void GameManager::ProcessNextEvent(){
 
 			m_levelManager.GetCurrentLevel()->GetEntity(entity_id)->SetAnimation(animation_id);
 		}
+		// Play/Stop background music
+		else if(token == "bgmusic")
+		{
+			// Get state as string
+			std::getline(tmpStream, token, ' ');
+			std::string state = token;
+
+			if(state == "play")
+			{
+				m_levelManager.BackgroundMusicPlay(true);
+			}
+			else if(state == "stop")
+			{
+				m_levelManager.BackgroundMusicPlay(false);
+			}
+		}
 
 		m_events.erase(m_events.begin());
 	}

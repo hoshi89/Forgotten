@@ -3,10 +3,10 @@ setdirection player 1
 setanimation hotel_room_interior_door door_open
 playsound door_1
 fadeout 1
-wait 3
+wait 1
 setlevel 0
 setnodeposition player 15 48
 setdirection player 4
 fadein 1
-wait 2
+wait 1
 resume

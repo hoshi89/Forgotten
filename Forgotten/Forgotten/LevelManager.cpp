@@ -4,7 +4,7 @@
 #include "Object.h"
 
 LevelManager::LevelManager()
-	:m_initialScriptRun(false), m_bgVolume(10.f), m_fadeSpeed(3.f)
+	:m_initialScriptRun(false), m_bgVolume(100.f), m_fadeSpeed(3.f)
 {
 }
 
@@ -46,7 +46,6 @@ void LevelManager::LoadChapter(int id){
 		m_initializingScript = "Data/Scripts/initial_chapter_1.script";
 
 		m_bgMusic.openFromFile("Data/Music/Hotel.ogg");
-		m_bgMusic.play();
 		m_bgMusic.setLoop(true);
 
 		// Create rooms for this level
@@ -129,7 +128,7 @@ void LevelManager::LoadChapter(int id){
 		///////////////////// PORTALS END ///////////////////////////
 
 		// Add objects
-		Object *matches = new Object("matches", 210, 200, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
+		Object *matches = new Object("matches", 210, 475, 5, 49, sf::IntRect(200, 395, 45, 20), "Data/Levels/Level1/chapter1_matchbox.png", 1000, 1);
 		Object *necklace = new Object("necklace", 1100, 520, 44, 54, sf::IntRect(1100, 445, 33, 50), "Data/Animations/Objects/necklace.png", 1000, 1);
 		Object *bed = new Object("bed", 172, 471, 10, 54, sf::IntRect(320, 360, 430, 90), "Data/Levels/Level1/hotel_room_bed.png", 1000, 1);
 		Object *room_poster = new Object("poster", 0, 0, 17, 46, sf::IntRect(810, 180, 115, 220), "Data/Levels/Level1/null.png", 1000, 1);
@@ -237,6 +236,7 @@ void LevelManager::LoadChapter(int id){
 		streets->SetNoCanDoScript("Data/Scripts/ch1_streets_nocando.script");
 
 		// Set sprite offsets
+		matches->SetSpriteOffset(0, 75);
 		necklace->SetSpriteOffset(0, 70);
 		bed->SetSpriteOffset(0, 123);
 		room_items->SetSpriteOffset(0, 200);
@@ -358,9 +358,4 @@ void LevelManager::BackgroundMusicPlay(bool play)
 	{
 		m_bgMusic.stop();
 	}
-}
-
-void LevelManager::SetAnimation(const std::string& objectId, const std::string& animationId)
-{
-
 }
