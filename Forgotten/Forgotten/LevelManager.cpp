@@ -4,7 +4,9 @@
 #include "Object.h"
 
 LevelManager::LevelManager()
-	:m_initialScriptRun(false), m_bgVolume(100.f), m_fadeSpeed(3.f)
+	:m_initialScriptRun(false),
+	m_bgVolume(100.f),
+	m_fadeSpeed(3.f)
 {
 }
 
