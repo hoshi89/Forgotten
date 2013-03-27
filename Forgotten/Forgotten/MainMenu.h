@@ -5,7 +5,8 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-class MainMenu{
+class MainMenu
+{
 public:
 	MainMenu(MouseHandler& mouse);
 	void Render(sf::RenderWindow& window);

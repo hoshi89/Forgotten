@@ -9,12 +9,12 @@ BackgroundObject::BackgroundObject(const std::string& id, const std::string& ani
 	SetAnimation(id);
 }
 
-std::string BackgroundObject::GetID()
+std::string BackgroundObject::GetId()
 {
 	return m_id;
 }
 
-void BackgroundObject::SetID(std::string id)
+void BackgroundObject::SetId(std::string id)
 {
 	m_id = id;
 }
@@ -35,8 +35,8 @@ void BackgroundObject::Update()
 
 	m_position += m_velocity;
 
-	m_currentAnimation->setPosition(m_position);
-	m_currentAnimation->update();
+	m_currentAnimation->SetPosition(m_position);
+	m_currentAnimation->Update();
 }
 
 const sf::Sprite& BackgroundObject::GetSprite() const{ return sf::Sprite(); }
@@ -44,7 +44,7 @@ const sf::Sprite& BackgroundObject::GetSprite() const{ return sf::Sprite(); }
 void BackgroundObject::Render(sf::RenderWindow &window)
 {
 
-	window.draw(m_currentAnimation->getSprite());
+	window.draw(m_currentAnimation->GetSprite());
 }
 
 const int BackgroundObject::GetZ()
@@ -52,7 +52,10 @@ const int BackgroundObject::GetZ()
 	return m_z;
 }
 
-void BackgroundObject::StopSound(){ m_currentAnimation->StopSound(); }
+void BackgroundObject::StopSound()
+{ 
+	m_currentAnimation->StopSound(); 
+}
 
 void BackgroundObject::MovingCar()
 {

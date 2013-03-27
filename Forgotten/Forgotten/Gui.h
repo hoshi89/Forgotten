@@ -4,17 +4,13 @@
 #include "Inventory.h"
 #include "MouseHandler.h"
 #include "ScriptText.h"
-
 #include "LevelDialogsCls.h"
 //#include <SFML/Graphics.hpp>
-
-using namespace std;
 
 class Gui
 {
 public:
 	Gui(MouseHandler& mouse);
-	void Render();
 	void Update();
 	sf::Vector2f GetPosition();
 	void Draw(sf::RenderWindow &window);
@@ -31,7 +27,7 @@ public:
 
 	// Dialog
 	void SetDeckId(string aDeckId, sf::Vector2f aPlayerpos, sf::Vector2f aEntitypos);
-	void AddItem(int aId);
+	void AddItem(int Id);
 	DialogStateEnum getDialogState();
 
 private:
@@ -45,7 +41,7 @@ private:
 	bool m_down;
 	MouseHandler& m_mouseHandler;
 	sf::Text m_text;
-	sf::Text* p_text;
+
 	typedef std::vector<ScriptText*> TextVector;
 	TextVector m_texts;
 	int m_itemInHand;
