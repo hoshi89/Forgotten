@@ -9,6 +9,9 @@ MainMenu::MainMenu(MouseHandler& mouse) :
 	//Load menu image
 	LoadImage();
 
+	m_bgMusic.openFromFile("Data/Music/Timeless_moment_Main_menu_.ogg");
+	m_bgMusic.play();
+
 	//// Set the view size
 	m_view.setSize(1024, 576);
 	m_view.setCenter(850, 288);
@@ -18,6 +21,7 @@ MainMenu::MainMenu(MouseHandler& mouse) :
 
 bool MainMenu::NewGame()
 {
+	m_bgMusic.stop();
 	return m_newGame;
 }
 
