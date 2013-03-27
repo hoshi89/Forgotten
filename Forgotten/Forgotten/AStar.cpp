@@ -5,35 +5,39 @@ AStar::AStar(GenericMap &map)
 {
 }
 
-void AStar::FindPath(){
-	
-	//while(true){ // To process entire path
+void AStar::FindPath()
+{
 	// Process the path bit by bit to avoid lag
 	if(m_initialized){
-		for(int i = 0; i < 50; i++){
-			if(m_openList.empty() || PathComplete()){
+		for(int i = 0; i < 50; i++)
+		{
+			if(m_openList.empty() || PathComplete())
+			{
 				break;
-			}else{
+			}
+			else
+			{
 				ProcessPath();
 			}
 		}
 	}
-
 }
 
-void AStar::SetPath(sf::Vector2f start, sf::Vector2f goal){
-
+void AStar::SetPath(sf::Vector2f start, sf::Vector2f goal)
+{
 	// Set start and goal
 	m_start = start;
 	m_goal = goal;
 
 	// Clear current lists
-	for(unsigned int i = 0; i < m_openList.size(); i++){
+	for(unsigned int i = 0; i < m_openList.size(); i++)
+	{
 		delete m_openList[i];
 	}
 	m_openList.clear();
 
-	for(unsigned int i = 0; i < m_closedList.size(); i++){
+	for(unsigned int i = 0; i < m_closedList.size(); i++)
+	{
 		delete m_closedList[i];
 	}
 	m_closedList.clear();
@@ -45,13 +49,13 @@ void AStar::SetPath(sf::Vector2f start, sf::Vector2f goal){
 
 	m_goalFound = false;
 	m_initialized = true;
-
 }
 
-void AStar::ProcessPath(){
-
+void AStar::ProcessPath()
+{
 	// If the list is empty, there is no path so don't do anything
-	if(m_openList.empty() || m_goalFound){
+	if(m_openList.empty() || m_goalFound)
+	{
 		return;
 	}
 
@@ -59,9 +63,9 @@ void AStar::ProcessPath(){
 	AStarNode *currentNode = GetNextNode();
 
 	// Are we finished? Was the goal found?
-	if(currentNode->GetPosition() == m_goal){
+	if(currentNode->GetPosition() == m_goal)
+	{
 		// We're home! Fill the pathqueue
-
 		AStarNode *getPath;
 
 		for(getPath = currentNode; getPath != NULL; getPath = getPath->GetParent())
@@ -75,32 +79,38 @@ void AStar::ProcessPath(){
 		m_goalFound = true;
 		return;
 
-	}else{
+	}
+	else
+	{
 		// Not finished yet, continue the search
 
 		// Get adjacent nodes to the currentNode
 		std::vector<AStarNode> nodeAdjacent = currentNode->GetAdjacentNodes();
 
 		// Process every adjacent node
-		for(unsigned int i = 0; i < nodeAdjacent.size(); i++){
+		for(unsigned int i = 0; i < nodeAdjacent.size(); i++)
+		{
 			ExamineNode(nodeAdjacent[i]);
 		}
 	}
-
 }
 
-void AStar::ExamineNode(AStarNode &node){
+void AStar::ExamineNode(AStarNode &node)
+{
 
 	// Check if node should be ignored, updated or pushed into openList
 	
 	// Is the node walkable?
-	if(!(m_nodeMap.isWalkable(node.GetPosition().x, node.GetPosition().y))){
+	if(!(m_nodeMap.isWalkable(node.GetPosition().x, node.GetPosition().y)))
+	{
 		return;
 	}
 
 	// Check the closedList
-	for(unsigned int i = 0; i < m_closedList.size(); i++){
-		if(m_closedList[i]->GetPosition() == node.GetPosition()){
+	for(unsigned int i = 0; i < m_closedList.size(); i++)
+	{
+		if(m_closedList[i]->GetPosition() == node.GetPosition())
+		{
 			// Found in the closed list so abort operation
 			return;
 		}
@@ -123,7 +133,6 @@ void AStar::ExamineNode(AStarNode &node){
 
 	// If it has come to this point the node was not found in the list so push it into the openList
 	m_openList.push_back(new AStarNode(node));
-
 }
 
 bool AStar::PathComplete()
@@ -131,26 +140,27 @@ bool AStar::PathComplete()
 	return m_goalFound;
 }
 
-AStarNode* AStar::GetNextNode(){
-
+AStarNode* AStar::GetNextNode()
+{
 		// Set some default values to make search easy
 		int lowest_F = 99999999;
 		int nodeIndex = -1;
 		AStarNode *nextNode = NULL;
 
 		// Find node with the lowest value
-		for(unsigned int i = 0; i < m_openList.size(); i++){
-
-			if(m_openList[i]->GetF() < lowest_F){
+		for(unsigned int i = 0; i < m_openList.size(); i++)
+		{
+			if(m_openList[i]->GetF() < lowest_F)
+			{
 				// Set new lowest F and index to keep track
 				lowest_F = m_openList[i]->GetF();
 				nodeIndex = i;
 			}
-
 		}
 
 		// If a node was found in the openList, return the one with lowest F
-		if(nodeIndex >= 0){
+		if(nodeIndex >= 0)
+		{
 			nextNode = m_openList[nodeIndex];
 			// Push it into the closedList
 			m_closedList.push_back(nextNode);
@@ -159,22 +169,23 @@ AStarNode* AStar::GetNextNode(){
 		}
 
 		return nextNode;
-
 }
 
-std::vector<sf::Vector2f> AStar::GetPath(){ return m_path; }
+std::vector<sf::Vector2f> AStar::GetPath()
+{
+	return m_path;
+}
 
-sf::Vector2f& AStar::GetNextMove(){
+sf::Vector2f& AStar::GetNextMove()
+{
 
 	sf::Vector2f nextMove(m_goal.x, m_goal.y);
 
-	if(!m_path.empty()){
-		
+	if(!m_path.empty())
+	{
 		nextMove = m_path[m_path.size()-1];
 		m_path.pop_back();
-
 	}
 
 	return nextMove;
-
 }

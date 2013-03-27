@@ -37,9 +37,10 @@ void LevelManager::update()
 	}
 }
 
-void LevelManager::LoadChapter(int id){
-
-	switch(id){
+void LevelManager::LoadChapter(int id)
+{
+	switch(id)
+	{
 	case 0:
 
 		// Set initalizing script
@@ -294,10 +295,13 @@ void LevelManager::LoadChapter(int id){
 	}
 }
 
-Level* LevelManager::GetCurrentLevel(){ return m_currentLevel; }
+Level* LevelManager::GetCurrentLevel()
+{
+	return m_currentLevel;
+}
 
-void LevelManager::SetLevel(int id){
-
+void LevelManager::SetLevel(int id)
+{
 	m_currentLevel = m_levels[id];
 
 	// Stop sounds
@@ -309,9 +313,10 @@ std::vector<Level*> LevelManager::GetLevel()
 	return m_levels;
 }
 
-void LevelManager::StopAllSounds(){
-
-	for(std::vector<Level*>::iterator i = m_levels.begin(); i != m_levels.end(); i++){
+void LevelManager::StopAllSounds()
+{
+	for(std::vector<Level*>::iterator i = m_levels.begin(); i != m_levels.end(); i++)
+	{
 		(*i)->StopAllSounds();
 	}
 
@@ -322,14 +327,16 @@ void LevelManager::SetBackgroundMusicVolume(float volume)
 	m_bgVolume = volume;
 }
 
-bool LevelManager::InitialScriptRun(){ return m_initialScriptRun; }
+bool LevelManager::InitialScriptRun()
+{
+	return m_initialScriptRun;
+}
 
-std::string LevelManager::GetInitialScript(){
-
+std::string LevelManager::GetInitialScript()
+{
 	m_initialScriptRun = true;
 
 	return m_initializingScript;
-
 }
 
 void LevelManager::AddSound(SFX* sfx)
@@ -337,7 +344,8 @@ void LevelManager::AddSound(SFX* sfx)
 	m_sounds.push_back(sfx);
 }
 
-void LevelManager::PlaySound(std::string& id){
+void LevelManager::PlaySound(std::string& id)
+{
 	for(unsigned int i = 0; i < m_sounds.size(); i++)
 	{
 		if(!m_sounds[i]->GetID().compare(id))

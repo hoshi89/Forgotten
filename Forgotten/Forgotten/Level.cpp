@@ -15,9 +15,15 @@ Level::Level(int id, std::string nodeData, int nodeWidth, int nodeHeight, std::s
 	m_entitiesMap["player"] = m_player;
 }
 
-GenericMap& Level::GetNodeMap(){ return m_nodeMap; }
+GenericMap& Level::GetNodeMap()
+{
+	return m_nodeMap;
+}
 
-const sf::Sprite& Level::GetBackgroundImage() const { return m_bgSprite; }
+const sf::Sprite& Level::GetBackgroundImage() const
+{
+	return m_bgSprite;
+}
 
 void Level::AddObject(const std::string& id, Entity *entity)
 {
@@ -30,14 +36,17 @@ std::vector<Entity*>& Level::GetEntities()
 	return m_entitiesVector;
 }
 
-Player* Level::GetPlayer(){ return m_player; }
+Player* Level::GetPlayer()
+{
+	return m_player;
+}
 
-void Level::StopAllSounds(){
-
-	for(std::vector<Entity*>::iterator i = m_entitiesVector.begin(); i != m_entitiesVector.end(); i++){
+void Level::StopAllSounds()
+{
+	for(std::vector<Entity*>::iterator i = m_entitiesVector.begin(); i != m_entitiesVector.end(); i++)
+	{
 		(*i)->StopSound();
 	}
-
 }
 
 //DialogStuff

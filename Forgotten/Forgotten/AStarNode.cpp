@@ -4,34 +4,63 @@ AStarNode::AStarNode(sf::Vector2f position, sf::Vector2f goal, int moveCost, ASt
 	:m_position(position), m_goal(goal), m_parent(parent), m_moveCost(moveCost)
 {
 	// Set G value
-	if(m_parent){
+	if(m_parent)
+	{
 		m_G = m_parent->GetG()+moveCost;
-	}else{
+	}
+	else
+	{
 		m_G = moveCost;
 	}
 
 	// Set H value
 	m_H = ManhattanDistance(m_position, m_goal);
-
 }
 
-int AStarNode::GetG(){ return m_G; }
+int AStarNode::GetG()
+{
+	return m_G;
+}
 
-int AStarNode::GetH(){ return m_H; }
+int AStarNode::GetH()
+{
+	return m_H;
+}
 
-int AStarNode::GetF() { return m_H + m_G; }
+int AStarNode::GetF()
+{
+	return m_H + m_G;
+}
 
-int AStarNode::GetMoveCost(){ return m_moveCost; }
+int AStarNode::GetMoveCost()
+{
+	return m_moveCost;
+}
 
-AStarNode* AStarNode::GetParent(){ return m_parent; }
+AStarNode* AStarNode::GetParent()
+{
+	return m_parent;
+}
 
-sf::Vector2f AStarNode::GetPosition(){ return m_position; }
+sf::Vector2f AStarNode::GetPosition()
+{
+	return m_position;
+}
 
-void AStarNode::SetG(int g){ m_G = g; }
+void AStarNode::SetG(int g)
+{
+	m_G = g;
+}
 
-void AStarNode::SetH(int h){ m_H = h; }
+void AStarNode::SetH(int h)
+{
+	m_H = h;
+}
 
-void AStarNode::SetParent(AStarNode *parent){ m_parent = parent; }
+void AStarNode::SetParent(AStarNode *parent)
+{
+	m_parent = parent;
+}
 
 int AStarNode::ManhattanDistance(sf::Vector2f start, sf::Vector2f goal)
 {
@@ -70,5 +99,4 @@ std::vector<AStarNode> AStarNode::GetAdjacentNodes()
 	tmpVector.push_back(DOWN_RIGHT);
 
 	return tmpVector;
-
 }

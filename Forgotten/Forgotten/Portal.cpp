@@ -28,48 +28,63 @@ void Portal::Interact(int item)
 }
 
 
-sf::IntRect Portal::GetPortalRect(){ return m_rect; }
-
-sf::Vector2f Portal::GetNodePosition(){ return m_nodePosition; }
-
-void Portal::SetPosition(int x, int y){
+sf::IntRect Portal::GetPortalRect()
+{
+	return m_rect;
 }
 
-void Portal::SetScript(std::string script){
+sf::Vector2f Portal::GetNodePosition()
+{
+	return m_nodePosition;
+}
+
+void Portal::SetPosition(int x, int y)
+{
+}
+
+void Portal::SetScript(std::string script)
+{
 	m_currentScript = script;
 }
 
-void Portal::Update(){
+void Portal::Update()
+{
 }
 
-const sf::Sprite& Portal::GetSprite() const{
+const sf::Sprite& Portal::GetSprite() const
+{
 	return sf::Sprite();
 }
 
-void Portal::Render(sf::RenderWindow &window){
+void Portal::Render(sf::RenderWindow &window)
+{
 }
 
-const int Portal::GetZ(){
+const int Portal::GetZ()
+{
 	return 0;
 }
 
-void Portal::StopSound(){
+void Portal::StopSound()
+{
 }
 
-sf::Vector2f Portal::GetInteractionNode(){ return m_nodePosition; }
+sf::Vector2f Portal::GetInteractionNode()
+{
+	return m_nodePosition;
+}
 
-void Portal::StartInteraction(){
-
+void Portal::StartInteraction()
+{
 	GameManager::GetInstance()->LoadScript(m_currentScript);
-
 }
 
-bool Portal::MouseOver(MouseHandler& mouse){
-
-	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y)){
+bool Portal::MouseOver(MouseHandler& mouse)
+{
+	if(m_rect.contains(mouse.GetPosition().x, mouse.GetPosition().y))
+	{
 		mouse.SetCursor(4);
 		return true;
 	}
-
 	return false;
 }

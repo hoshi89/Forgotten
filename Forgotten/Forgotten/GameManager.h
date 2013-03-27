@@ -11,8 +11,6 @@
 #include "MouseHandler.h"
 #include <queue>
 
-// SINGLETON
-
 class GameManager{
 public:
 	static GameManager* GetInstance();

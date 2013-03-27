@@ -10,8 +10,6 @@ public:
 	void SetPath(sf::Vector2f start, sf::Vector2f goal);
 	void FindPath();
 	void ProcessPath();
-
-	
 	
 	void ExamineNode(AStarNode &node);
 	bool PathComplete();
