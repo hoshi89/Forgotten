@@ -17,13 +17,13 @@ GameManager* GameManager::GetInstance()
 }
 
 GameManager::GameManager(GameManager const&)
-	:gui(m_mouseHandler),
+	:m_gui(m_mouseHandler),
 	m_mouseHandler(m_window)
 {
 }
 
 GameManager::GameManager()
-	:gui(m_mouseHandler),
+	:m_gui(m_mouseHandler),
 	m_fadingOut(true),
 	m_fadeAlpha(255),
 	m_wait(false),
@@ -152,7 +152,7 @@ void GameManager::Process(){
 				if((*i)->MouseOver(m_mouseHandler))
 				{
 					// Is holding something?
-					(*i)->Interact(gui.ItemInHand());
+					(*i)->Interact(m_gui.ItemInHand());
 					interactFound = true;
 				}
 
@@ -310,7 +310,7 @@ void GameManager::Render()
 		m_window.draw(m_fadeShape);
 
 		// Draw the GUI on top of fade
-		gui.Draw(m_window);
+		m_gui.Draw(m_window);
 
 		// Set the game view again
 		m_window.setView(m_view);
@@ -346,7 +346,7 @@ Player* GameManager::GetPlayer(){
 
 void GameManager::ProcessNextEvent(){
 
-	if(gui.getDialogState() == DialogStateEnum::ContinueDialog || gui.getDialogState() == DialogStateEnum::WaitForAnswer)
+	if(m_gui.getDialogState() == DialogStateEnum::ContinueDialog || m_gui.getDialogState() == DialogStateEnum::WaitForAnswer)
 		return;
 
 	if(m_wait){
@@ -358,7 +358,7 @@ void GameManager::ProcessNextEvent(){
 		}
 	}
 
-	if(gui.WaitForText())
+	if(m_gui.WaitForText())
 		return;
 
 	if(m_events.size() > 0 && !m_wait){
@@ -608,7 +608,7 @@ void GameManager::ProcessNextEvent(){
 			std::getline(tmpStream, token);
 			std::string text = token;
 
-			gui.PushText(token, time, sf::Vector2f(xcoord, ycoord), rowbreak, style, sf::Color(c1, c2, c3), fontsize);
+			m_gui.PushText(token, time, sf::Vector2f(xcoord, ycoord), rowbreak, style, sf::Color(c1, c2, c3), fontsize);
 		}
 		// Play dialog
 		else if(token == "playdialog")
@@ -631,7 +631,7 @@ void GameManager::ProcessNextEvent(){
 
 			sf::Vector2f wEntityPos = sf::Vector2f(wEntityXPos, wEntityYPos);
 
-			gui.SetDeckId(id, wPlayerPos, wEntityPos);
+			m_gui.SetDeckId(id, wPlayerPos, wEntityPos);
 		}
 		// Add item
 		else if(token == "additem")
@@ -836,21 +836,21 @@ void GameManager::ProcessNextEvent(){
 		else if(token == "showgui")
 		{
 			std::getline(tmpStream, token, ' ');
-			gui.SetShowGui(true);
+			m_gui.SetShowGui(true);
 		}
 		// Pull down the gui
 		else if(token == "pulldowngui")
 		{
 			std::getline(tmpStream, token, ' ');
-			gui.SetIsDownGui(true);
-			gui.IsInScript(true);
+			m_gui.SetIsDownGui(true);
+			m_gui.IsInScript(true);
 		}
 		// Push the gui up
 		else if(token == "pullupgui")
 		{
 			std::getline(tmpStream, token, ' ');
-			gui.SetIsDownGui(false);
-			gui.IsInScript(false);
+			m_gui.SetIsDownGui(false);
+			m_gui.IsInScript(false);
 		}
 		// Add new entity
 		else if(token == "addentity")

@@ -36,7 +36,6 @@ private:
 	
 	//DialogStuff
 	LevelDialogsCls* m_Dialogs;
-
 };
 
 #endif
