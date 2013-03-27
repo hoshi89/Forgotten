@@ -29,6 +29,8 @@ private:
 	sf::IntRect m_newGameRect;
 	sf::IntRect m_exitRect;
 
+	sf::Music m_bgMusic;
+
 	bool m_newGame;
 	bool m_exit;
 	bool m_continue;
