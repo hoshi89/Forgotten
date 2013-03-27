@@ -35,20 +35,19 @@ private:
 	static const int QUESTION = 4;
 	static const int QUESTION_SET_FLAG = 5;
 
-	bool m_WasMousePressed; 
-	string m_CardId;
-	vector<AnswerCls*> m_Answers;
-	sf::Clock *m_Clock;
-	string m_TextPlace;
-	sf::Vector2f m_EntityPos;
-	sf::Vector2f m_InteractionNode;
-	string m_TargetCardId;
-	DialogStateEnum m_State;
-	sf::Text m_QuestionText;
-	MapVector m_Members;
-	string m_QuestionSetFlag;
-	string m_QuestionNeedFlag;
-	ShowWhatEnum m_ShowWhat;
+	bool m_wasMousePressed; 
+	string m_cardId;
+	vector<AnswerCls*> m_answers;
+	string m_textPlace;
+	sf::Vector2f m_entityPos;
+	sf::Vector2f m_interactionNode;
+	string m_targetCardId;
+	DialogStateEnum m_state;
+	sf::Text m_questionText;
+	MapVector m_members;
+	string m_questionSetFlag;
+	string m_questionNeedFlag;
+	ShowWhatEnum m_showWhat;
 
 	string* ShowOnlyQuestion(sf::RenderWindow &aWindow);
 	string* ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow,  sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos);

@@ -11,30 +11,30 @@ DialogStateEnum LevelDialogsCls::ShowDialog(sf::RenderWindow &aWindow,
 	string aDeckId, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos, bool aIsPressed)
 {
-	m_CurrentDeck = GetDeckById(aDeckId);
-	return m_CurrentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos, aIsPressed);
+	m_currentDeck = GetDeckById(aDeckId);
+	return m_currentDeck->ShowDialog(aWindow, aInteractionNode, aEntityPos, aIsPressed);
 }
 
 void LevelDialogsCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
 {
-	m_CurrentDeck->IsMouseOverAnswer(aMousePos);
+	m_currentDeck->IsMouseOverAnswer(aMousePos);
 }
 
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
 {
 	string wDeckId;
-	for(int i = 0; i < m_Decks.size(); i++)
+	for(int i = 0; i < m_decks.size(); i++)
 	{
-		wDeckId = m_Decks[i]->GetDeckId();
+		wDeckId = m_decks[i]->GetDeckId();
 		if(wDeckId.compare(aDeckId) == 0)
-			return m_Decks[i];
+			return m_decks[i];
 	}
 	return NULL;
 }
 
 void LevelDialogsCls::ChooseAnswer(sf::Vector2f* aMousePos)
 {
-	m_CurrentDeck->ChooseAnswer(aMousePos);
+	m_currentDeck->ChooseAnswer(aMousePos);
 }
 
 void LevelDialogsCls::LoadScript(string aScriptName)
@@ -55,7 +55,7 @@ void LevelDialogsCls::LoadScript(string aScriptName)
 DeckCls* LevelDialogsCls::addDeck(string aId)
 {
 	DeckCls* wDeck = new DeckCls(aId);
-	m_Decks.push_back(wDeck);
+	m_decks.push_back(wDeck);
 	return wDeck;
 }
 

@@ -2,23 +2,23 @@
 
 DeckCls::DeckCls(string aId)
 {
-	m_CurrentCardId = NULL;
-	m_DeckId = aId;
+	m_currentCardId = NULL;
+	m_deckId = aId;
 }
 
 string DeckCls::GetDeckId()
 {
-	return m_DeckId;
+	return m_deckId;
 }
 
 CardCls* DeckCls::GetCardById(string* aCardId)
 {
 	string* wCardId;
- 	for(int i = 0; i < m_Cards.size(); i++)
+ 	for(int i = 0; i < m_cards.size(); i++)
 	{
-		wCardId = m_Cards[i]->GetCardId();
+		wCardId = m_cards[i]->GetCardId();
 		if(*wCardId == *aCardId)
-			return m_Cards[i];
+			return m_cards[i];
 	}
 	return NULL;
 }
@@ -26,18 +26,18 @@ CardCls* DeckCls::GetCardById(string* aCardId)
 DialogStateEnum DeckCls::ShowDialog(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNode,
 					sf::Vector2f aEntityPos, bool aIsPressed)
 {
-	if(m_CurrentCardId == NULL || *m_CurrentCardId == "")
-		m_CurrentCardId = m_Cards[0]->GetCardId();
+	if(m_currentCardId == NULL || *m_currentCardId == "")
+		m_currentCardId = m_cards[0]->GetCardId();
 
-	m_CurrentCard = GetCardById(m_CurrentCardId);
-	m_CurrentCardId = m_CurrentCard->ShowCard(aWindow, aInteractionNode, aEntityPos, aIsPressed);
-	DialogStateEnum wDlgState = m_CurrentCard->GetDialogState();
+	m_currentCard = GetCardById(m_currentCardId);
+	m_currentCardId = m_currentCard->ShowCard(aWindow, aInteractionNode, aEntityPos, aIsPressed);
+	DialogStateEnum wDlgState = m_currentCard->GetDialogState();
 	return wDlgState;
 }
 
 void DeckCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
 {
-	m_CurrentCard->IsMouseOverAnswer(aMousePos);
+	m_currentCard->IsMouseOverAnswer(aMousePos);
 }
 
 bool DeckCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
@@ -55,14 +55,14 @@ bool DeckCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 
 void DeckCls::ChooseAnswer(sf::Vector2f* aMousePos)
 {
-	m_CurrentCardId = m_CurrentCard->ChooseAnswer(aMousePos);
+	m_currentCardId = m_currentCard->ChooseAnswer(aMousePos);
 }
 
 //ScriptFunc
 CardCls* DeckCls::addCard(string aId)
 {
 	CardCls* wCard = new CardCls(aId);
-	m_Cards.push_back(wCard);
+	m_cards.push_back(wCard);
 	return wCard;
 }
 

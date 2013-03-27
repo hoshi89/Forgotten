@@ -21,9 +21,9 @@ public:
 	DeckCls* addDeck(string aId);
 private:
 	void LoadScript(string aScriptName);
-	vector<DeckCls*> m_Decks;
+	vector<DeckCls*> m_decks;
 	DeckCls* GetDeckById(string aDeckId);
-	DeckCls *m_CurrentDeck;
+	DeckCls *m_currentDeck;
 	DialogReaderWriter* m_dlgrw;
 };
 

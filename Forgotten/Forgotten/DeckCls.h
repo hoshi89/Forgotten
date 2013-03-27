@@ -23,9 +23,9 @@ public:
 	CardCls* addCard(string aId);
 	virtual ~DeckCls(void);
 private:
-	string m_DeckId;
-	vector<CardCls*> m_Cards;
-	CardCls *m_CurrentCard;
-	string* m_CurrentCardId;
+	string m_deckId;
+	vector<CardCls*> m_cards;
+	CardCls *m_currentCard;
+	string* m_currentCardId;
 };
 

@@ -35,15 +35,15 @@ private:
 	static const int ANSWER_SET_FLAG = 4;
 	static const int ANSWER_NEED_FLAG = 5;
 
-	bool m_MouseOverAnswer;
-	string m_AnswerId;
-	string m_TextPlace;
-	string m_TargetCardId;
-	string m_AnswerSetFlag;
-	string m_AnswerNeedFlag;
-	sf::Text m_AnswerText;
-	MapVector m_Members;
-	sf::Vector2f m_EntityPos;
-	sf::Vector2f m_InteractionPos;
+	bool m_mouseOverAnswer;
+	string m_answerId;
+	string m_textPlace;
+	string m_targetCardId;
+	string m_answerSetFlag;
+	string m_answerNeedFlag;
+	sf::Text m_answerText;
+	MapVector m_members;
+	sf::Vector2f m_entityPos;
+	sf::Vector2f m_interactionPos;
 	bool m_hasAnswerBeenChosen;
 };

@@ -1,0 +1,9 @@
+DECK=TaxiGiveCash
+	CARD=TaxiGiveCashStartCard
+		QUESTION=Where to?
+		TARGET=
+		TEXTPLACE=NPC
+		ANSWER=TaxiGiveCashStartCardAnswer
+			TARGET=
+			TEXTPLACE=player
+			ANSWERTEXT=The Dune Devil.

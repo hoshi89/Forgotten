@@ -1,6 +1,7 @@
 suspend
-showtext 750 250 5 75 N 255 255 255 17 To The Green Hornet, please...
+playdialog TaxiGiveCash 770 310 900 420
+resume
 wait 5
 fadeout 2
 wait 5
-showtext 750 350 255 75 N 255 255 255 25 End of test...
+showtext 750 350 255 75 N 255 255 255 25 To be continued ...
