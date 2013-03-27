@@ -30,7 +30,8 @@ Player::Player(GenericMap &map)
 {
 }
 
-void Player::GoTo(sf::Vector2f goal){
+void Player::GoTo(sf::Vector2f goal)
+{
 	m_pathFinder.SetPath(ConvertToNodeCoords(m_position), goal);
 }
 
@@ -47,7 +48,8 @@ void Player::SetFocus(Entity *entity){
 	m_currentFocus = entity;
 }
 
-Entity* Player::GetFocus(){
+Entity* Player::GetFocus()
+{
 
 	if(m_currentFocus)
 		return m_currentFocus;
@@ -55,45 +57,43 @@ Entity* Player::GetFocus(){
 	return NULL;
 }
 
-void Player::SetPosition(int x, int y){
-
+void Player::SetPosition(int x, int y)
+{
 	m_position.x = x;
 	m_position.y = y;
-
 }
 
-void Player::SetNodePosition(int x, int y){
-
+void Player::SetNodePosition(int x, int y)
+{
 	sf::Vector2f nodePos(x, y);
-
 	m_position = ConvertToPixelCoords(nodePos);
-
 }
 
-void Player::SetDirection(Direction direction){ m_direction = direction; }
+void Player::SetDirection(Direction direction)
+{
+	m_direction = direction;
+}
 
-sf::Vector2f Player::GetPosition(){
-	
+sf::Vector2f Player::GetPosition()
+{
 	sf::Vector2f offsetPos;
 	offsetPos.x = m_position.x - X_FEETOFFSET;
 	offsetPos.y = m_position.y - Y_FEETOFFSET;
 
 	return offsetPos;
-
 }
 
-sf::Vector2f Player::GetNodePosition(){
-
+sf::Vector2f Player::GetNodePosition()
+{
 	sf::Vector2f nodePos;
 	nodePos.x = ((m_position.x + (m_nodeMap.GetNodeSize().x/2)) / m_nodeMap.GetNodeSize().x)-1;
 	nodePos.y = ((m_position.y + (m_nodeMap.GetNodeSize().y/2)) / m_nodeMap.GetNodeSize().y)-1;
 
 	return nodePos;
-
 }
 
-void Player::Update(){
-
+void Player::Update()
+{
 	if(m_position == m_currentTarget)
 	{
 		m_isWalking = false;
@@ -147,18 +147,19 @@ void Player::Update(){
 			// Move player the normal distance
 			m_velocity = normal;
 
-		}else{
-
+		}
+		else
+		{
 			// Move player the remaining distance
 			m_velocity = distance;
-
 		}
 	}
 	else
 	{
 
 		// The player is idle, check if any new path has been calculated
-		if(m_pathFinder.PathComplete()){
+		if(m_pathFinder.PathComplete())
+		{
 
 			m_currentTarget = ConvertToPixelCoords(m_pathFinder.GetNextMove());
 			m_isWalking = true;
@@ -182,70 +183,95 @@ void Player::Update(){
 			// Check the normal distance
 			float normal_hypothenuse = sqrt((normal.x * normal.x) + (normal.y * normal.y));
 
-			if(normal_hypothenuse < hypothenuse){
+			if(normal_hypothenuse < hypothenuse)
+			{
 
 				// Move player the normal distance
 				m_velocity = normal;
 
-			}else{
-
+			}
+			else
+			{
 				// Move player the remaining distance
 				m_velocity = distance;
-
 			}
 		}
 	}
 
 	// Set player direction
-	if(m_velocity.x < 0){
+	if(m_velocity.x < 0)
+	{
 		// Left side
-		if(m_velocity.y < 0){
+		if(m_velocity.y < 0)
+		{
 			// Left up side
 			m_direction = 7;
-		}else if(m_velocity.y > 0){
+		}
+		else if(m_velocity.y > 0)
+		{
 			// Left down side
 			m_direction = 5;
-		}else{
+		}
+		else
+		{
 			// Straight left
 			m_direction = 6;
 		}
-	}else if(m_velocity.x > 0){
+	}
+	else if(m_velocity.x > 0)
+	{
 		// Right side
-		if(m_velocity.y < 0){
+		if(m_velocity.y < 0)
+		{
 			// Right up side
 			m_direction = 1;
-		}else if(m_velocity.y > 0){
+		}
+		else if(m_velocity.y > 0)
+		{
 			// Right down side
 			m_direction = 3;
-		}else{
+		}
+		else
+		{
 			// Straight right
 			m_direction = 2;
 		}
-	}else{
+	}
+	else
+	{
 		// No side
-		if(m_velocity.y < 0){
+		if(m_velocity.y < 0)
+		{
 			// Walking up
 			m_direction = 0;
-		}else if(m_velocity.y > 0){
+		}
+		else if(m_velocity.y > 0)
+		{
 			// Walking down
 			m_direction = 4;
-		}else{
+		}
+		else
+		{
 			// Standing still
 			m_isWalking = false;
 		}
 	}
 
 	// Set correct animation
-	switch (m_direction){
+	switch (m_direction)
+	{
 	case 0:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingUp;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -255,14 +281,17 @@ void Player::Update(){
 		}
 		break;
 	case 1:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingUpRight;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -272,14 +301,17 @@ void Player::Update(){
 		}
 		break;
 	case 2:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingRight;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -289,14 +321,17 @@ void Player::Update(){
 		}
 		break;
 	case 3:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingDownRight;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -306,12 +341,15 @@ void Player::Update(){
 		}
 		break;
 	case 4:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingDown;
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -321,14 +359,17 @@ void Player::Update(){
 		}
 		break;
 	case 5:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingDownLeft;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -338,14 +379,17 @@ void Player::Update(){
 		}
 		break;
 	case 6:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingLeft;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -355,14 +399,17 @@ void Player::Update(){
 		}
 		break;
 	case 7:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingUpLeft;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -372,14 +419,17 @@ void Player::Update(){
 		}
 		break;
 	default:
-		if(m_isWalking){
+		if(m_isWalking)
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
 			m_currentAnimation = &m_walkingUp;
 			// Play sound of new animation
 			m_currentAnimation->PlaySound();
-		}else{
+		}
+		else
+		{
 			// Pause sound of current animation
 			m_currentAnimation->PauseSound();
 			// Set new animation
@@ -425,43 +475,45 @@ void Player::Update(){
 
 }
 
-void Player::Render(sf::RenderWindow &window){
-
+void Player::Render(sf::RenderWindow &window)
+{
 	sf::Sprite currentSprite = m_currentAnimation->getSprite();
 	currentSprite.setScale(m_scale, m_scale);
 
 	window.draw(currentSprite);
-
 }
 
-const sf::Sprite& Player::GetSprite() const{ return m_currentAnimation->getSprite(); }
+const sf::Sprite& Player::GetSprite() const
+{
+	return m_currentAnimation->getSprite();
+}
 
-sf::Vector2f Player::ConvertToNodeCoords(sf::Vector2f coords){
-
+sf::Vector2f Player::ConvertToNodeCoords(sf::Vector2f coords)
+{
 	sf::Vector2f nodeCoords;
 
 	nodeCoords.x = floor(coords.x / m_nodeMap.GetNodeSize().x);
 	nodeCoords.y = floor(coords.y / m_nodeMap.GetNodeSize().y);
 
 	return nodeCoords;
-
 }
 
-sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords){
-
+sf::Vector2f Player::ConvertToPixelCoords(sf::Vector2f nodeCoords)
+{
 	sf::Vector2f pixelCoords;
 
 	pixelCoords.x = (nodeCoords.x * m_nodeMap.GetNodeSize().x) + (m_nodeMap.GetNodeSize().x/2);
 	pixelCoords.y = (nodeCoords.y * m_nodeMap.GetNodeSize().y) + (m_nodeMap.GetNodeSize().y/2);
 
 	return pixelCoords;
-
 }
 
-const int Player::GetZ(){
-
+const int Player::GetZ()
+{
 	return m_position.y;
-
 }
 
-void Player::StopSound(){ m_currentAnimation->PauseSound(); }
+void Player::StopSound()
+{
+	m_currentAnimation->PauseSound();
+}
