@@ -35,8 +35,8 @@ void BackgroundObject::Update()
 
 	m_position += m_velocity;
 
-	m_currentAnimation->SetPosition(m_position);
-	m_currentAnimation->Update();
+	m_currentAnimation->setPosition(m_position);
+	m_currentAnimation->update();
 }
 
 const sf::Sprite& BackgroundObject::GetSprite() const{ return sf::Sprite(); }
@@ -44,7 +44,7 @@ const sf::Sprite& BackgroundObject::GetSprite() const{ return sf::Sprite(); }
 void BackgroundObject::Render(sf::RenderWindow &window)
 {
 
-	window.draw(m_currentAnimation->GetSprite());
+	window.draw(m_currentAnimation->getSprite());
 }
 
 const int BackgroundObject::GetZ()
@@ -53,9 +53,7 @@ const int BackgroundObject::GetZ()
 }
 
 void BackgroundObject::StopSound()
-{ 
-	m_currentAnimation->StopSound(); 
-}
+{ m_currentAnimation->StopSound(); }
 
 void BackgroundObject::MovingCar()
 {
