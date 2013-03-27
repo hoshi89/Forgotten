@@ -41,12 +41,6 @@ void Gui::Move(const float SPEED)
 	m_guiSprite.move(0, SPEED);
 }
 
-//Render Gui
-void Gui::Render()
-{
-
-}
-
 //Drawing the gui and its items.
 void Gui::Draw(sf::RenderWindow &window)
 {
@@ -55,7 +49,6 @@ void Gui::Draw(sf::RenderWindow &window)
 	//Update GUI
 	Update();
 
- 	//ny
 	bool mousepressed;
 	sf::Vector2f mouseOverPos;
 
@@ -152,8 +145,6 @@ void Gui::Update()
 		m_textureRect = rect;
 	}
 
-	Render();
-
 	//Move GUI
 	if(m_guiSprite.getPosition().y < -1 && m_down)
 	{
@@ -226,6 +217,7 @@ void Gui::DrawText(sf::RenderWindow& window)
 	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++)
 	{
 		(*i)->Draw(window, m_mouseHandler);
+
 		if((*i)->WaitForText())
 			m_waitForText = true;
 	}
@@ -234,6 +226,7 @@ void Gui::DrawText(sf::RenderWindow& window)
 //Delete text vector
 void Gui::DeleteText()
 {
+	//Local vector
 	TextVector texts;
 	for(TextVector::iterator i = m_texts.begin(); i != m_texts.end(); i++)
 	{
@@ -250,6 +243,7 @@ void Gui::DeleteText()
 //Load from file(items.txt) all objects and push them into a vector
 void Gui::SetCursorVector()
 {
+	//Loads and opens a text file
 	m_objectFile.open("Data/items.txt");
 
 	while(m_objectFile.good())
@@ -263,6 +257,7 @@ void Gui::SetCursorVector()
 		std::string script;
 		int requires;
 		std::string wantScript;
+
 		for(int i = 0; i < size; i++)
 		{
 			m_objectFile >> id >> name >> directory >> script >> requires >> wantScript;
@@ -280,7 +275,7 @@ Animation* Gui::GetIdCursor(int id)
 	return *i;
 }
 
-//Script events, show GUI/draw GUI
+//Script events, show GUI/Draw GUI
 void Gui::SetShowGui(bool showGui)
 {
 	m_showGui = showGui;
@@ -319,6 +314,7 @@ void Gui::IsInScript(bool script)
 	m_script = script;
 }
 
+//Remove object at hand
 void Gui::RemoveHand()
 {
 	m_mouseHandler.DropItem();

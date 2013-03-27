@@ -5,7 +5,8 @@
 #include <vector>
 #include <SFML\Graphics.hpp>
 
-class MainMenu{
+class MainMenu
+{
 public:
 	MainMenu(MouseHandler& mouse);
 	void Render(sf::RenderWindow& window);
@@ -27,6 +28,8 @@ private:
 	sf::IntRect m_continueRect;
 	sf::IntRect m_newGameRect;
 	sf::IntRect m_exitRect;
+
+	sf::Music m_bgMusic;
 
 	bool m_newGame;
 	bool m_exit;

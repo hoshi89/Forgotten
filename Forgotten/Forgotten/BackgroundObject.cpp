@@ -9,12 +9,12 @@ BackgroundObject::BackgroundObject(const std::string& id, const std::string& ani
 	SetAnimation(id);
 }
 
-std::string BackgroundObject::GetID()
+std::string BackgroundObject::GetId()
 {
 	return m_id;
 }
 
-void BackgroundObject::SetID(std::string id)
+void BackgroundObject::SetId(std::string id)
 {
 	m_id = id;
 }
@@ -52,7 +52,8 @@ const int BackgroundObject::GetZ()
 	return m_z;
 }
 
-void BackgroundObject::StopSound(){ m_currentAnimation->StopSound(); }
+void BackgroundObject::StopSound()
+{ m_currentAnimation->StopSound(); }
 
 void BackgroundObject::MovingCar()
 {

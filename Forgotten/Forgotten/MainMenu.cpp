@@ -1,8 +1,17 @@
 #include "MainMenu.h"
 
-MainMenu::MainMenu(MouseHandler& mouse) : m_newGame(false), m_exit(false), m_continue(false), m_mouse(mouse)
+MainMenu::MainMenu(MouseHandler& mouse) : 
+	m_newGame(false), 
+	m_exit(false), 
+	m_continue(false), 
+	m_mouse(mouse)
 {
+	//Load menu image
 	LoadImage();
+
+	m_bgMusic.openFromFile("Data/Music/Timeless_moment_Main_menu_.ogg");
+	m_bgMusic.play();
+
 	//// Set the view size
 	m_view.setSize(1024, 576);
 	m_view.setCenter(850, 288);
@@ -12,6 +21,7 @@ MainMenu::MainMenu(MouseHandler& mouse) : m_newGame(false), m_exit(false), m_con
 
 bool MainMenu::NewGame()
 {
+	m_bgMusic.stop();
 	return m_newGame;
 }
 
@@ -25,17 +35,13 @@ bool MainMenu::Continue()
 	return m_continue;
 }
 
-void MainMenu::IsOver(int i)
-{
-
-}
-
 void MainMenu::LoadImage()
 {
 	m_texture.loadFromFile("Data/DaMenyz4.png");
 	m_sprite.setTexture(m_texture);
 }
 
+//Set rects of interactionpoints
 void MainMenu::SetRects()
 {
 	m_newGameRect = sf::IntRect(950, 300, 270, 100);
@@ -47,7 +53,6 @@ void MainMenu::Render(sf::RenderWindow& window)
 {
 	// Clear the screen 
 	window.clear(sf::Color(0, 0, 0));
-
 
 	window.setMouseCursorVisible(false);
 
@@ -72,16 +77,23 @@ void MainMenu::Process()
 
 void MainMenu::IsOverSign(sf::RenderWindow& window)
 {
-	if(m_newGameRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed()){
+	if(m_newGameRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed())
+	{
 		m_newGame = true;
-	}else{
+	}
+	else
+	{
 		m_newGame = false;
 	}
-	if(m_exitRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed()){
+	if(m_exitRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y) && m_mouse.mouse1WasPressed())
+	{
 		m_exit = true;
-	}else{
+	}
+	else
+	{
 		m_exit = false;
 	}
+	//No need for know!!!
 	//if(m_continueRect.contains(window.convertCoords(sf::Mouse::getPosition(window), m_view).x, window.convertCoords(sf::Mouse::getPosition(window), m_view).y)){
 	//	m_continue = true;
 	//}else{

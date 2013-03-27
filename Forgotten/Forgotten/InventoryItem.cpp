@@ -66,7 +66,6 @@ std::string InventoryItem::GetName()
 //Return script of item
 std::string InventoryItem::GetScript()
 {
-
 	return m_scriptName;
 }
 

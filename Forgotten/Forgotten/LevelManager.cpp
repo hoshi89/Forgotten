@@ -4,7 +4,9 @@
 #include "Object.h"
 
 LevelManager::LevelManager()
-	:m_initialScriptRun(false), m_bgVolume(100.f), m_fadeSpeed(3.f)
+	:m_initialScriptRun(false),
+	m_bgVolume(100.f),
+	m_fadeSpeed(3.f)
 {
 }
 
@@ -37,9 +39,10 @@ void LevelManager::update()
 	}
 }
 
-void LevelManager::LoadChapter(int id){
-
-	switch(id){
+void LevelManager::LoadChapter(int id)
+{
+	switch(id)
+	{
 	case 0:
 
 		// Set initalizing script
@@ -259,7 +262,7 @@ void LevelManager::LoadChapter(int id){
 		m_levels[4]->AddObject("Empty bar", empty_bar);
 
 		// Set first room
-		m_currentLevel = m_levels[1];
+		m_currentLevel = m_levels[3];
 		m_currentLevel->GetPlayer()->SetDirection(Entity::Direction::DOWN);
 
 		// Add NPCS
@@ -294,10 +297,13 @@ void LevelManager::LoadChapter(int id){
 	}
 }
 
-Level* LevelManager::GetCurrentLevel(){ return m_currentLevel; }
+Level* LevelManager::GetCurrentLevel()
+{
+	return m_currentLevel;
+}
 
-void LevelManager::SetLevel(int id){
-
+void LevelManager::SetLevel(int id)
+{
 	m_currentLevel = m_levels[id];
 
 	// Stop sounds
@@ -309,9 +315,10 @@ std::vector<Level*> LevelManager::GetLevel()
 	return m_levels;
 }
 
-void LevelManager::StopAllSounds(){
-
-	for(std::vector<Level*>::iterator i = m_levels.begin(); i != m_levels.end(); i++){
+void LevelManager::StopAllSounds()
+{
+	for(std::vector<Level*>::iterator i = m_levels.begin(); i != m_levels.end(); i++)
+	{
 		(*i)->StopAllSounds();
 	}
 
@@ -322,14 +329,16 @@ void LevelManager::SetBackgroundMusicVolume(float volume)
 	m_bgVolume = volume;
 }
 
-bool LevelManager::InitialScriptRun(){ return m_initialScriptRun; }
+bool LevelManager::InitialScriptRun()
+{
+	return m_initialScriptRun;
+}
 
-std::string LevelManager::GetInitialScript(){
-
+std::string LevelManager::GetInitialScript()
+{
 	m_initialScriptRun = true;
 
 	return m_initializingScript;
-
 }
 
 void LevelManager::AddSound(SFX* sfx)
@@ -337,7 +346,8 @@ void LevelManager::AddSound(SFX* sfx)
 	m_sounds.push_back(sfx);
 }
 
-void LevelManager::PlaySound(std::string& id){
+void LevelManager::PlaySound(std::string& id)
+{
 	for(unsigned int i = 0; i < m_sounds.size(); i++)
 	{
 		if(!m_sounds[i]->GetID().compare(id))

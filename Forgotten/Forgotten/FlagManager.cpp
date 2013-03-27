@@ -2,6 +2,12 @@
 
 FlagManager* FlagManager::m_instance = 0;
 
+//Constructor
+FlagManager::FlagManager()
+{
+
+}
+
 FlagManager* FlagManager::GetInstance()
 {
 	if(!m_instance)
@@ -58,8 +64,4 @@ bool FlagManager::IsFlagSet(std::string flagname)
 		}
 	}
 	return false;
-}
-
-FlagManager::FlagManager()
-{
 }

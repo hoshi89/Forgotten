@@ -6,7 +6,10 @@
 GameManager* GameManager::m_instance = NULL;
 FlagManager *flags = FlagManager::GetInstance();
 
-bool EntitySort(Entity *e1, Entity *e2){ return e1->GetZ() < e2->GetZ(); }
+bool EntitySort(Entity *e1, Entity *e2)
+{
+	return e1->GetZ() < e2->GetZ();
+}
 
 GameManager* GameManager::GetInstance()
 {
@@ -34,7 +37,6 @@ GameManager::GameManager()
 	DEBUG_NODE(false),
 	FPSLIMIT(60)
 {
-
 	// Load config
 	LoadConfig();
 
@@ -74,8 +76,8 @@ GameManager::GameManager()
 	m_playerNodePos.setScale(0.3, 0.4);
 }
 
-void GameManager::Process(){
-
+void GameManager::Process()
+{
 	if(sf::Keyboard::isKeyPressed(sf::Keyboard::Numpad1))
 	{
 		if(FPSLIMIT < 1000)
@@ -119,9 +121,12 @@ void GameManager::Process(){
 	nodePos.y = floor(mousePosition.y / m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 
 	// Check if node is walkable
-	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y)){
+	if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(nodePos.x, nodePos.y))
+	{
 		m_mouseHandler.SetCursor(1);
-	}else{
+	}
+	else
+	{
 		m_mouseHandler.SetCursor(0);
 	}
 
@@ -193,7 +198,8 @@ void GameManager::Process(){
 	PlayerFocus();
 
 	// Check the inital script for the chapter
-	if(!m_levelManager.InitialScriptRun()){
+	if(!m_levelManager.InitialScriptRun())
+	{
 		LoadScript(m_levelManager.GetInitialScript());
 	}
 
@@ -218,18 +224,22 @@ void GameManager::Render()
 		}
 
 		// Draw all debug stuff on top layer
-		if(DEBUG){
+		if(DEBUG)
+		{
 
 			// Set the default view for reference of mouse pointer and node drawing
 			sf::Vector2f mousePosition = m_window.convertCoords(sf::Mouse::getPosition(m_window));
 
 			// Draw the nodeMap
-			if(DEBUG_NODE){
+			if(DEBUG_NODE)
+			{
 
 				sf::RectangleShape nodeRect;
 				
-				for(int x = 0; x < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().x; x++){
-					for(int y = 0; y < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().y; y++){
+				for(int x = 0; x < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().x; x++)
+				{
+					for(int y = 0; y < m_levelManager.GetCurrentLevel()->GetNodeMap().GetMapSize().y; y++)
+					{
 						// Draw a rectangle for each node/tile 
 						nodeRect.setPosition(x * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().x, y * m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize().y);
 						nodeRect.setSize(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetNodeMap().GetNodeSize()));
@@ -238,14 +248,18 @@ void GameManager::Render()
 
 						int h = m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x;
 
-						if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(x, y)){
+						if(m_levelManager.GetCurrentLevel()->GetNodeMap().isWalkable(x, y))
+						{
 							nodeRect.setFillColor(sf::Color(0, 255, 0, 20));
 
-							if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x == x && m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().y == y){
+							if(m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().x == x && m_levelManager.GetCurrentLevel()->GetPlayer()->GetNodePosition().y == y)
+							{
 								nodeRect.setFillColor(sf::Color(0, 0, 255, 255));
 							}
 							
-						}else{
+						}
+						else
+						{
 							nodeRect.setFillColor(sf::Color(255, 0, 0, 20));
 						}
 						m_window.draw(nodeRect);
@@ -297,9 +311,12 @@ void GameManager::Render()
 		m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetPlayer()->GetPosition().x, 288));
 
 		// Is the camera out of bounds?
-		if(m_view.getCenter().x + (m_view.getSize().x/2) > m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width){
+		if(m_view.getCenter().x + (m_view.getSize().x/2) > m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width)
+		{
 			m_view.setCenter(sf::Vector2f(m_levelManager.GetCurrentLevel()->GetBackgroundImage().getGlobalBounds().width - (m_view.getSize().x/2), 288));
-		}else if(m_view.getCenter().x - (m_view.getSize().x/2) < 0){
+		}
+		else if(m_view.getCenter().x - (m_view.getSize().x/2) < 0)
+		{
 			m_view.setCenter(sf::Vector2f(m_view.getSize().x/2, 288));
 		}
 
@@ -323,9 +340,13 @@ void GameManager::Render()
 
 }
 
-sf::RenderWindow& GameManager::GetWindow(){ return m_window; }
+sf::RenderWindow& GameManager::GetWindow()
+{
+	return m_window;
+}
 
-void GameManager::LoadScript(std::string filename){
+void GameManager::LoadScript(std::string filename)
+{
 
 	std::ifstream scriptFile(filename);
 	std::string tmpString;
@@ -340,20 +361,25 @@ void GameManager::LoadScript(std::string filename){
 
 }
 
-Player* GameManager::GetPlayer(){
+Player* GameManager::GetPlayer()
+{
 	return m_levelManager.GetCurrentLevel()->GetPlayer();
 }
 
-void GameManager::ProcessNextEvent(){
+void GameManager::ProcessNextEvent()
+{
 
 	if(m_gui.getDialogState() == DialogStateEnum::ContinueDialog || m_gui.getDialogState() == DialogStateEnum::WaitForAnswer)
 		return;
 
-	if(m_wait){
+	if(m_wait)
+	{
 		if(m_waitClock.getElapsedTime().asSeconds() < m_waitTime)
 		{
 			return;
-		}else{
+		}
+		else
+		{
 			m_wait = false;
 		}
 	}
@@ -361,7 +387,8 @@ void GameManager::ProcessNextEvent(){
 	if(m_gui.WaitForText())
 		return;
 
-	if(m_events.size() > 0 && !m_wait){
+	if(m_events.size() > 0 && !m_wait)
+	{
 
 		// Get next event as string
 		std::string tmpEvent = m_events[0];
@@ -949,7 +976,8 @@ void GameManager::UpdateFade()
 	m_fadeShape.setPosition(0, 0);
 }
 
-void GameManager::PlayerFocus(){
+void GameManager::PlayerFocus()
+{
 
 	Entity* currentFocus = m_levelManager.GetCurrentLevel()->GetPlayer()->GetFocus();
 
