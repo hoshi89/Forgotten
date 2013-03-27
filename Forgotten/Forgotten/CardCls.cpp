@@ -6,6 +6,7 @@ CardCls::CardCls(string aId)
 {
 	m_cardId = aId;
 	m_showWhat = ShowWhatEnum::ShowQuestion;
+	//adding the members to the map
 	m_members.push_back(new CaseValues(TARGETSTR, TARGET_ID));
 	m_members.push_back(new CaseValues(TEXT_PLACESTR, TEXT_PLACE));
 	m_members.push_back(new CaseValues(ANSWERSTR, ANSWER));
@@ -20,6 +21,7 @@ string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNo
 	m_entityPos = aEntityPos;
 	m_interactionNode = aInteractionNode;
 	int wNrOfAnswers = GetNrOfAnswers();
+	//Checking the number of answers on each card
 	if(wNrOfAnswers == 0)
 		return ShowOnlyQuestion(aWindow);
 	else
@@ -31,6 +33,7 @@ string* CardCls::ShowCard(sf::RenderWindow &aWindow, sf::Vector2f aInteractionNo
 
 string* CardCls::ShowOnlyQuestion(sf::RenderWindow &aWindow)
 {
+	//Shows cards with one question only
 	ManageQuestion(aWindow);
 	if(m_wasMousePressed)
 		if(m_targetCardId == "")
@@ -47,6 +50,7 @@ string* CardCls::ShowOnlyQuestion(sf::RenderWindow &aWindow)
 
 string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
+	//Shows card with one answer
 	switch(m_showWhat)
 	{
 	case ShowQuestion:
@@ -75,6 +79,7 @@ string* CardCls::ShowQuestionAndOneAnswer(sf::RenderWindow &aWindow, sf::Vector2
 
 string* CardCls::ShowQuestionAndAnswers(sf::RenderWindow &aWindow, sf::Vector2f aEntityPos, sf::Vector2f aInteractionPos)
 {
+	//Show cards with several answers
 	ManageQuestion(aWindow);
 	int wY = DISPLAY_HEIGHT-TEXT_SIZE-10;
 	for(int i=GetNrOfAnswers()-1; i>=0; i--)
@@ -100,6 +105,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	sf::Color NPCQuestionColor(226, 90, 75);
 	if(m_textPlace == "NPC")
 	{
+		//manage the text when NPC "says" something
 		string tmpString = m_questionText.getString();
 		if(m_entityPos.x < m_interactionNode.x && tmpString.size() <= 10)
 		{
@@ -110,6 +116,7 @@ void CardCls::ManageQuestion(sf::RenderWindow &aWindow)
 	}
 	else
 	{
+		//manage the text when Player "says" something
 		string tmpString = m_questionText.getString();
 		if(m_entityPos.x > m_interactionNode.x && tmpString.size() <= 10)
 		{
@@ -174,7 +181,7 @@ string* CardCls::GetCardId()
 
 bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 {
-	//här ska vi ladda Question och alla Answers som ligger under DETTA Card i loop från scriptfilen
+	//Load the question and all the answers on this card
 	int wMemberId;
 	AnswerCls* wAnswer;
 	bool isComplete = false;
@@ -239,8 +246,6 @@ bool CardCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag)
 
 string* CardCls::EndDialog()
 {
-	//delete m_Clock;
-	//m_Clock = NULL;
 	m_showWhat = ShowWhatEnum::ShowQuestion;
 	m_state = DialogStateEnum::EndDialog;
 	m_wasMousePressed = false;

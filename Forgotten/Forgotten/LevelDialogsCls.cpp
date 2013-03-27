@@ -3,6 +3,7 @@
 
 LevelDialogsCls::LevelDialogsCls(string aScriptName, bool isSave)
 {
+	//Asking if its time to load or write
 	if(!isSave)
 		LoadScript(aScriptName);
 }
@@ -23,6 +24,7 @@ void LevelDialogsCls::IsMouseOverAnswer(sf::Vector2f* aMousePos)
 DeckCls* LevelDialogsCls::GetDeckById(string aDeckId)
 {
 	string wDeckId;
+	//iterate through the decknames to find the right one
 	for(int i = 0; i < m_decks.size(); i++)
 	{
 		wDeckId = m_decks[i]->GetDeckId();
@@ -39,6 +41,7 @@ void LevelDialogsCls::ChooseAnswer(sf::Vector2f* aMousePos)
 
 void LevelDialogsCls::LoadScript(string aScriptName)
 {
+	//loading from the txt filed written by dialogreaderwriter
 	m_dlgrw = new DialogReaderWriter(aScriptName, false);
 	bool wIsComplete = false;
 	TagCls* tag = new TagCls();

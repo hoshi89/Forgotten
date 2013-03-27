@@ -36,7 +36,6 @@ int DialogReaderWriter::MapMemberName(MapVector& aVector, string& aName)
 	int wId;
 
 	CaseValues* wCase;
-//	vector<CaseValues*>::iterator myIterator;
 	for(int i = 0; i < aVector.size(); i++)
 	{
 		wCase = aVector[i];

@@ -16,7 +16,7 @@ AnswerCls::AnswerCls(string aAnswerId, sf::Vector2f aInteractionNode,
 
 bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag, vector<AnswerCls*>* aNrOfAnswers)
 {
-	//här ska vi ladda Answer som ligger under DETTA Card i loop från scriptfilen
+	//Load answers on this card from script
 	int wMemberId;
 	bool isComplete = false;
 
@@ -40,7 +40,6 @@ bool AnswerCls::LoadFromFile(DialogReaderWriter* aRw, TagCls* aTag, vector<Answe
 				int chars_before_linebreak = 20;
 				int charCounter = 0;
 				sf::String tmpString = m_answerText.getString();
-				//om antalet svar är 1 eller mindre så ska vi göra radbrytning annars inte
 				if(aNrOfAnswers->size() <= 1)
 				{
 				// Iterate through the string
